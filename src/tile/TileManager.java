@@ -14,6 +14,7 @@ public class TileManager {
 
     GamePanel gp;
     Tile[] tiles;
+    Random random;
     int[][] map;
 
     public TileManager(GamePanel gp) {
@@ -22,9 +23,11 @@ public class TileManager {
         tiles = new Tile[10];
 
         map= new int[gp.maxScreenCol][gp.maxScreenRow];
+        random = new Random();
 
         getTileImage();
         loadMap("/maps/map01.txt");
+        randomizeGrass();
         //generateMap();
     }
 
@@ -77,9 +80,18 @@ public class TileManager {
         }
     }
 
+    public void randomizeGrass(){
+        for(int i=0;i<gp.maxScreenCol;i++){
+            for (int j=0;j<gp.maxScreenRow;j++){
+                if(map[i][j]==0){
+                    map[i][j] = random.nextInt(0,2);
+                }
+            }
+        }
+    }
+
     //Generates a completely random map
     public void generateMap(){
-        Random random = new Random();
         for(int i=0;i<gp.maxScreenCol;i++){
             for (int j=0;j<gp.maxScreenRow;j++){
                 map[i][j] = random.nextInt(0,4);
