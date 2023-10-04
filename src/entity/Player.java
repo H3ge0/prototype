@@ -33,6 +33,8 @@ public class Player extends Entity{
         worldY = gp.tileSize*21;
         speed = 4;
         direction = "down";
+        directionX = "null";
+        directionY = "down";
     }
 
     public void getPlayerImage(){
@@ -60,14 +62,23 @@ public class Player extends Entity{
 
         if(keyH.upPressed){
             direction="up";
+            directionY="up";
+            worldY -= speed;
         }else if(keyH.downPressed){
             direction="down";
+            directionY="down";
+            worldY += speed;
         }
         if(keyH.leftPressed){
             direction="left";
+            directionX="left";
+            worldX -= speed;
         }else if(keyH.rightPressed){
             direction="right";
+            directionX="right";
+            worldX += speed;
         }
+
         keyH.keyPressed=keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed;
 
         if(keyH.keyPressed){
@@ -75,14 +86,46 @@ public class Player extends Entity{
             collision = false;
             gp.collisionH.checkTile(this);
 
-            if(!collision){
-                switch (direction) {
-                    case "up" -> worldY -= speed;
-                    case "down" -> worldY += speed;
-                    case "left" -> worldX -= speed;
-                    case "right" -> worldX += speed;
+            if(collision){
+                System.out.println(directionX);
+                System.out.println(directionY);
+                System.out.println(direction);
+                switch (directionX) {
+                    case "left" -> {
+                        switch (directionY){
+                            case "up" -> {
+                                worldX+=speed;
+                                worldY+=speed;
+                            } case "down" -> {
+                                worldX+=speed;
+                                worldY-=speed;
+                            } case "null" -> worldX+=speed;
+                        }
+                    } case "right" -> {
+                        switch (directionY){
+                            case "up" -> {
+                                worldX-=speed;
+                                worldY+=speed;
+                            } case "down" -> {
+                                worldX-=speed;
+                                worldY-=speed;
+                            } case "null" -> worldX-=speed;
+                        }
+                    } case "null" -> {
+                        switch (directionY){
+                            case "up" -> {
+                                worldY+=speed;
+                            } case "down" -> {
+                                worldY-=speed;
+                            } case "null" -> {
+                            }
+                        }
+                    }
                 }
             }
+
+            directionX="null";
+            directionY="null";
 
             spriteCounter++;
             if (spriteCounter>10){
