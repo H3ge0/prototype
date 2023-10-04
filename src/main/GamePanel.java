@@ -10,7 +10,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     //Screen Settings
     final int originalTileSize = 17; //17 daha guzel duruyo
-    final int scale = 3;
+    public final int scale = 3;
     public final int tileSize = originalTileSize*scale;
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
@@ -30,6 +30,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
+    public CollisionHandler collisionH = new CollisionHandler(this);
     public Player player = new Player(this, keyH);
     TileManager tileManager = new TileManager(this);
 

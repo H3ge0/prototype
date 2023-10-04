@@ -13,9 +13,9 @@ import java.util.Random;
 public class TileManager {
 
     GamePanel gp;
-    Tile[] tiles;
+    public Tile[] tiles;
     Random random;
-    int[][] map;
+    public int[][] map;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -40,15 +40,19 @@ public class TileManager {
 
             tiles[2] = new Tile();
             tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/evil_brick.png"));
+            tiles[2].collision = true;
 
             tiles[3] = new Tile();
             tiles[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water.png"));
+            tiles[3].collision = true;
 
             tiles[4] = new Tile();
             tiles[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/brick.png"));
+            tiles[4].collision = true;
 
             tiles[5] = new Tile();
             tiles[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tree.png"));
+            tiles[5].collision = true;
 
             tiles[6] = new Tile();
             tiles[6].image = ImageIO.read(getClass().getResourceAsStream("/tiles/sand.png"));
