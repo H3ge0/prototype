@@ -9,13 +9,20 @@ import java.awt.*;
 public class GamePanel extends JPanel implements Runnable{
 
     //Screen Settings
-    final int originalTileSize = 16;
+    final int originalTileSize = 17; //17 daha guzel duruyo
     final int scale = 3;
     public final int tileSize = originalTileSize*scale;
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
-    final int screenWidth = maxScreenCol*tileSize; // 768
-    final int screenHeight = maxScreenRow*tileSize; // 576
+    public final int screenWidth = maxScreenCol*tileSize; // 768
+    public final int screenHeight = maxScreenRow*tileSize; // 576
+
+    //World Settings
+
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
+    public final int worldWidth = maxWorldCol*tileSize;
+    public final int worldHeight = maxWorldRow*tileSize;
 
     //FPS
     int FPS = 60;
@@ -23,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
-    Player player = new Player(this, keyH);
+    public Player player = new Player(this, keyH);
     TileManager tileManager = new TileManager(this);
 
     GamePanel(){

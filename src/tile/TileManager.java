@@ -22,13 +22,12 @@ public class TileManager {
 
         tiles = new Tile[10];
 
-        map= new int[gp.maxScreenCol][gp.maxScreenRow];
+        map= new int[gp.maxWorldCol][gp.maxWorldRow];
         random = new Random();
 
         getTileImage();
-        loadMap("/maps/map01.txt");
-        randomizeGrass();
-        //generateMap();
+        loadMap("/maps/world01.txt");
+        //generateRandomMap();
     }
 
     public void getTileImage(){
@@ -44,6 +43,15 @@ public class TileManager {
 
             tiles[3] = new Tile();
             tiles[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water.png"));
+
+            tiles[4] = new Tile();
+            tiles[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/brick.png"));
+
+            tiles[5] = new Tile();
+            tiles[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tree.png"));
+
+            tiles[6] = new Tile();
+            tiles[6].image = ImageIO.read(getClass().getResourceAsStream("/tiles/sand.png"));
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -58,10 +66,10 @@ public class TileManager {
             int col = 0;
             int row = 0;
 
-            while(col<gp.maxScreenCol&&row<gp.maxScreenRow){
+            while(col<gp.maxWorldCol&&row<gp.maxWorldRow){
                 String line = br.readLine();
 
-                while (col<gp.maxScreenCol){
+                while (col<gp.maxWorldCol){
                     String[] numbers = line.split(" ");
 
                     int num = Integer.parseInt(numbers[col]);
@@ -69,7 +77,7 @@ public class TileManager {
                     map[col][row] = num;
                     col++;
                 }
-                if(col==gp.maxScreenCol){
+                if(col==gp.maxWorldRow){
                     col=0;
                     row++;
                 }
@@ -78,11 +86,13 @@ public class TileManager {
         } catch (Exception e){
 
         }
+
+        randomizeGrass();
     }
 
     public void randomizeGrass(){
-        for(int i=0;i<gp.maxScreenCol;i++){
-            for (int j=0;j<gp.maxScreenRow;j++){
+        for(int i=0;i<gp.maxWorldCol;i++){
+            for (int j=0;j<gp.maxWorldRow;j++){
                 if(map[i][j]==0){
                     map[i][j] = random.nextInt(0,2);
                 }
@@ -91,33 +101,34 @@ public class TileManager {
     }
 
     //Generates a completely random map
-    public void generateMap(){
-        for(int i=0;i<gp.maxScreenCol;i++){
-            for (int j=0;j<gp.maxScreenRow;j++){
-                map[i][j] = random.nextInt(0,4);
+    public void generateRandomMap(){
+        for(int i=0;i<gp.maxWorldCol;i++){
+            for (int j=0;j<gp.maxWorldRow;j++){
+                map[i][j] = random.nextInt(0,7);
             }
         }
     }
 
     public void draw(Graphics2D g2){
 
-        int col = 0;
-        int row = 0;
-        int x = 0;
-        int y = 0;
+        int worldCol = 0;
+        int worldRow = 0;
 
-        while(col<gp.maxScreenCol&&row<gp.maxScreenRow){
+        while(worldCol<gp.maxWorldRow&&worldRow<gp.maxWorldRow){
 
-            int tileNum = map[col][row];
+            int tileNum = map[worldCol][worldRow];
 
-            g2.drawImage(tiles[tileNum].image,x,y,gp.tileSize,gp.tileSize,null);
-            col++;
-            x+=gp.tileSize;
-            if(col==gp.maxScreenCol){
-                col=0;
-                x=0;
-                row++;
-                y+=gp.tileSize;
+            int worldX = worldCol * gp.tileSize;
+            int worldY = worldRow * gp.tileSize;
+            int screenX = worldX - gp.player.worldX+gp.player.screenX;
+            int screenY = worldY - gp.player.worldY+gp.player.screenY;
+
+            if(Math.abs(gp.player.worldX-worldX)<gp.screenWidth/2+gp.tileSize && Math.abs(gp.player.worldY-worldY)<gp.screenHeight/2+gp.tileSize)
+                g2.drawImage(tiles[tileNum].image,screenX,screenY,gp.tileSize,gp.tileSize,null);
+            worldCol++;
+            if(worldCol==gp.maxWorldCol){
+                worldCol=0;
+                worldRow++;
             }
         }
 
