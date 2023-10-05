@@ -7,18 +7,23 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Random;
 
 public class Player extends Entity{
 
     GamePanel gp;
     KeyHandler keyH;
     public int carrotCount;
+    Random random;
+    int idleSoundTimer=0;
 
     public final int screenX, screenY;
 
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp=gp;
         this.keyH=keyH;
+
+        random = new Random();
 
         screenX = gp.screenWidth/2-gp.tileSize/2;
         screenY = gp.screenHeight/2-gp.tileSize/2;
@@ -62,8 +67,18 @@ public class Player extends Entity{
 
     }
 
-    public void update(){
+    public void update() {
 
+        //Idle SFX
+        if (idleSoundTimer < 360) {
+            idleSoundTimer++;
+        } else if(idleSoundTimer==1000) {
+            gp.playSoundEffect(4);
+            idleSoundTimer=0;
+        } else
+            idleSoundTimer = random.nextInt(361,2000);
+
+        //Movement
         if(keyH.upPressed){
             direction="up";
             directionY="up";
@@ -146,12 +161,19 @@ public class Player extends Entity{
                 case "Carrot" -> {
                     gp.obj[index] = null;
                     carrotCount++;
+                    gp.playSoundEffect(2);
                 }
                 case "Rabbit" -> {
                     if(carrotCount>0){
                         gp.obj[index]=null;
                         carrotCount--;
+                        gp.playSoundEffect(3);
                     }
+                }
+                case "Candy" -> {
+                    speed+=1;
+                    gp.obj[index] = null;
+                    gp.playSoundEffect(1);
                 }
             }
         }
