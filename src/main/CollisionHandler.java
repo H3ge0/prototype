@@ -61,4 +61,45 @@ public class CollisionHandler {
 
     }
 
+    public int checkObject(Entity entity, boolean player){
+        int index = 999;
+
+        for(int i=0;i<gp.obj.length;i++){
+            if(gp.obj[i]!=null){
+                //Get entity's collision box co-ords
+                entity.collisionBox.x += entity.worldX;
+                entity.collisionBox.y += entity.worldY;
+
+                //Get entity's collision box co-ords
+                gp.obj[i].collisionBox.x += gp.obj[i].worldX;
+                gp.obj[i].collisionBox.y += gp.obj[i].worldY;
+
+                switch(entity.direction){
+                    case "up" -> entity.collisionBox.y-=entity.speed;
+                    case "down" -> entity.collisionBox.y+=entity.speed;
+                    case "left" -> entity.collisionBox.x-=entity.speed;
+                    case "right" -> entity.collisionBox.x+=entity.speed;
+                }
+
+                if(entity.collisionBox.intersects(gp.obj[i].collisionBox)) {
+                    if(gp.obj[i].collision)
+                        entity.collision = true;
+                    if (player)
+                        index = i;
+                }
+
+                //Set entity's collision box co-ords to normal
+                entity.collisionBox.x = entity.collisionBoxDefaultX;
+                entity.collisionBox.y = entity.collisionBoxDefaultY;
+
+                //Set entity's collision box co-ords to normal
+                gp.obj[i].collisionBox.x = gp.obj[i].collisionBoxDefaultX;
+                gp.obj[i].collisionBox.y = gp.obj[i].collisionBoxDefaultY;
+
+            }
+        }
+
+        return index;
+    }
+
 }

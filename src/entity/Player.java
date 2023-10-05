@@ -2,16 +2,17 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Player extends Entity{
 
     GamePanel gp;
     KeyHandler keyH;
+    public int carrotCount;
 
     public final int screenX, screenY;
 
@@ -23,6 +24,8 @@ public class Player extends Entity{
         screenY = gp.screenHeight/2-gp.tileSize/2;
 
         collisionBox = new Rectangle(3*gp.scale,7*gp.scale,10*gp.scale,8*gp.scale);
+        collisionBoxDefaultX = collisionBox.x;
+        collisionBoxDefaultY = collisionBox.y;
 
         setValues();
         getPlayerImage();
@@ -35,23 +38,24 @@ public class Player extends Entity{
         direction = "down";
         directionX = "null";
         directionY = "down";
+        carrotCount = 0;
     }
 
     public void getPlayerImage(){
 
         try {
-            upidle = ImageIO.read(getClass().getResourceAsStream("/player/gopi_up_idle.png"));
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/gopi_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/gopi_up_2.png"));
-            downidle = ImageIO.read(getClass().getResourceAsStream("/player/gopi_down_idle.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/gopi_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/gopi_down_2.png"));
-            leftidle = ImageIO.read(getClass().getResourceAsStream("/player/gopi_left_idle.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/gopi_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/gopi_left_2.png"));
-            rightidle = ImageIO.read(getClass().getResourceAsStream("/player/gopi_right_idle.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/gopi_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/gopi_right_2.png"));
+            upidle = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_up_idle.png")));
+            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_up_1.png")));
+            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_up_2.png")));
+            downidle = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_down_idle.png")));
+            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_down_1.png")));
+            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_down_2.png")));
+            leftidle = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_left_idle.png")));
+            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_left_1.png")));
+            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_left_2.png")));
+            rightidle = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_right_idle.png")));
+            right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_right_1.png")));
+            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_right_2.png")));
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -85,11 +89,11 @@ public class Player extends Entity{
 
             collision = false;
             gp.collisionH.checkTile(this);
+            int objIndex = gp.collisionH.checkObject(this,true);
+
+            interactWithObj(objIndex);
 
             if(collision){
-                System.out.println(directionX);
-                System.out.println(directionY);
-                System.out.println(direction);
                 switch (directionX) {
                     case "left" -> {
                         switch (directionY){
@@ -113,12 +117,8 @@ public class Player extends Entity{
                         }
                     } case "null" -> {
                         switch (directionY){
-                            case "up" -> {
-                                worldY+=speed;
-                            } case "down" -> {
-                                worldY-=speed;
-                            } case "null" -> {
-                            }
+                            case "up" -> worldY+=speed;
+                            case "down" -> worldY-=speed;
                         }
                     }
                 }
@@ -138,6 +138,23 @@ public class Player extends Entity{
             }
         }
 
+    }
+
+    public void interactWithObj(int index){
+        if(index!=999){
+            switch(gp.obj[index].name) {
+                case "Carrot" -> {
+                    gp.obj[index] = null;
+                    carrotCount++;
+                }
+                case "Rabbit" -> {
+                    if(carrotCount>0){
+                        gp.obj[index]=null;
+                        carrotCount--;
+                    }
+                }
+            }
+        }
     }
 
     public void draw(Graphics2D g2){

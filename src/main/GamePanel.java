@@ -1,6 +1,7 @@
 package main;
 
 import entity.Player;
+import object.Object;
 import tile.TileManager;
 
 import javax.swing.*;
@@ -21,8 +22,8 @@ public class GamePanel extends JPanel implements Runnable{
 
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    public final int worldWidth = maxWorldCol*tileSize;
-    public final int worldHeight = maxWorldRow*tileSize;
+    //public final int worldWidth = maxWorldCol*tileSize
+    //public final int worldHeight = maxWorldRow*tileSize
 
     //FPS
     int FPS = 60;
@@ -30,8 +31,10 @@ public class GamePanel extends JPanel implements Runnable{
 
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
+    ObjectHandler objectHandler = new ObjectHandler(this);
     public CollisionHandler collisionH = new CollisionHandler(this);
     public Player player = new Player(this, keyH);
+    public Object[] obj = new Object[10];
     TileManager tileManager = new TileManager(this);
 
     GamePanel(){
@@ -40,6 +43,10 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+    }
+
+    public void setupGame(){
+        objectHandler.setObjects();
     }
 
     public void startGameThread(){
@@ -51,7 +58,7 @@ public class GamePanel extends JPanel implements Runnable{
     @Override
     public void run() {
 
-        double drawInteval = 1000000000/FPS;
+        double drawInterval = (double)1000000000/FPS;
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -61,7 +68,7 @@ public class GamePanel extends JPanel implements Runnable{
         while(gameThread!=null){
 
             currentTime = System.nanoTime();
-            delta += (currentTime-lastTime)/drawInteval;
+            delta += (currentTime-lastTime)/drawInterval;
             timer += currentTime-lastTime;
             lastTime = currentTime;
 
@@ -89,11 +96,19 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = ((Graphics2D) g);
 
+        //Tile
         tileManager.draw(g2);
+        //Object
+        for (Object object : obj) {
+            if (object != null) {
+                object.draw(g2, this);
+            }
+        }
+        //Player
         player.draw(g2);
 
         g2.setColor(Color.white);
-        g2.drawString("FPS:"+displayFPS,5,18);
+        g2.drawString("Carrot:"+player.carrotCount,5,18);
 
         g2.dispose();
     }
