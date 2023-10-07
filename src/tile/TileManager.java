@@ -1,6 +1,7 @@
 package tile;
 
 import main.GamePanel;
+import main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -32,38 +33,33 @@ public class TileManager {
     }
 
     public void getTileImage(){
-        try{
-            tiles[0] = new Tile();
-            tiles[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/grass1.png")));
+        setTile(0,"grass1",false);
 
-            tiles[1] = new Tile();
-            tiles[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/grass2.png")));
+        setTile(1,"grass2",false);
 
-            tiles[2] = new Tile();
-            tiles[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/evil_brick.png")));
-            tiles[2].collision = true;
+        setTile(2,"evil_brick",true);
 
-            tiles[3] = new Tile();
-            tiles[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/water.png")));
-            tiles[3].collision = true;
+        setTile(3,"water",true);
 
-            tiles[4] = new Tile();
-            tiles[4].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/brick.png")));
-            tiles[4].collision = true;
+        setTile(4,"brick",true);
 
-            tiles[5] = new Tile();
-            tiles[5].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/tree.png")));
-            tiles[5].collision = true;
+        setTile(5,"tree",true);
 
-            tiles[6] = new Tile();
-            tiles[6].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/sand.png")));
+        setTile(6,"sand",false);
 
-            tiles[7] = new Tile();
-            tiles[7].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/fake_tree.png")));
+        setTile(7,"fake_tree",false);
 
-            tiles[8] = new Tile();
-            tiles[8].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/fake_evil_brick.png")));
-        } catch (IOException e){
+        setTile(8,"fake_evil_brick",false);
+    }
+
+    public void setTile(int index, String name, boolean collision){
+        UtilityTool utility = new UtilityTool();
+        try {
+            tiles[index] = new Tile();
+            tiles[index].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/"+name+".png")));
+            tiles[index].image = utility.scaleImage(tiles[index].image,gp.tileSize,gp.tileSize);
+            tiles[index].collision = collision;
+        } catch(IOException e){
             e.printStackTrace();
         }
     }
@@ -136,8 +132,10 @@ public class TileManager {
             int screenY = worldY - gp.player.worldY+gp.player.screenY;
 
             if(Math.abs(gp.player.worldX-worldX)<gp.screenWidth/2+gp.tileSize && Math.abs(gp.player.worldY-worldY)<gp.screenHeight/2+gp.tileSize)
-                g2.drawImage(tiles[tileNum].image,screenX,screenY,gp.tileSize,gp.tileSize,null);
+                g2.drawImage(tiles[tileNum].image,screenX,screenY,null);
+
             worldCol++;
+
             if(worldCol==gp.maxWorldCol){
                 worldCol=0;
                 worldRow++;

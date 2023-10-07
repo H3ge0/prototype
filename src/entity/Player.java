@@ -2,6 +2,8 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.UtilityTool;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -48,23 +50,44 @@ public class Player extends Entity{
 
     public void getPlayerImage(){
 
+        upidle = setImage("gopi_up_idle");
+
+        up1 = setImage("gopi_up_1");
+
+        up2 = setImage("gopi_up_2");
+
+        downidle = setImage("gopi_down_idle");
+
+        down1 = setImage("gopi_down_1");
+
+        down2 = setImage("gopi_down_2");
+
+        leftidle = setImage("gopi_left_idle");
+
+        left1 = setImage("gopi_left_1");
+
+        left2 = setImage("gopi_left_2");
+
+        rightidle = setImage("gopi_right_idle");
+
+        right1 = setImage("gopi_right_1");
+
+        right2 = setImage("gopi_right_2");
+
+    }
+
+    public BufferedImage setImage(String name){
+        UtilityTool utility = new UtilityTool();
+        BufferedImage image = null;
+
         try {
-            upidle = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_up_idle.png")));
-            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_up_1.png")));
-            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_up_2.png")));
-            downidle = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_down_idle.png")));
-            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_down_1.png")));
-            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_down_2.png")));
-            leftidle = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_left_idle.png")));
-            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_left_1.png")));
-            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_left_2.png")));
-            rightidle = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_right_idle.png")));
-            right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_right_1.png")));
-            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/gopi_right_2.png")));
-        }catch (IOException e){
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/"+name+".png")));
+            image = utility.scaleImage(image,gp.tileSize,gp.tileSize);
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
+        return image;
     }
 
     public void update() {
@@ -162,34 +185,34 @@ public class Player extends Entity{
                     gp.obj[index] = null;
                     carrotCount++;
                     gp.playSoundEffect(2);
-                    gp.uiHandler.showMessage("H̶̦͊͠Ä̴́̿ͅU̸͆̚ͅV̷̹̘̾Ư̶̛̲C̶̳̣̆̀");
+                    gp.uiH.showMessage("H̶̦͊͠Ä̴́̿ͅU̸͆̚ͅV̷̹̘̾Ư̶̛̲C̶̳̣̆̀");
                 }
                 case "Rabbit" -> {
                     if(carrotCount>0){
                         gp.obj[index]=null;
                         carrotCount--;
                         gp.playSoundEffect(3);
-                        gp.uiHandler.showMessage("B̸̦͙̙͆̈́A̵͉͂͝Ỷ̷̥̽̀B̸͇̮̍̑̕A̸̦̙̹͗̂Y̵͎͝");
+                        gp.uiH.showMessage("B̸̦͙̙͆̈́A̵͉͂͝Ỷ̷̥̽̀B̸͇̮̍̑̕A̸̦̙̹͗̂Y̵͎͝");
                     }else {
-                        gp.uiHandler.showMessage("Tavşan için havuç gerekli");
+                        gp.uiH.showMessage("Tavşan için havuç gerekli");
                     }
                 }
                 case "Candy" -> {
                     speed+=1;
                     gp.obj[index] = null;
                     gp.playSoundEffect(1);
-                    gp.uiHandler.showMessage("Ş̸̡͔́͋̀̚͝Ļ̴̤̈̈̐Ÿ̶͕̗͈̟́͐̌́̕Ú̵̱͎̪͖̩̔̽̓͑̔ͅP̷̞͔̼̈́́̍͂͠");
+                    gp.uiH.showMessage("Ş̸̡͔́͋̀̚͝Ļ̴̤̈̈̐Ÿ̶͕̗͈̟́͐̌́̕Ú̵̱͎̪͖̩̔̽̓͑̔ͅP̷̞͔̼̈́́̍͂͠");
                 }
                 case "Treasure Chest" -> {
                     gp.stopMusic();
                     gp.playSoundEffect(4);
-                    gp.uiHandler.gameFinished=true;
+                    gp.uiH.gameFinished=true;
                 }
                 case "Chest" -> {
                     gp.stopMusic();
                     gp.playSoundEffect(4);
-                    gp.uiHandler.gameFinished=true;
-                    gp.uiHandler.gameWon=true;
+                    gp.uiH.gameFinished=true;
+                    gp.uiH.gameWon=true;
                 }
             }
         }
@@ -253,7 +276,7 @@ public class Player extends Entity{
             spriteCounter=0;
         }
 
-        g2.drawImage(image, screenX, screenY,gp.tileSize,gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, null);
     }
 
 }

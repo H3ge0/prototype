@@ -10,7 +10,7 @@ import java.awt.*;
 public class GamePanel extends JPanel implements Runnable{
 
     //Screen Settings
-    final int originalTileSize = 17; //17 daha guzel duruyo
+    final int originalTileSize = 16; //17 daha guzel duruyo
     public final int scale = 3;
     public final int tileSize = originalTileSize*scale;
     public final int maxScreenCol = 16;
@@ -27,11 +27,11 @@ public class GamePanel extends JPanel implements Runnable{
     int FPS = 60;
     int displayFPS = FPS;
 
-    KeyHandler keyH = new KeyHandler();
     SoundHandler music = new SoundHandler();
     SoundHandler soundEffect = new SoundHandler();
-    public UIHandler uiHandler = new UIHandler(this);
-    ObjectHandler objectHandler = new ObjectHandler(this);
+    KeyHandler keyH = new KeyHandler(this);
+    public UIHandler uiH = new UIHandler(this);
+    ObjectHandler objectH = new ObjectHandler(this);
     public CollisionHandler collisionH = new CollisionHandler(this);
     TileManager tileManager = new TileManager(this);
     public Player player = new Player(this, keyH);
@@ -47,7 +47,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void setupGame(){
-        objectHandler.setObjects();
+        objectH.setObjects();
         playMusic(0);
     }
 
@@ -98,6 +98,12 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = ((Graphics2D) g);
 
+        //Debug
+        long drawStart = 0;
+        if(keyH.debugMode){
+            drawStart = System.nanoTime();
+        }
+
         //Tile
         tileManager.draw(g2);
 
@@ -112,7 +118,17 @@ public class GamePanel extends JPanel implements Runnable{
         player.draw(g2);
 
         //UI
-        uiHandler.draw(g2);
+        uiH.draw(g2);
+
+        //Debug
+        if(keyH.debugMode){
+            long drawEnd = System.nanoTime();
+            long passed = drawEnd-drawStart;
+            g2.setColor(Color.white);
+            g2.setFont(g2.getFont().deriveFont(20f));
+            g2.drawString("Draw Time:"+passed,10,400);
+            System.out.println("Draw Time:"+passed);
+        }
 
         g2.dispose();
     }

@@ -5,7 +5,15 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
+    GamePanel gp;
     public boolean upPressed,downPressed,leftPressed,rightPressed,keyPressed=false;
+
+    //Debug
+    boolean debugMode=false;
+
+    public KeyHandler(GamePanel gp){
+        this.gp =gp;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -27,6 +35,15 @@ public class KeyHandler implements KeyListener {
         }
         if(keyCode==KeyEvent.VK_RIGHT){
             rightPressed = true;
+        }
+
+        //Debug
+        if(keyCode==KeyEvent.VK_D){
+            if(!debugMode)
+                gp.uiH.showMessage("Debug Mode:On");
+            else
+                gp.uiH.showMessage("Debug Mode:Off");
+            debugMode = !debugMode;
         }
     }
 

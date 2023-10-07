@@ -31,8 +31,10 @@ public class UIHandler {
     }
 
     public void getCarrotImage(){
+        UtilityTool utility = new UtilityTool();
         try {
             carrotImg = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/ui/carrot_ico.png")));
+            carrotImg = utility.scaleImage(carrotImg,gp.tileSize,gp.tileSize);
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -53,7 +55,7 @@ public class UIHandler {
         }else if(gameFinished){
             drawGameLost(g2);
         } else {
-            g2.drawImage(carrotImg,gp.tileSize/2,gp.tileSize/2,gp.tileSize,gp.tileSize,null);
+            g2.drawImage(carrotImg,gp.tileSize/2,gp.tileSize/2,null);
             g2.drawString(":"+gp.player.carrotCount,79,65);
 
             //Play Time
