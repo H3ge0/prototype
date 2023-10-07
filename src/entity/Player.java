@@ -210,7 +210,7 @@ public class Player extends Entity{
                 }
                 case "Chest" -> {
                     gp.stopMusic();
-                    gp.playSoundEffect(4);
+                    gp.playSoundEffect(6);
                     gp.uiH.gameFinished=true;
                     gp.uiH.gameWon=true;
                 }
