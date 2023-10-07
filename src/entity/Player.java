@@ -15,7 +15,7 @@ public class Player extends Entity{
     KeyHandler keyH;
     public int carrotCount;
     Random random;
-    int idleSoundTimer=0;
+    int idleSoundCounter=0;
 
     public final int screenX, screenY;
 
@@ -70,13 +70,13 @@ public class Player extends Entity{
     public void update() {
 
         //Idle SFX
-        if (idleSoundTimer < 360) {
-            idleSoundTimer++;
-        } else if(idleSoundTimer==1000) {
+        if (idleSoundCounter < 360) {
+            idleSoundCounter++;
+        } else if(idleSoundCounter ==1000) {
             gp.playSoundEffect(4);
-            idleSoundTimer=0;
+            idleSoundCounter =0;
         } else
-            idleSoundTimer = random.nextInt(361,2000);
+            idleSoundCounter = random.nextInt(361,1001);
 
         //Movement
         if(keyH.upPressed){
@@ -162,18 +162,34 @@ public class Player extends Entity{
                     gp.obj[index] = null;
                     carrotCount++;
                     gp.playSoundEffect(2);
+                    gp.uiHandler.showMessage("H̶̦͊͠Ä̴́̿ͅU̸͆̚ͅV̷̹̘̾Ư̶̛̲C̶̳̣̆̀");
                 }
                 case "Rabbit" -> {
                     if(carrotCount>0){
                         gp.obj[index]=null;
                         carrotCount--;
                         gp.playSoundEffect(3);
+                        gp.uiHandler.showMessage("B̸̦͙̙͆̈́A̵͉͂͝Ỷ̷̥̽̀B̸͇̮̍̑̕A̸̦̙̹͗̂Y̵͎͝");
+                    }else {
+                        gp.uiHandler.showMessage("Tavşan için havuç gerekli");
                     }
                 }
                 case "Candy" -> {
                     speed+=1;
                     gp.obj[index] = null;
                     gp.playSoundEffect(1);
+                    gp.uiHandler.showMessage("Ş̸̡͔́͋̀̚͝Ļ̴̤̈̈̐Ÿ̶͕̗͈̟́͐̌́̕Ú̵̱͎̪͖̩̔̽̓͑̔ͅP̷̞͔̼̈́́̍͂͠");
+                }
+                case "Treasure Chest" -> {
+                    gp.stopMusic();
+                    gp.playSoundEffect(4);
+                    gp.uiHandler.gameFinished=true;
+                }
+                case "Chest" -> {
+                    gp.stopMusic();
+                    gp.playSoundEffect(4);
+                    gp.uiHandler.gameFinished=true;
+                    gp.uiHandler.gameWon=true;
                 }
             }
         }

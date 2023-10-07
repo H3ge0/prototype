@@ -5,12 +5,12 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.net.URL;
 
-public class Sound {
+public class SoundHandler {
 
     Clip clip;
     URL[] soundURL = new URL[30];
 
-    public Sound(){
+    public SoundHandler(){
         soundURL[0] = getClass().getResource("/sounds/Music.wav");
         soundURL[1] = getClass().getResource("/sounds/candy.wav");
         soundURL[2] = getClass().getResource("/sounds/carrot.wav");

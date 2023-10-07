@@ -28,13 +28,14 @@ public class GamePanel extends JPanel implements Runnable{
     int displayFPS = FPS;
 
     KeyHandler keyH = new KeyHandler();
-    Sound music = new Sound();
-    Sound soundEffect = new Sound();
+    SoundHandler music = new SoundHandler();
+    SoundHandler soundEffect = new SoundHandler();
+    public UIHandler uiHandler = new UIHandler(this);
     ObjectHandler objectHandler = new ObjectHandler(this);
     public CollisionHandler collisionH = new CollisionHandler(this);
     TileManager tileManager = new TileManager(this);
     public Player player = new Player(this, keyH);
-    public Object[] obj = new Object[10];
+    public Object[] obj = new Object[20];
     Thread gameThread;
 
     GamePanel(){
@@ -99,17 +100,19 @@ public class GamePanel extends JPanel implements Runnable{
 
         //Tile
         tileManager.draw(g2);
+
         //Object
         for (Object object : obj) {
             if (object != null) {
                 object.draw(g2, this);
             }
         }
+
         //Player
         player.draw(g2);
 
-        g2.setColor(Color.white);
-        g2.drawString("Carrot:"+player.carrotCount,5,18);
+        //UI
+        uiHandler.draw(g2);
 
         g2.dispose();
     }

@@ -1,9 +1,6 @@
 package main;
 
-import object.Candy;
-import object.Carrot;
-import object.Rabbit;
-import object.TreasureChest;
+import object.*;
 
 public class ObjectHandler {
 
@@ -49,6 +46,34 @@ public class ObjectHandler {
         gp.obj[8] = new Candy();
         gp.obj[8].worldX = 36*gp.tileSize;
         gp.obj[8].worldY = 41*gp.tileSize;
+
+        gp.obj[9] = new Carrot();
+        gp.obj[9].worldX = 35*gp.tileSize;
+        gp.obj[9].worldY = 48*gp.tileSize;
+
+        gp.obj[10] = new Carrot();
+        gp.obj[10].worldX = 6*gp.tileSize;
+        gp.obj[10].worldY = 48*gp.tileSize;
+
+        gp.obj[11] = new Carrot();
+        gp.obj[11].worldX = 7*gp.tileSize;
+        gp.obj[11].worldY = 48*gp.tileSize;
+
+        gp.obj[12] = new Rabbit();
+        gp.obj[12].worldX = 8*gp.tileSize;
+        gp.obj[12].worldY = 48*gp.tileSize;
+
+        gp.obj[13] = new Rabbit();
+        gp.obj[13].worldX = 3*gp.tileSize;
+        gp.obj[13].worldY = gp.tileSize;
+
+        gp.obj[14] = new Rabbit();
+        gp.obj[14].worldX = 4*gp.tileSize;
+        gp.obj[14].worldY = gp.tileSize;
+
+        gp.obj[15] = new Chest();
+        gp.obj[15].worldX = gp.tileSize;
+        gp.obj[15].worldY = gp.tileSize;
     }
 
 }
