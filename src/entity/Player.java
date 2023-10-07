@@ -205,7 +205,7 @@ public class Player extends Entity{
                 }
                 case "Treasure Chest" -> {
                     gp.stopMusic();
-                    gp.playSoundEffect(4);
+                    gp.playMusic(5);
                     gp.uiH.gameFinished=true;
                 }
                 case "Chest" -> {

@@ -16,6 +16,7 @@ public class SoundHandler {
         soundURL[2] = getClass().getResource("/sounds/carrot.wav");
         soundURL[3] = getClass().getResource("/sounds/rabbit.wav");
         soundURL[4] = getClass().getResource("/sounds/idle.wav");
+        soundURL[5] = getClass().getResource("/sounds/lost.wav");
     }
 
     public void setFile(int i){

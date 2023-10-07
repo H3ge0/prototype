@@ -25,7 +25,7 @@ public class ObjectHandler {
 
         gp.obj[3] = new Rabbit(gp);
         gp.obj[3].worldX = 12*gp.tileSize;
-        gp.obj[3].worldY = 21*gp.tileSize;
+        gp.obj[3].worldY = 23*gp.tileSize;
 
         gp.obj[4] = new Rabbit(gp);
         gp.obj[4].worldX = 8*gp.tileSize;
