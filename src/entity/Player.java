@@ -15,7 +15,6 @@ public class Player extends Entity{
 
     GamePanel gp;
     KeyHandler keyH;
-    public int carrotCount;
     Random random;
     int idleSoundCounter=0;
 
@@ -45,7 +44,6 @@ public class Player extends Entity{
         direction = "down";
         directionX = "null";
         directionY = "down";
-        carrotCount = 0;
     }
 
     public void getPlayerImage(){
@@ -180,41 +178,7 @@ public class Player extends Entity{
 
     public void interactWithObj(int index){
         if(index!=999){
-            switch(gp.obj[index].name) {
-                case "Carrot" -> {
-                    gp.obj[index] = null;
-                    carrotCount++;
-                    gp.playSoundEffect(2);
-                    gp.uiH.showMessage("H̶̦͊͠Ä̴́̿ͅU̸͆̚ͅV̷̹̘̾Ư̶̛̲C̶̳̣̆̀");
-                }
-                case "Rabbit" -> {
-                    if(carrotCount>0){
-                        gp.obj[index]=null;
-                        carrotCount--;
-                        gp.playSoundEffect(3);
-                        gp.uiH.showMessage("B̸̦͙̙͆̈́A̵͉͂͝Ỷ̷̥̽̀B̸͇̮̍̑̕A̸̦̙̹͗̂Y̵͎͝");
-                    }else {
-                        gp.uiH.showMessage("Tavşan için havuç gerekli");
-                    }
-                }
-                case "Candy" -> {
-                    speed+=1;
-                    gp.obj[index] = null;
-                    gp.playSoundEffect(1);
-                    gp.uiH.showMessage("Ş̸̡͔́͋̀̚͝Ļ̴̤̈̈̐Ÿ̶͕̗͈̟́͐̌́̕Ú̵̱͎̪͖̩̔̽̓͑̔ͅP̷̞͔̼̈́́̍͂͠");
-                }
-                case "Treasure Chest" -> {
-                    gp.stopMusic();
-                    gp.playMusic(5);
-                    gp.uiH.gameFinished=true;
-                }
-                case "Chest" -> {
-                    gp.stopMusic();
-                    gp.playSoundEffect(6);
-                    gp.uiH.gameFinished=true;
-                    gp.uiH.gameWon=true;
-                }
-            }
+
         }
     }
 

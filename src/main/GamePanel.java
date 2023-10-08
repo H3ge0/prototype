@@ -38,6 +38,11 @@ public class GamePanel extends JPanel implements Runnable{
     public Object[] obj = new Object[20];
     Thread gameThread;
 
+    //Gamestate
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
+
     GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.BLACK);
@@ -49,6 +54,8 @@ public class GamePanel extends JPanel implements Runnable{
     public void setupGame(){
         objectH.setObjects();
         playMusic(0);
+        stopMusic();
+        gameState=playState;
     }
 
     public void startGameThread(){
@@ -91,7 +98,11 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update(){
-        player.update();
+        if (gameState==playState){
+            player.update();
+        } else if(gameState==pauseState){
+            
+        }
     }
 
     public void paintComponent(Graphics g) {

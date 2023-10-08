@@ -81,8 +81,6 @@ public class TileManager {
         setTile(42,"sand10",false);
         setTile(43,"sand11",false);
         setTile(44,"sand12",false);
-        setTile(45,"fake_water1",false);
-        setTile(46,"fake_water7",false);
     }
 
     public void setTile(int index, String name, boolean collision){

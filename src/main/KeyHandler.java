@@ -24,17 +24,29 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
 
-        if(keyCode==KeyEvent.VK_UP){
-            upPressed = true;
+        //Player Controls
+        if(gp.gameState== gp.playState){
+            if(keyCode==KeyEvent.VK_UP){
+                upPressed = true;
+            }
+            if(keyCode==KeyEvent.VK_DOWN){
+                downPressed = true;
+            }
+            if(keyCode==KeyEvent.VK_LEFT){
+                leftPressed = true;
+            }
+            if(keyCode==KeyEvent.VK_RIGHT){
+                rightPressed = true;
+            }
         }
-        if(keyCode==KeyEvent.VK_DOWN){
-            downPressed = true;
-        }
-        if(keyCode==KeyEvent.VK_LEFT){
-            leftPressed = true;
-        }
-        if(keyCode==KeyEvent.VK_RIGHT){
-            rightPressed = true;
+
+        //Other Controls
+        if(keyCode==KeyEvent.VK_ESCAPE){
+            if(gp.gameState==gp.playState){
+                gp.gameState=gp.pauseState;
+            } else if(gp.gameState==gp.pauseState){
+                gp.gameState=gp.playState;
+            }
         }
 
         //Debug
