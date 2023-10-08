@@ -13,7 +13,6 @@ import java.util.Random;
 
 public class Player extends Entity{
 
-    GamePanel gp;
     KeyHandler keyH;
     Random random;
     int idleSoundCounter=0;
@@ -21,7 +20,9 @@ public class Player extends Entity{
     public final int screenX, screenY;
 
     public Player(GamePanel gp, KeyHandler keyH){
-        this.gp=gp;
+
+        super(gp);
+
         this.keyH=keyH;
 
         random = new Random();
@@ -34,7 +35,7 @@ public class Player extends Entity{
         collisionBoxDefaultY = collisionBox.y;
 
         setValues();
-        getPlayerImage();
+        getImages();
     }
 
     public void setValues() {
@@ -46,58 +47,34 @@ public class Player extends Entity{
         directionY = "down";
     }
 
-    public void getPlayerImage(){
+    public void getImages(){
 
-        upidle = setImage("gopi_up_idle");
+        upidle = setImage("/player/gopi_up_idle");
+        up1 = setImage("/player/gopi_up_1");
+        up2 = setImage("/player/gopi_up_2");
+        downidle = setImage("/player/gopi_down_idle");
+        down1 = setImage("/player/gopi_down_1");
+        down2 = setImage("/player/gopi_down_2");
+        leftidle = setImage("/player/gopi_left_idle");
+        left1 = setImage("/player/gopi_left_1");
+        left2 = setImage("/player/gopi_left_2");
+        rightidle = setImage("/player/gopi_right_idle");
+        right1 = setImage("/player/gopi_right_1");
+        right2 = setImage("/player/gopi_right_2");
 
-        up1 = setImage("gopi_up_1");
-
-        up2 = setImage("gopi_up_2");
-
-        downidle = setImage("gopi_down_idle");
-
-        down1 = setImage("gopi_down_1");
-
-        down2 = setImage("gopi_down_2");
-
-        leftidle = setImage("gopi_left_idle");
-
-        left1 = setImage("gopi_left_1");
-
-        left2 = setImage("gopi_left_2");
-
-        rightidle = setImage("gopi_right_idle");
-
-        right1 = setImage("gopi_right_1");
-
-        right2 = setImage("gopi_right_2");
-
-    }
-
-    public BufferedImage setImage(String name){
-        UtilityTool utility = new UtilityTool();
-        BufferedImage image = null;
-
-        try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/"+name+".png")));
-            image = utility.scaleImage(image,gp.tileSize,gp.tileSize);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return image;
     }
 
     public void update() {
 
         //Idle SFX
-        if (idleSoundCounter < 360) {
+        /*if (idleSoundCounter < 360) {
             idleSoundCounter++;
         } else if(idleSoundCounter ==1000) {
             gp.playSoundEffect(4);
             idleSoundCounter =0;
         } else
             idleSoundCounter = random.nextInt(361,1001);
+         */
 
         //Movement
         if(keyH.upPressed){
@@ -125,9 +102,13 @@ public class Player extends Entity{
 
             collision = false;
             gp.collisionH.checkTile(this);
-            int objIndex = gp.collisionH.checkObject(this,true);
 
+            int objIndex = gp.collisionH.checkObject(this,true);
             interactWithObj(objIndex);
+
+            int npcIndex = gp.collisionH.checkEntity(this,gp.npcs);
+            interactWithNPC(npcIndex);
+
 
             if(collision){
                 switch (directionX) {
@@ -179,6 +160,12 @@ public class Player extends Entity{
     public void interactWithObj(int index){
         if(index!=999){
 
+        }
+    }
+
+    public void interactWithNPC(int index){
+        if(index!=999){
+            System.out.println("npc");
         }
     }
 

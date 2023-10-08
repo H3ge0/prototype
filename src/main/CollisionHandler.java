@@ -102,4 +102,71 @@ public class CollisionHandler {
         return index;
     }
 
+    public int checkEntity(Entity entity,Entity[] target){
+        int index = 999;
+
+        for(int i=0;i<target.length;i++){
+            if(target[i]!=null){
+                //Get entity's collision box co-ords
+                entity.collisionBox.x += entity.worldX;
+                entity.collisionBox.y += entity.worldY;
+
+                //Get entity's collision box co-ords
+                target[i].collisionBox.x += target[i].worldX;
+                target[i].collisionBox.y += target[i].worldY;
+
+                switch(entity.direction){
+                    case "up" -> entity.collisionBox.y-=entity.speed;
+                    case "down" -> entity.collisionBox.y+=entity.speed;
+                    case "left" -> entity.collisionBox.x-=entity.speed;
+                    case "right" -> entity.collisionBox.x+=entity.speed;
+                }
+
+                if(entity.collisionBox.intersects(target[i].collisionBox)) {
+                    entity.collision = true;
+                    index = i;
+                }
+
+                //Set entity's collision box co-ords to normal
+                entity.collisionBox.x = entity.collisionBoxDefaultX;
+                entity.collisionBox.y = entity.collisionBoxDefaultY;
+
+                //Set entity's collision box co-ords to normal
+                target[i].collisionBox.x = target[i].collisionBoxDefaultX;
+                target[i].collisionBox.y = target[i].collisionBoxDefaultY;
+
+            }
+        }
+
+        return index;
+    }
+
+    public void checkPlayer(Entity entity){
+        //Get entity's collision box co-ords
+        entity.collisionBox.x += entity.worldX;
+        entity.collisionBox.y += entity.worldY;
+
+        //Get player's collision box co-ords
+        gp.player.collisionBox.x += gp.player.worldX;
+        gp.player.collisionBox.y += gp.player.worldY;
+
+        switch(entity.direction){
+            case "up" -> entity.collisionBox.y-=entity.speed;
+            case "down" -> entity.collisionBox.y+=entity.speed;
+            case "left" -> entity.collisionBox.x-=entity.speed;
+            case "right" -> entity.collisionBox.x+=entity.speed;
+        }
+
+        if(entity.collisionBox.intersects(gp.player.collisionBox))
+            entity.collision = true;
+
+        //Set entity's collision box co-ords to normal
+        entity.collisionBox.x = entity.collisionBoxDefaultX;
+        entity.collisionBox.y = entity.collisionBoxDefaultY;
+
+        //Set entity's collision box co-ords to normal
+        gp.player.collisionBox.x = gp.player.collisionBoxDefaultX;
+        gp.player.collisionBox.y = gp.player.collisionBoxDefaultY;
+    }
+
 }
