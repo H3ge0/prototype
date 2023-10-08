@@ -12,6 +12,7 @@ public class UIHandler {
     GamePanel gp;
     Font arial40;
     Font arial80B;
+    Color msgColor;
     BufferedImage carrotImg;
     public boolean messageOn = false;
     public String message = "";
@@ -27,6 +28,8 @@ public class UIHandler {
         arial40 = new Font("Arial", Font.PLAIN, 40);
         arial80B = new Font("Arial", Font.BOLD, 80);
 
+        msgColor = new Color(255,255,255,255);
+
         getCarrotImage();
     }
 
@@ -41,8 +44,9 @@ public class UIHandler {
     }
 
     public void showMessage(String msg){
-        message=msg;
-        messageOn =true;
+        msgColor = new Color(255,255,255,255);
+        message = msg;
+        messageOn = true;
     }
 
     public void draw(Graphics2D g2){
@@ -69,9 +73,17 @@ public class UIHandler {
 
             //Message
             if(messageOn){
+                g2.setColor(msgColor);
                 g2.setFont(g2.getFont().deriveFont(30f));
                 g2.drawString(message,gp.tileSize/2,gp.screenHeight-40);
                 messageCounter++;
+                if(messageCounter>60){
+                    if (msgColor.getAlpha()-10>0)
+                        msgColor = new Color(255,255,255,msgColor.getAlpha()-10);
+                    else{
+                        msgColor = new Color(255,255,255,0);
+                    }
+                }
                 if(messageCounter>120){
                     messageCounter=0;
                     messageOn=false;
