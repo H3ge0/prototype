@@ -79,12 +79,14 @@ public class UIHandler {
         drawSubWindow(x,y,width,height);
 
         //Text
-        x+=gp.tileSize;
+        x+=gp.tileSize/2;
         y+=gp.tileSize;
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN,28f));
 
-        g2.drawString(currentDialogueText,x,y);
-
+        for(String line:currentDialogueText.split("\n")){
+            g2.drawString(line,x,y);
+            y+=40;
+        }
     }
 
     public void drawSubWindow(int x, int y, int width, int height){
