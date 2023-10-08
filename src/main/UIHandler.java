@@ -1,11 +1,6 @@
 package main;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.text.DecimalFormat;
-import java.util.Objects;
 
 public class UIHandler {
 
@@ -13,19 +8,21 @@ public class UIHandler {
     Graphics2D g2;
     Font arial40;
     Color opaqueBlack;
+    Color lessOpaqueBlack;
     Font arial80B;
     public boolean messageOn = false;
-    boolean paintedBlack=false;
     public String message = "";
     public boolean gameFinished = false;
     public boolean gameWon = false;
+    public String currentDialogueText = "";
 
     public UIHandler(GamePanel gp) {
         this.gp = gp;
 
         arial40 = new Font("Arial", Font.PLAIN, 40);
         arial80B = new Font("Arial", Font.BOLD, 80);
-        opaqueBlack = new Color(0,0,0,100);
+        opaqueBlack = new Color(0,0,0,150);
+        lessOpaqueBlack = new Color(0,0,0,220);
     }
 
     public void showMessage(String msg){
@@ -40,11 +37,19 @@ public class UIHandler {
         g2.setFont(arial40);
         g2.setColor(Color.white);
 
+        //PlayState
         if (gp.gameState==gp.playState){
-            paintedBlack=false;
+
         }
+
+        //PauseState
         if (gp.gameState==gp.pauseState){
             drawPauseScreen();
+        }
+
+        //DialogueState
+        if (gp.gameState==gp.dialogueState){
+            drawDialogueScreen();
         }
 
     }
@@ -62,6 +67,35 @@ public class UIHandler {
         int y = gp.screenHeight/2;
 
         g2.drawString(text,x,y);
+    }
+
+    public void drawDialogueScreen(){
+        //Window
+        int x = gp.tileSize*2;
+        int y = gp.tileSize/2;
+        int width = gp.screenWidth-gp.tileSize*4;
+        int height = gp.tileSize*5;
+
+        drawSubWindow(x,y,width,height);
+
+        //Text
+        x+=gp.tileSize;
+        y+=gp.tileSize;
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,28f));
+
+        g2.drawString(currentDialogueText,x,y);
+
+    }
+
+    public void drawSubWindow(int x, int y, int width, int height){
+
+        g2.setColor(lessOpaqueBlack);
+        g2.fillRoundRect(x,y,width,height,35,35);
+
+        g2.setColor(Color.white);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(x+5,y+5,width-10,height-10,25,25);
+
     }
 
     public int getXPosForCenteredText(String text){

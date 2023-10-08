@@ -1,7 +1,6 @@
 package entity;
 
 import main.GamePanel;
-import java.awt.*;
 import java.util.Random;
 
 public class Ralph extends Entity{
@@ -10,12 +9,11 @@ public class Ralph extends Entity{
         super(gp);
 
         direction = "down";
-        directionX = "null";
-        directionY = "null";
 
         speed=1;
 
         getImages();
+        setDialogues();
 
     }
 
@@ -32,6 +30,13 @@ public class Ralph extends Entity{
         rightidle = setImage("/npc/ralph_right_idle");
         right1 = setImage("/npc/ralph_right_1");
         right2 = setImage("/npc/ralph_right_2");
+    }
+
+    public void setDialogues(){
+        dialogues[0] = "Meraba kanki";
+        dialogues[1] = "Demek sen de o hazine için geldin...";
+        dialogues[2] = "O hazine fazla korumalı";
+        dialogues[3] = "Dikkat et kendine";
     }
 
     @Override
@@ -55,4 +60,9 @@ public class Ralph extends Entity{
             actionLockCounter=0;
         }
     }
+
+    public void speak(){
+        super.speak();
+    }
+
 }

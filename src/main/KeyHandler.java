@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed,downPressed,leftPressed,rightPressed,keyPressed=false;
+    public boolean upPressed,downPressed,leftPressed,rightPressed,keyPressed=false,xKeyPressed;
 
     //Debug
     boolean debugMode=false;
@@ -24,8 +24,9 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
 
-        //Player Controls
+        //PlayState
         if(gp.gameState== gp.playState){
+            //Movement
             if(keyCode==KeyEvent.VK_UP){
                 upPressed = true;
             }
@@ -38,24 +39,37 @@ public class KeyHandler implements KeyListener {
             if(keyCode==KeyEvent.VK_RIGHT){
                 rightPressed = true;
             }
-        }
-
-        //Other Controls
-        if(keyCode==KeyEvent.VK_ESCAPE){
-            if(gp.gameState==gp.playState){
-                gp.gameState=gp.pauseState;
-            } else if(gp.gameState==gp.pauseState){
-                gp.gameState=gp.playState;
+            if(keyCode==KeyEvent.VK_X){
+                xKeyPressed = true;
+            }
+            //Other
+            if(keyCode==KeyEvent.VK_ESCAPE){
+                gp.gameState = gp.pauseState;
+            }
+            //Debug
+            if(keyCode==KeyEvent.VK_D){
+                if(!debugMode)
+                    gp.uiH.showMessage("Debug Mode:On");
+                else
+                    gp.uiH.showMessage("Debug Mode:Off");
+                debugMode = !debugMode;
             }
         }
 
-        //Debug
-        if(keyCode==KeyEvent.VK_D){
-            if(!debugMode)
-                gp.uiH.showMessage("Debug Mode:On");
-            else
-                gp.uiH.showMessage("Debug Mode:Off");
-            debugMode = !debugMode;
+        //PauseState
+        else if (gp.gameState==gp.pauseState){
+            //Other Controls
+            if(keyCode==KeyEvent.VK_ESCAPE){
+                gp.gameState = gp.playState;
+            }
+        }
+
+        //DialogueState
+        else if (gp.gameState==gp.dialogueState){
+            //Other Controls
+            if(keyCode==KeyEvent.VK_X){
+                gp.gameState = gp.playState;
+            }
         }
     }
 
@@ -63,16 +77,17 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int keyCode = e.getKeyCode();
 
-        if(keyCode==KeyEvent.VK_UP){
+        //Movement
+        if (keyCode == KeyEvent.VK_UP) {
             upPressed = false;
         }
-        if(keyCode==KeyEvent.VK_DOWN){
+        if (keyCode == KeyEvent.VK_DOWN) {
             downPressed = false;
         }
-        if(keyCode==KeyEvent.VK_LEFT){
+        if (keyCode == KeyEvent.VK_LEFT) {
             leftPressed = false;
         }
-        if(keyCode==KeyEvent.VK_RIGHT){
+        if (keyCode == KeyEvent.VK_RIGHT) {
             rightPressed = false;
         }
     }

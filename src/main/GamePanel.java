@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     SoundHandler music = new SoundHandler();
     SoundHandler soundEffect = new SoundHandler();
-    KeyHandler keyH = new KeyHandler(this);
+    public KeyHandler keyH = new KeyHandler(this);
     public UIHandler uiH = new UIHandler(this);
     ObjectHandler objectH = new ObjectHandler(this);
     public CollisionHandler collisionH = new CollisionHandler(this);
@@ -44,6 +44,7 @@ public class GamePanel extends JPanel implements Runnable{
     public int gameState;
     public final int playState = 1;
     public final int pauseState = 2;
+    public final int dialogueState = 3;
 
     GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));

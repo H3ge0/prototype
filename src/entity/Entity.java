@@ -18,8 +18,6 @@ public class Entity {
 
     public BufferedImage upidle,up1,up2,downidle,down1,down2,leftidle,left1,left2,rightidle,right1,right2;
     public String direction;
-    public String directionX;
-    public String directionY;
 
     public int spriteCounter = 0;
     public int spriteNum = 1;
@@ -28,12 +26,28 @@ public class Entity {
     public int collisionBoxDefaultX, collisionBoxDefaultY;
     public boolean collision = false;
     public int actionLockCounter = 0;
+    String[] dialogues = new String[20];
+    int dialogueIndex=0;
 
     public Entity(GamePanel gp){
         this.gp = gp;
     }
 
     public void setAction(){}
+
+    public void speak(){
+        if(dialogues[dialogueIndex]==null)
+            dialogueIndex--;
+        gp.uiH.currentDialogueText = dialogues[dialogueIndex];
+        dialogueIndex++;
+
+        switch(gp.player.direction){
+            case "up" -> direction = "down";
+            case "down" -> direction = "up";
+            case "left" -> direction = "right";
+            case "right" -> direction = "left";
+        }
+    }
 
     public void update(){
         setAction();

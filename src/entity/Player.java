@@ -2,13 +2,9 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
-import main.UtilityTool;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Objects;
 import java.util.Random;
 
 public class Player extends Entity{
@@ -43,8 +39,6 @@ public class Player extends Entity{
         worldY = gp.tileSize*21;
         speed = 4;
         direction = "down";
-        directionX = "null";
-        directionY = "down";
     }
 
     public void getImages(){
@@ -66,39 +60,17 @@ public class Player extends Entity{
 
     public void update() {
 
-        //Idle SFX
-        /*if (idleSoundCounter < 360) {
-            idleSoundCounter++;
-        } else if(idleSoundCounter ==1000) {
-            gp.playSoundEffect(4);
-            idleSoundCounter =0;
-        } else
-            idleSoundCounter = random.nextInt(361,1001);
-         */
-
-        //Movement
-        if(keyH.upPressed){
+        if (keyH.upPressed){
             direction="up";
-            directionY="up";
-            worldY -= speed;
-        }else if(keyH.downPressed){
+        }else if (keyH.downPressed){
             direction="down";
-            directionY="down";
-            worldY += speed;
-        }
-        if(keyH.leftPressed){
+        }else if (keyH.leftPressed){
             direction="left";
-            directionX="left";
-            worldX -= speed;
-        }else if(keyH.rightPressed){
+        }else if (keyH.rightPressed){
             direction="right";
-            directionX="right";
-            worldX += speed;
         }
 
-        keyH.keyPressed=keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed;
-
-        if(keyH.keyPressed){
+        if(keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed||keyH.xKeyPressed){
 
             collision = false;
             gp.collisionH.checkTile(this);
@@ -109,40 +81,16 @@ public class Player extends Entity{
             int npcIndex = gp.collisionH.checkEntity(this,gp.npcs);
             interactWithNPC(npcIndex);
 
-
-            if(collision){
-                switch (directionX) {
-                    case "left" -> {
-                        switch (directionY){
-                            case "up" -> {
-                                worldX+=speed;
-                                worldY+=speed;
-                            } case "down" -> {
-                                worldX+=speed;
-                                worldY-=speed;
-                            } case "null" -> worldX+=speed;
-                        }
-                    } case "right" -> {
-                        switch (directionY){
-                            case "up" -> {
-                                worldX-=speed;
-                                worldY+=speed;
-                            } case "down" -> {
-                                worldX-=speed;
-                                worldY-=speed;
-                            } case "null" -> worldX-=speed;
-                        }
-                    } case "null" -> {
-                        switch (directionY){
-                            case "up" -> worldY+=speed;
-                            case "down" -> worldY-=speed;
-                        }
-                    }
+            if(!collision&&!keyH.xKeyPressed) {
+                switch (direction) {
+                    case "up" -> worldY -= speed;
+                    case "down" -> worldY += speed;
+                    case "left" -> worldX -= speed;
+                    case "right" -> worldX += speed;
                 }
             }
 
-            directionX="null";
-            directionY="null";
+            keyH.xKeyPressed=false;
 
             spriteCounter++;
             if (spriteCounter>10){
@@ -165,7 +113,10 @@ public class Player extends Entity{
 
     public void interactWithNPC(int index){
         if(index!=999){
-            System.out.println("npc");
+            if(gp.keyH.xKeyPressed){
+                gp.gameState=gp.dialogueState;
+                gp.npcs[index].speak();
+            }
         }
     }
 
