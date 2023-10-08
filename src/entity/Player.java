@@ -45,7 +45,7 @@ public class Player extends Entity{
         direction = "down";
         directionX = "null";
         directionY = "down";
-        carrotCount = 0;
+        carrotCount = 6;
     }
 
     public void getPlayerImage(){
