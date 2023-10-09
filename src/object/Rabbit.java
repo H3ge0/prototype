@@ -13,8 +13,8 @@ public class Rabbit extends Object {
         name = "Rabbit";
 
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/rabbit.png")));
-            image = utility.scaleImage(image,gp.tileSize,gp.tileSize);
+            image1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/rabbit.png")));
+            image1 = utility.scaleImage(image1,gp.tileSize,gp.tileSize);
         } catch (IOException e){
             e.printStackTrace();
         }

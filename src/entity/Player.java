@@ -39,6 +39,8 @@ public class Player extends Entity{
         worldY = gp.tileSize*21;
         speed = 4;
         direction = "down";
+        maxHp = 6;
+        hp = 3;
     }
 
     public void getImages(){
@@ -70,7 +72,7 @@ public class Player extends Entity{
             direction="right";
         }
 
-        if(keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed||keyH.xKeyPressed){
+        if(keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed||keyH.cKeyPressed){
 
             collision = false;
             gp.collisionH.checkTile(this);
@@ -81,7 +83,7 @@ public class Player extends Entity{
             int npcIndex = gp.collisionH.checkEntity(this,gp.npcs);
             interactWithNPC(npcIndex);
 
-            if(!collision&&!keyH.xKeyPressed) {
+            if(!collision&&!keyH.cKeyPressed) {
                 switch (direction) {
                     case "up" -> worldY -= speed;
                     case "down" -> worldY += speed;
@@ -89,7 +91,7 @@ public class Player extends Entity{
                     case "right" -> worldX += speed;
                 }
             }
-            keyH.xKeyPressed=false;
+            keyH.cKeyPressed =false;
 
             spriteCounter++;
             if (spriteCounter>10){
@@ -112,7 +114,7 @@ public class Player extends Entity{
 
     public void interactWithNPC(int index){
         if(index!=999){
-            if(gp.keyH.xKeyPressed){
+            if(gp.keyH.cKeyPressed){
                 gp.gameState=gp.dialogueState;
                 gp.npcs[index].speak();
             }

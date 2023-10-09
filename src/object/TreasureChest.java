@@ -13,8 +13,8 @@ public class TreasureChest extends Object{
         name = "Treasure Chest";
 
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/treasure_chest.png")));
-            image = utility.scaleImage(image,gp.tileSize,gp.tileSize);
+            image1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/treasure_chest.png")));
+            image1 = utility.scaleImage(image1,gp.tileSize,gp.tileSize);
         } catch (IOException e){
             e.printStackTrace();
         }

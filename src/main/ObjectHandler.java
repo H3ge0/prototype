@@ -1,6 +1,6 @@
 package main;
 
-import entity.Ralph;
+import entity.Budi;
 
 public class ObjectHandler {
 
@@ -15,7 +15,7 @@ public class ObjectHandler {
     }
 
     public void setNPCs(){
-        gp.npcs[0] = new Ralph(gp);
+        gp.npcs[0] = new Budi(gp);
         gp.npcs[0].worldX = gp.tileSize*20;
         gp.npcs[0].worldY = gp.tileSize*21;
     }

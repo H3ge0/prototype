@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 public class Object {
 
-    public BufferedImage image;
+    public BufferedImage image1,image2,image3;
     public String name;
     public boolean collision = false;
     public int worldX,worldY;
@@ -22,7 +22,7 @@ public class Object {
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
         if(Math.abs(gp.player.worldX-worldX)<gp.screenWidth/2+gp.tileSize && Math.abs(gp.player.worldY-worldY)<gp.screenHeight/2+gp.tileSize)
-            g2.drawImage(image,screenX,screenY,null);
+            g2.drawImage(image1,screenX,screenY,null);
     }
 
 }

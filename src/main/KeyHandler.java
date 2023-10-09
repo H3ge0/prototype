@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed,downPressed,leftPressed,rightPressed,xKeyPressed;
+    public boolean upPressed,downPressed,leftPressed,rightPressed,cKeyPressed;
 
     //Debug
     boolean debugMode=false;
@@ -18,6 +18,33 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
+
+        //TitleState
+        if(gp.gameState== gp.titleState){
+            //Select
+            if(keyCode==KeyEvent.VK_UP){
+                if(gp.uiH.commandNum==0)
+                    gp.uiH.commandNum=2;
+                else
+                    gp.uiH.commandNum=0;
+            }
+            if(keyCode==KeyEvent.VK_DOWN){
+                if(gp.uiH.commandNum==2)
+                    gp.uiH.commandNum=0;
+                else
+                    gp.uiH.commandNum=2;
+            }
+            if(keyCode==KeyEvent.VK_C){
+                if(gp.uiH.commandNum==0){
+                    gp.gameState=gp.playState;
+                    gp.playMusic(0);
+                }else if(gp.uiH.commandNum==1){
+                    //
+                }else if(gp.uiH.commandNum==2){
+                    System.exit(0);
+                }
+            }
+        }
 
         //PlayState
         if(gp.gameState== gp.playState){
@@ -34,8 +61,8 @@ public class KeyHandler implements KeyListener {
             if(keyCode==KeyEvent.VK_RIGHT){
                 rightPressed = true;
             }
-            if(keyCode==KeyEvent.VK_X){
-                xKeyPressed = true;
+            if(keyCode==KeyEvent.VK_C){
+                cKeyPressed = true;
             }
             //Other
             if(keyCode==KeyEvent.VK_ESCAPE){
@@ -58,7 +85,7 @@ public class KeyHandler implements KeyListener {
         //DialogueState
         else if (gp.gameState==gp.dialogueState){
             //Other Controls
-            if(keyCode==KeyEvent.VK_X){
+            if(keyCode==KeyEvent.VK_C){
                 gp.gameState = gp.playState;
             }
         }

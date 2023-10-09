@@ -13,8 +13,8 @@ public class Candy extends Object{
         name = "Candy";
 
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/candy.png")));
-            image = utility.scaleImage(image,gp.tileSize,gp.tileSize);
+            image1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/candy.png")));
+            image1 = utility.scaleImage(image1,gp.tileSize,gp.tileSize);
         } catch (IOException e){
             e.printStackTrace();
         }

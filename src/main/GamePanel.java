@@ -11,7 +11,7 @@ import java.awt.*;
 public class GamePanel extends JPanel implements Runnable{
 
     //Screen Settings
-    final int originalTileSize = 16; //17 daha guzel duruyo
+    final int originalTileSize = 16;
     public final int scale = 3;
     public final int tileSize = originalTileSize*scale;
     public final int maxScreenCol = 16;
@@ -42,6 +42,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     //Gamestate
     public int gameState;
+    public final int titleState = 0;
     public final int playState = 1;
     public final int pauseState = 2;
     public final int dialogueState = 3;
@@ -57,9 +58,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void setupGame(){
         objectH.setObjects();
         objectH.setNPCs();
-        playMusic(0);
-        stopMusic();
-        gameState=playState;
+        gameState=titleState;
     }
 
     public void startGameThread(){
@@ -125,28 +124,35 @@ public class GamePanel extends JPanel implements Runnable{
             drawStart = System.nanoTime();
         }
 
-        //Tile
-        tileManager.draw(g2);
-
-        //Object
-        for (Object object : obj) {
-            if (object != null) {
-                object.draw(g2, this);
-            }
+        //Title Screen
+        if(gameState==titleState){
+            uiH.draw(g2);
         }
+        //Other Stuff
+        else {
+            //Tile
+            tileManager.draw(g2);
 
-        //Npc
-        for (Entity entity : npcs) {
-            if (entity != null) {
-                entity.draw(g2);
+            //Object
+            for (Object object : obj) {
+                if (object != null) {
+                    object.draw(g2, this);
+                }
             }
+
+            //Npc
+            for (Entity entity : npcs) {
+                if (entity != null) {
+                    entity.draw(g2);
+                }
+            }
+
+            //Player
+            player.draw(g2);
+
+            //UI
+            uiH.draw(g2);
         }
-
-        //Player
-        player.draw(g2);
-
-        //UI
-        uiH.draw(g2);
 
         //Debug
         if(keyH.debugMode){
