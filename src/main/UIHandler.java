@@ -1,7 +1,7 @@
 package main;
 
+import entity.Entity;
 import object.Heart;
-import object.Object;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -41,7 +41,7 @@ public class UIHandler {
         lessOpaqueBlack = new Color(0,0,0,220);
 
         //Create Hud Project
-        Object heart = new Heart(gp);
+        Entity heart = new Heart(gp);
         heart_full=heart.image1;
         heart_half=heart.image2;
         heart_empty=heart.image3;

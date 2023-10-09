@@ -9,6 +9,7 @@ import java.util.Random;
 
 public class Player extends Entity{
 
+    public boolean canDrink=true, canFall=true;
     KeyHandler keyH;
     Random random;
     int idleSoundCounter=0;
@@ -40,7 +41,7 @@ public class Player extends Entity{
         speed = 4;
         direction = "down";
         maxHp = 6;
-        hp = 3;
+        hp = 6;
     }
 
     public void getImages(){
@@ -72,7 +73,7 @@ public class Player extends Entity{
             direction="right";
         }
 
-        if(keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed||keyH.cKeyPressed){
+        if(keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed||keyH.xKeyPressed){
 
             collision = false;
             gp.collisionH.checkTile(this);
@@ -83,7 +84,9 @@ public class Player extends Entity{
             int npcIndex = gp.collisionH.checkEntity(this,gp.npcs);
             interactWithNPC(npcIndex);
 
-            if(!collision&&!keyH.cKeyPressed) {
+            gp.eventH.checkEvent();
+
+            if(!collision&&!keyH.xKeyPressed) {
                 switch (direction) {
                     case "up" -> worldY -= speed;
                     case "down" -> worldY += speed;
@@ -91,7 +94,7 @@ public class Player extends Entity{
                     case "right" -> worldX += speed;
                 }
             }
-            keyH.cKeyPressed =false;
+            keyH.xKeyPressed =false;
 
             spriteCounter++;
             if (spriteCounter>10){
@@ -114,7 +117,7 @@ public class Player extends Entity{
 
     public void interactWithNPC(int index){
         if(index!=999){
-            if(gp.keyH.cKeyPressed){
+            if(gp.keyH.xKeyPressed){
                 gp.gameState=gp.dialogueState;
                 gp.npcs[index].speak();
             }

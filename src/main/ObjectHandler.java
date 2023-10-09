@@ -1,6 +1,7 @@
 package main;
 
 import entity.Budi;
+import object.Chest;
 
 public class ObjectHandler {
 

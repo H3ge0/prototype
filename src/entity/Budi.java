@@ -63,7 +63,17 @@ public class Budi extends Entity{
     }
 
     public void speak(){
-        super.speak();
+        if(gp.player.hp<=1&&this.dialogueIndex>=1){
+            gp.player.hp+=2;
+            gp.uiH.currentDialogueText="Canın kalmamış kanki, al şu iksiri.\n\n\n*İyileştin!*";
+            switch(gp.player.direction){
+                case "up" -> direction = "down";
+                case "down" -> direction = "up";
+                case "left" -> direction = "right";
+                case "right" -> direction = "left";
+            }
+        }else
+            super.speak();
     }
 
 }

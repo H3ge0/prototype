@@ -17,7 +17,7 @@ public class Entity {
     public int speed;
 
     public BufferedImage upidle,up1,up2,downidle,down1,down2,leftidle,left1,left2,rightidle,right1,right2;
-    public String direction;
+    public String direction = "down";
 
     public int spriteCounter = 0;
     public int spriteNum = 1;
@@ -28,6 +28,9 @@ public class Entity {
     public int actionLockCounter = 0;
     String[] dialogues = new String[20];
     int dialogueIndex=0;
+    public BufferedImage image1,image2,image3;
+    public String name;
+    public boolean collisionOn = false;
 
     //Character
     public int maxHp;

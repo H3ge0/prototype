@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed,downPressed,leftPressed,rightPressed,cKeyPressed;
+    public boolean upPressed,downPressed,leftPressed,rightPressed,xKeyPressed;
 
     //Debug
     boolean debugMode=false;
@@ -34,7 +34,7 @@ public class KeyHandler implements KeyListener {
                 else
                     gp.uiH.commandNum=2;
             }
-            if(keyCode==KeyEvent.VK_C){
+            if(keyCode==KeyEvent.VK_X){
                 if(gp.uiH.commandNum==0){
                     gp.gameState=gp.playState;
                     gp.playMusic(0);
@@ -61,12 +61,13 @@ public class KeyHandler implements KeyListener {
             if(keyCode==KeyEvent.VK_RIGHT){
                 rightPressed = true;
             }
-            if(keyCode==KeyEvent.VK_C){
-                cKeyPressed = true;
+            if(keyCode==KeyEvent.VK_X){
+                xKeyPressed = true;
             }
             //Other
             if(keyCode==KeyEvent.VK_ESCAPE){
                 gp.gameState = gp.pauseState;
+                gp.stopMusic();
             }
             //Debug
             if(keyCode==KeyEvent.VK_D){
@@ -79,13 +80,15 @@ public class KeyHandler implements KeyListener {
             //Other Controls
             if(keyCode==KeyEvent.VK_ESCAPE){
                 gp.gameState = gp.playState;
+                gp.music.play();
+                gp.music.loop();
             }
         }
 
         //DialogueState
         else if (gp.gameState==gp.dialogueState){
             //Other Controls
-            if(keyCode==KeyEvent.VK_C){
+            if(keyCode==KeyEvent.VK_X){
                 gp.gameState = gp.playState;
             }
         }
