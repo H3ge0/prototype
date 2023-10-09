@@ -36,7 +36,7 @@ public class Ralph extends Entity{
         dialogues[0] = "Meraba kanki.";
         dialogues[1] = "Demek o hazine için geldin...";
         dialogues[2] = "O hazine fazla korumalı. O mağaradakileri\nkendi gözümle gördüm.";
-        dialogues[3] = "Kesinlikle normal değiller :O";
+        dialogues[3] = "Kesinlikle normal değiller...";
         dialogues[4] = "Dikkat et kendine.";
     }
 

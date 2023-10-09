@@ -89,7 +89,6 @@ public class Player extends Entity{
                     case "right" -> worldX += speed;
                 }
             }
-
             keyH.xKeyPressed=false;
 
             spriteCounter++;
@@ -121,10 +120,9 @@ public class Player extends Entity{
     }
 
     public void draw(Graphics2D g2){
-        keyH.keyPressed=keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed;
         BufferedImage image = null;
 
-        if(keyH.keyPressed){
+        if(keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed){
             switch (direction) {
                 case "up" -> {
                     if (spriteNum == 1)

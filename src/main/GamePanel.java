@@ -153,7 +153,7 @@ public class GamePanel extends JPanel implements Runnable{
             long drawEnd = System.nanoTime();
             long passed = drawEnd-drawStart;
             g2.setColor(Color.white);
-            g2.setFont(g2.getFont().deriveFont(20f));
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN,20f));
             g2.drawString("Draw Time:"+passed,10,400);
             System.out.println("Draw Time:"+passed);
         }

@@ -1,15 +1,17 @@
 package main;
 
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
 
 public class UIHandler {
 
     GamePanel gp;
     Graphics2D g2;
-    Font arial40;
+    Font fixedsys,delaGothic;
     Color opaqueBlack;
     Color lessOpaqueBlack;
-    Font arial80B;
     public boolean messageOn = false;
     public String message = "";
     public boolean gameFinished = false;
@@ -19,8 +21,16 @@ public class UIHandler {
     public UIHandler(GamePanel gp) {
         this.gp = gp;
 
-        arial40 = new Font("Arial", Font.PLAIN, 40);
-        arial80B = new Font("Arial", Font.BOLD, 80);
+        InputStream inputStream = Objects.requireNonNull(getClass().getResourceAsStream("/fonts/fixedsys.ttf"));
+
+        try {
+            fixedsys = Font.createFont(Font.TRUETYPE_FONT,inputStream);
+            inputStream = Objects.requireNonNull(getClass().getResourceAsStream("/fonts/DelaGothicOne.ttf"));
+            delaGothic = Font.createFont(Font.TRUETYPE_FONT,inputStream);
+        } catch (FontFormatException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
         opaqueBlack = new Color(0,0,0,150);
         lessOpaqueBlack = new Color(0,0,0,220);
     }
@@ -34,7 +44,7 @@ public class UIHandler {
 
         this.g2 = g2;
 
-        g2.setFont(arial40);
+        g2.setFont(fixedsys);
         g2.setColor(Color.white);
 
         //PlayState
@@ -81,7 +91,9 @@ public class UIHandler {
         //Text
         x+=gp.tileSize/2;
         y+=gp.tileSize;
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,28f));
+        g2.setFont(fixedsys);
+        g2.setFont(g2.getFont().deriveFont(26f));
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
         for(String line:currentDialogueText.split("\n")){
             g2.drawString(line,x,y);

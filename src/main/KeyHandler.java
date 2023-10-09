@@ -6,18 +6,13 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed,downPressed,leftPressed,rightPressed,keyPressed=false,xKeyPressed;
+    public boolean upPressed,downPressed,leftPressed,rightPressed,xKeyPressed;
 
     //Debug
     boolean debugMode=false;
 
     public KeyHandler(GamePanel gp){
         this.gp =gp;
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
     }
 
     @Override
@@ -48,10 +43,6 @@ public class KeyHandler implements KeyListener {
             }
             //Debug
             if(keyCode==KeyEvent.VK_D){
-                if(!debugMode)
-                    gp.uiH.showMessage("Debug Mode:On");
-                else
-                    gp.uiH.showMessage("Debug Mode:Off");
                 debugMode = !debugMode;
             }
         }
@@ -90,6 +81,11 @@ public class KeyHandler implements KeyListener {
         if (keyCode == KeyEvent.VK_RIGHT) {
             rightPressed = false;
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
     }
 
 }
