@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class Entity {
 
-    GamePanel gp;
+    public GamePanel gp;
 
     public int worldX, worldY;
     public int speed;
@@ -23,7 +23,7 @@ public class Entity {
     public int spriteNum = 1;
 
     public Rectangle collisionBox = new Rectangle(0,0,48,48);
-    public int collisionBoxDefaultX, collisionBoxDefaultY;
+    public int collisionBoxDefaultX=collisionBox.x, collisionBoxDefaultY=collisionBox.y;
     public boolean collision = false;
     public int actionLockCounter = 0;
     String[] dialogues = new String[20];
@@ -31,6 +31,7 @@ public class Entity {
     public BufferedImage image1,image2,image3;
     public String name;
     public boolean collisionOn = false;
+    public int type; // 0->player   1->npc   2->monster   3->obj
 
     //Character
     public int maxHp;
@@ -61,7 +62,17 @@ public class Entity {
         collision=false;
         gp.collisionH.checkTile(this);
         gp.collisionH.checkObject(this,false);
-        gp.collisionH.checkPlayer(this);
+        gp.collisionH.checkEntity(this,gp.npcs);
+        gp.collisionH.checkEntity(this,gp.monsters);
+        boolean contactPlayer = gp.collisionH.checkPlayer(this);
+
+        if (this.type==2 && contactPlayer){
+            if(gp.player.hp>0 && !gp.player.invincible){
+                gp.player.hp--;
+                gp.player.invincible=true;
+            }
+        }
+
         if(!collision){
             switch(direction){
                 case "up" -> worldY-=speed;

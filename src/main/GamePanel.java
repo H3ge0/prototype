@@ -6,10 +6,7 @@ import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -43,6 +40,7 @@ public class GamePanel extends JPanel implements Runnable{
     public Player player = new Player(this, keyH);
     public Entity[] npcs = new Entity[10];
     public Entity[] obj = new Entity[10];
+    public Entity[] monsters = new Entity[20];
     ArrayList<Entity> entityList = new ArrayList<>();
     Thread gameThread;
 
@@ -64,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void setupGame(){
         objectH.setObjects();
         objectH.setNPCs();
+        objectH.setMonsters();
         gameState=titleState;
     }
 
@@ -115,8 +114,13 @@ public class GamePanel extends JPanel implements Runnable{
                 if(entity!=null)
                     entity.update();
             }
+            //Monsters
+            for(Entity entity:monsters){
+                if(entity!=null)
+                    entity.update();
+            }
         } else if(gameState==pauseState){
-            
+
         }
     }
 
@@ -151,6 +155,11 @@ public class GamePanel extends JPanel implements Runnable{
                     entityList.add(e);
                 }
             }
+            for(Entity e:monsters){
+                if(e!=null){
+                    entityList.add(e);
+                }
+            }
 
             //Sort entities by height
             entityList.sort(Comparator.comparingInt(e -> e.worldY));
@@ -162,9 +171,6 @@ public class GamePanel extends JPanel implements Runnable{
 
             //Clean entityList
             entityList.clear();
-            /*for(int i=0;i<entityList.size();i++){
-                entityList.remove(i);
-            }*/
 
             //UI
             uiH.draw(g2);
@@ -175,9 +181,10 @@ public class GamePanel extends JPanel implements Runnable{
             long drawEnd = System.nanoTime();
             long passed = drawEnd-drawStart;
             g2.setColor(Color.white);
-            g2.setFont(g2.getFont().deriveFont(Font.PLAIN,20f));
+            g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2.setFont(new Font("Arial",Font.PLAIN,20));
             g2.drawString("Draw Time:"+passed,10,400);
-            System.out.println("Draw Time:"+passed);
+            g2.drawString("Invincible Counter:"+player.invincibleCounter,10,450);
         }
 
         g2.dispose();

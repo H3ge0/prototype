@@ -5,8 +5,12 @@ import java.util.Random;
 
 public class Budi extends Entity{
 
+
+    Random random;
+
     public Budi(GamePanel gp) {
         super(gp);
+        random = new Random();
 
         direction = "down";
 
@@ -14,7 +18,7 @@ public class Budi extends Entity{
 
         getImages();
         setDialogues();
-
+        actionLockCounter = random.nextInt(1,120);
     }
 
     public void getImages(){
@@ -46,7 +50,6 @@ public class Budi extends Entity{
         actionLockCounter++;
 
         if (actionLockCounter==120){
-            Random random = new Random();
             int i = random.nextInt(100)+1;
 
             if(i<=25){

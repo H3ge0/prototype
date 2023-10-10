@@ -11,8 +11,6 @@ public class Carrot extends Entity {
         name = "Carrot";
 
         down1=setImage("/objects/carrot");
-
-
     }
 
 }

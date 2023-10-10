@@ -12,6 +12,8 @@ public class Player extends Entity{
     public boolean canDrink=true, canFall=true;
     KeyHandler keyH;
     Random random;
+    public boolean invincible = false;
+    public int invincibleCounter = 0;
     int idleSoundCounter=0;
 
     public final int screenX, screenY;
@@ -63,17 +65,17 @@ public class Player extends Entity{
 
     public void update() {
 
-        if (keyH.upPressed){
-            direction="up";
-        }else if (keyH.downPressed){
-            direction="down";
-        }else if (keyH.leftPressed){
-            direction="left";
-        }else if (keyH.rightPressed){
-            direction="right";
-        }
-
         if(keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed||keyH.xKeyPressed){
+
+            if (keyH.upPressed){
+                direction="up";
+            }else if (keyH.downPressed){
+                direction="down";
+            }else if (keyH.leftPressed){
+                direction="left";
+            }else if (keyH.rightPressed){
+                direction="right";
+            }
 
             collision = false;
             gp.collisionH.checkTile(this);
@@ -83,6 +85,9 @@ public class Player extends Entity{
 
             int npcIndex = gp.collisionH.checkEntity(this,gp.npcs);
             interactWithNPC(npcIndex);
+
+            int monsterIndex = gp.collisionH.checkEntity(this,gp.monsters);
+            interactWithMonster(monsterIndex);
 
             gp.eventH.checkEvent();
 
@@ -107,6 +112,14 @@ public class Player extends Entity{
             }
         }
 
+        if(invincible){
+            invincibleCounter++;
+            if (invincibleCounter>90){
+                invincible=false;
+                invincibleCounter=0;
+            }
+        }
+
     }
 
     public void interactWithObj(int index){
@@ -120,6 +133,15 @@ public class Player extends Entity{
             if(gp.keyH.xKeyPressed){
                 gp.gameState=gp.dialogueState;
                 gp.npcs[index].speak();
+            }
+        }
+    }
+
+    public void interactWithMonster(int index){
+        if(index!=999){
+            if(hp>0 && !invincible){
+                hp--;
+                invincible=true;
             }
         }
     }
@@ -181,7 +203,26 @@ public class Player extends Entity{
             spriteCounter=0;
         }
 
+        if (invincible){
+            if (invincibleCounter<15){
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+            }else if (invincibleCounter<30){
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.9f));
+            }else if (invincibleCounter<45){
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+            }else if (invincibleCounter<60){
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.9f));
+            }else if (invincibleCounter<75){
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+            }else if (invincibleCounter<90){
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+            }
+        }
+
         g2.drawImage(image, screenX, screenY, null);
+
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
     }
 
 }

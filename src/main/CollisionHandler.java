@@ -82,7 +82,7 @@ public class CollisionHandler {
                 }
 
                 if(entity.collisionBox.intersects(gp.obj[i].collisionBox)) {
-                    if(gp.obj[i].collision)
+                    if(gp.obj[i].collisionOn)
                         entity.collision = true;
                     if (player)
                         index = i;
@@ -106,7 +106,7 @@ public class CollisionHandler {
         int index = 999;
 
         for(int i=0;i<target.length;i++){
-            if(target[i]!=null){
+            if(target[i]!=null&&target[i]!=entity){
                 //Get entity's collision box co-ords
                 entity.collisionBox.x += entity.worldX;
                 entity.collisionBox.y += entity.worldY;
@@ -141,7 +141,9 @@ public class CollisionHandler {
         return index;
     }
 
-    public void checkPlayer(Entity entity){
+    public boolean checkPlayer(Entity entity){
+        boolean contactPlayer=false;
+
         //Get entity's collision box co-ords
         entity.collisionBox.x += entity.worldX;
         entity.collisionBox.y += entity.worldY;
@@ -157,8 +159,10 @@ public class CollisionHandler {
             case "right" -> entity.collisionBox.x+=entity.speed;
         }
 
-        if(entity.collisionBox.intersects(gp.player.collisionBox))
+        if(entity.collisionBox.intersects(gp.player.collisionBox)){
             entity.collision = true;
+            contactPlayer=true;
+        }
 
         //Set entity's collision box co-ords to normal
         entity.collisionBox.x = entity.collisionBoxDefaultX;
@@ -167,6 +171,8 @@ public class CollisionHandler {
         //Set entity's collision box co-ords to normal
         gp.player.collisionBox.x = gp.player.collisionBoxDefaultX;
         gp.player.collisionBox.y = gp.player.collisionBoxDefaultY;
+
+        return contactPlayer;
     }
 
 }
