@@ -15,10 +15,15 @@ public class Ogim extends Entity {
         super(gp);
         random = new Random();
 
+        collisionBox.x=3;
+        collisionBox.y=3;
+        collisionBox.width=gp.tileSize-6;
+        collisionBox.height=gp.tileSize-6;
+
         type = 2;
         name = "Ogim";
         speed = 1;
-        maxHp = 3;
+        maxHp = 5;
         hp = maxHp;
 
         getImage();
@@ -70,6 +75,7 @@ public class Ogim extends Entity {
 
         if (this.type==2 && contactPlayer){
             if(gp.player.hp>0 && !gp.player.invincible){
+                gp.playSoundEffect(7);
                 gp.player.hp--;
                 gp.player.invincible=true;
             }
@@ -124,26 +130,60 @@ public class Ogim extends Entity {
                 case 13 -> image = left2;
             }
 
-            if (invincible){
-                if (invincibleCounter<15){
-                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-                }else if (invincibleCounter<30){
-                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.9f));
-                }else if (invincibleCounter<45){
-                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-                }else if (invincibleCounter<60){
-                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.9f));
-                }else if (invincibleCounter<75){
-                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-                }else if (invincibleCounter<90){
-                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+            if(type==2 && hpBarOn){
+                double oneScale = (double)gp.tileSize/maxHp;
+                double hpBarWidth = oneScale*hp;
+
+                g2.setColor(new Color(135,35,35));
+                g2.fillRect(screenX-1,screenY-16,gp.tileSize+2,12);
+
+                g2.setColor(new Color(255,0,30));
+                g2.fillRect(screenX,screenY-15,(int)hpBarWidth,10);
+
+                hpBarCounter++;
+                if(hpBarCounter>=600){
+                    hpBarCounter=0;
+                    hpBarOn=false;
                 }
+            }
+
+            if (invincible){
+                hpBarOn=true;
+                hpBarCounter=0;
+                if (invincibleCounter<15){
+                    setG2Alpha(g2, 0.5f);
+                }else if (invincibleCounter<30){
+                    setG2Alpha(g2, 0.9f);
+                }else if (invincibleCounter<45){
+                    setG2Alpha(g2, 0.5f);
+                }else if (invincibleCounter<60){
+                    setG2Alpha(g2, 0.9f);
+                }else if (invincibleCounter<75){
+                    setG2Alpha(g2, 0.5f);
+                }else if (invincibleCounter<90){
+                    setG2Alpha(g2, 0.5f);
+                }
+            }
+
+            if(dying) {
+                dyingAnimation(g2);
             }
 
             g2.drawImage(image,screenX,screenY,gp.tileSize,gp.tileSize,null);
 
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
+        }
+    }
+
+    @Override
+    public void damageReaction() {
+        actionLockCounter=0;
+        switch(gp.player.direction){
+            case "up" -> direction = "down";
+            case "down" -> direction = "up";
+            case "left" -> direction = "right";
+            case "right" -> direction = "left";
         }
     }
 }

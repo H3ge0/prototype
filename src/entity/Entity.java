@@ -28,12 +28,17 @@ public class Entity {
     int dialogueIndex=0;
     public boolean collision = false;
     public boolean invincible = false;
-    boolean attacking = false;
+    public boolean attacking = false;
+    public boolean alive = true;
+    public boolean dying = false;
+    public boolean hpBarOn = false;
 
     //Counters
     public int actionLockCounter = 0;
     public int spriteCounter = 0;
     public int invincibleCounter = 0;
+    public int dyingCounter = 0;
+    public int hpBarCounter = 0;
 
     //Character
     public int type; // 0->player   1->npc   2->monster   3->obj
@@ -47,6 +52,8 @@ public class Entity {
     }
 
     public void setAction(){}
+
+    public void damageReaction(){}
 
     public void speak(){
         if(dialogues[dialogueIndex]==null)
@@ -73,6 +80,7 @@ public class Entity {
 
         if (this.type==2 && contactPlayer){
             if(gp.player.hp>0 && !gp.player.invincible){
+                gp.playSoundEffect(7);
                 gp.player.hp--;
                 gp.player.invincible=true;
             }
@@ -158,26 +166,74 @@ public class Entity {
                 }
             }
 
-            if (invincible){
-                if (invincibleCounter<15){
-                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-                }else if (invincibleCounter<30){
-                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.9f));
-                }else if (invincibleCounter<45){
-                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-                }else if (invincibleCounter<60){
-                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.9f));
-                }else if (invincibleCounter<75){
-                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-                }else if (invincibleCounter<90){
-                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+            if(type==2 && hpBarOn){
+                double oneScale = (double)gp.tileSize/maxHp;
+                double hpBarWidth = oneScale*hp;
+
+                g2.setColor(new Color(135,35,35));
+                g2.fillRect(screenX-1,screenY-16,gp.tileSize+2,12);
+
+                g2.setColor(new Color(255,0,30));
+                g2.fillRect(screenX,screenY-15,(int)hpBarWidth,10);
+
+                hpBarCounter++;
+                if(hpBarCounter>=600){
+                    hpBarCounter=0;
+                    hpBarOn=false;
                 }
+            }
+
+            if (invincible){
+                hpBarOn=true;
+                hpBarCounter=0;
+                if (invincibleCounter<15){
+                    setG2Alpha(g2, 0.5f);
+                }else if (invincibleCounter<30){
+                    setG2Alpha(g2, 0.9f);
+                }else if (invincibleCounter<45){
+                    setG2Alpha(g2, 0.5f);
+                }else if (invincibleCounter<60){
+                    setG2Alpha(g2, 0.9f);
+                }else if (invincibleCounter<75){
+                    setG2Alpha(g2, 0.5f);
+                }else if (invincibleCounter<90){
+                    setG2Alpha(g2, 0.5f);
+                }
+            }
+
+            if(dying){
+                dyingAnimation(g2);
             }
 
             g2.drawImage(image,screenX,screenY,gp.tileSize,gp.tileSize,null);
 
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+            setG2Alpha(g2, 1f);
         }
+    }
+
+    public void dyingAnimation(Graphics2D g2) {
+        dyingCounter++;
+
+        int i = 4;
+
+        if(dyingCounter<=i) setG2Alpha(g2, 0.9f);
+        else if(dyingCounter<=i*2) setG2Alpha(g2, 0.8f);
+        else if(dyingCounter<=i*3) setG2Alpha(g2, 0.7f);
+        else if(dyingCounter<=i*4) setG2Alpha(g2, 0.6f);
+        else if(dyingCounter<=i*5) setG2Alpha(g2, 0.5f);
+        else if(dyingCounter<=i*6) setG2Alpha(g2, 0.4f);
+        else if(dyingCounter<=i*7) setG2Alpha(g2, 0.3f);
+        else if(dyingCounter<=i*8) setG2Alpha(g2, 0.2f);
+        else if(dyingCounter<=i*9) setG2Alpha(g2, 0.1f);
+        else {
+            dying=false;
+            alive=false;
+        }
+
+    }
+
+    public static void setG2Alpha(Graphics2D g2, float alpha) {
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
     }
 
     public BufferedImage setImage(String path,int width,int height){

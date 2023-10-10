@@ -110,6 +110,7 @@ public class Player extends Entity{
             gp.eventH.checkEvent();
 
             if(keyH.zKeyPressed){
+                gp.playSoundEffect(9);
                 attacking=true;
             }
 
@@ -209,6 +210,7 @@ public class Player extends Entity{
     public void interactWithMonster(int index){
         if(index!=999){
             if(hp>0 && !invincible){
+                gp.playSoundEffect(7);
                 hp--;
                 invincible=true;
             }
@@ -218,10 +220,12 @@ public class Player extends Entity{
     public void attackMonster(int index){
         if(index!=999){
             if(gp.monsters[index].hp>0 && !gp.monsters[index].invincible){
+                gp.playSoundEffect(8);
                 gp.monsters[index].hp--;
                 gp.monsters[index].invincible=true;
+                gp.monsters[index].damageReaction();
             } else if (gp.monsters[index].hp<=0){
-                gp.monsters[index] = null;
+                gp.monsters[index].dying = true;
             }
         }
     }
