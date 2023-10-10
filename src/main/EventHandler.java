@@ -54,6 +54,7 @@ public class EventHandler {
         if(gp.player.canFall){
             if(gp.player.hp>=2) {
                 gp.uiH.currentDialogueText = "Çukura düştün! Canın azaldı!";
+                gp.playSoundEffect(7);
                 gp.player.hp -= 1;
             } else {
                 gp.uiH.currentDialogueText = "Bu sefer çukuru fark ettin. Aptallık bir\nyere kadar...";
@@ -61,6 +62,7 @@ public class EventHandler {
             }
         } else {
             gp.uiH.currentDialogueText = "Aptallık bir yere kadar...";
+            gp.playSoundEffect(2);
         }
         canTouchEvent=false;
     }
@@ -68,12 +70,15 @@ public class EventHandler {
     public void healingPool(int gameState){
         if(gp.keyH.xKeyPressed){
             gp.gameState=gameState;
+            gp.player.attackCanceled=true;
             if(gp.player.hp<gp.player.maxHp) {
                 if(gp.player.canDrink){
                     gp.uiH.currentDialogueText = "Sudan içtin. Nedense tuzlu değildi.\n\n\n*İyileştin!*";
+                    gp.playSoundEffect(1);
                     gp.player.hp+=1;
                 } else {
                     gp.uiH.currentDialogueText = "\"YOOOK.\"";
+                    gp.playSoundEffect(2);
                 }
             } else {
                 if(gp.player.canDrink){
@@ -81,6 +86,7 @@ public class EventHandler {
                     gp.uiH.currentDialogueText = "Suda böcek gördün. \"Ben daha içmem aga.\"";
                 } else {
                     gp.uiH.currentDialogueText = "\"YOOOK.\"";
+                    gp.playSoundEffect(2);
                 }
             }
         }

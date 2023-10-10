@@ -12,8 +12,8 @@ public class SoundHandler {
 
     public SoundHandler(){
         soundURL[0] = getClass().getResource("/sounds/Music.wav");
-        soundURL[1] = getClass().getResource("/sounds/candy.wav");
-        soundURL[2] = getClass().getResource("/sounds/carrot.wav");
+        soundURL[1] = getClass().getResource("/sounds/drink.wav");
+        soundURL[2] = getClass().getResource("/sounds/no.wav");
         soundURL[3] = getClass().getResource("/sounds/rabbit.wav");
         soundURL[4] = getClass().getResource("/sounds/idle.wav");
         soundURL[5] = getClass().getResource("/sounds/lost.wav");

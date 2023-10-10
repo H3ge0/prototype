@@ -5,7 +5,6 @@ import main.KeyHandler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Objects;
 import java.util.Random;
 
 public class Player extends Entity{
@@ -14,6 +13,7 @@ public class Player extends Entity{
     KeyHandler keyH;
     Random random;
     public final int screenX, screenY;
+    public boolean attackCanceled = false;
 
     public Player(GamePanel gp, KeyHandler keyH){
 
@@ -109,11 +109,6 @@ public class Player extends Entity{
 
             gp.eventH.checkEvent();
 
-            if(keyH.zKeyPressed){
-                gp.playSoundEffect(9);
-                attacking=true;
-            }
-
             if(!collision&&!keyH.xKeyPressed&&!keyH.zKeyPressed) {
                 switch (direction) {
                     case "up" -> worldY -= speed;
@@ -123,6 +118,13 @@ public class Player extends Entity{
                 }
             }
 
+            if (keyH.zKeyPressed && !attackCanceled){
+                gp.playSoundEffect(9);
+                attacking=true;
+                spriteCounter=0;
+            }
+
+            attackCanceled=false;
             keyH.xKeyPressed=false;
             keyH.zKeyPressed=false;
 
@@ -201,6 +203,7 @@ public class Player extends Entity{
     public void interactWithNPC(int index){
         if(keyH.xKeyPressed){
             if(index!=999){
+                attackCanceled = true;
                 gp.gameState=gp.dialogueState;
                 gp.npcs[index].speak();
             }
