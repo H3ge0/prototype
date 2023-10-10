@@ -10,9 +10,9 @@ public class Heart extends Entity {
 
         name = "Chest";
 
-        image1 = setImage("/ui/heart_full");
-        image2 = setImage("/ui/heart_half");
-        image3 = setImage("/ui/heart_empty");
+        image1 = setImage("/ui/heart_full",gp.tileSize,gp.tileSize);
+        image2 = setImage("/ui/heart_half",gp.tileSize,gp.tileSize);
+        image3 = setImage("/ui/heart_empty",gp.tileSize,gp.tileSize);
 
     }
 }

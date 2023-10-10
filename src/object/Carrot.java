@@ -10,7 +10,7 @@ public class Carrot extends Entity {
 
         name = "Carrot";
 
-        down1=setImage("/objects/carrot");
+        down1=setImage("/objects/carrot",gp.tileSize,gp.tileSize);
     }
 
 }

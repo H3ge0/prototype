@@ -10,7 +10,7 @@ public class Candy extends Entity {
 
         name = "Candy";
 
-        down1 = setImage("/objects/candy");
+        down1 = setImage("/objects/candy",gp.tileSize,gp.tileSize);
 
     }
 

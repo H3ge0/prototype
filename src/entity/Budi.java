@@ -22,18 +22,18 @@ public class Budi extends Entity{
     }
 
     public void getImages(){
-        upidle = setImage("/npc/budi_up_idle");
-        up1 = setImage("/npc/budi_up_1");
-        up2 = setImage("/npc/budi_up_2");
-        downidle = setImage("/npc/budi_down_idle");
-        down1 = setImage("/npc/budi_down_1");
-        down2 = setImage("/npc/budi_down_2");
-        leftidle = setImage("/npc/budi_left_idle");
-        left1 = setImage("/npc/budi_left_1");
-        left2 = setImage("/npc/budi_left_2");
-        rightidle = setImage("/npc/budi_right_idle");
-        right1 = setImage("/npc/budi_right_1");
-        right2 = setImage("/npc/budi_right_2");
+        upidle = setImage("/npc/budi_up_idle",gp.tileSize,gp.tileSize);
+        up1 = setImage("/npc/budi_up_1",gp.tileSize,gp.tileSize);
+        up2 = setImage("/npc/budi_up_2",gp.tileSize,gp.tileSize);
+        downidle = setImage("/npc/budi_down_idle",gp.tileSize,gp.tileSize);
+        down1 = setImage("/npc/budi_down_1",gp.tileSize,gp.tileSize);
+        down2 = setImage("/npc/budi_down_2",gp.tileSize,gp.tileSize);
+        leftidle = setImage("/npc/budi_left_idle",gp.tileSize,gp.tileSize);
+        left1 = setImage("/npc/budi_left_1",gp.tileSize,gp.tileSize);
+        left2 = setImage("/npc/budi_left_2",gp.tileSize,gp.tileSize);
+        rightidle = setImage("/npc/budi_right_idle",gp.tileSize,gp.tileSize);
+        right1 = setImage("/npc/budi_right_1",gp.tileSize,gp.tileSize);
+        right2 = setImage("/npc/budi_right_2",gp.tileSize,gp.tileSize);
     }
 
     public void setDialogues(){

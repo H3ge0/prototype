@@ -10,7 +10,7 @@ public class Chest extends Entity {
 
         name = "Chest";
 
-        down1 = setImage("/objects/chest");
+        down1 = setImage("/objects/chest",gp.tileSize,gp.tileSize);
 
         collisionOn=true;
 

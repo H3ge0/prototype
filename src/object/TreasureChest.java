@@ -10,7 +10,7 @@ public class TreasureChest extends Entity {
 
         name = "Treasure Chest";
 
-        down1 = setImage("/objects/treasure_chest");
+        down1 = setImage("/objects/treasure_chest",gp.tileSize,gp.tileSize);
 
         collisionOn = true;
 

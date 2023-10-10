@@ -27,15 +27,15 @@ public class Ogim extends Entity {
     }
 
     public void getImage(){
-        upidle = setImage("/monsters/ogim_1");
-        up1 = setImage("/monsters/ogim_2");
-        up2 = setImage("/monsters/ogim_3");
-        downidle = setImage("/monsters/ogim_4");
-        down1 = setImage("/monsters/ogim_5");
-        down2 = setImage("/monsters/ogim_6");
-        leftidle = setImage("/monsters/ogim_7");
-        left1 = setImage("/monsters/ogim_8");
-        left2 = setImage("/monsters/ogim_9");
+        upidle = setImage("/monsters/ogim_1",gp.tileSize,gp.tileSize);
+        up1 = setImage("/monsters/ogim_2",gp.tileSize,gp.tileSize);
+        up2 = setImage("/monsters/ogim_3",gp.tileSize,gp.tileSize);
+        downidle = setImage("/monsters/ogim_4",gp.tileSize,gp.tileSize);
+        down1 = setImage("/monsters/ogim_5",gp.tileSize,gp.tileSize);
+        down2 = setImage("/monsters/ogim_6",gp.tileSize,gp.tileSize);
+        leftidle = setImage("/monsters/ogim_7",gp.tileSize,gp.tileSize);
+        left1 = setImage("/monsters/ogim_8",gp.tileSize,gp.tileSize);
+        left2 = setImage("/monsters/ogim_9",gp.tileSize,gp.tileSize);
     }
 
     @Override
@@ -94,6 +94,14 @@ public class Ogim extends Entity {
             spriteCounter=0;
         }
 
+        if(invincible){
+            invincibleCounter++;
+            if (invincibleCounter>35){
+                invincible=false;
+                invincibleCounter=0;
+            }
+        }
+
     }
 
     @Override
@@ -116,7 +124,25 @@ public class Ogim extends Entity {
                 case 13 -> image = left2;
             }
 
+            if (invincible){
+                if (invincibleCounter<15){
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+                }else if (invincibleCounter<30){
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.9f));
+                }else if (invincibleCounter<45){
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+                }else if (invincibleCounter<60){
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.9f));
+                }else if (invincibleCounter<75){
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+                }else if (invincibleCounter<90){
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+                }
+            }
+
             g2.drawImage(image,screenX,screenY,gp.tileSize,gp.tileSize,null);
+
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
         }
     }

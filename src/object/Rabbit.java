@@ -10,7 +10,7 @@ public class Rabbit extends Entity {
 
         name = "Rabbit";
 
-        down1 = setImage("/objects/rabbit");
+        down1 = setImage("/objects/rabbit",gp.tileSize,gp.tileSize);
 
         collisionOn=true;
 

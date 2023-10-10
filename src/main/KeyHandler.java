@@ -6,7 +6,8 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed,downPressed,leftPressed,rightPressed,xKeyPressed;
+    public boolean keyPressed;
+    public boolean upPressed,downPressed,leftPressed,rightPressed,xKeyPressed,zKeyPressed;
 
     //Debug
     boolean debugMode=false;
@@ -47,7 +48,7 @@ public class KeyHandler implements KeyListener {
         }
 
         //PlayState
-        if(gp.gameState== gp.playState){
+        else if(gp.gameState==gp.playState){
             //Movement
             if(keyCode==KeyEvent.VK_UP){
                 upPressed = true;
@@ -63,6 +64,9 @@ public class KeyHandler implements KeyListener {
             }
             if(keyCode==KeyEvent.VK_X){
                 xKeyPressed = true;
+            }
+            if(keyCode==KeyEvent.VK_Z){
+                zKeyPressed = true;
             }
             //Other
             if(keyCode==KeyEvent.VK_ESCAPE){

@@ -12,28 +12,33 @@ import java.util.Objects;
 public class Entity {
 
     public GamePanel gp;
-
-    public int worldX, worldY;
-    public int speed;
-
     public BufferedImage upidle,up1,up2,downidle,down1,down2,leftidle,left1,left2,rightidle,right1,right2;
-    public String direction = "down";
-
-    public int spriteCounter = 0;
-    public int spriteNum = 1;
-
-    public Rectangle collisionBox = new Rectangle(0,0,48,48);
-    public int collisionBoxDefaultX=collisionBox.x, collisionBoxDefaultY=collisionBox.y;
-    public boolean collision = false;
-    public int actionLockCounter = 0;
-    String[] dialogues = new String[20];
-    int dialogueIndex=0;
+    public BufferedImage attackUp1,attackUp2,attackUp3,attackDown1,attackDown2,attackDown3,attackLeft1,attackLeft2,attackLeft3,attackRight1,attackRight2,attackRight3;
     public BufferedImage image1,image2,image3;
-    public String name;
+    public Rectangle collisionBox = new Rectangle(0,0,48,48);
+    public Rectangle attackArea = new Rectangle(0,0,0,0);
+    public int collisionBoxDefaultX=collisionBox.x, collisionBoxDefaultY=collisionBox.y;
     public boolean collisionOn = false;
-    public int type; // 0->player   1->npc   2->monster   3->obj
+    String[] dialogues = new String[20];
+
+    //State
+    public int worldX, worldY;
+    public String direction = "down";
+    public int spriteNum = 1;
+    int dialogueIndex=0;
+    public boolean collision = false;
+    public boolean invincible = false;
+    boolean attacking = false;
+
+    //Counters
+    public int actionLockCounter = 0;
+    public int spriteCounter = 0;
+    public int invincibleCounter = 0;
 
     //Character
+    public int type; // 0->player   1->npc   2->monster   3->obj
+    public String name;
+    public int speed;
     public int maxHp;
     public int hp;
 
@@ -92,6 +97,14 @@ public class Entity {
             spriteCounter=0;
         }
 
+        if(invincible){
+            invincibleCounter++;
+            if (invincibleCounter>35){
+                invincible=false;
+                invincibleCounter=0;
+            }
+        }
+
     }
 
     public void draw(Graphics2D g2) {
@@ -145,17 +158,35 @@ public class Entity {
                 }
             }
 
+            if (invincible){
+                if (invincibleCounter<15){
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+                }else if (invincibleCounter<30){
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.9f));
+                }else if (invincibleCounter<45){
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+                }else if (invincibleCounter<60){
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.9f));
+                }else if (invincibleCounter<75){
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+                }else if (invincibleCounter<90){
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+                }
+            }
+
             g2.drawImage(image,screenX,screenY,gp.tileSize,gp.tileSize,null);
+
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
     }
 
-    public BufferedImage setImage(String path){
+    public BufferedImage setImage(String path,int width,int height){
         UtilityTool utility = new UtilityTool();
         BufferedImage image = null;
 
         try {
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(path+".png")));
-            image = utility.scaleImage(image,gp.tileSize,gp.tileSize);
+            image = utility.scaleImage(image,width,height);
         } catch (IOException e) {
             e.printStackTrace();
         }
