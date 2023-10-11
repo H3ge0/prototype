@@ -2,6 +2,8 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import object.ArmorLeather;
+import object.FireballOrange;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -39,12 +41,31 @@ public class Player extends Entity{
     }
 
     public void setValues() {
-        worldX = gp.tileSize*23;
-        worldY = gp.tileSize*21;
-        speed = 4;
-        direction = "down";
-        maxHp = 6;
-        hp = 6;
+        worldX=gp.tileSize*23;
+        worldY=gp.tileSize*21;
+        speed=4;
+        direction="down";
+        //Player Stats
+        level=1;
+        maxHp=6;
+        hp=maxHp;
+        strength=1;
+        dexterity=1;
+        exp=0;
+        nextLevelExp=5;
+        coin=0;
+        currentFireball=new FireballOrange(gp);
+        currentArmor=new ArmorLeather(gp);
+        attack=getAttack();
+        defense=getDefense();
+    }
+
+    public int getAttack(){
+        return strength*currentFireball.attackValue;
+    }
+
+    public int getDefense(){
+        return dexterity*currentArmor.defenseValue;
     }
 
     public void getImages(){

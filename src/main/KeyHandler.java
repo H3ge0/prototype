@@ -22,79 +22,108 @@ public class KeyHandler implements KeyListener {
 
         //TitleState
         if(gp.gameState== gp.titleState){
-            //Select
-            if(keyCode==KeyEvent.VK_UP){
-                if(gp.uiH.commandNum==0)
-                    gp.uiH.commandNum=2;
-                else
-                    gp.uiH.commandNum=0;
-            }
-            if(keyCode==KeyEvent.VK_DOWN){
-                if(gp.uiH.commandNum==2)
-                    gp.uiH.commandNum=0;
-                else
-                    gp.uiH.commandNum=2;
-            }
-            if(keyCode==KeyEvent.VK_X){
-                if(gp.uiH.commandNum==0){
-                    gp.gameState=gp.playState;
-                    gp.playMusic(0);
-                }else if(gp.uiH.commandNum==1){
-                    //
-                }else if(gp.uiH.commandNum==2){
-                    System.exit(0);
-                }
-            }
+            titleState(keyCode);
         }
 
         //PlayState
         else if(gp.gameState==gp.playState){
-            //Movement
-            if(keyCode==KeyEvent.VK_UP){
-                upPressed = true;
-            }
-            if(keyCode==KeyEvent.VK_DOWN){
-                downPressed = true;
-            }
-            if(keyCode==KeyEvent.VK_LEFT){
-                leftPressed = true;
-            }
-            if(keyCode==KeyEvent.VK_RIGHT){
-                rightPressed = true;
-            }
-            if(keyCode==KeyEvent.VK_X){
-                xKeyPressed = true;
-            }
-            if(keyCode==KeyEvent.VK_Z){
-                zKeyPressed = true;
-            }
-            //Other
-            if(keyCode==KeyEvent.VK_ESCAPE){
-                gp.gameState = gp.pauseState;
-                gp.stopMusic();
-            }
-            //Debug
-            if(keyCode==KeyEvent.VK_D){
-                debugMode = !debugMode;
-            }
+            playState(keyCode);
         }
 
         //PauseState
         else if (gp.gameState==gp.pauseState){
-            //Other Controls
-            if(keyCode==KeyEvent.VK_ESCAPE){
-                gp.gameState = gp.playState;
-                gp.music.play();
-                gp.music.loop();
-            }
+            pauseState(keyCode);
         }
 
         //DialogueState
         else if (gp.gameState==gp.dialogueState){
-            //Other Controls
-            if(keyCode==KeyEvent.VK_X){
-                gp.gameState = gp.playState;
+            dialogueState(keyCode);
+        }
+
+        //CharInfoState
+        else if (gp.gameState==gp.charInfoState){
+            charInfoState(keyCode);
+        }
+    }
+
+    void titleState(int keyCode){
+        if(keyCode==KeyEvent.VK_UP){
+            if(gp.uiH.commandNum==0)
+                gp.uiH.commandNum=2;
+            else
+                gp.uiH.commandNum=0;
+        }
+        if(keyCode==KeyEvent.VK_DOWN){
+            if(gp.uiH.commandNum==2)
+                gp.uiH.commandNum=0;
+            else
+                gp.uiH.commandNum=2;
+        }
+        if(keyCode==KeyEvent.VK_X){
+            if(gp.uiH.commandNum==0){
+                gp.gameState=gp.playState;
+                gp.playMusic(0);
+            }else if(gp.uiH.commandNum==1){
+                //
+            }else if(gp.uiH.commandNum==2){
+                System.exit(0);
             }
+        }
+    }
+
+    void playState(int keyCode){
+        //Movement
+        if(keyCode==KeyEvent.VK_UP){
+            upPressed = true;
+        }
+        if(keyCode==KeyEvent.VK_DOWN){
+            downPressed = true;
+        }
+        if(keyCode==KeyEvent.VK_LEFT){
+            leftPressed = true;
+        }
+        if(keyCode==KeyEvent.VK_RIGHT){
+            rightPressed = true;
+        }
+        if(keyCode==KeyEvent.VK_X){
+            xKeyPressed = true;
+        }
+        if(keyCode==KeyEvent.VK_Z){
+            zKeyPressed = true;
+        }
+
+        //Other
+        if(keyCode==KeyEvent.VK_ESCAPE){
+            gp.gameState = gp.pauseState;
+            gp.stopMusic();
+        }
+        if(keyCode==KeyEvent.VK_C){
+            gp.gameState = gp.charInfoState;
+        }
+
+        //Debug
+        if(keyCode==KeyEvent.VK_D){
+            debugMode = !debugMode;
+        }
+    }
+
+    void pauseState(int keyCode){
+        if(keyCode==KeyEvent.VK_ESCAPE){
+            gp.gameState = gp.playState;
+            gp.music.play();
+            gp.music.loop();
+        }
+    }
+
+    void dialogueState(int keyCode){
+        if(keyCode==KeyEvent.VK_X){
+            gp.gameState = gp.playState;
+        }
+    }
+
+    void charInfoState(int keyCode){
+        if (keyCode==KeyEvent.VK_C){
+            gp.gameState = gp.playState;
         }
     }
 

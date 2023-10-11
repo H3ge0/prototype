@@ -73,6 +73,12 @@ public class UIHandler {
             drawDialogueScreen();
         }
 
+        //CharInfoState
+        if (gp.gameState==gp.charInfoState){
+            drawPlayerHealth();
+            drawCharInfoScreen();
+        }
+
     }
 
     public void drawTitleScreen(){
@@ -214,6 +220,100 @@ public class UIHandler {
         }
     }
 
+    public void drawCharInfoScreen(){
+        //Create a window
+        final int windowX=gp.tileSize/2;
+        final int windowY=gp.tileSize*2;
+        final int windowWidth=gp.tileSize*5;
+        final int windowHeight=gp.tileSize*9;
+        drawSubWindow(windowX,windowY,windowWidth,windowHeight);
+
+        //Text
+        g2.setColor(Color.white);
+        g2.setFont(fixedsys.deriveFont(20f));
+
+        int textX = windowX+20;
+        int textY = windowY+gp.tileSize;
+        final int lineHeight = 21;
+
+        //Value Names
+        g2.drawString("Seviye",textX,textY);
+        textY+=lineHeight;
+        g2.drawString("Can",textX,textY);
+        textY+=lineHeight;
+        g2.drawString("Güç",textX,textY);
+        textY+=lineHeight;
+        g2.drawString("Yetenek",textX,textY);
+        textY+=lineHeight;
+        g2.drawString("Saldırı",textX,textY);
+        textY+=lineHeight;
+        g2.drawString("Savunma",textX,textY);
+        textY+=lineHeight;
+        g2.drawString("Deneyim",textX,textY);
+        textY+=lineHeight;
+        g2.drawString("Sonraki Seviye",textX,textY);
+        textY+=lineHeight;
+        g2.drawString("Altın",textX,textY);
+        textY+=lineHeight+30;
+        g2.drawString("Ateş Topu",textX,textY);
+        textY+=lineHeight+70;
+        g2.drawString("Zırh",textX,textY);
+
+        //Values
+        int endOfRect = windowX+windowWidth-20;
+        textY = windowY+gp.tileSize;
+        String value;
+
+        value = String.valueOf(gp.player.level);
+        textX = getXForRightAlignedText(value,endOfRect);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = gp.player.hp+"/"+gp.player.maxHp;
+        textX = getXForRightAlignedText(value,endOfRect);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(gp.player.strength);
+        textX = getXForRightAlignedText(value,endOfRect);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(gp.player.dexterity);
+        textX = getXForRightAlignedText(value,endOfRect);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(gp.player.attack);
+        textX = getXForRightAlignedText(value,endOfRect);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(gp.player.defense);
+        textX = getXForRightAlignedText(value,endOfRect);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(gp.player.exp);
+        textX = getXForRightAlignedText(value,endOfRect);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(gp.player.nextLevelExp);
+        textX = getXForRightAlignedText(value,endOfRect);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(gp.player.coin);
+        textX = getXForRightAlignedText(value,endOfRect);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        g2.drawImage(gp.player.currentFireball.down1,endOfRect-gp.tileSize,textY,null);
+        textY+=lineHeight*2+gp.tileSize;
+        g2.drawImage(gp.player.currentArmor.down1,endOfRect-gp.tileSize,textY,null);
+    }
+
     public void drawSubWindow(int x, int y, int width, int height){
 
         g2.setColor(lessOpaqueBlack);
@@ -229,6 +329,10 @@ public class UIHandler {
         int textLength = (int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
 
         return gp.screenWidth/2-textLength/2;
+    }
+
+    public int getXForRightAlignedText(String text,int endOfRect){
+        return endOfRect-(int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
     }
 
 }
