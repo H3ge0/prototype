@@ -41,7 +41,6 @@ public class Entity {
     public int hpBarCounter = 0;
 
     //Character
-    public int type; // 0->player   1->npc   2->monster   3->obj
     public String name;
     public int speed;
     public int maxHp;
@@ -60,14 +59,25 @@ public class Entity {
     //Item
     public int attackValue;
     public int defenseValue;
-    public String displayedName="?";
-    public String description="?";
+    public String displayedName="";
+    public String description="";
+
+    //Type
+    public int type; // 0->player   1->npc   2->monster   3->obj
+    public final int typePlayer=0;
+    public final int typeNpc=1;
+    public final int typeMonster=2;
+    public final int typeFireball=3;
+    public final int typeArmor=4;
+    public final int typeConsumable=5;
 
     public Entity(GamePanel gp){
         this.gp = gp;
     }
 
     public void setAction(){}
+
+    public void use(Entity entity){}
 
     public void damageReaction(){}
 
@@ -94,7 +104,7 @@ public class Entity {
         gp.collisionH.checkEntity(this,gp.monsters);
         boolean contactPlayer = gp.collisionH.checkPlayer(this);
 
-        if (this.type==2 && contactPlayer){
+        if (type==typeMonster && contactPlayer){
             if(gp.player.hp>0 && !gp.player.invincible && !dying){
                 int damage = attack-gp.player.defense;
                 if(damage>0){
@@ -185,7 +195,7 @@ public class Entity {
                 }
             }
 
-            if(type==2 && hpBarOn){
+            if(type==typeMonster && hpBarOn){
                 double oneScale = (double)gp.tileSize/maxHp;
                 double hpBarWidth = oneScale*hp;
 

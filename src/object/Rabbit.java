@@ -9,6 +9,8 @@ public class Rabbit extends Entity {
         super(gp);
 
         name = "Rabbit";
+        displayedName = "Tavşan";
+        description = "Bu neden envanterinde?";
 
         down1 = setImage("/objects/rabbit",gp.tileSize,gp.tileSize);
 

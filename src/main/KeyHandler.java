@@ -140,16 +140,27 @@ public class KeyHandler implements KeyListener {
             }
         }
         if(keyCode==KeyEvent.VK_LEFT){
-            if(gp.uiH.slotCol!=0){
+            if(gp.uiH.slotCol==0 && gp.uiH.slotRow>0){
+                gp.uiH.slotRow--;
+                gp.uiH.slotCol=4;
+                gp.playSoundEffect(3);
+            }else if(!(gp.uiH.slotCol==0 && gp.uiH.slotRow==0)){
                 gp.uiH.slotCol--;
                 gp.playSoundEffect(3);
             }
         }
         if(keyCode==KeyEvent.VK_RIGHT){
-            if(gp.uiH.slotCol!=4){
+            if(gp.uiH.slotCol==4 && gp.uiH.slotRow<3){
+                gp.uiH.slotRow++;
+                gp.uiH.slotCol=0;
+                gp.playSoundEffect(3);
+            }else if(!(gp.uiH.slotCol==4 && gp.uiH.slotRow==3)){
                 gp.uiH.slotCol++;
                 gp.playSoundEffect(3);
             }
+        }
+        if (keyCode==KeyEvent.VK_X){
+            gp.player.useItem();
         }
         if (keyCode==KeyEvent.VK_C){
             gp.gameState = gp.playState;

@@ -20,7 +20,7 @@ public class Ogim extends Entity {
         collisionBox.width=gp.tileSize-6;
         collisionBox.height=gp.tileSize-6;
 
-        type = 2;
+        type = typeMonster;
         name = "Ogim";
         speed = 1;
         maxHp = 3;
@@ -76,7 +76,7 @@ public class Ogim extends Entity {
         gp.collisionH.checkEntity(this,gp.monsters);
         boolean contactPlayer = gp.collisionH.checkPlayer(this);
 
-        if (this.type==2 && contactPlayer){
+        if (type==typeMonster && contactPlayer){
             if(gp.player.hp>0 && !gp.player.invincible && !dying){
                 int damage = attack-gp.player.defense;
                 if(damage>0){
@@ -136,7 +136,7 @@ public class Ogim extends Entity {
                 case 13 -> image = left2;
             }
 
-            if(type==2 && hpBarOn){
+            if(type==typeMonster && hpBarOn){
                 double oneScale = (double)gp.tileSize/maxHp;
                 double hpBarWidth = oneScale*hp;
 

@@ -9,6 +9,8 @@ public class Chest extends Entity {
         super(gp);
 
         name = "Chest";
+        displayedName = "Sandık";
+        description = "Birşeyler saklamak için on numara";
 
         down1 = setImage("/objects/chest",gp.tileSize,gp.tileSize);
 

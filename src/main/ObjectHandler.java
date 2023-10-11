@@ -2,6 +2,10 @@ package main;
 
 import entity.Budi;
 import monster.Ogim;
+import object.ArmorIron;
+import object.Candy;
+import object.Carrot;
+import object.FireballPurple;
 
 public class ObjectHandler {
 
@@ -12,7 +16,28 @@ public class ObjectHandler {
     }
 
     public void setObjects() {
+        int i=0;
 
+        gp.obj[i] = new Carrot(gp);
+        gp.obj[i].worldX = gp.tileSize*25;
+        gp.obj[i].worldY = gp.tileSize*23;
+        i++;
+        gp.obj[i] = new Candy(gp);
+        gp.obj[i].worldX = gp.tileSize*21;
+        gp.obj[i].worldY = gp.tileSize*19;
+        i++;
+        gp.obj[i] = new Carrot(gp);
+        gp.obj[i].worldX = gp.tileSize*26;
+        gp.obj[i].worldY = gp.tileSize*21;
+        i++;
+        gp.obj[i] = new FireballPurple(gp);
+        gp.obj[i].worldX = gp.tileSize*23;
+        gp.obj[i].worldY = gp.tileSize*23;
+        i++;
+        gp.obj[i] = new ArmorIron(gp);
+        gp.obj[i].worldX = gp.tileSize*24;
+        gp.obj[i].worldY = gp.tileSize*19;
+        i++;
     }
 
     public void setNPCs(){

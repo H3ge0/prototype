@@ -15,12 +15,13 @@ public class SoundHandler {
         soundURL[1] = getClass().getResource("/sounds/drink.wav");
         soundURL[2] = getClass().getResource("/sounds/no.wav");
         soundURL[3] = getClass().getResource("/sounds/cursor.wav");
-        soundURL[4] = getClass().getResource("/sounds/idle.wav");
-        soundURL[5] = getClass().getResource("/sounds/lost.wav");
+        soundURL[4] = getClass().getResource("/sounds/item.wav");
+        soundURL[5] = getClass().getResource("/sounds/eat.wav");
         soundURL[6] = getClass().getResource("/sounds/levelup.wav");
         soundURL[7] = getClass().getResource("/sounds/gopi_hit.wav");
         soundURL[8] = getClass().getResource("/sounds/monster_hit.wav");
         soundURL[9] = getClass().getResource("/sounds/fireball.wav");
+        soundURL[10] = getClass().getResource("/sounds/select.wav");
     }
 
     public void setFile(int i){

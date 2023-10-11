@@ -364,10 +364,15 @@ public class UIHandler {
         final int slotYStart = windowY + 20;
         int slotX = slotXStart;
         int slotY = slotYStart;
-        int slotSize = gp.tileSize+3;
+        int slotSize = gp.tileSize+2;
 
         //Draw Inventory
         for (int i=0; i<gp.player.inventory.size();i++){
+            if(gp.player.inventory.get(i)==gp.player.currentFireball || gp.player.inventory.get(i)==gp.player.currentArmor){
+                g2.setColor(new Color(240,190,90));
+                g2.fillRoundRect(slotX,slotY,gp.tileSize,gp.tileSize,10,10);
+            }
+
             g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
             slotX+=slotSize;
             if(i==4 || i==9 || i==14){
@@ -392,8 +397,6 @@ public class UIHandler {
         int dWindowWidth = windowWidth;
         int dWindowHeight = gp.tileSize*4;
 
-        drawSubWindow(dWindowX,dWindowY,dWindowWidth,dWindowHeight);
-
         //Description
         int textX = dWindowX + 20;
         int textY = dWindowY + gp.tileSize;
@@ -402,6 +405,8 @@ public class UIHandler {
         int itemIndex = getItemIndex();
 
         if(itemIndex<gp.player.inventory.size()){
+            drawSubWindow(dWindowX,dWindowY,dWindowWidth,dWindowHeight);
+
             g2.setColor(Color.yellow);
             g2.drawString("["+gp.player.inventory.get(itemIndex).displayedName+"]",textX,textY);
             textY+=24;

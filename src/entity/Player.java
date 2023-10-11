@@ -3,8 +3,6 @@ package entity;
 import main.GamePanel;
 import main.KeyHandler;
 import object.ArmorLeather;
-import object.Candy;
-import object.Carrot;
 import object.FireballOrange;
 
 import java.awt.*;
@@ -37,9 +35,6 @@ public class Player extends Entity{
         collisionBoxDefaultX = collisionBox.x;
         collisionBoxDefaultY = collisionBox.y;
 
-        attackArea.width=36;
-        attackArea.height=36;
-
         setValues();
         getImages();
         getAttackImages();
@@ -69,11 +64,10 @@ public class Player extends Entity{
     public void setInventory(){
         inventory.add(currentFireball);
         inventory.add(currentArmor);
-        inventory.add(new Carrot(gp));
-        inventory.add(new Candy(gp));
     }
 
     public int getAttack(){
+        attackArea = currentFireball.attackArea;
         return strength*currentFireball.attackValue;
     }
 
@@ -97,18 +91,34 @@ public class Player extends Entity{
     }
 
     public void getAttackImages(){
-        attackUp1 = setImage("/player/gopi_attack_up_1",gp.tileSize,gp.tileSize*2);
-        attackUp2 = setImage("/player/gopi_attack_up_2",gp.tileSize,gp.tileSize*2);
-        attackUp3 = setImage("/player/gopi_attack_up_3",gp.tileSize,gp.tileSize*2);
-        attackDown1 = setImage("/player/gopi_attack_down_1",gp.tileSize,gp.tileSize*2);
-        attackDown2 = setImage("/player/gopi_attack_down_2",gp.tileSize,gp.tileSize*2);
-        attackDown3 = setImage("/player/gopi_attack_down_3",gp.tileSize,gp.tileSize*2);
-        attackLeft1 = setImage("/player/gopi_attack_left_1",gp.tileSize*2,gp.tileSize);
-        attackLeft2 = setImage("/player/gopi_attack_left_2",gp.tileSize*2,gp.tileSize);
-        attackLeft3 = setImage("/player/gopi_attack_left_3",gp.tileSize*2,gp.tileSize);
-        attackRight1 = setImage("/player/gopi_attack_right_1",gp.tileSize*2,gp.tileSize);
-        attackRight2 = setImage("/player/gopi_attack_right_2",gp.tileSize*2,gp.tileSize);
-        attackRight3 = setImage("/player/gopi_attack_right_3",gp.tileSize*2,gp.tileSize);
+        if(currentFireball.name.equals("Orange Fireball")){
+            attackUp1 = setImage("/player/gopi_attack_up_1",gp.tileSize,gp.tileSize*2);
+            attackUp2 = setImage("/player/gopi_attack_up_2",gp.tileSize,gp.tileSize*2);
+            attackUp3 = setImage("/player/gopi_attack_up_3",gp.tileSize,gp.tileSize*2);
+            attackDown1 = setImage("/player/gopi_attack_down_1",gp.tileSize,gp.tileSize*2);
+            attackDown2 = setImage("/player/gopi_attack_down_2",gp.tileSize,gp.tileSize*2);
+            attackDown3 = setImage("/player/gopi_attack_down_3",gp.tileSize,gp.tileSize*2);
+            attackLeft1 = setImage("/player/gopi_attack_left_1",gp.tileSize*2,gp.tileSize);
+            attackLeft2 = setImage("/player/gopi_attack_left_2",gp.tileSize*2,gp.tileSize);
+            attackLeft3 = setImage("/player/gopi_attack_left_3",gp.tileSize*2,gp.tileSize);
+            attackRight1 = setImage("/player/gopi_attack_right_1",gp.tileSize*2,gp.tileSize);
+            attackRight2 = setImage("/player/gopi_attack_right_2",gp.tileSize*2,gp.tileSize);
+            attackRight3 = setImage("/player/gopi_attack_right_3",gp.tileSize*2,gp.tileSize);
+        } else if(currentFireball.name.equals("Purple Fireball")){
+            attackUp1 = setImage("/player/purple/gopi_attack_up_1",gp.tileSize,gp.tileSize*2);
+            attackUp2 = setImage("/player/purple/gopi_attack_up_2",gp.tileSize,gp.tileSize*2);
+            attackUp3 = setImage("/player/purple/gopi_attack_up_3",gp.tileSize,gp.tileSize*2);
+            attackDown1 = setImage("/player/purple/gopi_attack_down_1",gp.tileSize,gp.tileSize*2);
+            attackDown2 = setImage("/player/purple/gopi_attack_down_2",gp.tileSize,gp.tileSize*2);
+            attackDown3 = setImage("/player/purple/gopi_attack_down_3",gp.tileSize,gp.tileSize*2);
+            attackLeft1 = setImage("/player/purple/gopi_attack_left_1",gp.tileSize*2,gp.tileSize);
+            attackLeft2 = setImage("/player/purple/gopi_attack_left_2",gp.tileSize*2,gp.tileSize);
+            attackLeft3 = setImage("/player/purple/gopi_attack_left_3",gp.tileSize*2,gp.tileSize);
+            attackRight1 = setImage("/player/purple/gopi_attack_right_1",gp.tileSize*2,gp.tileSize);
+            attackRight2 = setImage("/player/purple/gopi_attack_right_2",gp.tileSize*2,gp.tileSize);
+            attackRight3 = setImage("/player/purple/gopi_attack_right_3",gp.tileSize*2,gp.tileSize);
+        }
+
     }
 
     public void update() {
@@ -230,7 +240,15 @@ public class Player extends Entity{
 
     public void interactWithObj(int index){
         if(index!=999){
-
+            String text;
+            if(inventory.size()<invSize){
+                inventory.add(gp.obj[index]);
+                gp.playSoundEffect(4);
+                text = "Bir "+gp.obj[index].displayedName+" buldun!";
+            }else
+                text = "Envanterin dolu.";
+            gp.uiH.addMessage(text);
+            gp.obj[index]=null;
         }
     }
 
@@ -292,6 +310,35 @@ public class Player extends Entity{
             gp.playSoundEffect(6);
             gp.gameState=gp.dialogueState;
             gp.uiH.currentDialogueText="Seviye atladın!! Artık "+level+". seviyesin!";
+        }
+    }
+
+    public void useItem(){
+        int itemIndex = gp.uiH.getItemIndex();
+
+        if(itemIndex<inventory.size()){
+            Entity selectedItem = inventory.get(itemIndex);
+            switch(selectedItem.type){
+                case typeFireball -> {
+                    if(!currentFireball.name.equals(selectedItem.name)){
+                        gp.playSoundEffect(10);
+                        currentFireball=selectedItem;
+                        attack=getAttack();
+                        getAttackImages();
+                    }
+                }
+                case typeArmor -> {
+                    if(!currentArmor.name.equals(selectedItem.name)){
+                        gp.playSoundEffect(10);
+                        currentArmor=selectedItem;
+                        defense=getDefense();
+                    }
+                }
+                case typeConsumable -> {
+                    selectedItem.use(this);
+                    inventory.remove(selectedItem);
+                }
+            }
         }
     }
 

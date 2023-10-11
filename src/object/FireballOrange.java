@@ -10,8 +10,12 @@ public class FireballOrange extends Entity {
         name="Orange Fireball";
         displayedName="Turuncu Ateş Topu";
         description="Doğduğundan beri\nkullandığın ateş topu.";
+        type=typeFireball;
 
         down1=setImage("/objects/fireball_orange",gp.tileSize,gp.tileSize);
+
+        attackArea.width=36;
+        attackArea.height=36;
 
         attackValue=1;
     }

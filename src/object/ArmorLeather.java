@@ -9,7 +9,8 @@ public class ArmorLeather extends Entity {
 
         name="Leather Armor";
         displayedName="Deri Zırh";
-        description="Sokakta bulsan da iş\ngörüyor.";
+        description="Ormanın ortasında bulmuş\nolsan da iş görüyor.";
+        type=typeArmor;
 
         down1=setImage("/objects/armor_leather",gp.tileSize,gp.tileSize);
 
