@@ -9,6 +9,8 @@ public class Candy extends Entity {
         super(gp);
 
         name = "Candy";
+        displayedName="Şeker";
+        description="Çok tatlı duruyor...";
 
         down1 = setImage("/objects/candy",gp.tileSize,gp.tileSize);
 

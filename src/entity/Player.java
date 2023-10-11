@@ -3,10 +3,13 @@ package entity;
 import main.GamePanel;
 import main.KeyHandler;
 import object.ArmorLeather;
+import object.Candy;
+import object.Carrot;
 import object.FireballOrange;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Player extends Entity{
@@ -16,6 +19,8 @@ public class Player extends Entity{
     Random random;
     public final int screenX, screenY;
     public boolean attackCanceled = false;
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int invSize = 20;
 
     public Player(GamePanel gp, KeyHandler keyH){
 
@@ -38,6 +43,7 @@ public class Player extends Entity{
         setValues();
         getImages();
         getAttackImages();
+        setInventory();
     }
 
     public void setValues() {
@@ -58,6 +64,13 @@ public class Player extends Entity{
         currentArmor=new ArmorLeather(gp);
         attack=getAttack();
         defense=getDefense();
+    }
+
+    public void setInventory(){
+        inventory.add(currentFireball);
+        inventory.add(currentArmor);
+        inventory.add(new Carrot(gp));
+        inventory.add(new Candy(gp));
     }
 
     public int getAttack(){
@@ -257,7 +270,6 @@ public class Player extends Entity{
                 gp.monsters[index].damageReaction();
             }
             if (gp.monsters[index].hp<=0 && !gp.monsters[index].dying){
-                System.out.println(gp.monsters[index].dying);
                 gp.monsters[index].dying = true;
                 gp.uiH.addMessage(gp.monsters[index].name+" öldü.");
                 exp += gp.monsters[index].exp;

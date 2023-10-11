@@ -9,6 +9,8 @@ public class Carrot extends Entity {
         super(gp);
 
         name = "Carrot";
+        displayedName="Havuç";
+        description="Tavşanlar bunu havada\nkapar.";
 
         down1=setImage("/objects/carrot",gp.tileSize,gp.tileSize);
     }

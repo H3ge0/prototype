@@ -52,12 +52,14 @@ public class KeyHandler implements KeyListener {
                 gp.uiH.commandNum=2;
             else
                 gp.uiH.commandNum=0;
+            gp.playSoundEffect(3);
         }
         if(keyCode==KeyEvent.VK_DOWN){
             if(gp.uiH.commandNum==2)
                 gp.uiH.commandNum=0;
             else
                 gp.uiH.commandNum=2;
+            gp.playSoundEffect(3);
         }
         if(keyCode==KeyEvent.VK_X){
             if(gp.uiH.commandNum==0){
@@ -99,6 +101,8 @@ public class KeyHandler implements KeyListener {
         }
         if(keyCode==KeyEvent.VK_C){
             gp.gameState = gp.charInfoState;
+            gp.uiH.slotRow=0;
+            gp.uiH.slotCol=0;
         }
 
         //Debug
@@ -123,6 +127,30 @@ public class KeyHandler implements KeyListener {
     }
 
     void charInfoState(int keyCode){
+        if(keyCode==KeyEvent.VK_UP){
+            if(gp.uiH.slotRow!=0){
+                gp.uiH.slotRow--;
+                gp.playSoundEffect(3);
+            }
+        }
+        if(keyCode==KeyEvent.VK_DOWN){
+            if(gp.uiH.slotRow!=3){
+                gp.uiH.slotRow++;
+                gp.playSoundEffect(3);
+            }
+        }
+        if(keyCode==KeyEvent.VK_LEFT){
+            if(gp.uiH.slotCol!=0){
+                gp.uiH.slotCol--;
+                gp.playSoundEffect(3);
+            }
+        }
+        if(keyCode==KeyEvent.VK_RIGHT){
+            if(gp.uiH.slotCol!=4){
+                gp.uiH.slotCol++;
+                gp.playSoundEffect(3);
+            }
+        }
         if (keyCode==KeyEvent.VK_C){
             gp.gameState = gp.playState;
         }
