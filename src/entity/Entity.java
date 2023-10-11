@@ -21,6 +21,9 @@ public class Entity {
     public boolean collisionOn = false;
     String[] dialogues = new String[20];
 
+    //Throwing Knife
+    public BufferedImage upidlev2,up1v2,up2v2,downidlev2,down1v2,down2v2,leftidlev2,left1v2,left2v2,rightidlev2,right1v2,right2v2;
+
     //State
     public int worldX, worldY;
     public String direction = "down";
@@ -39,12 +42,15 @@ public class Entity {
     public int invincibleCounter = 0;
     public int dyingCounter = 0;
     public int hpBarCounter = 0;
+    public int projectileCooldownCounter = 0;
 
     //Character
     public String name;
     public int speed;
     public int maxHp;
     public int hp;
+    public int maxEnergy;
+    public int energy;
     public int level;
     public int strength;
     public int dexterity;
@@ -55,12 +61,14 @@ public class Entity {
     public int coin;
     public Entity currentFireball;
     public Entity currentArmor;
+    public Projectile currentProjectile;
 
     //Item
     public int attackValue;
     public int defenseValue;
     public String displayedName="";
     public String description="";
+    public int useCost;
 
     //Type
     public int type; // 0->player   1->npc   2->monster   3->obj
@@ -107,11 +115,13 @@ public class Entity {
         if (type==typeMonster && contactPlayer){
             if(gp.player.hp>0 && !gp.player.invincible && !dying){
                 int damage = attack-gp.player.defense;
+                gp.playSoundEffect(7);
                 if(damage>0){
-                    gp.playSoundEffect(7);
                     gp.player.hp-=damage;
-                    gp.player.invincible=true;
+                } else {
+                    gp.player.hp--;
                 }
+                gp.player.invincible=true;
             }
         }
 

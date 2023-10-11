@@ -79,11 +79,13 @@ public class Ogim extends Entity {
         if (type==typeMonster && contactPlayer){
             if(gp.player.hp>0 && !gp.player.invincible && !dying){
                 int damage = attack-gp.player.defense;
+                gp.playSoundEffect(7);
                 if(damage>0){
-                    gp.playSoundEffect(7);
                     gp.player.hp-=damage;
-                    gp.player.invincible=true;
+                } else {
+                    gp.player.hp--;
                 }
+                gp.player.invincible=true;
             }
         }
 

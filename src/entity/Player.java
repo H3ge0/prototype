@@ -4,6 +4,7 @@ import main.GamePanel;
 import main.KeyHandler;
 import object.ArmorLeather;
 import object.FireballOrange;
+import object.ThrowingKnife;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -57,6 +58,7 @@ public class Player extends Entity{
         coin=0;
         currentFireball=new FireballOrange(gp);
         currentArmor=new ArmorLeather(gp);
+        currentProjectile=new ThrowingKnife(gp);
         attack=getAttack();
         defense=getDefense();
     }
@@ -123,7 +125,7 @@ public class Player extends Entity{
 
     public void update() {
 
-        keyH.keyPressed = keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed||keyH.xKeyPressed||keyH.zKeyPressed;
+        keyH.keyPressed = keyH.upPressed||keyH.downPressed||keyH.leftPressed||keyH.rightPressed||keyH.xKeyPressed;
 
         if(attacking){
             attackUpdate();
@@ -153,7 +155,7 @@ public class Player extends Entity{
 
             gp.eventH.checkEvent();
 
-            if(!collision&&!keyH.xKeyPressed&&!keyH.zKeyPressed) {
+            if(!collision&&!keyH.xKeyPressed) {
                 switch (direction) {
                     case "up" -> worldY -= speed;
                     case "down" -> worldY += speed;
@@ -162,7 +164,7 @@ public class Player extends Entity{
                 }
             }
 
-            if (keyH.zKeyPressed && !attackCanceled){
+            if (keyH.xKeyPressed && !attackCanceled){
                 gp.playSoundEffect(9);
                 attacking=true;
                 spriteCounter=0;
@@ -170,7 +172,6 @@ public class Player extends Entity{
 
             attackCanceled=false;
             keyH.xKeyPressed=false;
-            keyH.zKeyPressed=false;
 
             spriteCounter++;
             if (spriteCounter>10){
@@ -181,6 +182,14 @@ public class Player extends Entity{
                 }
                 spriteCounter=0;
             }
+        }
+        if (projectileCooldownCounter<60)
+            projectileCooldownCounter++;
+        if(projectileCooldownCounter>=60 && gp.keyH.zKeyPressed && !currentProjectile.alive){
+            currentProjectile.setProjectile(worldX,worldY,direction,true,this);
+            gp.projectiles.add(currentProjectile);
+            gp.playSoundEffect(11);
+            projectileCooldownCounter=0;
         }
 
         if(invincible){
@@ -214,7 +223,7 @@ public class Player extends Entity{
             collisionBox.height = attackArea.height;
 
             int monsterIndex = gp.collisionH.checkEntity(this,gp.monsters);
-            attackMonster(monsterIndex);
+            attackMonster(monsterIndex,attack);
 
             worldX=currentWorldX;
             worldY=currentWorldY;
@@ -266,16 +275,18 @@ public class Player extends Entity{
         if(index!=999){
             if(hp>0 && !invincible && !gp.monsters[index].dying){
                 int damage = gp.monsters[index].attack-defense;
+                gp.playSoundEffect(7);
                 if(damage>0){
-                    gp.playSoundEffect(7);
                     hp-=damage;
-                    invincible=true;
+                } else {
+                    hp--;
                 }
+                invincible=true;
             }
         }
     }
 
-    public void attackMonster(int index){
+    public void attackMonster(int index, int attack){
         if(index!=999){
             if(gp.monsters[index].hp>0 && !gp.monsters[index].invincible){
                 gp.playSoundEffect(8);
@@ -298,7 +309,8 @@ public class Player extends Entity{
     }
 
     public void checkLevelUp(){
-        if(exp>=nextLevelExp){
+        //exp>=nextLevelExp
+        if(false){
             level++;
             nextLevelExp*=2;
             maxHp+=2;

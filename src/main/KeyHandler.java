@@ -184,6 +184,10 @@ public class KeyHandler implements KeyListener {
         if (keyCode == KeyEvent.VK_RIGHT) {
             rightPressed = false;
         }
+        if(keyCode==KeyEvent.VK_Z){
+            zKeyPressed = false;
+        }
+
     }
 
     @Override
