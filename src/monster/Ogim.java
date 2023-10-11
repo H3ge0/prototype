@@ -23,8 +23,11 @@ public class Ogim extends Entity {
         type = 2;
         name = "Ogim";
         speed = 1;
-        maxHp = 5;
+        maxHp = 3;
         hp = maxHp;
+        attack = 3;
+        defense = 0;
+        exp = 2;
 
         getImage();
         spriteNum = random.nextInt(1,17);
@@ -74,10 +77,13 @@ public class Ogim extends Entity {
         boolean contactPlayer = gp.collisionH.checkPlayer(this);
 
         if (this.type==2 && contactPlayer){
-            if(gp.player.hp>0 && !gp.player.invincible){
-                gp.playSoundEffect(7);
-                gp.player.hp--;
-                gp.player.invincible=true;
+            if(gp.player.hp>0 && !gp.player.invincible && !dying){
+                int damage = attack-gp.player.defense;
+                if(damage>0){
+                    gp.playSoundEffect(7);
+                    gp.player.hp-=damage;
+                    gp.player.invincible=true;
+                }
             }
         }
 

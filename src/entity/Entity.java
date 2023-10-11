@@ -93,10 +93,13 @@ public class Entity {
         boolean contactPlayer = gp.collisionH.checkPlayer(this);
 
         if (this.type==2 && contactPlayer){
-            if(gp.player.hp>0 && !gp.player.invincible){
-                gp.playSoundEffect(7);
-                gp.player.hp--;
-                gp.player.invincible=true;
+            if(gp.player.hp>0 && !gp.player.invincible && !dying){
+                int damage = attack-gp.player.defense;
+                if(damage>0){
+                    gp.playSoundEffect(7);
+                    gp.player.hp-=damage;
+                    gp.player.invincible=true;
+                }
             }
         }
 
@@ -240,7 +243,6 @@ public class Entity {
         else if(dyingCounter<=i*8) setG2Alpha(g2, 0.2f);
         else if(dyingCounter<=i*9) setG2Alpha(g2, 0.1f);
         else {
-            dying=false;
             alive=false;
         }
 

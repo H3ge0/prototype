@@ -104,6 +104,7 @@ public class KeyHandler implements KeyListener {
         //Debug
         if(keyCode==KeyEvent.VK_D){
             debugMode = !debugMode;
+            gp.stopMusic();
         }
     }
 

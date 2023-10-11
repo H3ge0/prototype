@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class UIHandler {
@@ -17,6 +18,9 @@ public class UIHandler {
     BufferedImage heart_full,heart_half,heart_empty;
     Color opaqueBlack;
     Color lessOpaqueBlack;
+    public boolean messageOn = false;
+    ArrayList<String> messages = new ArrayList<>();
+    ArrayList<Integer> messageCounters  = new ArrayList<>();
     public boolean gameFinished = false;
     public boolean gameWon = false;
     public String currentDialogueText = "";
@@ -48,6 +52,11 @@ public class UIHandler {
 
     }
 
+    public void addMessage(String text){
+        messages.add(text);
+        messageCounters.add(0);
+    }
+
     public void draw(Graphics2D g2){
         this.g2 = g2;
 
@@ -59,6 +68,7 @@ public class UIHandler {
         //PlayState
         if (gp.gameState==gp.playState){
             drawPlayerHealth();
+            drawMessages();
         }
 
         //PauseState
@@ -181,6 +191,30 @@ public class UIHandler {
                 g2.drawImage(heart_full,x,y,null);
             i++;
             x+=gp.tileSize*6/5;
+        }
+    }
+
+    public void drawMessages(){
+        int messageX = gp.tileSize/2;
+        int messageY = gp.screenHeight-gp.tileSize/2;
+        g2.setFont(fixedsys.deriveFont(30f));
+
+        for(int i=0;i<messages.size();i++){
+            if(messages.get(i)!=null){
+                g2.setColor(Color.darkGray);
+                g2.drawString(messages.get(i),messageX+3,messageY+3);
+                g2.setColor(Color.white);
+                g2.drawString(messages.get(i),messageX,messageY);
+
+                int counter = messageCounters.get(i) + 1;
+                messageCounters.set(i,counter);
+                messageY-=40;
+
+                if(messageCounters.get(i)>180){
+                    messages.remove(i);
+                    messageCounters.remove(i);
+                }
+            }
         }
     }
 

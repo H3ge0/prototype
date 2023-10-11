@@ -52,7 +52,7 @@ public class Player extends Entity{
         strength=1;
         dexterity=1;
         exp=0;
-        nextLevelExp=5;
+        nextLevelExp=4;
         coin=0;
         currentFireball=new FireballOrange(gp);
         currentArmor=new ArmorLeather(gp);
@@ -233,10 +233,13 @@ public class Player extends Entity{
 
     public void interactWithMonster(int index){
         if(index!=999){
-            if(hp>0 && !invincible){
-                gp.playSoundEffect(7);
-                hp--;
-                invincible=true;
+            if(hp>0 && !invincible && !gp.monsters[index].dying){
+                int damage = gp.monsters[index].attack-defense;
+                if(damage>0){
+                    gp.playSoundEffect(7);
+                    hp-=damage;
+                    invincible=true;
+                }
             }
         }
     }
@@ -245,12 +248,38 @@ public class Player extends Entity{
         if(index!=999){
             if(gp.monsters[index].hp>0 && !gp.monsters[index].invincible){
                 gp.playSoundEffect(8);
-                gp.monsters[index].hp--;
+                int damage = attack-gp.monsters[index].defense;
+                if(damage<0)
+                    damage=0;
+                gp.monsters[index].hp-=damage;
+                gp.uiH.addMessage(damage+" hasar!");
                 gp.monsters[index].invincible=true;
                 gp.monsters[index].damageReaction();
-            } else if (gp.monsters[index].hp<=0){
-                gp.monsters[index].dying = true;
             }
+            if (gp.monsters[index].hp<=0 && !gp.monsters[index].dying){
+                System.out.println(gp.monsters[index].dying);
+                gp.monsters[index].dying = true;
+                gp.uiH.addMessage(gp.monsters[index].name+" öldü.");
+                exp += gp.monsters[index].exp;
+                gp.uiH.addMessage("+"+gp.monsters[index].exp+" deneyim.");
+                checkLevelUp();
+            }
+        }
+    }
+
+    public void checkLevelUp(){
+        if(exp>=nextLevelExp){
+            level++;
+            nextLevelExp*=2;
+            maxHp+=2;
+            strength++;
+            dexterity++;
+            attack=getAttack();
+            defense=getDefense();
+
+            gp.playSoundEffect(6);
+            gp.gameState=gp.dialogueState;
+            gp.uiH.currentDialogueText="Seviye atladın!! Artık "+level+". seviyesin!";
         }
     }
 

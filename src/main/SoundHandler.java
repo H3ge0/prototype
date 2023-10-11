@@ -17,7 +17,7 @@ public class SoundHandler {
         soundURL[3] = getClass().getResource("/sounds/rabbit.wav");
         soundURL[4] = getClass().getResource("/sounds/idle.wav");
         soundURL[5] = getClass().getResource("/sounds/lost.wav");
-        soundURL[6] = getClass().getResource("/sounds/won.wav");
+        soundURL[6] = getClass().getResource("/sounds/levelup.wav");
         soundURL[7] = getClass().getResource("/sounds/gopi_hit.wav");
         soundURL[8] = getClass().getResource("/sounds/monster_hit.wav");
         soundURL[9] = getClass().getResource("/sounds/fireball.wav");

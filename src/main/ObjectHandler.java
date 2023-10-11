@@ -22,13 +22,57 @@ public class ObjectHandler {
     }
 
     public void setMonsters(){
-        gp.monsters[0] = new Ogim(gp);
-        gp.monsters[0].worldX = gp.tileSize*23;
-        gp.monsters[0].worldY = gp.tileSize*36;
+        int i=0;
 
-        gp.monsters[1] = new Ogim(gp);
-        gp.monsters[1].worldX = gp.tileSize*25;
-        gp.monsters[1].worldY = gp.tileSize*37;
+        gp.monsters[i] = new Ogim(gp);
+        gp.monsters[i].worldX = gp.tileSize*23;
+        gp.monsters[i].worldY = gp.tileSize*36;
+        i++;
+
+        gp.monsters[i] = new Ogim(gp);
+        gp.monsters[i].worldX = gp.tileSize*25;
+        gp.monsters[i].worldY = gp.tileSize*37;
+        i++;
+
+        gp.monsters[i] = new Ogim(gp);
+        gp.monsters[i].worldX = gp.tileSize*35;
+        gp.monsters[i].worldY = gp.tileSize*38;
+        i++;
+
+        gp.monsters[i] = new Ogim(gp);
+        gp.monsters[i].worldX = gp.tileSize*38;
+        gp.monsters[i].worldY = gp.tileSize*42;
+        i++;
+
+        gp.monsters[i] = new Ogim(gp);
+        gp.monsters[i].worldX = gp.tileSize*35;
+        gp.monsters[i].worldY = gp.tileSize*9;
+        i++;
+
+        gp.monsters[i] = new Ogim(gp);
+        gp.monsters[i].worldX = gp.tileSize*39;
+        gp.monsters[i].worldY = gp.tileSize*11;
+        i++;
+
+        gp.monsters[i] = new Ogim(gp);
+        gp.monsters[i].worldX = gp.tileSize*10;
+        gp.monsters[i].worldY = gp.tileSize*32;
+        i++;
+
+        gp.monsters[i] = new Ogim(gp);
+        gp.monsters[i].worldX = gp.tileSize*9;
+        gp.monsters[i].worldY = gp.tileSize*7;
+        i++;
+
+        gp.monsters[i] = new Ogim(gp);
+        gp.monsters[i].worldX = gp.tileSize*10;
+        gp.monsters[i].worldY = gp.tileSize*7;
+        i++;
+
+        gp.monsters[i] = new Ogim(gp);
+        gp.monsters[i].worldX = gp.tileSize*11;
+        gp.monsters[i].worldY = gp.tileSize*7;
+        i++;
     }
 
 }

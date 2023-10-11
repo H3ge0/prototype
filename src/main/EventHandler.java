@@ -69,6 +69,7 @@ public class EventHandler {
 
     public void healingPool(int gameState){
         if(gp.keyH.xKeyPressed){
+            gp.objectH.setMonsters();
             gp.gameState=gameState;
             gp.player.attackCanceled=true;
             if(gp.player.hp<gp.player.maxHp) {
