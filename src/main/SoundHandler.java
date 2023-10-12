@@ -23,6 +23,7 @@ public class SoundHandler {
         soundURL[9] = getClass().getResource("/sounds/fireball.wav");
         soundURL[10] = getClass().getResource("/sounds/select.wav");
         soundURL[11] = getClass().getResource("/sounds/throw.wav");
+        soundURL[12] = getClass().getResource("/sounds/rock.wav");
     }
 
     public void setFile(int i){

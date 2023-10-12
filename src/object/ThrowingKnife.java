@@ -1,5 +1,6 @@
 package object;
 
+import entity.Entity;
 import entity.Projectile;
 import main.GamePanel;
 
@@ -19,6 +20,14 @@ public class ThrowingKnife extends Projectile {
         useCost=1;
         alive=false;
         getImages();
+    }
+
+    public boolean hasEnergy(Entity user){
+        return user.energy >= useCost;
+    }
+
+    public void subtractEnergy(Entity user){
+        user.energy-=useCost;
     }
 
     public void getImages(){

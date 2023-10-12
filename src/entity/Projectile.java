@@ -51,4 +51,10 @@ public class Projectile extends Entity{
         increaseSpriteCounter();
     }
 
+    public boolean hasEnergy(Entity user){
+        return false;
+    }
+
+    public void subtractEnergy(Entity user){}
+
 }

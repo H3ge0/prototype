@@ -71,6 +71,8 @@ public class Ogim extends Entity {
         if(i==99 && !currentProjectile.alive && projectileCooldownCounter==60){
             currentProjectile.setProjectile(worldX,worldY,direction,true,this);
             gp.projectiles.add(currentProjectile);
+            if(Math.abs(gp.player.worldX-worldX)<gp.screenWidth/2+gp.tileSize && Math.abs(gp.player.worldY-worldY)<gp.screenHeight/2+gp.tileSize)
+                gp.playSoundEffect(12);
             projectileCooldownCounter=0;
         }
     }

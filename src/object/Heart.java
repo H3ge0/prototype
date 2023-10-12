@@ -8,7 +8,7 @@ public class Heart extends Entity {
     public Heart(GamePanel gp) {
         super(gp);
 
-        name = "Chest";
+        name = "Heart";
 
         image1 = setImage("/ui/heart_full",gp.tileSize,gp.tileSize);
         image2 = setImage("/ui/heart_half",gp.tileSize,gp.tileSize);

@@ -1,6 +1,7 @@
 package main;
 
 import entity.Entity;
+import object.Energy;
 import object.Heart;
 
 import java.awt.*;
@@ -15,7 +16,7 @@ public class UIHandler {
     GamePanel gp;
     Graphics2D g2;
     Font fixedsys,delaGothic;
-    BufferedImage heart_full,heart_half,heart_empty;
+    BufferedImage heart_full,heart_half,heart_empty,energy_full,energy_empty;
     Color opaqueBlack;
     Color lessOpaqueBlack;
     public boolean messageOn = false;
@@ -45,11 +46,15 @@ public class UIHandler {
         opaqueBlack = new Color(0,0,0,150);
         lessOpaqueBlack = new Color(0,0,0,220);
 
-        //Create Hud Project
+        //Create Hud Object
         Entity heart = new Heart(gp);
         heart_full=heart.image1;
         heart_half=heart.image2;
         heart_empty=heart.image3;
+
+        Entity energy = new Energy(gp);
+        energy_full=energy.image1;
+        energy_empty=energy.image2;
 
     }
 
@@ -68,19 +73,19 @@ public class UIHandler {
 
         //PlayState
         if (gp.gameState==gp.playState){
-            drawPlayerHealth();
+            drawPlayerHealthAndEnergy();
             drawMessages();
         }
 
         //PauseState
         if (gp.gameState==gp.pauseState){
-            drawPlayerHealth();
+            drawPlayerHealthAndEnergy();
             drawPauseScreen();
         }
 
         //DialogueState
         if (gp.gameState==gp.dialogueState){
-            drawPlayerHealth();
+            drawPlayerHealthAndEnergy();
             drawDialogueScreen();
         }
 
@@ -171,8 +176,9 @@ public class UIHandler {
 
     }
 
-    public void drawPlayerHealth(){
+    public void drawPlayerHealthAndEnergy(){
 
+        //Draw Health
         int x = gp.tileSize/2;
         int y = gp.tileSize/2;
         int i = 0;
@@ -193,6 +199,26 @@ public class UIHandler {
                 g2.drawImage(heart_full,x,y,null);
             i++;
             x+=gp.tileSize*6/5;
+        }
+
+        //Draw Energy
+        x = gp.tileSize/2-5;
+        y = gp.tileSize*2;
+        i=0;
+
+        while (i<gp.player.maxEnergy){
+            g2.drawImage(energy_empty,x,y,null);
+            i++;
+            x+=40;
+        }
+
+        x = gp.tileSize/2-5;
+        i = 0;
+
+        while(i<gp.player.energy){
+            g2.drawImage(energy_full,x,y,null);
+            i++;
+            x+=40;
         }
     }
 
@@ -277,6 +303,8 @@ public class UIHandler {
         textY+=lineHeight;
         g2.drawString("Can",textX,textY);
         textY+=lineHeight;
+        g2.drawString("Enerji",textX,textY);
+        textY+=lineHeight;
         g2.drawString("Güç",textX,textY);
         textY+=lineHeight;
         g2.drawString("Yetenek",textX,textY);
@@ -306,6 +334,11 @@ public class UIHandler {
         textY+=lineHeight;
 
         value = gp.player.hp+"/"+gp.player.maxHp;
+        textX = getXForRightAlignedText(value,endOfRect);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = gp.player.energy+"/"+gp.player.maxEnergy;
         textX = getXForRightAlignedText(value,endOfRect);
         g2.drawString(value,textX,textY);
         textY+=lineHeight;

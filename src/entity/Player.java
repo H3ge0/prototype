@@ -51,6 +51,8 @@ public class Player extends Entity{
         level=1;
         maxHp=6;
         hp=maxHp;
+        maxEnergy=4;
+        energy=maxEnergy;
         strength=1;
         dexterity=1;
         exp=0;
@@ -184,10 +186,16 @@ public class Player extends Entity{
             }
         }
         if(projectileCooldownCounter==60 && gp.keyH.zKeyPressed && !currentProjectile.alive){
-            currentProjectile.setProjectile(worldX,worldY,direction,true,this);
-            gp.projectiles.add(currentProjectile);
-            gp.playSoundEffect(11);
-            projectileCooldownCounter=0;
+            if(currentProjectile.hasEnergy(this)){
+                currentProjectile.subtractEnergy(this);
+                currentProjectile.setProjectile(worldX,worldY,direction,true,this);
+                gp.projectiles.add(currentProjectile);
+                gp.playSoundEffect(11);
+                projectileCooldownCounter=0;
+            }else {
+                gp.uiH.addMessage("Yeterli enerjin yok.");
+                projectileCooldownCounter=0;
+            }
         }
         if (projectileCooldownCounter<60)
             projectileCooldownCounter++;
