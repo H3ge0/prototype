@@ -183,14 +183,14 @@ public class Player extends Entity{
                 spriteCounter=0;
             }
         }
-        if (projectileCooldownCounter<60)
-            projectileCooldownCounter++;
-        if(projectileCooldownCounter>=60 && gp.keyH.zKeyPressed && !currentProjectile.alive){
+        if(projectileCooldownCounter==60 && gp.keyH.zKeyPressed && !currentProjectile.alive){
             currentProjectile.setProjectile(worldX,worldY,direction,true,this);
             gp.projectiles.add(currentProjectile);
             gp.playSoundEffect(11);
             projectileCooldownCounter=0;
         }
+        if (projectileCooldownCounter<60)
+            projectileCooldownCounter++;
 
         if(invincible){
             invincibleCounter++;
@@ -309,8 +309,7 @@ public class Player extends Entity{
     }
 
     public void checkLevelUp(){
-        //exp>=nextLevelExp
-        if(false){
+        if(exp>=nextLevelExp){
             level++;
             nextLevelExp*=2;
             maxHp+=2;

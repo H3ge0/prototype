@@ -113,16 +113,7 @@ public class Entity {
         boolean contactPlayer = gp.collisionH.checkPlayer(this);
 
         if (type==typeMonster && contactPlayer){
-            if(gp.player.hp>0 && !gp.player.invincible && !dying){
-                int damage = attack-gp.player.defense;
-                gp.playSoundEffect(7);
-                if(damage>0){
-                    gp.player.hp-=damage;
-                } else {
-                    gp.player.hp--;
-                }
-                gp.player.invincible=true;
-            }
+            attackPlayer(attack);
         }
 
         if(!collision){
@@ -134,15 +125,10 @@ public class Entity {
             }
         }
 
-        spriteCounter++;
-        if (spriteCounter>10){
-            if (spriteNum==4){
-                spriteNum=1;
-            } else {
-                spriteNum++;
-            }
-            spriteCounter=0;
-        }
+        increaseSpriteCounter();
+
+        if (projectileCooldownCounter<60)
+            projectileCooldownCounter++;
 
         if(invincible){
             invincibleCounter++;
@@ -154,6 +140,31 @@ public class Entity {
 
     }
 
+    public void attackPlayer(int attack){
+        if(gp.player.hp>0 && !gp.player.invincible && !dying){
+            int damage = attack-gp.player.defense;
+            gp.playSoundEffect(7);
+            if(damage>0){
+                gp.player.hp-=damage;
+            } else {
+                gp.player.hp--;
+            }
+            gp.player.invincible=true;
+        }
+    }
+
+    public void increaseSpriteCounter() {
+        spriteCounter++;
+        if (spriteCounter>10){
+            if (spriteNum==4){
+                spriteNum=1;
+            } else {
+                spriteNum++;
+            }
+            spriteCounter=0;
+        }
+    }
+
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
@@ -162,48 +173,7 @@ public class Entity {
 
         if(Math.abs(gp.player.worldX-worldX)<gp.screenWidth/2+gp.tileSize && Math.abs(gp.player.worldY-worldY)<gp.screenHeight/2+gp.tileSize){
 
-            switch (direction) {
-                case "up" -> {
-                    if (spriteNum == 1)
-                        image = up1;
-                    if (spriteNum == 2)
-                        image = up2;
-                    if (spriteNum == 3)
-                        image = up1;
-                    if (spriteNum == 4)
-                        image = up2;
-                }
-                case "down" -> {
-                    if (spriteNum == 1)
-                        image = down1;
-                    if (spriteNum == 2)
-                        image = down2;
-                    if (spriteNum == 3)
-                        image = down1;
-                    if (spriteNum == 4)
-                        image = down2;
-                }
-                case "left" -> {
-                    if (spriteNum == 1)
-                        image = left1;
-                    if (spriteNum == 2)
-                        image = leftidle;
-                    if (spriteNum == 3)
-                        image = left2;
-                    if (spriteNum == 4)
-                        image = leftidle;
-                }
-                case "right" -> {
-                    if (spriteNum == 1)
-                        image = right1;
-                    if (spriteNum == 2)
-                        image = rightidle;
-                    if (spriteNum == 3)
-                        image = right2;
-                    if (spriteNum == 4)
-                        image = rightidle;
-                }
-            }
+            image = setDrawImage();
 
             if(type==typeMonster && hpBarOn){
                 double oneScale = (double)gp.tileSize/maxHp;
@@ -244,10 +214,61 @@ public class Entity {
                 dyingAnimation(g2);
             }
 
-            g2.drawImage(image,screenX,screenY,gp.tileSize,gp.tileSize,null);
+            drawTheImage(g2,image,screenX,screenY);
 
             setG2Alpha(g2, 1f);
         }
+    }
+
+    public void drawTheImage(Graphics2D g2,BufferedImage image,int x,int y){
+        g2.drawImage(image,x,y,null);
+    }
+
+    public BufferedImage setDrawImage() {
+        BufferedImage image=null;
+        switch (direction) {
+            case "up" -> {
+                if (spriteNum == 1)
+                    image = up1;
+                if (spriteNum == 2)
+                    image = up2;
+                if (spriteNum == 3)
+                    image = up1;
+                if (spriteNum == 4)
+                    image = up2;
+            }
+            case "down" -> {
+                if (spriteNum == 1)
+                    image = down1;
+                if (spriteNum == 2)
+                    image = down2;
+                if (spriteNum == 3)
+                    image = down1;
+                if (spriteNum == 4)
+                    image = down2;
+            }
+            case "left" -> {
+                if (spriteNum == 1)
+                    image = left1;
+                if (spriteNum == 2)
+                    image = leftidle;
+                if (spriteNum == 3)
+                    image = left2;
+                if (spriteNum == 4)
+                    image = leftidle;
+            }
+            case "right" -> {
+                if (spriteNum == 1)
+                    image = right1;
+                if (spriteNum == 2)
+                    image = rightidle;
+                if (spriteNum == 3)
+                    image = right2;
+                if (spriteNum == 4)
+                    image = rightidle;
+            }
+        }
+        return image;
     }
 
     public void dyingAnimation(Graphics2D g2) {
