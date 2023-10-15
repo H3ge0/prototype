@@ -1,6 +1,7 @@
 package main;
 
 import entity.Entity;
+import tile_interactive.InteractiveTile;
 
 public class CollisionHandler {
 
@@ -105,6 +106,8 @@ public class CollisionHandler {
     public int checkEntity(Entity entity,Entity[] target){
         int index = 999;
 
+        boolean thisCollision = false;
+
         for(int i=0;i<target.length;i++){
             if(target[i]!=null&&target[i]!=entity){
                 //Get entity's collision box co-ords
@@ -122,8 +125,22 @@ public class CollisionHandler {
                     case "right" -> entity.collisionBox.x+=entity.speed;
                 }
 
+                boolean isInteractiveTile=false;
+
+                for(InteractiveTile iTile:gp.iTiles){
+                    if(iTile!=null){
+                        if (iTile == target[i]) {
+                            isInteractiveTile = true;
+                            break;
+                        }
+                    }
+                }
+
                 if(entity.collisionBox.intersects(target[i].collisionBox)) {
-                    entity.collision = true;
+                    if(isInteractiveTile)
+                        thisCollision=target[i].collisionOn;
+                    else
+                        thisCollision = true;
                     index = i;
                 }
 
@@ -135,6 +152,9 @@ public class CollisionHandler {
                 target[i].collisionBox.x = target[i].collisionBoxDefaultX;
                 target[i].collisionBox.y = target[i].collisionBoxDefaultY;
 
+
+
+                entity.collision=entity.collision||thisCollision;
             }
         }
 

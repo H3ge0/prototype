@@ -432,7 +432,7 @@ public class UIHandler {
 
         //Description
         int textX = dWindowX + 20;
-        int textY = dWindowY + gp.tileSize;
+        int textY = dWindowY + 37;
         g2.setFont(fixedsys.deriveFont(20f));
 
         int itemIndex = getItemIndex();

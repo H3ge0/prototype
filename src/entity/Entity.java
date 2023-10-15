@@ -121,6 +121,8 @@ public class Entity {
     public void update(){
         setAction();
         collision=false;
+        gp.collisionH.checkEntity(this,gp.iTiles);
+
         gp.collisionH.checkTile(this);
         gp.collisionH.checkObject(this,false);
         gp.collisionH.checkEntity(this,gp.npcs);

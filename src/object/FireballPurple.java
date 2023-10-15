@@ -9,7 +9,7 @@ public class FireballPurple extends Entity {
 
         name="Purple Fireball";
         displayedName="Mor Ateş Topu";
-        description="Rengi büyüleyici.\n\n\n(Rubidyum).";
+        description="Hatalarını geri\nçevirebilir.\n\n\n(Potasyum).";
         type=typeFireball;
 
         down1=setImage("/objects/fireball_purple",gp.tileSize,gp.tileSize);
@@ -17,6 +17,6 @@ public class FireballPurple extends Entity {
         attackArea.width=36;
         attackArea.height=36;
 
-        attackValue=2;
+        attackValue=1;
     }
 }
