@@ -77,7 +77,6 @@ public class EventHandler {
                     gp.uiH.currentDialogueText = "Sudan içtin. Nedense tuzlu değildi.\n\n\n*İyileştin!*";
                     gp.playSoundEffect(1);
                     gp.player.hp+=1;
-                    gp.player.energy=gp.player.maxEnergy;
                 } else {
                     gp.uiH.currentDialogueText = "\"YOOOK.\"";
                     gp.playSoundEffect(2);

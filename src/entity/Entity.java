@@ -64,6 +64,7 @@ public class Entity {
     public Projectile currentProjectile;
 
     //Item
+    public int value;
     public int attackValue;
     public int defenseValue;
     public String displayedName="";
@@ -71,13 +72,14 @@ public class Entity {
     public int useCost;
 
     //Type
-    public int type; // 0->player   1->npc   2->monster   3->obj
+    public int type;
     public final int typePlayer=0;
     public final int typeNpc=1;
     public final int typeMonster=2;
     public final int typeFireball=3;
     public final int typeArmor=4;
     public final int typeConsumable=5;
+    public final int typePickUpOnly=6;
 
     public Entity(GamePanel gp){
         this.gp = gp;
@@ -86,6 +88,19 @@ public class Entity {
     public void setAction(){}
 
     public void use(Entity entity){}
+
+    public void checkDrop(){}
+
+    public void dropItem(Entity item){
+        for(int i=0;i<gp.obj.length;i++){
+            if (gp.obj[i]==null){
+                gp.obj[i]=item;
+                gp.obj[i].worldX=worldX;
+                gp.obj[i].worldY=worldY;
+                break;
+            }
+        }
+    }
 
     public void damageReaction(){}
 

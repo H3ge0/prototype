@@ -208,6 +208,13 @@ public class Player extends Entity{
             }
         }
 
+        if(hp>maxHp){
+            hp=maxHp;
+        }
+        if(energy>maxEnergy){
+            energy=maxEnergy;
+        }
+
     }
 
     public void attackUpdate(){
@@ -257,15 +264,24 @@ public class Player extends Entity{
 
     public void interactWithObj(int index){
         if(index!=999){
-            String text;
-            if(inventory.size()<invSize){
-                inventory.add(gp.obj[index]);
-                gp.playSoundEffect(4);
-                text = "Bir "+gp.obj[index].displayedName+" buldun!";
-            }else
-                text = "Envanterin dolu.";
-            gp.uiH.addMessage(text);
-            gp.obj[index]=null;
+            //Pickup only items
+            if(gp.obj[index].type==typePickUpOnly){
+                gp.obj[index].use(this);
+                gp.obj[index] = null;
+            }
+
+            //Normal Items
+            else{
+                String text;
+                if(inventory.size()<invSize){
+                    inventory.add(gp.obj[index]);
+                    gp.playSoundEffect(4);
+                    text = "Bir "+gp.obj[index].displayedName+" buldun!";
+                }else
+                    text = "Envanterin dolu.";
+                gp.uiH.addMessage(text);
+                gp.obj[index]=null;
+            }
         }
     }
 
@@ -321,6 +337,7 @@ public class Player extends Entity{
             level++;
             nextLevelExp*=2;
             maxHp+=2;
+            maxEnergy++;
             strength++;
             dexterity++;
             attack=getAttack();

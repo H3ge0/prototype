@@ -317,7 +317,7 @@ public class UIHandler {
         textY+=lineHeight;
         g2.drawString("Sonraki Seviye",textX,textY);
         textY+=lineHeight;
-        g2.drawString("Altın",textX,textY);
+        g2.drawString("Para",textX,textY);
         textY+=lineHeight+30;
         g2.drawString("Ateş Topu",textX,textY);
         textY+=lineHeight+70;

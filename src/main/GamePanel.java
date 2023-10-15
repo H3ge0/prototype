@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable{
     TileManager tileManager = new TileManager(this);
     public Player player = new Player(this, keyH);
     public Entity[] npcs = new Entity[10];
-    public Entity[] obj = new Entity[10];
+    public Entity[] obj = new Entity[20];
     public Entity[] monsters = new Entity[20];
     public ArrayList<Entity> projectiles = new ArrayList<>();
     ArrayList<Entity> entityList = new ArrayList<>();
@@ -124,8 +124,10 @@ public class GamePanel extends JPanel implements Runnable{
                 if(monsters[i]!=null){
                     if(monsters[i].alive && !monsters[i].dying)
                         monsters[i].update();
-                    if(!monsters[i].alive)
+                    if(!monsters[i].alive){
+                        monsters[i].checkDrop();
                         monsters[i]=null;
+                    }
                 }
             }
             //Projectiles
