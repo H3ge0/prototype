@@ -3,6 +3,7 @@ package object;
 import entity.Projectile;
 import main.GamePanel;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Rock extends Projectile {
@@ -31,5 +32,25 @@ public class Rock extends Projectile {
 
     public BufferedImage setDrawImage(){
         return upidle;
+    }
+
+    @Override
+    public Color getParticleColor(){
+        return new Color(102,102,102);
+    }
+
+    @Override
+    public int getParticleSize(){
+        return 6;
+    }
+
+    @Override
+    public int getParticleSpeed(){
+        return 1;
+    }
+
+    @Override
+    public int getMaxHp(){
+        return 20;
     }
 }

@@ -24,6 +24,13 @@ public class BurntTree extends InteractiveTile{
 
     @Override
     public void attack(int i) {
-        gp.iTiles[i]=new DryTree0(gp,worldX/gp.tileSize,worldY/gp.tileSize);
+        collisionBox.x+=worldX;
+        collisionBox.y+=worldY;
+
+        if(!collisionBox.intersects(gp.player.collisionBox))
+            gp.iTiles[i]=new DryTree0(gp,worldX/gp.tileSize,worldY/gp.tileSize);
+
+        collisionBox.x=collisionBoxDefaultX;
+        collisionBox.y=collisionBoxDefaultY;
     }
 }

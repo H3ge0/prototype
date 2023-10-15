@@ -26,12 +26,14 @@ public class Projectile extends Entity{
             int monsterIndex = gp.collisionH.checkEntity(this,gp.monsters);
             if(monsterIndex!=999){
                 gp.player.attackMonster(monsterIndex,attack);
+                generateParticle(user.currentProjectile,gp.monsters[monsterIndex]);
                 alive=false;
             }
         } else{
             boolean contactPlayer = gp.collisionH.checkPlayer(this);
             if(contactPlayer){
                 attackPlayer(attack);
+                generateParticle(user.currentProjectile,gp.player);
                 alive=false;
             }
         }

@@ -189,6 +189,7 @@ public class Player extends Entity{
                 gp.playSoundEffect(9);
                 attacking=true;
                 spriteCounter=0;
+                spriteNum=1;
             }
 
             attackCanceled=false;
@@ -354,6 +355,8 @@ public class Player extends Entity{
 
     public void attackInteractiveTile(int index){
         if(index!=999 && gp.iTiles[index].canChange && gp.iTiles[index].isCorrectItem(this)){
+            gp.iTiles[index].generateITileParticle(index);
+
             gp.iTiles[index].attack(index);
         }
     }

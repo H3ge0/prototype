@@ -3,6 +3,8 @@ package tile_interactive;
 import entity.Entity;
 import main.GamePanel;
 
+import java.awt.*;
+
 public class DryTree0 extends InteractiveTile{
     public DryTree0(GamePanel gp,int col,int row) {
         super(gp,col,row);
@@ -25,5 +27,30 @@ public class DryTree0 extends InteractiveTile{
     @Override
     public void attack(int i) {
         gp.iTiles[i]=new BurntTree(gp,worldX/gp.tileSize,worldY/gp.tileSize);
+    }
+
+    @Override
+    public void generateITileParticle(int i) {
+        generateParticle(this,this);
+    }
+
+    @Override
+    public Color getParticleColor(){
+        return new Color(55,40,20);
+    }
+
+    @Override
+    public int getParticleSize(){
+        return 6;
+    }
+
+    @Override
+    public int getParticleSpeed(){
+        return 1;
+    }
+
+    @Override
+    public int getMaxHp(){
+        return 20;
     }
 }

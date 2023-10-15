@@ -24,14 +24,6 @@ public class ObjectHandler {
         gp.obj[i].worldX = gp.tileSize*21;
         gp.obj[i].worldY = gp.tileSize*19;
         i++;
-        gp.obj[i] = new FireballRed(gp);
-        gp.obj[i].worldX = gp.tileSize*22;
-        gp.obj[i].worldY = gp.tileSize*19;
-        i++;
-        gp.obj[i] = new FireballPurple(gp);
-        gp.obj[i].worldX = gp.tileSize*23;
-        gp.obj[i].worldY = gp.tileSize*19;
-        i++;
     }
 
     public void setNPCs(){

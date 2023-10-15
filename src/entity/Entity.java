@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Random;
 
 public class Entity {
 
@@ -324,5 +325,37 @@ public class Entity {
         }
 
         return image;
+    }
+
+    public Color getParticleColor(){
+        return null;
+    }
+
+    public int getParticleSize(){
+        return 0;
+    }
+
+    public int getParticleSpeed(){
+        return 0;
+    }
+
+    public int getMaxHp(){
+        return 0;
+    }
+
+    public void generateParticle(Entity generator, Entity target){
+        Color color = generator.getParticleColor();
+        int size = generator.getParticleSize();
+        int speed = generator.getParticleSpeed();
+        int maxHp = generator.getMaxHp();
+
+        Particle p1 = new Particle(gp,target,color,size,speed,maxHp,2,1);
+        Particle p2 = new Particle(gp,target,color,size,speed,maxHp,2,-1);
+        Particle p3 = new Particle(gp,target,color,size,speed,maxHp,-2,1);
+        Particle p4 = new Particle(gp,target,color,size,speed,maxHp,-2,-1);
+        gp.particles.add(p1);
+        gp.particles.add(p2);
+        gp.particles.add(p3);
+        gp.particles.add(p4);
     }
 }

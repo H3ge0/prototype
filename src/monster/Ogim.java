@@ -122,12 +122,27 @@ public class Ogim extends Entity {
     public void checkDrop() {
         int i=new Random().nextInt(100)+1;
 
-        if(i<=15){
+        if(i<=8){
+            boolean hasRedFireball=false;
+            for(Entity e:gp.player.inventory){
+                if(e!=null){
+                    if (e.name.equals("Red Fireball")){
+                        hasRedFireball=true;
+                        break;
+                    }
+                }
+            }
+            if(!hasRedFireball)
+                dropItem(new FireballRed(gp));
+            else
+                dropItem(new BronzeCoin(gp));
+        }else if(i<=15){
             boolean hasPurpleFireball=false;
             for(Entity e:gp.player.inventory){
                 if(e!=null){
                     if (e.name.equals("Purple Fireball")){
                         hasPurpleFireball=true;
+                        break;
                     }
                 }
             }
@@ -141,6 +156,7 @@ public class Ogim extends Entity {
                 if(e!=null){
                     if (e.name.equals("Iron Armor")){
                         hasIronArmor=true;
+                        break;
                     }
                 }
             }
