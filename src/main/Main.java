@@ -12,10 +12,14 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setTitle("Gopi");
-        //frame.setUndecorated(true);
 
         GamePanel gamePanel = new GamePanel();
         frame.add(gamePanel);
+
+        gamePanel.config.loadConfig();
+        if(gamePanel.fullScreenOn)
+            frame.setUndecorated(true);
+
         frame.pack();
 
         frame.setLocationRelativeTo(null);

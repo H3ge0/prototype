@@ -604,6 +604,7 @@ public class UIHandler {
         volumeWidth = 20*gp.soundEffect.volumeScale;
         g2.fillRect(textX,textY,volumeWidth,24);
 
+        gp.config.saveConfig();
     }
 
     public void settingsFullScreenNotification(int frameY){
