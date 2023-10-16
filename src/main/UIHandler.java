@@ -19,16 +19,14 @@ public class UIHandler {
     BufferedImage heart_full,heart_half,heart_empty,energy_full,energy_empty;
     Color opaqueBlack;
     Color lessOpaqueBlack;
-    public boolean messageOn = false;
     ArrayList<String> messages = new ArrayList<>();
     ArrayList<Integer> messageCounters  = new ArrayList<>();
-    public boolean gameFinished = false;
-    public boolean gameWon = false;
     public String currentDialogueText = "";
     int titlePlayerSpriteCounter=0;
     int titlePlayerSpriteNum=1;
     int commandNum=0;
     public int slotCol=0,slotRow=0;
+    int subState=0;
 
     public UIHandler(GamePanel gp) {
         this.gp = gp;
@@ -91,9 +89,14 @@ public class UIHandler {
 
         //CharInfoState
         if (gp.gameState==gp.charInfoState){
-            //drawPlayerHealth();
             drawCharInfoScreen();
             drawInventory();
+        }
+
+        //SettingsState
+        if (gp.gameState==gp.settingsState){
+            drawPlayerHealthAndEnergy();
+            drawSettingsScreen();
         }
 
     }
@@ -128,6 +131,8 @@ public class UIHandler {
         if (titlePlayerSpriteNum == 4)
             image = gp.player.down2;
 
+        g2.setColor(Color.black);
+        g2.fillRect(x,y,gp.tileSize*2,gp.tileSize*2);
         g2.drawImage(image,x,y,gp.tileSize*2,gp.tileSize*2,null);
 
         titlePlayerSpriteCounter++;
@@ -247,18 +252,85 @@ public class UIHandler {
     }
 
     public void drawPauseScreen(){
-
-        g2.setColor(opaqueBlack);
+        g2.setColor(lessOpaqueBlack);
         g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
 
         g2.setColor(Color.white);
-        g2.setFont(fixedsys.deriveFont(Font.BOLD,60));
+        g2.setFont(fixedsys.deriveFont(Font.BOLD,96f));
 
         String text = "Oyun Durdu";
         int x = getXPosForCenteredText(text);
-        int y = gp.screenHeight/2;
+        int y = gp.tileSize*2;
 
         g2.drawString(text,x,y);
+
+        g2.setFont(fixedsys.deriveFont(Font.PLAIN,48f));
+
+        text = "Oyuna Dön";
+        x = getXPosForCenteredText(text);
+        y += gp.tileSize*7/2;
+        g2.setColor(new Color(75,0,103));
+        g2.drawString(text,x+3,y+3);
+        if(commandNum==0){
+            if(gp.keyH.xKeyPressed){
+                gp.playSoundEffect(4);
+                gp.gameState=gp.playState;
+                subState=0;
+                commandNum=0;
+            }
+            g2.setColor(Color.yellow);
+        } else
+            g2.setColor(Color.white);
+        g2.drawString(text,x,y);
+
+        text = "Ayarlar";
+        x = getXPosForCenteredText(text);
+        y += gp.tileSize*3/2;
+        g2.setColor(new Color(75,0,103));
+        g2.drawString(text,x+3,y+3);
+        if(commandNum==1){
+            if(gp.keyH.xKeyPressed){
+                gp.playSoundEffect(4);
+                gp.gameState=gp.settingsState;
+                subState=0;
+                commandNum=0;
+            }
+            g2.setColor(Color.yellow);
+        }
+        else
+            g2.setColor(Color.white);
+        g2.drawString(text,x,y);
+
+        text = "Kaydet";
+        x=getXPosForCenteredText(text);
+        y+=gp.tileSize*3/2;
+        g2.setColor(new Color(25,0,53));
+        g2.drawString(text,x+3,y+3);
+        if(commandNum==2)
+            g2.setColor(Color.yellow);
+        else
+            g2.setColor(Color.darkGray);
+        g2.drawString(text,x,y);
+
+        text = "Çıkış";
+        x = getXPosForCenteredText(text);
+        y += gp.tileSize*3/2;
+        g2.setColor(new Color(75,0,103));
+        g2.drawString(text,x+3,y+3);
+        if(commandNum==3){
+            if(gp.keyH.xKeyPressed){
+                gp.playSoundEffect(4);
+                gp.gameState=gp.settingsState;
+                subState=3;
+                commandNum=0;
+            }
+            g2.setColor(Color.yellow);
+        }
+        else
+            g2.setColor(Color.white);
+        g2.drawString(text,x,y);
+
+        gp.keyH.xKeyPressed=false;
     }
 
     public void drawDialogueScreen(){
@@ -383,9 +455,291 @@ public class UIHandler {
         g2.drawImage(gp.player.currentArmor.down1,endOfRect-gp.tileSize,textY,null);
     }
 
+    public void drawSettingsScreen(){
+        g2.setColor(lessOpaqueBlack);
+        g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
+
+        g2.setColor(Color.white);
+        g2.setFont(fixedsys.deriveFont(Font.PLAIN,32));
+
+        //Sub Window
+        int frameX = gp.tileSize*6, frameY = gp.tileSize;
+        int frameWidth = gp.tileSize*8, frameHeight = gp.tileSize*10;
+
+        drawSubWindow(frameX,frameY,frameWidth,frameHeight);
+
+        switch(subState){
+            case 0 -> settingsTop(frameX,frameY);
+            case 1 -> settingsFullScreenNotification(frameY);
+            case 2 -> settingsControls(frameY);
+            case 3 -> settingsQuitConfirmation(frameY);
+        }
+
+        gp.keyH.xKeyPressed=false;
+    }
+
+    public void settingsTop(int frameX, int frameY){
+        int textX;
+        int textY;
+
+        //Title
+        String text = "Ayarlar";
+        textX=getXPosForCenteredText(text);
+        textY=frameY+gp.tileSize;
+
+        g2.drawString(text,textX,textY);
+
+        //Full Screen
+        textX=frameX+gp.tileSize/2;
+        textY+=gp.tileSize*2;
+
+        if(commandNum==0) {
+            if (gp.keyH.xKeyPressed){
+                gp.playSoundEffect(4);
+                gp.fullScreenOn = !gp.fullScreenOn;
+                subState=1;
+                commandNum=0;
+            }
+            g2.setColor(Color.yellow);
+        } else
+            g2.setColor(Color.white);
+
+        g2.drawString("Tam Ekran",textX,textY);
+
+        //Music
+        textY+=gp.tileSize;
+
+        if(commandNum==1)
+            g2.setColor(Color.yellow);
+        else
+            g2.setColor(Color.white);
+
+        g2.drawString("Müzik",textX,textY);
+
+        //SFX
+        textY+=gp.tileSize;
+
+        if(commandNum==2)
+            g2.setColor(Color.yellow);
+        else
+            g2.setColor(Color.white);
+
+        g2.drawString("Ses E.",textX,textY);
+
+        //Controls
+        textY+=gp.tileSize;
+
+        if(commandNum==3) {
+            if (gp.keyH.xKeyPressed) {
+                gp.playSoundEffect(4);
+                subState = 2;
+                commandNum=0;
+            }
+            g2.setColor(Color.yellow);
+        } else
+            g2.setColor(Color.white);
+
+        g2.drawString("Kontroller",textX,textY);
+
+        //Back
+        text="Geri Dön";
+        textX=getXPosForCenteredText(text);
+        textY+=gp.tileSize*10/3;
+
+        if(commandNum==4){
+            if(gp.keyH.xKeyPressed){
+                gp.playSoundEffect(4);
+                gp.gameState=gp.pauseState;
+                commandNum=1;
+            }
+            g2.setColor(Color.yellow);
+        } else
+            g2.setColor(Color.white);
+
+        g2.drawString(text,textX,textY);
+
+
+        //-----------------------------------------------------------------------------------------------------------------------
+
+
+        //Full Screen CheckBox
+        g2.setColor(Color.white);
+        textX=frameX+gp.tileSize*9/2;
+        textY=frameY+gp.tileSize*2+26;
+        g2.setStroke(new BasicStroke(3));
+
+        if(commandNum==0){
+            g2.setColor(Color.yellow);
+        }
+        else
+            g2.setColor(Color.white);
+
+        g2.drawRect(textX,textY,24,24);
+        if(gp.fullScreenOn)
+            g2.fillRect(textX,textY,24,24);
+
+        //Music Volume
+        textY+=gp.tileSize;
+
+        if(commandNum==1)
+            g2.setColor(Color.yellow);
+        else
+            g2.setColor(Color.white);
+
+        g2.drawRect(textX,textY,120,24);
+
+        int volumeWidth = 20*gp.music.volumeScale;
+        g2.fillRect(textX,textY,volumeWidth,24);
+
+        //SFX Volume
+        textY+=gp.tileSize;
+
+        if(commandNum==2)
+            g2.setColor(Color.yellow);
+        else
+            g2.setColor(Color.white);
+
+        g2.drawRect(textX,textY,120,24);
+
+        volumeWidth = 20*gp.soundEffect.volumeScale;
+        g2.fillRect(textX,textY,volumeWidth,24);
+
+    }
+
+    public void settingsFullScreenNotification(int frameY){
+        int textX;
+        int textY = frameY + gp.tileSize*3;
+
+        if(gp.fullScreenOn)
+            currentDialogueText = "Tam ekrana geçmek\niçin oyunu yeniden\nbaşlatmanız gerek.";
+        else
+            currentDialogueText = "Tam ekrandan çıkmak\niçin oyunu yeniden\nbaşlatmanız gerek";
+
+        for(String line:currentDialogueText.split("\n")){
+            textX=getXPosForCenteredText(line);
+            g2.drawString(line,textX,textY);
+            textY+=40;
+        }
+
+        g2.setColor(Color.yellow);
+        currentDialogueText = "Tamamdir";
+        textX = getXPosForCenteredText(currentDialogueText);
+        textY+=80;
+
+        g2.drawString(currentDialogueText,textX,textY);
+        if(gp.keyH.xKeyPressed){
+            gp.playSoundEffect(4);
+            subState=0;
+        }
+
+    }
+
+    public void settingsControls(int frameY){
+
+        int textX;
+        int textY;
+
+        //Title
+        String text = "Kontroller";
+        textX=getXPosForCenteredText(text);
+        textY=frameY+gp.tileSize;
+
+        g2.drawString(text,textX,textY);
+
+        //Texts
+        text = "Yürüme - Oklar";
+        textX = getXPosForCenteredText(text);
+        textY+=gp.tileSize*2;
+
+        g2.drawString(text,textX,textY);
+
+        text = "Ateş Topu - X";
+        textX = getXPosForCenteredText(text);
+        textY+=gp.tileSize;
+
+        g2.drawString(text,textX,textY);
+
+        text = "Fırlat - Z";
+        textX = getXPosForCenteredText(text);
+        textY+=gp.tileSize;
+
+        g2.drawString(text,textX,textY);
+
+        text = "Envanter - C";
+        textX = getXPosForCenteredText(text);
+        textY+=gp.tileSize;
+
+        g2.drawString(text,textX,textY);
+
+        text = "Durdur - ESC";
+        textX = getXPosForCenteredText(text);
+        textY+=gp.tileSize;
+
+        g2.drawString(text,textX,textY);
+
+        //Back
+        text="Geri Dön";
+        textX=getXPosForCenteredText(text);
+        textY+=gp.tileSize*7/3;
+
+        if(gp.keyH.xKeyPressed){
+            gp.playSoundEffect(4);
+            subState=0;
+            commandNum=3;
+        }
+        g2.setColor(Color.yellow);
+
+        g2.drawString(text,textX,textY);
+
+
+    }
+
+    public void settingsQuitConfirmation(int frameY){
+        int textX;
+        int textY = frameY + gp.tileSize*2;
+
+        currentDialogueText="Oyundan çıkıp\nana menüye dönmek\nistediğinize\nemin misiniz?";
+        for(String line:currentDialogueText.split("\n")){
+            textX=getXPosForCenteredText(line);
+            g2.drawString(line,textX,textY);
+            textY+=40;
+        }
+
+        //Yes
+        String text = "Evet";
+        textX = getXPosForCenteredText(text);
+        textY += gp.tileSize;
+        if(commandNum==0){
+            if(gp.keyH.xKeyPressed){
+                subState=0;
+                gp.gameState=gp.titleState;
+            }
+            g2.setColor(Color.yellow);
+        } else
+            g2.setColor(Color.white);
+
+        g2.drawString(text,textX,textY);
+
+        //No
+        text = "Hayır";
+        textX = getXPosForCenteredText(text);
+        textY += gp.tileSize;
+        if(commandNum==1){
+            if(gp.keyH.xKeyPressed){
+                gp.gameState=gp.pauseState;
+                subState=0;
+                commandNum=3;
+            }
+            g2.setColor(Color.yellow);
+        } else
+            g2.setColor(Color.white);
+
+        g2.drawString(text,textX,textY);
+    }
+
     public void drawInventory() {
         //Window
-        int windowX = gp.tileSize*9;
+        int windowX = gp.screenWidth-gp.tileSize*13/2;
         int windowY = gp.tileSize;
         int windowWidth = gp.tileSize*6;
         int windowHeight = gp.tileSize*5;

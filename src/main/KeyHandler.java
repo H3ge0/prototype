@@ -44,6 +44,11 @@ public class KeyHandler implements KeyListener {
         else if (gp.gameState==gp.charInfoState){
             charInfoState(keyCode);
         }
+
+        //SettingsState
+        else if (gp.gameState==gp.settingsState){
+            settingsState(keyCode);
+        }
     }
 
     void titleState(int keyCode){
@@ -62,6 +67,7 @@ public class KeyHandler implements KeyListener {
             gp.playSoundEffect(3);
         }
         if(keyCode==KeyEvent.VK_X){
+            gp.playSoundEffect(4);
             if(gp.uiH.commandNum==0){
                 gp.gameState=gp.playState;
                 gp.playMusic(0);
@@ -70,6 +76,7 @@ public class KeyHandler implements KeyListener {
             }else if(gp.uiH.commandNum==2){
                 System.exit(0);
             }
+            gp.uiH.commandNum=0;
         }
     }
 
@@ -97,7 +104,7 @@ public class KeyHandler implements KeyListener {
         //Other
         if(keyCode==KeyEvent.VK_ESCAPE){
             gp.gameState = gp.pauseState;
-            gp.stopMusic();
+            gp.uiH.commandNum=0;
         }
         if(keyCode==KeyEvent.VK_C){
             gp.gameState = gp.charInfoState;
@@ -108,7 +115,6 @@ public class KeyHandler implements KeyListener {
         //Debug
         if(keyCode==KeyEvent.VK_D){
             debugMode = !debugMode;
-            gp.stopMusic();
         }
     }
 
@@ -117,6 +123,28 @@ public class KeyHandler implements KeyListener {
             gp.gameState = gp.playState;
             gp.music.play();
             gp.music.loop();
+        }
+        if(keyCode==KeyEvent.VK_X){
+            xKeyPressed=true;
+        }
+
+        if(keyCode==KeyEvent.VK_UP){
+            if(gp.uiH.commandNum==3)
+                gp.uiH.commandNum=1;
+            else if(gp.uiH.commandNum==0)
+                gp.uiH.commandNum=3;
+            else
+                gp.uiH.commandNum--;
+            gp.playSoundEffect(3);
+        }
+        if(keyCode==KeyEvent.VK_DOWN){
+            if(gp.uiH.commandNum==1)
+                gp.uiH.commandNum=3;
+            else if(gp.uiH.commandNum==3)
+                gp.uiH.commandNum=0;
+            else
+                gp.uiH.commandNum++;
+            gp.playSoundEffect(3);
         }
     }
 
@@ -164,6 +192,58 @@ public class KeyHandler implements KeyListener {
         }
         if (keyCode==KeyEvent.VK_C){
             gp.gameState = gp.playState;
+        }
+    }
+
+    void settingsState(int keyCode){
+        if(keyCode==KeyEvent.VK_ESCAPE){
+            gp.gameState = gp.playState;
+            gp.music.play();
+            gp.music.loop();
+        }
+        if(keyCode==KeyEvent.VK_X){
+            xKeyPressed=true;
+        }
+
+        int maxCommandNum = 0;
+        switch(gp.uiH.subState){
+            case 0 -> maxCommandNum=4;
+            case 3 -> maxCommandNum=1;
+        }
+
+        if(keyCode==KeyEvent.VK_UP){
+            gp.uiH.commandNum--;
+            if(gp.uiH.commandNum<0)
+                gp.uiH.commandNum=maxCommandNum;
+            gp.playSoundEffect(3);
+        }
+        if(keyCode==KeyEvent.VK_DOWN){
+            gp.uiH.commandNum++;
+            if(gp.uiH.commandNum>maxCommandNum)
+                gp.uiH.commandNum=0;
+            gp.playSoundEffect(3);
+        }
+        if(keyCode==KeyEvent.VK_LEFT){
+            if(gp.uiH.subState==0)
+                if(gp.uiH.commandNum==1 && gp.music.volumeScale>0){
+                    gp.playSoundEffect(4);
+                    gp.music.volumeScale--;
+                    gp.music.changeVolume();
+                }else if(gp.uiH.commandNum==2 && gp.soundEffect.volumeScale>0){
+                    gp.playSoundEffect(4);
+                    gp.soundEffect.volumeScale--;
+                }
+        }
+        if(keyCode==KeyEvent.VK_RIGHT){
+            if(gp.uiH.subState==0)
+                if(gp.uiH.commandNum==1 && gp.music.volumeScale<6){
+                    gp.playSoundEffect(4);
+                    gp.music.volumeScale++;
+                    gp.music.changeVolume();
+                }else if(gp.uiH.commandNum==2 && gp.soundEffect.volumeScale<6){
+                    gp.playSoundEffect(4);
+                    gp.soundEffect.volumeScale++;
+                }
         }
     }
 

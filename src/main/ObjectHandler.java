@@ -97,6 +97,18 @@ public class ObjectHandler {
         gp.iTiles[i] = new DryTree0(gp,30,10); i++;
         gp.iTiles[i] = new DryTree0(gp,31,10); i++;
         gp.iTiles[i] = new DryTree0(gp,32,10); i++;
+
+        gp.iTiles[i] = new DryTree0(gp,11,16); i++;
+        gp.iTiles[i] = new DryTree0(gp,12,16); i++;
+        gp.iTiles[i] = new DryTree0(gp,13,16); i++;
+        gp.iTiles[i] = new DryTree0(gp,14,16); i++;
+        gp.iTiles[i] = new DryTree0(gp,15,16); i++;
+        gp.iTiles[i] = new DryTree0(gp,16,16); i++;
+        gp.iTiles[i] = new DryTree0(gp,17,16); i++;
+        gp.iTiles[i] = new DryTree0(gp,18,16); i++;
+        gp.iTiles[i] = new DryTree0(gp,19,16); i++;
+        gp.iTiles[i] = new DryTree0(gp,20,16); i++;
+        gp.iTiles[i] = new DryTree0(gp,21,16); i++;
     }
 
 }
