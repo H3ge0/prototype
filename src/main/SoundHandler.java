@@ -28,6 +28,7 @@ public class SoundHandler {
         soundURL[10] = getClass().getResource("/sounds/select.wav");
         soundURL[11] = getClass().getResource("/sounds/throw.wav");
         soundURL[12] = getClass().getResource("/sounds/rock.wav");
+        soundURL[13] = getClass().getResource("/sounds/gopi_death.wav");
     }
 
     public void setFile(int i){

@@ -161,12 +161,15 @@ public class Entity {
     public void attackPlayer(int attack){
         if(gp.player.hp>0 && !gp.player.invincible && !dying){
             int damage = attack-gp.player.defense;
-            gp.playSoundEffect(7);
             if(damage>0){
                 gp.player.hp-=damage;
             } else {
                 gp.player.hp--;
             }
+            if(gp.player.hp<=0)
+                gp.playSoundEffect(13);
+            else
+                gp.playSoundEffect(7);
             gp.player.invincible=true;
         }
     }

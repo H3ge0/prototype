@@ -49,30 +49,36 @@ public class KeyHandler implements KeyListener {
         else if (gp.gameState==gp.settingsState){
             settingsState(keyCode);
         }
+
+        //DeadState
+        else if (gp.gameState==gp.deadState){
+            deadState(keyCode);
+        }
     }
 
     void titleState(int keyCode){
         if(keyCode==KeyEvent.VK_UP){
-            if(gp.uiH.commandNum==0)
+            gp.uiH.commandNum--;
+            if(gp.uiH.commandNum<0)
                 gp.uiH.commandNum=2;
-            else
-                gp.uiH.commandNum=0;
             gp.playSoundEffect(3);
         }
         if(keyCode==KeyEvent.VK_DOWN){
-            if(gp.uiH.commandNum==2)
+            gp.uiH.commandNum++;
+            if(gp.uiH.commandNum>2)
                 gp.uiH.commandNum=0;
-            else
-                gp.uiH.commandNum=2;
             gp.playSoundEffect(3);
         }
         if(keyCode==KeyEvent.VK_X){
             gp.playSoundEffect(4);
             if(gp.uiH.commandNum==0){
+                gp.reset();
                 gp.gameState=gp.playState;
                 gp.playMusic(0);
             }else if(gp.uiH.commandNum==1){
-                //
+                gp.retry();
+                gp.gameState=gp.playState;
+                gp.playMusic(0);
             }else if(gp.uiH.commandNum==2){
                 System.exit(0);
             }
@@ -244,6 +250,25 @@ public class KeyHandler implements KeyListener {
                     gp.playSoundEffect(4);
                     gp.soundEffect.volumeScale++;
                 }
+        }
+    }
+
+    void deadState(int keyCode){
+        if(keyCode==KeyEvent.VK_X){
+            xKeyPressed=true;
+        }
+
+        if(keyCode==KeyEvent.VK_UP){
+            gp.uiH.commandNum--;
+            if(gp.uiH.commandNum<0)
+                gp.uiH.commandNum=1;
+            gp.playSoundEffect(3);
+        }
+        if(keyCode==KeyEvent.VK_DOWN){
+            gp.uiH.commandNum++;
+            if(gp.uiH.commandNum>1)
+                gp.uiH.commandNum=0;
+            gp.playSoundEffect(3);
         }
     }
 

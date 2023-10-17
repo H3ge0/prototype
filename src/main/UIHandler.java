@@ -24,7 +24,7 @@ public class UIHandler {
     public String currentDialogueText = "";
     int titlePlayerSpriteCounter=0;
     int titlePlayerSpriteNum=1;
-    int commandNum=0;
+    public int commandNum=0;
     public int slotCol=0,slotRow=0;
     int subState=0;
 
@@ -99,6 +99,12 @@ public class UIHandler {
             drawSettingsScreen();
         }
 
+        //DeadState
+        if (gp.gameState==gp.deadState){
+            drawPlayerHealthAndEnergy();
+            drawDeadScreen();
+        }
+
     }
 
     public void drawTitleScreen(){
@@ -160,12 +166,12 @@ public class UIHandler {
         text = "Devam Et";
         x=getXPosForCenteredText(text);
         y+=gp.tileSize*3/2;
-        g2.setColor(new Color(25,0,53));
+        g2.setColor(new Color(75,0,103));
         g2.drawString(text,x+3,y+3);
         if(commandNum==1)
             g2.setColor(Color.yellow);
         else
-            g2.setColor(Color.darkGray);
+            g2.setColor(Color.white);
         g2.drawString(text,x,y);
 
         text = "Çıkış";
@@ -255,13 +261,16 @@ public class UIHandler {
         g2.setColor(lessOpaqueBlack);
         g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
 
-        g2.setColor(Color.white);
         g2.setFont(fixedsys.deriveFont(Font.BOLD,96f));
 
         String text = "Oyun Durdu";
         int x = getXPosForCenteredText(text);
         int y = gp.tileSize*2;
 
+        g2.setColor(new Color(75,0,103));
+        g2.drawString(text,x+4,y+4);
+
+        g2.setColor(Color.white);
         g2.drawString(text,x,y);
 
         g2.setFont(fixedsys.deriveFont(Font.PLAIN,48f));
@@ -469,7 +478,7 @@ public class UIHandler {
         drawSubWindow(frameX,frameY,frameWidth,frameHeight);
 
         switch(subState){
-            case 0 -> settingsTop(frameX,frameY);
+            case 0 -> settingsNormal(frameX,frameY);
             case 1 -> settingsFullScreenNotification(frameY);
             case 2 -> settingsControls(frameY);
             case 3 -> settingsQuitConfirmation(frameY);
@@ -478,7 +487,64 @@ public class UIHandler {
         gp.keyH.xKeyPressed=false;
     }
 
-    public void settingsTop(int frameX, int frameY){
+    public void drawDeadScreen(){
+        g2.setColor(lessOpaqueBlack);
+        g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
+
+        g2.setFont(fixedsys.deriveFont(Font.BOLD,96f));
+
+        String text = "Oyun Bitti";
+        int x = getXPosForCenteredText(text);
+        int y = gp.tileSize*2;
+
+        g2.setColor(new Color(150,0,0));
+        g2.drawString(text,x+4,y+4);
+
+        g2.setColor(Color.white);
+        g2.drawString(text,x,y);
+
+        g2.setFont(fixedsys.deriveFont(Font.PLAIN,48f));
+
+        text = "Yeniden Doğ";
+        x = getXPosForCenteredText(text);
+        y += gp.tileSize*9/2;
+        g2.setColor(new Color(75,0,103));
+        g2.drawString(text,x+3,y+3);
+        if(commandNum==0){
+            if(gp.keyH.xKeyPressed){
+                gp.playSoundEffect(4);
+                gp.gameState=gp.playState;
+                gp.retry();
+                subState=0;
+                commandNum=0;
+            }
+            g2.setColor(Color.yellow);
+        } else
+            g2.setColor(Color.white);
+        g2.drawString(text,x,y);
+
+        text = "Çıkış";
+        x = getXPosForCenteredText(text);
+        y += gp.tileSize*3/2;
+        g2.setColor(new Color(75,0,103));
+        g2.drawString(text,x+3,y+3);
+        if(commandNum==1){
+            if(gp.keyH.xKeyPressed){
+                gp.playSoundEffect(4);
+                gp.gameState=gp.titleState;
+                subState=0;
+                commandNum=0;
+            }
+            g2.setColor(Color.yellow);
+        }
+        else
+            g2.setColor(Color.white);
+        g2.drawString(text,x,y);
+
+        gp.keyH.xKeyPressed=false;
+    }
+
+    public void settingsNormal(int frameX, int frameY){
         int textX;
         int textY;
 

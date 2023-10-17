@@ -36,23 +36,20 @@ public class Player extends Entity{
         collisionBoxDefaultX = collisionBox.x;
         collisionBoxDefaultY = collisionBox.y;
 
-        setValues();
+        setDefaultValues();
         getImages();
         getAttackImages();
         setInventory();
     }
 
-    public void setValues() {
-        worldX=gp.tileSize*23;
-        worldY=gp.tileSize*21;
+    public void setDefaultValues() {
+        setDefaultPosition();
         speed=4;
-        direction="down";
         //Player Stats
         level=1;
         maxHp=6;
-        hp=maxHp;
-        maxEnergy=4;
-        energy=maxEnergy;
+        maxEnergy=3;
+        restoreHpAndEnergy();
         strength=1;
         dexterity=1;
         exp=0;
@@ -65,7 +62,20 @@ public class Player extends Entity{
         defense=getDefense();
     }
 
+    public void setDefaultPosition(){
+        worldX=gp.tileSize*23;
+        worldY=gp.tileSize*22;
+        direction="down";
+    }
+
+    public void restoreHpAndEnergy(){
+        hp=maxHp;
+        energy=maxEnergy;
+        invincible=false;
+    }
+
     public void setInventory(){
+        inventory.clear();
         inventory.add(currentFireball);
         inventory.add(currentArmor);
     }
@@ -234,6 +244,12 @@ public class Player extends Entity{
             energy=maxEnergy;
         }
 
+        if(hp<=0){
+            gp.playSoundEffect(13);
+            gp.gameState=gp.deadState;
+            gp.uiH.commandNum=0;
+        }
+
     }
 
     public void attackUpdate(){
@@ -320,12 +336,15 @@ public class Player extends Entity{
         if(index!=999){
             if(hp>0 && !invincible && !gp.monsters[index].dying){
                 int damage = gp.monsters[index].attack-defense;
-                gp.playSoundEffect(7);
                 if(damage>0){
                     hp-=damage;
                 } else {
                     hp--;
                 }
+                if(hp<=0)
+                    gp.playSoundEffect(13);
+                else
+                    gp.playSoundEffect(7);
                 invincible=true;
             }
         }
