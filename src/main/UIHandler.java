@@ -27,6 +27,7 @@ public class UIHandler {
     public int commandNum=0;
     public int slotCol=0,slotRow=0;
     int subState=0;
+    int counter=0;
 
     public UIHandler(GamePanel gp) {
         this.gp = gp;
@@ -103,6 +104,11 @@ public class UIHandler {
         if (gp.gameState==gp.deadState){
             drawPlayerHealthAndEnergy();
             drawDeadScreen();
+        }
+
+        //TransitionState
+        if (gp.gameState==gp.transitionState){
+            drawTransition();
         }
 
     }
@@ -515,6 +521,7 @@ public class UIHandler {
                 gp.playSoundEffect(4);
                 gp.gameState=gp.playState;
                 gp.retry();
+                gp.playMusic(0);
                 subState=0;
                 commandNum=0;
             }
@@ -542,6 +549,22 @@ public class UIHandler {
         g2.drawString(text,x,y);
 
         gp.keyH.xKeyPressed=false;
+    }
+
+    public void drawTransition(){
+        counter++;
+        g2.setColor(new Color(0,0,0,counter*5));
+        g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
+
+        if(counter==50){
+            counter=0;
+            gp.gameState=gp.playState;
+            gp.currentMap=gp.eventH.tempMap;
+            gp.player.worldX=gp.eventH.tempCol*gp.tileSize;
+            gp.player.worldY=gp.eventH.tempRow*gp.tileSize;
+            gp.eventH.previousEventX=gp.player.worldX;
+            gp.eventH.previousEventY=gp.player.worldY;
+        }
     }
 
     public void settingsNormal(int frameX, int frameY){

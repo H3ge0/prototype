@@ -247,7 +247,8 @@ public class Player extends Entity{
         if(hp<=0){
             gp.playSoundEffect(13);
             gp.gameState=gp.deadState;
-            gp.uiH.commandNum=0;
+            gp.uiH.commandNum=-1;
+            gp.stopMusic();
         }
 
     }
@@ -303,22 +304,22 @@ public class Player extends Entity{
     public void interactWithObj(int index){
         if(index!=999){
             //Pickup only items
-            if(gp.obj[index].type==typePickUpOnly){
-                gp.obj[index].use(this);
+            if(gp.obj[gp.currentMap][index].type==typePickUpOnly){
+                gp.obj[gp.currentMap][index].use(this);
             }
 
             //Normal Items
             else{
                 String text;
                 if(inventory.size()<invSize){
-                    inventory.add(gp.obj[index]);
+                    inventory.add(gp.obj[gp.currentMap][index]);
                     gp.playSoundEffect(4);
-                    text = "Bir "+gp.obj[index].displayedName+" buldun!";
+                    text = "Bir "+gp.obj[gp.currentMap][index].displayedName+" buldun!";
                 }else
                     text = "Envanterin dolu.";
                 gp.uiH.addMessage(text);
             }
-            gp.obj[index] = null;
+            gp.obj[gp.currentMap][index] = null;
         }
     }
 
@@ -327,15 +328,15 @@ public class Player extends Entity{
             if(index!=999){
                 attackCanceled = true;
                 gp.gameState=gp.dialogueState;
-                gp.npcs[index].speak();
+                gp.npcs[gp.currentMap][index].speak();
             }
         }
     }
 
     public void interactWithMonster(int index){
         if(index!=999){
-            if(hp>0 && !invincible && !gp.monsters[index].dying){
-                int damage = gp.monsters[index].attack-defense;
+            if(hp>0 && !invincible && !gp.monsters[gp.currentMap][index].dying){
+                int damage = gp.monsters[gp.currentMap][index].attack-defense;
                 if(damage>0){
                     hp-=damage;
                 } else {
@@ -352,31 +353,31 @@ public class Player extends Entity{
 
     public void attackMonster(int index, int attack){
         if(index!=999){
-            if(gp.monsters[index].hp>0 && !gp.monsters[index].invincible){
+            if(gp.monsters[gp.currentMap][index].hp>0 && !gp.monsters[gp.currentMap][index].invincible){
                 gp.playSoundEffect(8);
-                int damage = attack-gp.monsters[index].defense;
+                int damage = attack-gp.monsters[gp.currentMap][index].defense;
                 if(damage<0)
                     damage=0;
-                gp.monsters[index].hp-=damage;
+                gp.monsters[gp.currentMap][index].hp-=damage;
                 gp.uiH.addMessage(damage+" hasar!");
-                gp.monsters[index].invincible=true;
-                gp.monsters[index].damageReaction();
+                gp.monsters[gp.currentMap][index].invincible=true;
+                gp.monsters[gp.currentMap][index].damageReaction();
             }
-            if (gp.monsters[index].hp<=0 && !gp.monsters[index].dying){
-                gp.monsters[index].dying = true;
-                gp.uiH.addMessage(gp.monsters[index].name+" öldü.");
-                exp += gp.monsters[index].exp;
-                gp.uiH.addMessage("+"+gp.monsters[index].exp+" deneyim.");
+            if (gp.monsters[gp.currentMap][index].hp<=0 && !gp.monsters[gp.currentMap][index].dying){
+                gp.monsters[gp.currentMap][index].dying = true;
+                gp.uiH.addMessage(gp.monsters[gp.currentMap][index].name+" öldü.");
+                exp += gp.monsters[gp.currentMap][index].exp;
+                gp.uiH.addMessage("+"+gp.monsters[gp.currentMap][index].exp+" deneyim.");
                 checkLevelUp();
             }
         }
     }
 
     public void attackInteractiveTile(int index){
-        if(index!=999 && gp.iTiles[index].canChange && gp.iTiles[index].isCorrectItem(this)){
-            gp.iTiles[index].generateITileParticle(index);
+        if(index!=999 && gp.iTiles[gp.currentMap][index].canChange && gp.iTiles[gp.currentMap][index].isCorrectItem(this)){
+            gp.iTiles[gp.currentMap][index].generateITileParticle(index);
 
-            gp.iTiles[index].attack(index);
+            gp.iTiles[gp.currentMap][index].attack(index);
         }
     }
 

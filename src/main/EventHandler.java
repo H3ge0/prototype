@@ -3,31 +3,37 @@ package main;
 public class EventHandler {
 
     GamePanel gp;
-    EventRect[][] eventRect;
+    EventRect[][][] eventRect;
 
     int previousEventX, previousEventY;
     boolean canTouchEvent=true;
+    int tempMap, tempCol, tempRow;
 
     public EventHandler(GamePanel gp){
         this.gp = gp;
 
-        eventRect = new EventRect[gp.maxWorldCol][gp.maxWorldRow];
+        eventRect = new EventRect[gp.mapAmount][gp.maxWorldCol][gp.maxWorldRow];
 
-        int col=0,row=0;
+        int map=0,col=0,row=0;
 
-        while(col<gp.maxWorldCol && row<gp.maxWorldRow){
-            eventRect[col][row] = new EventRect();
-            eventRect[col][row].x = 23;
-            eventRect[col][row].y = 23;
-            eventRect[col][row].width = 2;
-            eventRect[col][row].height = 2;
-            eventRect[col][row].eventRectDefaultX = eventRect[col][row].x;
-            eventRect[col][row].eventRectDefaultY = eventRect[col][row].y;
+        while(map<gp.mapAmount && col<gp.maxWorldCol && row<gp.maxWorldRow){
+            eventRect[map][col][row] = new EventRect();
+            eventRect[map][col][row].x = 23;
+            eventRect[map][col][row].y = 23;
+            eventRect[map][col][row].width = 2;
+            eventRect[map][col][row].height = 2;
+            eventRect[map][col][row].eventRectDefaultX = eventRect[map][col][row].x;
+            eventRect[map][col][row].eventRectDefaultY = eventRect[map][col][row].y;
 
             col++;
             if(col==gp.maxWorldCol){
                 col=0;
                 row++;
+
+                if(row==gp.maxWorldRow){
+                    row=0;
+                    map++;
+                }
             }
         }
     }
@@ -41,12 +47,42 @@ public class EventHandler {
         }
 
         if(canTouchEvent){
-            if(hit(27,13,"right"))
+            if(hit(0,27,13,"right"))
                 damagePit(gp.dialogueState);
-            if(hit(23,7,"up"))
+            else if(hit(0,23,7,"up"))
                 healingPool(gp.dialogueState);
+            else if(hit(0,13,39,"any"))
+                teleport(1,12,13);
+            else if(hit(1,12,13,"any"))
+                teleport(0,13,39);
         }
 
+    }
+
+    public boolean hit(int map,int col, int row, String reqDirection){
+        boolean hit = false;
+
+        if(map==gp.currentMap){
+            gp.player.collisionBox.x += gp.player.worldX;
+            gp.player.collisionBox.y += gp.player.worldY;
+            eventRect[map][col][row].x += col*gp.tileSize;
+            eventRect[map][col][row].y += row*gp.tileSize;
+
+            if(gp.player.collisionBox.intersects(eventRect[map][col][row]) && !eventRect[map][col][row].eventDone){
+                if(reqDirection.equals("any")||reqDirection.equals(gp.player.direction)){
+                    hit=true;
+                    previousEventX = gp.player.worldX;
+                    previousEventY = gp.player.worldY;
+                }
+            }
+
+            gp.player.collisionBox.x = gp.player.collisionBoxDefaultX;
+            gp.player.collisionBox.y = gp.player.collisionBoxDefaultY;
+            eventRect[map][col][row].x = eventRect[map][col][row].eventRectDefaultX;
+            eventRect[map][col][row].y = eventRect[map][col][row].eventRectDefaultY;
+        }
+
+        return hit;
     }
 
     public void damagePit(int gameState){
@@ -93,28 +129,16 @@ public class EventHandler {
         }
     }
 
-    public boolean hit(int col, int row, String reqDirection){
-        boolean hit = false;
+    public void teleport(int map,int col,int row){
+        gp.gameState=gp.transitionState;
+        tempMap=map;
+        tempCol=col;
+        tempRow=row;
 
-        gp.player.collisionBox.x += gp.player.worldX;
-        gp.player.collisionBox.y += gp.player.worldY;
-        eventRect[col][row].x += col*gp.tileSize;
-        eventRect[col][row].y += row*gp.tileSize;
 
-        if(gp.player.collisionBox.intersects(eventRect[col][row]) && !eventRect[col][row].eventDone){
-            if(reqDirection.equals("any")||reqDirection.equals(gp.player.direction)){
-                hit=true;
-                previousEventX = gp.player.worldX;
-                previousEventY = gp.player.worldY;
-            }
-        }
 
-        gp.player.collisionBox.x = gp.player.collisionBoxDefaultX;
-        gp.player.collisionBox.y = gp.player.collisionBoxDefaultY;
-        eventRect[col][row].x = eventRect[col][row].eventRectDefaultX;
-        eventRect[col][row].y = eventRect[col][row].eventRectDefaultY;
-
-        return hit;
+        canTouchEvent=false;
+        gp.playSoundEffect(14);
     }
 
 }

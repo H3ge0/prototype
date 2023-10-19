@@ -15,100 +15,101 @@ public class ObjectHandler {
 
     public void setObjects() {
         int i=0;
+        int mapNum=0;
 
-        gp.obj[i] = new Carrot(gp);
-        gp.obj[i].worldX = gp.tileSize*25;
-        gp.obj[i].worldY = gp.tileSize*23;
+        gp.obj[mapNum][i] = new Carrot(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize*25;
+        gp.obj[mapNum][i].worldY = gp.tileSize*23;
         i++;
-        gp.obj[i] = new Candy(gp);
-        gp.obj[i].worldX = gp.tileSize*21;
-        gp.obj[i].worldY = gp.tileSize*19;
+        gp.obj[mapNum][i] = new Candy(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize*21;
+        gp.obj[mapNum][i].worldY = gp.tileSize*19;
+        i++;
+        gp.obj[mapNum][i] = new FireballRed(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize*21;
+        gp.obj[mapNum][i].worldY = gp.tileSize*18;
         i++;
     }
 
     public void setNPCs(){
-        gp.npcs[0] = new Budi(gp);
-        gp.npcs[0].worldX = gp.tileSize*20;
-        gp.npcs[0].worldY = gp.tileSize*21;
+        int mapNum=0;
+
+        gp.npcs[mapNum][0] = new Budi(gp);
+        gp.npcs[mapNum][0].worldX = gp.tileSize*20;
+        gp.npcs[mapNum][0].worldY = gp.tileSize*21;
     }
 
     public void setMonsters(){
         int i=0;
+        int mapNum=0;
 
-        gp.monsters[i] = new Ogim(gp);
-        gp.monsters[i].worldX = gp.tileSize*23;
-        gp.monsters[i].worldY = gp.tileSize*36;
+        gp.monsters[mapNum][i] = new Ogim(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize*23;
+        gp.monsters[mapNum][i].worldY = gp.tileSize*36;
         i++;
 
-        gp.monsters[i] = new Ogim(gp);
-        gp.monsters[i].worldX = gp.tileSize*25;
-        gp.monsters[i].worldY = gp.tileSize*37;
+        gp.monsters[mapNum][i] = new Ogim(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize*25;
+        gp.monsters[mapNum][i].worldY = gp.tileSize*37;
         i++;
 
-        gp.monsters[i] = new Ogim(gp);
-        gp.monsters[i].worldX = gp.tileSize*35;
-        gp.monsters[i].worldY = gp.tileSize*38;
+        gp.monsters[mapNum][i] = new Ogim(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize*35;
+        gp.monsters[mapNum][i].worldY = gp.tileSize*38;
         i++;
 
-        gp.monsters[i] = new Ogim(gp);
-        gp.monsters[i].worldX = gp.tileSize*38;
-        gp.monsters[i].worldY = gp.tileSize*42;
+        gp.monsters[mapNum][i] = new Ogim(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize*38;
+        gp.monsters[mapNum][i].worldY = gp.tileSize*42;
         i++;
 
-        gp.monsters[i] = new Ogim(gp);
-        gp.monsters[i].worldX = gp.tileSize*35;
-        gp.monsters[i].worldY = gp.tileSize*9;
+        gp.monsters[mapNum][i] = new Ogim(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize*35;
+        gp.monsters[mapNum][i].worldY = gp.tileSize*9;
         i++;
 
-        gp.monsters[i] = new Ogim(gp);
-        gp.monsters[i].worldX = gp.tileSize*39;
-        gp.monsters[i].worldY = gp.tileSize*11;
+        gp.monsters[mapNum][i] = new Ogim(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize*39;
+        gp.monsters[mapNum][i].worldY = gp.tileSize*11;
         i++;
 
-        gp.monsters[i] = new Ogim(gp);
-        gp.monsters[i].worldX = gp.tileSize*10;
-        gp.monsters[i].worldY = gp.tileSize*32;
+        gp.monsters[mapNum][i] = new Ogim(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize*10;
+        gp.monsters[mapNum][i].worldY = gp.tileSize*32;
         i++;
 
-        gp.monsters[i] = new Ogim(gp);
-        gp.monsters[i].worldX = gp.tileSize*9;
-        gp.monsters[i].worldY = gp.tileSize*7;
+        gp.monsters[mapNum][i] = new Ogim(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize*9;
+        gp.monsters[mapNum][i].worldY = gp.tileSize*7;
         i++;
 
-        gp.monsters[i] = new Ogim(gp);
-        gp.monsters[i].worldX = gp.tileSize*10;
-        gp.monsters[i].worldY = gp.tileSize*7;
+        gp.monsters[mapNum][i] = new Ogim(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize*10;
+        gp.monsters[mapNum][i].worldY = gp.tileSize*7;
         i++;
 
-        gp.monsters[i] = new Ogim(gp);
-        gp.monsters[i].worldX = gp.tileSize*11;
-        gp.monsters[i].worldY = gp.tileSize*7;
+        gp.monsters[mapNum][i] = new Ogim(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize*11;
+        gp.monsters[mapNum][i].worldY = gp.tileSize*7;
         i++;
     }
 
     public void setInteractiveTiles() {
         int i=0;
+        int mapNum=0;
 
-        gp.iTiles[i] = new DryTree0(gp,25,10); i++;
-        gp.iTiles[i] = new DryTree0(gp,26,10); i++;
-        gp.iTiles[i] = new DryTree0(gp,27,10); i++;
-        gp.iTiles[i] = new DryTree0(gp,28,10); i++;
-        gp.iTiles[i] = new DryTree0(gp,29,10); i++;
-        gp.iTiles[i] = new DryTree0(gp,30,10); i++;
-        gp.iTiles[i] = new DryTree0(gp,31,10); i++;
-        gp.iTiles[i] = new DryTree0(gp,32,10); i++;
+        gp.iTiles[mapNum][i] = new DryTree0(gp,30,22); i++;
 
-        gp.iTiles[i] = new DryTree0(gp,11,16); i++;
-        gp.iTiles[i] = new DryTree0(gp,12,16); i++;
-        gp.iTiles[i] = new DryTree0(gp,13,16); i++;
-        gp.iTiles[i] = new DryTree0(gp,14,16); i++;
-        gp.iTiles[i] = new DryTree0(gp,15,16); i++;
-        gp.iTiles[i] = new DryTree0(gp,16,16); i++;
-        gp.iTiles[i] = new DryTree0(gp,17,16); i++;
-        gp.iTiles[i] = new DryTree0(gp,18,16); i++;
-        gp.iTiles[i] = new DryTree0(gp,19,16); i++;
-        gp.iTiles[i] = new DryTree0(gp,20,16); i++;
-        gp.iTiles[i] = new DryTree0(gp,21,16); i++;
+        gp.iTiles[mapNum][i] = new DryTree0(gp,10,22); i++;
+        gp.iTiles[mapNum][i] = new DryTree0(gp,9,22); i++;
+
+        gp.iTiles[mapNum][i] = new DryTree0(gp,13,40); i++;
+        gp.iTiles[mapNum][i] = new DryTree0(gp,13,41); i++;
+        gp.iTiles[mapNum][i] = new DryTree0(gp,14,41); i++;
+        gp.iTiles[mapNum][i] = new DryTree0(gp,15,41); i++;
+        gp.iTiles[mapNum][i] = new DryTree0(gp,15,40); i++;
+        gp.iTiles[mapNum][i] = new DryTree0(gp,16,40); i++;
+        gp.iTiles[mapNum][i] = new DryTree0(gp,17,40); i++;
     }
 
 }

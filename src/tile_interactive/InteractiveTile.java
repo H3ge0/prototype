@@ -3,8 +3,6 @@ package tile_interactive;
 import entity.Entity;
 import main.GamePanel;
 
-import java.awt.*;
-
 public class InteractiveTile extends Entity {
 
     public boolean canChange =false;

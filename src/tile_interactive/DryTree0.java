@@ -26,7 +26,7 @@ public class DryTree0 extends InteractiveTile{
 
     @Override
     public void attack(int i) {
-        gp.iTiles[i]=new BurntTree(gp,worldX/gp.tileSize,worldY/gp.tileSize);
+        gp.iTiles[gp.currentMap][i]=new BurntTree(gp,worldX/gp.tileSize,worldY/gp.tileSize);
     }
 
     @Override

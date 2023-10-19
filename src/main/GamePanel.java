@@ -25,6 +25,8 @@ public class GamePanel extends JPanel implements Runnable{
     //World Settings
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
+    public final int mapAmount = 10;
+    public int currentMap = 0;
 
     //Full Screen
     int screenWidth2 = screenWidth;
@@ -46,10 +48,10 @@ public class GamePanel extends JPanel implements Runnable{
     public CollisionHandler collisionH = new CollisionHandler(this);
     TileManager tileManager = new TileManager(this);
     public Player player = new Player(this, keyH);
-    public Entity[] npcs = new Entity[10];
-    public Entity[] obj = new Entity[20];
-    public Entity[] monsters = new Entity[20];
-    public InteractiveTile[] iTiles = new InteractiveTile[50];
+    public Entity[][] npcs = new Entity[mapAmount][10];
+    public Entity[][] obj = new Entity[mapAmount][20];
+    public Entity[][] monsters = new Entity[mapAmount][20];
+    public InteractiveTile[][] iTiles = new InteractiveTile[mapAmount][50];
     public ArrayList<Entity> projectiles = new ArrayList<>();
     public ArrayList<Entity> particles = new ArrayList<>();
     ArrayList<Entity> entityList = new ArrayList<>();
@@ -65,6 +67,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int charInfoState = 4;
     public final int settingsState = 5;
     public final int deadState = 6;
+    public final int transitionState = 7;
 
     GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
@@ -162,18 +165,18 @@ public class GamePanel extends JPanel implements Runnable{
             //Player
             player.update();
             //Npcs
-            for(Entity entity:npcs){
+            for(Entity entity:npcs[currentMap]){
                 if(entity!=null)
                     entity.update();
             }
             //Monsters
-            for(int i=0;i<monsters.length;i++){
-                if(monsters[i]!=null){
-                    if(monsters[i].alive && !monsters[i].dying)
-                        monsters[i].update();
-                    if(!monsters[i].alive){
-                        monsters[i].checkDrop();
-                        monsters[i]=null;
+            for(int i=0;i<monsters[currentMap].length;i++){
+                if(monsters[currentMap][i]!=null){
+                    if(monsters[currentMap][i].alive && !monsters[currentMap][i].dying)
+                        monsters[currentMap][i].update();
+                    if(!monsters[currentMap][i].alive){
+                        monsters[currentMap][i].checkDrop();
+                        monsters[currentMap][i]=null;
                     }
                 }
             }
@@ -196,7 +199,7 @@ public class GamePanel extends JPanel implements Runnable{
                 }
             }
             //InteractiveTiles
-            for(InteractiveTile iTile:iTiles){
+            for(InteractiveTile iTile:iTiles[currentMap]){
                 if(iTile!=null)
                     iTile.update();
             }
@@ -226,24 +229,24 @@ public class GamePanel extends JPanel implements Runnable{
             tileManager.draw(g2);
 
             //InteractiveTiles
-            for(InteractiveTile iTile:iTiles){
+            for(InteractiveTile iTile:iTiles[currentMap]){
                 if(iTile!=null)
                     iTile.draw(g2);
             }
 
             //Add all entities to the list
             entityList.add(player);
-            for(Entity e:npcs){
+            for(Entity e:npcs[currentMap]){
                 if(e!=null){
                     entityList.add(e);
                 }
             }
-            for(Entity e:obj){
+            for(Entity e:obj[currentMap]){
                 if(e!=null){
                     entityList.add(e);
                 }
             }
-            for(Entity e:monsters){
+            for(Entity e:monsters[currentMap]){
                 if(e!=null){
                     entityList.add(e);
                 }
@@ -282,7 +285,8 @@ public class GamePanel extends JPanel implements Runnable{
             g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
             g2.setFont(new Font("Arial",Font.PLAIN,20));
             g2.drawString("Draw Time:"+passed,10,400);
-            g2.drawString("Invincible Counter:"+player.invincibleCounter,10,450);
+            g2.drawString("Col:"+(player.worldX+24)/48,10,450);
+            g2.drawString("Row:"+(player.worldY+24)/48,10,500);
         }
     }
 
