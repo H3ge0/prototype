@@ -1,5 +1,6 @@
 package main;
 
+import entity.Bobo;
 import entity.Budi;
 import monster.Ogim;
 import object.*;
@@ -17,26 +18,38 @@ public class ObjectHandler {
         int i=0;
         int mapNum=0;
 
-        gp.obj[mapNum][i] = new Carrot(gp);
+        /*
+        gp.obj[mapNum][i] = new ArmorIron(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize*25;
         gp.obj[mapNum][i].worldY = gp.tileSize*23;
         i++;
-        gp.obj[mapNum][i] = new Candy(gp);
+        gp.obj[mapNum][i] = new ArmorIron(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize*21;
         gp.obj[mapNum][i].worldY = gp.tileSize*19;
         i++;
         gp.obj[mapNum][i] = new FireballRed(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize*21;
-        gp.obj[mapNum][i].worldY = gp.tileSize*18;
+        gp.obj[mapNum][i].worldY = gp.tileSize*19;
         i++;
+        */
+
     }
 
     public void setNPCs(){
         int mapNum=0;
+        int i=0;
 
-        gp.npcs[mapNum][0] = new Budi(gp);
-        gp.npcs[mapNum][0].worldX = gp.tileSize*20;
-        gp.npcs[mapNum][0].worldY = gp.tileSize*21;
+        gp.npcs[mapNum][i] = new Budi(gp);
+        gp.npcs[mapNum][i].worldX = gp.tileSize*20;
+        gp.npcs[mapNum][i].worldY = gp.tileSize*21;
+        i++;
+
+        mapNum=1;
+        i=0;
+        gp.npcs[mapNum][i] = new Bobo(gp);
+        gp.npcs[mapNum][i].worldX = gp.tileSize*12;
+        gp.npcs[mapNum][i].worldY = gp.tileSize*7;
+        i++;
     }
 
     public void setMonsters(){

@@ -10,6 +10,8 @@ public class ArmorLeather extends Entity {
         name="Leather Armor";
         displayedName="Deri Zırh";
         description="Ormanın ortasında bulmuş\nolsan da iş görüyor.";
+        coin=5;
+        isOneTime=true;
         type=typeArmor;
 
         down1=setImage("/objects/armor_leather",gp.tileSize,gp.tileSize);

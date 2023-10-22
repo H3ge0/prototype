@@ -10,6 +10,8 @@ public class FireballRed extends Entity {
         name="Red Fireball";
         displayedName="Kırmızı Ateş Topu";
         description="Gerkeçten birşeyleri\nyakabilir gibi duruyor.\n\n\n(Strontiyum).";
+        coin=20;
+        isOneTime=true;
         type=typeFireball;
 
         down1=setImage("/objects/fireball_red",gp.tileSize,gp.tileSize);

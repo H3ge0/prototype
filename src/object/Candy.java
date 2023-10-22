@@ -10,7 +10,8 @@ public class Candy extends Entity {
 
         name = "Candy";
         displayedName="Şeker";
-        description="Çok tatlı duruyor...\n\n\n*Enerjini doldurur.*";
+        description="Çok tatlı duruyor...\n\n\n\n*Enerjini doldurur.*";
+        coin=15;
         type=typeConsumable;
 
         down1 = setImage("/objects/candy",gp.tileSize,gp.tileSize);
@@ -20,7 +21,10 @@ public class Candy extends Entity {
     @Override
     public void use(Entity entity){
         gp.gameState = gp.dialogueState;
-        gp.uiH.currentDialogueText="Şekeri yedin. İçin enejiyle doldu.\n\n*Hızın Arttı*\n*Enerjin doldu*";
+        if(gp.player.speed<6){
+            gp.uiH.currentDialogueText="Şekeri yedin. İçin enejiyle doldu.\n\n*Hızın Arttı*\n*Enerjin doldu*";
+        } else
+            gp.uiH.currentDialogueText="Şekeri yedin. İçin enejiyle doldu.\n\n\n*Enerjin doldu*";
         entity.energy=entity.maxEnergy;
         entity.speed++;
         gp.playSoundEffect(5);

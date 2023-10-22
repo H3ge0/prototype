@@ -10,6 +10,8 @@ public class FireballPurple extends Entity {
         name="Purple Fireball";
         displayedName="Mor Ateş Topu";
         description="Hatalarını geri\nçevirebilir.\n\n\n(Potasyum).";
+        coin=20;
+        isOneTime=true;
         type=typeFireball;
 
         down1=setImage("/objects/fireball_purple",gp.tileSize,gp.tileSize);

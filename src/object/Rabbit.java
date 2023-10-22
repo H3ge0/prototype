@@ -11,6 +11,8 @@ public class Rabbit extends Entity {
         name = "Rabbit";
         displayedName = "Tavşan";
         description = "Bu neden envanterinde?";
+        coin=200;
+        isOneTime=true;
 
         down1 = setImage("/objects/rabbit",gp.tileSize,gp.tileSize);
 

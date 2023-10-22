@@ -8,7 +8,6 @@ import object.ThrowingKnife;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Player extends Entity{
@@ -18,8 +17,6 @@ public class Player extends Entity{
     Random random;
     public final int screenX, screenY;
     public boolean attackCanceled = false;
-    public ArrayList<Entity> inventory = new ArrayList<>();
-    public final int invSize = 20;
 
     public Player(GamePanel gp, KeyHandler keyH){
 
@@ -243,6 +240,9 @@ public class Player extends Entity{
         if(energy>maxEnergy){
             energy=maxEnergy;
         }
+        if(speed>6){
+            speed=6;
+        }
 
         if(hp<=0){
             gp.playSoundEffect(13);
@@ -311,7 +311,7 @@ public class Player extends Entity{
             //Normal Items
             else{
                 String text;
-                if(inventory.size()<invSize){
+                if(inventory.size()< maxInvSize){
                     inventory.add(gp.obj[gp.currentMap][index]);
                     gp.playSoundEffect(4);
                     text = "Bir "+gp.obj[gp.currentMap][index].displayedName+" buldun!";
@@ -403,7 +403,7 @@ public class Player extends Entity{
     }
 
     public void useItem(){
-        int itemIndex = gp.uiH.getItemIndex();
+        int itemIndex = gp.uiH.getItemIndex(this);
 
         if(itemIndex<inventory.size()){
             Entity selectedItem = inventory.get(itemIndex);

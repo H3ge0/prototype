@@ -7,8 +7,8 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Random;
 
 public class Entity {
 
@@ -65,12 +65,15 @@ public class Entity {
     public Projectile currentProjectile;
 
     //Item
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxInvSize = 20;
     public int value;
     public int attackValue;
     public int defenseValue;
     public String displayedName="";
     public String description="";
     public int useCost;
+    public boolean isOneTime = false;
 
     //Type
     public int type;

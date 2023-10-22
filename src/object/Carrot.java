@@ -10,8 +10,9 @@ public class Carrot extends Entity {
 
         name = "Carrot";
         displayedName="Havuç";
-        description="Tavşanlar bunu havada\nkapar.\n\n*3 can iyileştirir.*";
+        description="Tavşanlar bunu havada\nkapar.\n\n\n*3 can iyileştirir.*";
         type=typeConsumable;
+        coin=10;
 
         down1=setImage("/objects/carrot",gp.tileSize,gp.tileSize);
     }
