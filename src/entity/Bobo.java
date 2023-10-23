@@ -5,14 +5,23 @@ import object.Candy;
 import object.Carrot;
 import object.FireballPurple;
 
+import java.awt.*;
+
 public class Bobo extends Entity{
 
     public Bobo(GamePanel gp) {
         super(gp);
 
         direction = "down";
-
         speed=1;
+
+        collisionBox = new Rectangle();
+        collisionBox.x=8;
+        collisionBox.y=16;
+        collisionBoxDefaultX=collisionBox.x;
+        collisionBoxDefaultY=collisionBox.y;
+        collisionBox.width=32;
+        collisionBox.height=32;
 
         getImages();
         setDialogues();

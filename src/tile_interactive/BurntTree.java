@@ -14,6 +14,7 @@ public class BurntTree extends InteractiveTile{
 
         down1=setImage("/interactive_tiles/burnt_tree0",gp.tileSize,gp.tileSize);
         canChange=true;
+        destructible=false;
         collisionOn=false;
     }
 

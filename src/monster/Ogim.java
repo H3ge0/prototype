@@ -18,8 +18,8 @@ public class Ogim extends Entity {
 
         collisionBox.x=3;
         collisionBox.y=3;
-        collisionBox.width=gp.tileSize-6;
-        collisionBox.height=gp.tileSize-6;
+        collisionBox.width=42;
+        collisionBox.height=42;
 
         type = typeMonster;
         name = "Ogim";
@@ -49,31 +49,53 @@ public class Ogim extends Entity {
     }
 
     @Override
-    public void setAction() {
-        actionLockCounter++;
+    public void update() {
+        super.update();
 
-        if (actionLockCounter==120){
-            int i = random.nextInt(100)+1;
+        int xDistance = Math.abs(worldX-gp.player.worldX);
+        int yDistance = Math.abs(worldY-gp.player.worldY);
+        int distanceAsTile = (xDistance+yDistance)/gp.tileSize;
 
-            if(i<=25){
-                direction="up";
-            } else if (i<=50){
-                direction="down";
-            } else if (i<=75){
-                direction="left";
-            } else {
-                direction="right";
+        if(!onPath && distanceAsTile<5){
+            int i = new Random().nextInt(100)+1;
+            if(i>50){
+                onPath=true;
             }
-            actionLockCounter=0;
         }
+    }
 
-        int i = random.nextInt(100)+1;
-        if(i==99 && !currentProjectile.alive && projectileCooldownCounter==60){
-            currentProjectile.setProjectile(worldX,worldY,direction,true,this);
-            gp.projectiles.add(currentProjectile);
-            if(Math.abs(gp.player.worldX-worldX)<gp.screenWidth/2+gp.tileSize && Math.abs(gp.player.worldY-worldY)<gp.screenHeight/2+gp.tileSize)
-                gp.playSoundEffect(12);
-            projectileCooldownCounter=0;
+    @Override
+    public void setAction() {
+        if(onPath){
+            int goalCol=(gp.player.worldX+gp.player.collisionBox.x)/gp.tileSize;
+            int goalRow=(gp.player.worldY+gp.player.collisionBox.y)/gp.tileSize;
+            searchPath(goalCol,goalRow);
+
+            int i = random.nextInt(100)+1;
+            if(i==99 && !currentProjectile.alive && projectileCooldownCounter==60){
+                currentProjectile.setProjectile(worldX,worldY,direction,true,this);
+                gp.projectiles.add(currentProjectile);
+                if(Math.abs(gp.player.worldX-worldX)<gp.screenWidth/2+gp.tileSize && Math.abs(gp.player.worldY-worldY)<gp.screenHeight/2+gp.tileSize)
+                    gp.playSoundEffect(12);
+                projectileCooldownCounter=0;
+            }
+        }else{
+            actionLockCounter++;
+
+            if (actionLockCounter==120){
+                int i = random.nextInt(100)+1;
+
+                if(i<=25){
+                    direction="up";
+                } else if (i<=50){
+                    direction="down";
+                } else if (i<=75){
+                    direction="left";
+                } else {
+                    direction="right";
+                }
+                actionLockCounter=0;
+            }
         }
     }
 
@@ -110,12 +132,7 @@ public class Ogim extends Entity {
     @Override
     public void damageReaction() {
         actionLockCounter=0;
-        switch(gp.player.direction){
-            case "up" -> direction = "down";
-            case "down" -> direction = "up";
-            case "left" -> direction = "right";
-            case "right" -> direction = "left";
-        }
+        onPath=true;
     }
 
     @Override

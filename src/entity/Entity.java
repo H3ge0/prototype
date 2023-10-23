@@ -36,6 +36,7 @@ public class Entity {
     public boolean alive = true;
     public boolean dying = false;
     public boolean hpBarOn = false;
+    public boolean onPath = false;
 
     //Counters
     public int actionLockCounter = 0;
@@ -122,11 +123,9 @@ public class Entity {
         }
     }
 
-    public void update(){
-        setAction();
+    public void checkCollision(){
         collision=false;
         gp.collisionH.checkEntity(this,gp.iTiles);
-
         gp.collisionH.checkTile(this);
         gp.collisionH.checkObject(this,false);
         gp.collisionH.checkEntity(this,gp.npcs);
@@ -136,6 +135,12 @@ public class Entity {
         if (type==typeMonster && contactPlayer){
             attackPlayer(attack);
         }
+    }
+
+    public void update(){
+        setAction();
+
+        checkCollision();
 
         if(!collision){
             switch(direction){
@@ -363,5 +368,69 @@ public class Entity {
         gp.particles.add(p2);
         gp.particles.add(p3);
         gp.particles.add(p4);
+    }
+
+    public void searchPath(int goalCol,int goalRow){
+        int startCol=(worldX+collisionBox.x)/gp.tileSize;
+        int startRow=(worldY+collisionBox.y)/gp.tileSize;
+
+        gp.pathFinder.setNodes(startCol,startRow,goalCol,goalRow);
+
+        if(gp.pathFinder.search()){
+            //Next worldX and worldY
+            int nextX = gp.pathFinder.pathList.get(0).col*gp.tileSize;
+            int nextY = gp.pathFinder.pathList.get(0).row*gp.tileSize;
+            //Collision box positions
+            int enLeftX = worldX + collisionBox.x;
+            int enRightX = worldX + collisionBox.x + collisionBox.width;
+            int enTopY = worldY + collisionBox.y;
+            int enBottomY = worldY + collisionBox.y + collisionBox.height;
+
+            if(enTopY>nextY && enLeftX>=nextX && enRightX<nextX+gp.tileSize){
+                direction="up";
+            }else if(enTopY<nextY && enLeftX>=nextX && enRightX<nextX+gp.tileSize){
+                direction="down";
+            }else if(enTopY>=nextY && enBottomY<nextY+gp.tileSize){
+                //Left or Right
+                if(enLeftX>nextX){
+                    direction="left";
+                }
+                if(enLeftX<nextX){
+                    direction="right";
+                }
+            }else if(enTopY>nextY && enLeftX>nextX){
+                //Up or Left
+                direction="up";
+                checkCollision();
+                if(collision)
+                    direction="left";
+            }else if(enTopY>nextY && enLeftX<nextX){
+                //Up or Right
+                direction="up";
+                checkCollision();
+                if(collision)
+                    direction="right";
+            }else if(enTopY<nextY && enLeftX>nextX){
+                //Down or Left
+                direction="down";
+                checkCollision();
+                if(collision)
+                    direction="left";
+            }else if(enTopY<nextY && enLeftX<nextX){
+                //Down or Right
+                direction="down";
+                checkCollision();
+                if(collision)
+                    direction="right";
+            }
+        }
+
+        /*
+        int nextCol = gp.pathFinder.pathList.get(0).col;
+        int nextRow = gp.pathFinder.pathList.get(0).row;
+
+        if(nextCol==goalCol && nextRow==goalRow)
+            onPath=false;
+         */
     }
 }

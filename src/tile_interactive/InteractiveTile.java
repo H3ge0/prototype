@@ -6,6 +6,7 @@ import main.GamePanel;
 public class InteractiveTile extends Entity {
 
     public boolean canChange =false;
+    public boolean destructible =false;
 
     public InteractiveTile(GamePanel gp,int col,int row) {
         super(gp);

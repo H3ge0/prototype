@@ -1,5 +1,6 @@
 package tile;
 
+import ai.Node;
 import main.GamePanel;
 import main.UtilityTool;
 
@@ -18,6 +19,7 @@ public class TileManager {
     public Tile[] tiles;
     Random random;
     public int[][][] map;
+    boolean drawPath = false;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -179,6 +181,17 @@ public class TileManager {
             }
         }
 
+        if(drawPath){
+            g2.setColor(new Color(255,0,0,70));
+            for(Node node:gp.pathFinder.pathList){
+                int worldX = node.col * gp.tileSize;
+                int worldY = node.row * gp.tileSize;
+                int screenX = worldX - gp.player.worldX+gp.player.screenX;
+                int screenY = worldY - gp.player.worldY+gp.player.screenY;
+
+                g2.fillRect(screenX,screenY,gp.tileSize,gp.tileSize);
+            }
+        }
     }
 
 }

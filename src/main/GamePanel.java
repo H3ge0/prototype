@@ -1,5 +1,6 @@
 package main;
 
+import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
 import tile.TileManager;
@@ -46,7 +47,7 @@ public class GamePanel extends JPanel implements Runnable{
     ObjectHandler objectH = new ObjectHandler(this);
     public EventHandler eventH = new EventHandler(this);
     public CollisionHandler collisionH = new CollisionHandler(this);
-    TileManager tileManager = new TileManager(this);
+    public TileManager tileManager = new TileManager(this);
     public Player player = new Player(this, keyH);
     public Entity[][] npcs = new Entity[mapAmount][10];
     public Entity[][] obj = new Entity[mapAmount][20];
@@ -56,6 +57,7 @@ public class GamePanel extends JPanel implements Runnable{
     public ArrayList<Entity> particles = new ArrayList<>();
     ArrayList<Entity> entityList = new ArrayList<>();
     Config config = new Config(this);
+    public PathFinder pathFinder = new PathFinder(this);
     Thread gameThread;
 
     //Gamestate

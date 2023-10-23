@@ -1,6 +1,8 @@
 package entity;
 
 import main.GamePanel;
+
+import java.awt.*;
 import java.util.Random;
 
 public class Budi extends Entity{
@@ -13,8 +15,15 @@ public class Budi extends Entity{
         random = new Random();
 
         direction = "down";
-
         speed=1;
+
+        collisionBox = new Rectangle();
+        collisionBox.x=8;
+        collisionBox.y=16;
+        collisionBoxDefaultX=collisionBox.x;
+        collisionBoxDefaultY=collisionBox.y;
+        collisionBox.width=32;
+        collisionBox.height=32;
 
         getImages();
         setDialogues();
@@ -46,22 +55,27 @@ public class Budi extends Entity{
 
     @Override
     public void setAction(){
+        if(onPath){
+            int goalCol=(gp.player.worldX+gp.player.collisionBox.x)/gp.tileSize;
+            int goalRow=(gp.player.worldY+gp.player.collisionBox.y)/gp.tileSize;
+            searchPath(goalCol,goalRow);
+        }else{
+            actionLockCounter++;
 
-        actionLockCounter++;
+            if (actionLockCounter==120){
+                int i = random.nextInt(100)+1;
 
-        if (actionLockCounter==120){
-            int i = random.nextInt(100)+1;
-
-            if(i<=25){
-                direction="up";
-            } else if (i<=50){
-                direction="down";
-            } else if (i<=75){
-                direction="left";
-            } else {
-                direction="right";
+                if(i<=25){
+                    direction="up";
+                } else if (i<=50){
+                    direction="down";
+                } else if (i<=75){
+                    direction="left";
+                } else {
+                    direction="right";
+                }
+                actionLockCounter=0;
             }
-            actionLockCounter=0;
         }
     }
 
@@ -78,6 +92,7 @@ public class Budi extends Entity{
             }
         }else
             super.speak();
+        onPath=!onPath;
     }
 
 }

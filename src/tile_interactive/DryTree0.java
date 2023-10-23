@@ -16,6 +16,7 @@ public class DryTree0 extends InteractiveTile{
 
         down1=setImage("/interactive_tiles/dry_tree0",gp.tileSize,gp.tileSize);
         canChange=true;
+        destructible=true;
         collisionOn=true;
     }
 
