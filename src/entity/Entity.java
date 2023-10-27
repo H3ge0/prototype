@@ -37,6 +37,7 @@ public class Entity {
     public boolean dying = false;
     public boolean hpBarOn = false;
     public boolean onPath = false;
+    public boolean knockBack = false;
 
     //Counters
     public int actionLockCounter = 0;
@@ -45,9 +46,11 @@ public class Entity {
     public int dyingCounter = 0;
     public int hpBarCounter = 0;
     public int projectileCooldownCounter = 0;
+    public int knockBackCounter = 0;
 
     //Character
     public String name;
+    public int defaultSpeed;
     public int speed;
     public int maxHp;
     public int hp;
@@ -75,6 +78,7 @@ public class Entity {
     public String description="";
     public int useCost;
     public boolean isOneTime = false;
+    public int knockBackPower=0;
 
     //Type
     public int type;
@@ -138,16 +142,39 @@ public class Entity {
     }
 
     public void update(){
-        setAction();
+        if(knockBack){
+            checkCollision();
+            if(collision){
+                knockBack=false;
+                knockBackCounter=0;
+                speed=defaultSpeed;
+            }else{
+                switch(gp.player.direction){
+                    case "up" -> worldY-=speed;
+                    case "down" -> worldY+=speed;
+                    case "left" -> worldX-=speed;
+                    case "right" -> worldX+=speed;
+                }
+            }
 
-        checkCollision();
+            knockBackCounter++;
+            if(knockBackCounter==10){
+                knockBack=false;
+                knockBackCounter=0;
+                speed=defaultSpeed;
+            }
+        }else{
+            setAction();
 
-        if(!collision){
-            switch(direction){
-                case "up" -> worldY-=speed;
-                case "down" -> worldY+=speed;
-                case "left" -> worldX-=speed;
-                case "right" -> worldX+=speed;
+            checkCollision();
+
+            if(!collision){
+                switch(direction){
+                    case "up" -> worldY-=speed;
+                    case "down" -> worldY+=speed;
+                    case "left" -> worldX-=speed;
+                    case "right" -> worldX+=speed;
+                }
             }
         }
 

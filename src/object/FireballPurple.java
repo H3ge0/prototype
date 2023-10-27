@@ -13,6 +13,7 @@ public class FireballPurple extends Entity {
         coin=20;
         isOneTime=true;
         type=typeFireball;
+        knockBackPower=3;
 
         down1=setImage("/objects/fireball_purple",gp.tileSize,gp.tileSize);
 

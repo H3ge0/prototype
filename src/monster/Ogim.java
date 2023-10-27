@@ -23,7 +23,8 @@ public class Ogim extends Entity {
 
         type = typeMonster;
         name = "Ogim";
-        speed = 1;
+        defaultSpeed = 1;
+        speed = defaultSpeed;
         maxHp = 4;
         hp = maxHp;
         attack = 3;
@@ -74,7 +75,13 @@ public class Ogim extends Entity {
             int i = random.nextInt(100)+1;
             if(i==99 && !currentProjectile.alive && projectileCooldownCounter==60){
                 currentProjectile.setProjectile(worldX,worldY,direction,true,this);
-                gp.projectiles.add(currentProjectile);
+                //Check empty place in array
+                for(int j=0;j<gp.projectiles[gp.currentMap].length;j++){
+                    if(gp.projectiles[gp.currentMap][j]==null){
+                        gp.projectiles[gp.currentMap][j]=currentProjectile;
+                        break;
+                    }
+                }
                 if(Math.abs(gp.player.worldX-worldX)<gp.screenWidth/2+gp.tileSize && Math.abs(gp.player.worldY-worldY)<gp.screenHeight/2+gp.tileSize)
                     gp.playSoundEffect(12);
                 projectileCooldownCounter=0;
