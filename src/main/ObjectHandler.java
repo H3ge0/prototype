@@ -18,20 +18,14 @@ public class ObjectHandler {
         int i=0;
         int mapNum=0;
 
-        /*
-        gp.obj[mapNum][i] = new ArmorIron(gp);
-        gp.obj[mapNum][i].worldX = gp.tileSize*25;
-        gp.obj[mapNum][i].worldY = gp.tileSize*23;
+        gp.obj[mapNum][i] = new Rabbit(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize*10;
+        gp.obj[mapNum][i].worldY = gp.tileSize*11;
         i++;
-        gp.obj[mapNum][i] = new ArmorIron(gp);
-        gp.obj[mapNum][i].worldX = gp.tileSize*21;
-        gp.obj[mapNum][i].worldY = gp.tileSize*19;
+        gp.obj[mapNum][i] = new Rabbit(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize*12;
+        gp.obj[mapNum][i].worldY = gp.tileSize*24;
         i++;
-        gp.obj[mapNum][i] = new FireballRed(gp);
-        gp.obj[mapNum][i].worldX = gp.tileSize*21;
-        gp.obj[mapNum][i].worldY = gp.tileSize*19;
-        i++;
-        */
 
     }
 
@@ -90,21 +84,6 @@ public class ObjectHandler {
         gp.monsters[mapNum][i].worldX = gp.tileSize*10;
         gp.monsters[mapNum][i].worldY = gp.tileSize*32;
         i++;
-
-        gp.monsters[mapNum][i] = new Ogim(gp);
-        gp.monsters[mapNum][i].worldX = gp.tileSize*9;
-        gp.monsters[mapNum][i].worldY = gp.tileSize*7;
-        i++;
-
-        gp.monsters[mapNum][i] = new Ogim(gp);
-        gp.monsters[mapNum][i].worldX = gp.tileSize*10;
-        gp.monsters[mapNum][i].worldY = gp.tileSize*7;
-        i++;
-
-        gp.monsters[mapNum][i] = new Ogim(gp);
-        gp.monsters[mapNum][i].worldX = gp.tileSize*11;
-        gp.monsters[mapNum][i].worldY = gp.tileSize*7;
-        i++;
     }
 
     public void setInteractiveTiles() {
@@ -113,8 +92,9 @@ public class ObjectHandler {
 
         gp.iTiles[mapNum][i] = new DryTree0(gp,30,22); i++;
 
-        gp.iTiles[mapNum][i] = new DryTree0(gp,10,22); i++;
-        gp.iTiles[mapNum][i] = new DryTree0(gp,9,22); i++;
+        gp.iTiles[mapNum][i] = new DryTree0(gp,11,25); i++;
+        gp.iTiles[mapNum][i] = new DryTree0(gp,10,25); i++;
+        gp.iTiles[mapNum][i] = new DryTree0(gp,9,25); i++;
 
         gp.iTiles[mapNum][i] = new DryTree0(gp,13,40); i++;
         gp.iTiles[mapNum][i] = new DryTree0(gp,13,41); i++;

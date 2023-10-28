@@ -20,9 +20,10 @@ public class Energy extends Entity {
     }
 
     @Override
-    public void use(Entity entity) {
+    public boolean use(Entity entity) {
         gp.playSoundEffect(5);
         entity.energy+=value;
+        return true;
     }
 
     @Override

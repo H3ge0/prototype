@@ -19,7 +19,7 @@ public class Candy extends Entity {
     }
 
     @Override
-    public void use(Entity entity){
+    public boolean use(Entity entity){
         gp.gameState = gp.dialogueState;
         if(gp.player.speed<6){
             gp.uiH.currentDialogueText="Şekeri yedin. İçin enejiyle doldu.\n\n*Hızın Arttı*\n*Enerjin doldu*";
@@ -28,6 +28,7 @@ public class Candy extends Entity {
         entity.energy=entity.maxEnergy;
         entity.speed++;
         gp.playSoundEffect(5);
+        return true;
     }
 
 }

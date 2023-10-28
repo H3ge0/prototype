@@ -787,7 +787,7 @@ public class UIHandler {
                     currentDialogueText="Yeter artik kardes. Benim de var sinirim.";
                     drawDialogueScreen();
                 } else{
-                    if(gp.player.inventory.get(itemIndex).isOneTime && !npcHasItem)
+                    if(gp.player.inventory.get(itemIndex).isOneTime && (!npcHasItem || gp.player.inventory.get(itemIndex).npcCanHaveMultiple))
                         npc.inventory.add(gp.player.inventory.get(itemIndex));
                     gp.player.inventory.remove(itemIndex);
                     gp.player.coin+=price;

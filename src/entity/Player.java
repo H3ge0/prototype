@@ -2,9 +2,7 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
-import object.ArmorLeather;
-import object.FireballOrange;
-import object.ThrowingKnife;
+import object.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -316,6 +314,15 @@ public class Player extends Entity{
             //Pickup only items
             if(gp.obj[gp.currentMap][index].type==typePickUpOnly){
                 gp.obj[gp.currentMap][index].use(this);
+                gp.obj[gp.currentMap][index] = null;
+            }
+
+            //Obstacle items
+            else if(gp.obj[gp.currentMap][index].type==typeObstacle){
+                if(keyH.xKeyPressed){
+                    gp.obj[gp.currentMap][index].interact();
+                    attackCanceled=true;
+                }
             }
 
             //Normal Items
@@ -328,8 +335,8 @@ public class Player extends Entity{
                 }else
                     text = "Envanterin dolu.";
                 gp.uiH.addMessage(text);
+                gp.obj[gp.currentMap][index] = null;
             }
-            gp.obj[gp.currentMap][index] = null;
         }
     }
 
@@ -444,8 +451,8 @@ public class Player extends Entity{
                     }
                 }
                 case typeConsumable -> {
-                    selectedItem.use(this);
-                    inventory.remove(selectedItem);
+                    if(selectedItem.use(this))
+                        inventory.remove(selectedItem);
                 }
             }
         }

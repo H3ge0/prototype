@@ -23,9 +23,10 @@ public class Heart extends Entity {
     }
 
     @Override
-    public void use(Entity entity) {
+    public boolean use(Entity entity) {
         gp.playSoundEffect(5);
         entity.hp+=value;
+        return true;
     }
 
     @Override

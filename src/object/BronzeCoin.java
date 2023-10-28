@@ -16,8 +16,10 @@ public class BronzeCoin extends Entity {
     }
 
     @Override
-    public void use(Entity entity){
+    public boolean use(Entity entity){
         gp.playSoundEffect(5);
         entity.coin+=value;
+
+        return true;
     }
 }
