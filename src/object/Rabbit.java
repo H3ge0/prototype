@@ -13,8 +13,6 @@ public class Rabbit extends Entity {
         displayedName = "Tavşan";
         description = "Bu neden envanterinde?";
         coin=50;
-        isOneTime=true;
-        npcCanHaveMultiple=true;
 
         down1 = setImage("/objects/rabbit",gp.tileSize,gp.tileSize);
 

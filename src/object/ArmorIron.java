@@ -11,7 +11,6 @@ public class ArmorIron extends Entity {
         displayedName="Demir Zırh";
         description="Parlak, ama yeteri kadar\ndeğil...";
         coin=20;
-        isOneTime=true;
         type=typeArmor;
 
         down1=setImage("/objects/armor_iron",gp.tileSize,gp.tileSize);

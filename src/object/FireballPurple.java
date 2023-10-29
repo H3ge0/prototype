@@ -11,7 +11,6 @@ public class FireballPurple extends Entity {
         displayedName="Mor Ateş Topu";
         description="Hatalarını geri\nçevirebilir.\n\n\n(Potasyum).";
         coin=20;
-        isOneTime=true;
         type=typeFireball;
         knockBackPower=3;
 

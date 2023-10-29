@@ -11,7 +11,6 @@ public class FireballRed extends Entity {
         displayedName="Kırmızı Ateş Topu";
         description="Gerkeçten birşeyleri\nyakabilir gibi duruyor.\n\n\n(Strontiyum).";
         coin=20;
-        isOneTime=true;
         type=typeFireball;
         knockBackPower=3;
 

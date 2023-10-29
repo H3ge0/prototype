@@ -11,7 +11,6 @@ public class FireballOrange extends Entity {
         displayedName="Turuncu Ateş Topu";
         description="Doğduğundan beri\nkullandığın ateş topu.\nYine de gayet kuvvetli.\n\n(Kalsiyum).";
         coin=5;
-        isOneTime=true;
         type=typeFireball;
         knockBackPower=10;
 

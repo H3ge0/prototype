@@ -710,18 +710,19 @@ public class UIHandler {
                     gp.gameState=gp.dialogueState;
                     currentDialogueText="Yetmiyor senin paran :(";
                     drawDialogueScreen();
-                } else if(gp.player.inventory.size()==gp.player.maxInvSize){
-                    commandNum=0;
-                    subState=0;
-                    npcSlotCol=0;
-                    npcSlotRow=0;
-                    gp.gameState= gp.dialogueState;
-                    currentDialogueText="Dolu senin envanterin :(";
-                } else{
-                    gp.player.coin-=price;
-                    gp.player.inventory.add(npc.inventory.get(itemIndex));
-                    if(npc.inventory.get(itemIndex).isOneTime){
-                        npc.inventory.remove(itemIndex);
+                }else{
+                    if(gp.player.canObtainItem(npc.inventory.get(itemIndex))){
+                        gp.player.coin-=price;
+                        if(!npc.inventory.get(itemIndex).stackable){
+                            npc.inventory.remove(itemIndex);
+                        }
+                    }else{
+                        commandNum=0;
+                        subState=0;
+                        npcSlotCol=0;
+                        npcSlotRow=0;
+                        gp.gameState= gp.dialogueState;
+                        currentDialogueText="Dolu senin envanterin :(";
                     }
                 }
             }
@@ -787,9 +788,12 @@ public class UIHandler {
                     currentDialogueText="Yeter artik kardes. Benim de var sinirim.";
                     drawDialogueScreen();
                 } else{
-                    if(gp.player.inventory.get(itemIndex).isOneTime && (!npcHasItem || gp.player.inventory.get(itemIndex).npcCanHaveMultiple))
+                    if(!gp.player.inventory.get(itemIndex).stackable && !npcHasItem)
                         npc.inventory.add(gp.player.inventory.get(itemIndex));
-                    gp.player.inventory.remove(itemIndex);
+                    if(gp.player.inventory.get(itemIndex).amount>1)
+                        gp.player.inventory.get(itemIndex).amount--;
+                    else
+                        gp.player.inventory.remove(itemIndex);
                     gp.player.coin+=price;
                 }
             }
@@ -1096,6 +1100,23 @@ public class UIHandler {
             }
 
             g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
+
+            if(entity==gp.player && entity.inventory.get(i).amount>1){
+                g2.setFont(fixedsys.deriveFont(32f));
+                int amountX;
+                int amountY;
+
+                String s = String.valueOf(entity.inventory.get(i).amount);
+                amountX = getXForRightAlignedText(s,slotX+gp.tileSize);
+                amountY = slotY+gp.tileSize;
+
+                g2.setColor(new Color(60,60,60));
+                g2.drawString(s,amountX,amountY);
+
+                g2.setColor(Color.white);
+                g2.drawString(s,amountX-2,amountY-2);
+            }
+
             slotX+=slotSize;
             if(i==4 || i==9 || i==14){
                 slotX=slotXStart;

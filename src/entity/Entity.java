@@ -77,14 +77,12 @@ public class Entity {
     public String displayedName="";
     public String description="";
     public int useCost;
-    public boolean isOneTime = false;
-    public boolean npcCanHaveMultiple = false;
     public int knockBackPower=0;
+    public boolean stackable=false;
+    public int amount=1;
 
     //Type
     public int type;
-    public final int typePlayer=0;
-    public final int typeNpc=1;
     public final int typeMonster=2;
     public final int typeFireball=3;
     public final int typeArmor=4;

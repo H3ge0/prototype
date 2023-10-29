@@ -35,18 +35,18 @@ public class Chest extends Entity {
         gp.gameState=gp.dialogueState;
 
         if(!opened){
-            gp.playSoundEffect(6);
             gp.uiH.currentDialogueText="";
 
             StringBuilder sb = new StringBuilder();
             sb.append("Sandıktan ").append(loot.displayedName).append(" çıktı!");
 
-            if(gp.player.inventory.size()==gp.player.maxInvSize)
-                sb.append("\nAma üstün dolu...");
-            else{
-                gp.player.inventory.add(loot);
+            if(gp.player.canObtainItem(loot)){
+                gp.playSoundEffect(6);
                 down1=image2;
                 opened=true;
+            }
+            else{
+                sb.append("\nAma üstün dolu...");
             }
 
             gp.uiH.currentDialogueText = sb.toString();

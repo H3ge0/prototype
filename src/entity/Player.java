@@ -328,12 +328,11 @@ public class Player extends Entity{
             //Normal Items
             else{
                 String text;
-                if(inventory.size()< maxInvSize){
-                    inventory.add(gp.obj[gp.currentMap][index]);
+                if(canObtainItem(gp.obj[gp.currentMap][index])){
                     gp.playSoundEffect(4);
                     text = "Bir "+gp.obj[gp.currentMap][index].displayedName+" buldun!";
                 }else
-                    text = "Envanterin dolu.";
+                    text = "Envanterin dolu. Ama canın "+ gp.obj[gp.currentMap][index].displayedName +" yemek istedi.";
                 gp.uiH.addMessage(text);
                 gp.obj[gp.currentMap][index] = null;
             }
@@ -452,10 +451,50 @@ public class Player extends Entity{
                 }
                 case typeConsumable -> {
                     if(selectedItem.use(this))
-                        inventory.remove(selectedItem);
+                        if(selectedItem.amount>1){
+                            selectedItem.amount--;
+                        }else
+                            inventory.remove(selectedItem);
                 }
             }
         }
+    }
+
+    public int searchItemInInventory(String name){
+        int index=999;
+
+        for(int i=0;i<inventory.size();i++){
+            if(inventory.get(i).name.equals(name)){
+                index=i;
+                break;
+            }
+        }
+
+        return index;
+    }
+
+    public boolean canObtainItem(Entity item){
+        int itemIndex = searchItemInInventory(item.name);
+        boolean canObtainItem = false;
+
+        if(item.stackable){
+            if(itemIndex!=999){
+                inventory.get(itemIndex).amount++;
+                canObtainItem=true;
+            }else{
+                if(inventory.size()<maxInvSize){
+                    inventory.add(item);
+                    canObtainItem=true;
+                }
+            }
+        }else{
+            if(inventory.size()<maxInvSize){
+                inventory.add(item);
+                canObtainItem=true;
+            }
+        }
+
+        return canObtainItem;
     }
 
     public void knockBack(Entity entity, int knockBackPower){

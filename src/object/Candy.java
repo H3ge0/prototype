@@ -12,10 +12,10 @@ public class Candy extends Entity {
         displayedName="Şeker";
         description="Çok tatlı duruyor...\n\n\n\n*Enerjini doldurur.*";
         coin=15;
+        stackable=true;
         type=typeConsumable;
 
         down1 = setImage("/objects/candy",gp.tileSize,gp.tileSize);
-
     }
 
     @Override
