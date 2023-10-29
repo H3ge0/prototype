@@ -26,7 +26,14 @@ public class ObjectHandler {
         gp.obj[mapNum][i].worldX = gp.tileSize*12;
         gp.obj[mapNum][i].worldY = gp.tileSize*24;
         i++;
-
+        gp.obj[mapNum][i] = new Chest(gp,new Rabbit(gp));
+        gp.obj[mapNum][i].worldX = gp.tileSize*13;
+        gp.obj[mapNum][i].worldY = gp.tileSize*6;
+        i++;
+        gp.obj[mapNum][i] = new FireballRed(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize*23;
+        gp.obj[mapNum][i].worldY = gp.tileSize*23;
+        i++;
     }
 
     public void setNPCs(){
@@ -103,6 +110,12 @@ public class ObjectHandler {
         gp.iTiles[mapNum][i] = new DryTree0(gp,15,40); i++;
         gp.iTiles[mapNum][i] = new DryTree0(gp,16,40); i++;
         gp.iTiles[mapNum][i] = new DryTree0(gp,17,40); i++;
+
+        gp.iTiles[mapNum][i] = new DryTree0(gp,14,6); i++;
+        gp.iTiles[mapNum][i] = new DryTree0(gp,15,6); i++;
+        gp.iTiles[mapNum][i] = new DryTree0(gp,16,6); i++;
+        gp.iTiles[mapNum][i] = new DryTree0(gp,17,6); i++;
+        gp.iTiles[mapNum][i] = new DryTree0(gp,18,6); i++;
     }
 
 }
