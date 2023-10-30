@@ -11,7 +11,7 @@ public class Rabbit extends Entity {
         type=typeObstacle;
         name = "Rabbit";
         displayedName = "Tavşan";
-        description = "Bu neden envanterinde?";
+        description = "Bu neden burada?";
         coin=50;
 
         down1 = setImage("/objects/rabbit",gp.tileSize,gp.tileSize);

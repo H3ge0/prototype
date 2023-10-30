@@ -402,8 +402,10 @@ public class Player extends Entity{
     public void attackProjectile(int index){
         if(index!=999){
             Entity projectile = gp.projectiles[gp.currentMap][index];
-            projectile.alive=false;
-            generateParticle(projectile,projectile);
+            if(projectile.name.equals("Rock")){
+                projectile.alive=false;
+                generateParticle(projectile,projectile);
+            }
         }
     }
 

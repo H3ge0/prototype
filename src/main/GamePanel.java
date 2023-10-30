@@ -3,6 +3,7 @@ package main;
 import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
+import environment.EnvironmentHandler;
 import tile.TileManager;
 import tile_interactive.InteractiveTile;
 
@@ -48,6 +49,7 @@ public class GamePanel extends JPanel implements Runnable{
     public EventHandler eventH = new EventHandler(this);
     public CollisionHandler collisionH = new CollisionHandler(this);
     public TileManager tileManager = new TileManager(this);
+    public EnvironmentHandler environmentH = new EnvironmentHandler(this);
     public Player player = new Player(this, keyH);
     public Entity[][] npcs = new Entity[mapAmount][10];
     public Entity[][] obj = new Entity[mapAmount][20];
@@ -85,6 +87,8 @@ public class GamePanel extends JPanel implements Runnable{
         objectH.setNPCs();
         objectH.setMonsters();
         objectH.setInteractiveTiles();
+        environmentH.setUp();
+
         gameState=titleState;
 
         tempScreen = new BufferedImage(screenWidth,screenHeight, BufferedImage.TYPE_INT_ARGB);
@@ -275,6 +279,9 @@ public class GamePanel extends JPanel implements Runnable{
 
             //Clean entityList
             entityList.clear();
+
+            //Environment
+            environmentH.draw(g2);
 
             //UI
             uiH.draw(g2);
