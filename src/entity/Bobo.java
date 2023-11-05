@@ -4,6 +4,7 @@ import main.GamePanel;
 import object.Candy;
 import object.Carrot;
 import object.FireballPurple;
+import object.Torch;
 
 import java.awt.*;
 
@@ -56,6 +57,7 @@ public class Bobo extends Entity{
         inventory.add(new Carrot(gp));
         inventory.add(new Candy(gp));
         inventory.add(new FireballPurple(gp));
+        inventory.add(new Torch(gp));
     }
 
     @Override

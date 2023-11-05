@@ -15,6 +15,7 @@ public class Player extends Entity{
     Random random;
     public final int screenX, screenY;
     public boolean attackCanceled = false;
+    public boolean lightUpdated = false;
 
     public Player(GamePanel gp, KeyHandler keyH){
 
@@ -437,7 +438,7 @@ public class Player extends Entity{
             Entity selectedItem = inventory.get(itemIndex);
             switch(selectedItem.type){
                 case typeFireball -> {
-                    if(!currentFireball.name.equals(selectedItem.name)){
+                    if(currentFireball!=selectedItem){
                         gp.playSoundEffect(10);
                         currentFireball=selectedItem;
                         attack=getAttack();
@@ -445,11 +446,21 @@ public class Player extends Entity{
                     }
                 }
                 case typeArmor -> {
-                    if(!currentArmor.name.equals(selectedItem.name)){
+                    if(currentArmor!=selectedItem){
                         gp.playSoundEffect(10);
                         currentArmor=selectedItem;
                         defense=getDefense();
                     }
+                }
+                case typeLightSource -> {
+                    if(currentLightSource!=selectedItem){
+                        gp.playSoundEffect(10);
+                        currentLightSource=selectedItem;
+                    }else{
+                        gp.playSoundEffect(10);
+                        currentLightSource=null;
+                    }
+                    lightUpdated=true;
                 }
                 case typeConsumable -> {
                     if(selectedItem.use(this))

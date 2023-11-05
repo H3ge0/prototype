@@ -12,7 +12,7 @@ public class Rabbit extends Entity {
         name = "Rabbit";
         displayedName = "Tavşan";
         description = "Bu neden burada?";
-        coin=50;
+        coin=10;
 
         down1 = setImage("/objects/rabbit",gp.tileSize,gp.tileSize);
 

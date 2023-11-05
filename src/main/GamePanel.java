@@ -210,6 +210,8 @@ public class GamePanel extends JPanel implements Runnable{
                 if(iTile!=null)
                     iTile.update();
             }
+            //Environment
+            environmentH.update();
         } else if(gameState==pauseState){
             //Nothing
         }

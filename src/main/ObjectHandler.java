@@ -29,11 +29,16 @@ public class ObjectHandler {
         gp.obj[mapNum][i] = new Chest(gp,new Rabbit(gp));
         gp.obj[mapNum][i].worldX = gp.tileSize*13;
         gp.obj[mapNum][i].worldY = gp.tileSize*6;
+        /*
         i++;
         gp.obj[mapNum][i] = new FireballRed(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize*23;
         gp.obj[mapNum][i].worldY = gp.tileSize*23;
         i++;
+        gp.obj[mapNum][i] = new Torch(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize*24;
+        gp.obj[mapNum][i].worldY = gp.tileSize*23;
+        */
     }
 
     public void setNPCs(){
@@ -43,14 +48,12 @@ public class ObjectHandler {
         gp.npcs[mapNum][i] = new Budi(gp);
         gp.npcs[mapNum][i].worldX = gp.tileSize*20;
         gp.npcs[mapNum][i].worldY = gp.tileSize*21;
-        i++;
 
         mapNum=1;
         i=0;
         gp.npcs[mapNum][i] = new Bobo(gp);
         gp.npcs[mapNum][i].worldX = gp.tileSize*12;
         gp.npcs[mapNum][i].worldY = gp.tileSize*7;
-        i++;
     }
 
     public void setMonsters(){
@@ -90,7 +93,6 @@ public class ObjectHandler {
         gp.monsters[mapNum][i] = new Ogim(gp);
         gp.monsters[mapNum][i].worldX = gp.tileSize*10;
         gp.monsters[mapNum][i].worldY = gp.tileSize*32;
-        i++;
     }
 
     public void setInteractiveTiles() {

@@ -771,7 +771,7 @@ public class UIHandler {
                     }
                 }
 
-                if(gp.player.inventory.get(itemIndex)==gp.player.currentFireball || gp.player.inventory.get(itemIndex)==gp.player.currentArmor){
+                if(gp.player.inventory.get(itemIndex)==gp.player.currentFireball || gp.player.inventory.get(itemIndex)==gp.player.currentArmor || gp.player.inventory.get(itemIndex)==gp.player.currentLightSource){
                     commandNum=0;
                     subState=0;
                     playerSlotCol=0;
@@ -1094,7 +1094,7 @@ public class UIHandler {
 
         //Draw Inventory
         for (int i=0; i<entity.inventory.size();i++){
-            if(entity.inventory.get(i)==entity.currentFireball || entity.inventory.get(i)==entity.currentArmor){
+            if(entity.inventory.get(i)==entity.currentFireball || entity.inventory.get(i)==entity.currentArmor || entity.inventory.get(i)==entity.currentLightSource){
                 g2.setColor(new Color(240,190,90));
                 g2.fillRoundRect(slotX,slotY,gp.tileSize,gp.tileSize,10,10);
             }

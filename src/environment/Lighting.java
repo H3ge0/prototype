@@ -9,11 +9,23 @@ public class Lighting {
     GamePanel gp;
     BufferedImage darknessFilter;
 
-    public Lighting(GamePanel gp, int circleRadius){
+    public Lighting(GamePanel gp){
         this.gp=gp;
+        setLightSource();
+    }
+
+    public void setLightSource(){
         darknessFilter=new BufferedImage(gp.screenWidth,gp.screenHeight,BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D g2 = (Graphics2D) darknessFilter.getGraphics();
+
+        int circleRadius;
+
+        if(gp.player.currentLightSource!=null){
+            circleRadius=gp.player.currentLightSource.lightRadius;
+        }else {
+            circleRadius=200;
+        }
 
         int centerX = gp.player.screenX+gp.tileSize/2;
         int centerY = gp.player.screenY+gp.tileSize/2;
@@ -54,6 +66,13 @@ public class Lighting {
         g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
 
         g2.dispose();
+    }
+
+    public void update(){
+        if(gp.player.lightUpdated){
+            setLightSource();
+            gp.player.lightUpdated=false;
+        }
     }
 
     public void draw(Graphics2D g2){
