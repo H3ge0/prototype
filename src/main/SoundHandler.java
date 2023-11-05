@@ -30,6 +30,7 @@ public class SoundHandler {
         soundURL[12] = getClass().getResource("/sounds/rock.wav");
         soundURL[13] = getClass().getResource("/sounds/gopi_death.wav");
         soundURL[14] = getClass().getResource("/sounds/door.wav");
+        soundURL[15] = getClass().getResource("/sounds/sleep.wav");
     }
 
     public void setFile(int i){

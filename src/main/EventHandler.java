@@ -114,7 +114,7 @@ public class EventHandler {
             gp.player.attackCanceled=true;
             if(gp.player.hp<gp.player.maxHp) {
                 if(gp.player.canDrink){
-                    gp.uiH.currentDialogueText = "Sudan içtin. Nedense tuzlu değildi.\n\n\n*İyileştin!*";
+                    gp.uiH.currentDialogueText = "Sudan içtin. Nedense canavarlar tekrar doğdu!?";
                     gp.playSoundEffect(1);
                     gp.player.hp+=1;
                 } else {

@@ -99,6 +99,23 @@ public class Player extends Entity{
         rightidle = setImage("/player/gopi_right_idle",gp.tileSize,gp.tileSize);
         right1 = setImage("/player/gopi_right_1",gp.tileSize,gp.tileSize);
         right2 = setImage("/player/gopi_right_2",gp.tileSize,gp.tileSize);
+
+        image1 = setImage("/player/gopi_sleep",gp.tileSize,gp.tileSize);
+    }
+
+    public void getSleepingImage(){
+        upidle = image1;
+        up1 = image1;
+        up2 = image1;
+        downidle = image1;
+        down1 = image1;
+        down2 = image1;
+        leftidle = image1;
+        left1 = image1;
+        left2 = image1;
+        rightidle = image1;
+        right1 = image1;
+        right2 = image1;
     }
 
     public void getAttackImages(){

@@ -73,6 +73,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int deadState = 6;
     public final int transitionState = 7;
     public final int tradeState = 8;
+    public final int sleepState = 9;
 
     GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
@@ -99,6 +100,8 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void retry(){
+        player.coin=0;
+        player.exp=player.nextLevelExp/2;
         player.setDefaultPosition();
         player.restoreHpAndEnergy();
         objectH.setNPCs();
@@ -106,6 +109,9 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void reset(){
+        environmentH.lighting.dayNumber=1;
+        environmentH.lighting.dayCounter=0;
+        environmentH.lighting.dayState=0;
         uiH.messages.clear();
         uiH.messageCounters.clear();
         player.setDefaultValues();
@@ -296,9 +302,10 @@ public class GamePanel extends JPanel implements Runnable{
             g2.setColor(Color.white);
             g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
             g2.setFont(new Font("Arial",Font.PLAIN,20));
-            g2.drawString("Draw Time:"+passed,10,400);
-            g2.drawString("Col:"+(player.worldX+24)/48,10,450);
-            g2.drawString("Row:"+(player.worldY+24)/48,10,500);
+            g2.drawString("Draw Time:"+passed,10,350);
+            g2.drawString("Col:"+(player.worldX+24)/48,10,400);
+            g2.drawString("Row:"+(player.worldY+24)/48,10,450);
+            g2.drawString("Time:"+environmentH.lighting.dayState,10,500);
         }
     }
 

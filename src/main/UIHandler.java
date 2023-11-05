@@ -16,7 +16,7 @@ public class UIHandler {
 
     GamePanel gp;
     Graphics2D g2;
-    Font fixedsys,delaGothic;
+    public Font fixedsys,delaGothic;
     BufferedImage heart_full,heart_half,heart_empty,energy_full,energy_empty,coinImg;
     Color opaqueBlack;
     Color lessOpaqueBlack;
@@ -121,6 +121,12 @@ public class UIHandler {
         if (gp.gameState==gp.tradeState){
             drawPlayerHealthAndEnergy();
             drawTradeScreen();
+        }
+
+        //SleepState
+        if (gp.gameState==gp.sleepState){
+            drawPlayerHealthAndEnergy();
+            drawSleepScreen();
         }
 
     }
@@ -587,6 +593,30 @@ public class UIHandler {
         }
 
         gp.keyH.xKeyPressed=false;
+    }
+
+    public void drawSleepScreen(){
+        counter++;
+
+        if(counter<120){
+            if(gp.environmentH.lighting.dayState!=gp.environmentH.lighting.dawn)
+                gp.environmentH.lighting.filterAlpha += 0.01f;
+            if(gp.environmentH.lighting.filterAlpha>1f || gp.environmentH.lighting.dayState==gp.environmentH.lighting.dawn){
+                gp.environmentH.lighting.filterAlpha=1f;
+                counter=120;
+            }
+        }else {
+            gp.environmentH.lighting.filterAlpha -= 0.01f;
+            if(gp.environmentH.lighting.filterAlpha<=0f){
+                gp.environmentH.lighting.filterAlpha=0f;
+                counter=0;
+                gp.environmentH.lighting.dayState = gp.environmentH.lighting.day;
+                gp.environmentH.lighting.dayCounter=0;
+                gp.environmentH.lighting.dayNumber++;
+                gp.gameState=gp.playState;
+                gp.player.getImages();
+            }
+        }
     }
 
     public void tradeSelect(){
