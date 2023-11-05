@@ -9,7 +9,7 @@ public class Lighting {
     GamePanel gp;
     BufferedImage darknessFilter;
     public int dayNumber=1;
-    public int dayCounter;
+    public int dayCounter=0;
     public float filterAlpha = 0f;
 
     public final int day = 0;
@@ -121,24 +121,16 @@ public class Lighting {
         g2.drawImage(darknessFilter,0,0,null);
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
-        /*
-        String time = "";
-        switch(dayState){
-            case day -> time="Sabah";
-            case dusk -> time="Öğle";
-            case night -> time="Gece";
-            case dawn -> time="Seher";
-        }
-
-        g2.setColor(Color.white);
-        g2.setFont(gp.uiH.fixedsys.deriveFont(50f));
-        g2.drawString(time,800,500);
-        */
-
         g2.setColor(Color.white);
         g2.setFont(gp.uiH.fixedsys.deriveFont(50f));
         g2.drawString(dayNumber+". gün",750,540);
+    }
 
+    public void reset(){
+        dayNumber=1;
+        dayCounter=0;
+        filterAlpha = 0f;
+        dayState = day;
     }
 
 }

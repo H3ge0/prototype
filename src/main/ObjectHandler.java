@@ -26,7 +26,7 @@ public class ObjectHandler {
         gp.obj[mapNum][i].worldX = gp.tileSize*12;
         gp.obj[mapNum][i].worldY = gp.tileSize*24;
         i++;
-        gp.obj[mapNum][i] = new Chest(gp,new Rabbit(gp));
+        gp.obj[mapNum][i] = new Chest(gp,new SleepPotion(gp));
         gp.obj[mapNum][i].worldX = gp.tileSize*13;
         gp.obj[mapNum][i].worldY = gp.tileSize*6;
         /*

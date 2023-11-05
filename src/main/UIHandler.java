@@ -79,6 +79,7 @@ public class UIHandler {
         //PlayState
         if (gp.gameState==gp.playState){
             drawPlayerHealthAndEnergy();
+            gp.map.drawMiniMap(g2);
             drawMessages();
         }
 
@@ -1002,7 +1003,7 @@ public class UIHandler {
         //Texts
         text = "Yürüme - Oklar";
         textX = getXPosForCenteredText(text);
-        textY+=gp.tileSize*2;
+        textY+=gp.tileSize*3/2;
 
         g2.drawString(text,textX,textY);
 
@@ -1024,6 +1025,12 @@ public class UIHandler {
 
         g2.drawString(text,textX,textY);
 
+        text = "Harita - M";
+        textX = getXPosForCenteredText(text);
+        textY+=gp.tileSize;
+
+        g2.drawString(text,textX,textY);
+
         text = "Durdur - ESC";
         textX = getXPosForCenteredText(text);
         textY+=gp.tileSize;
@@ -1033,7 +1040,7 @@ public class UIHandler {
         //Back
         text="Geri Dön";
         textX=getXPosForCenteredText(text);
-        textY+=gp.tileSize*7/3;
+        textY+=gp.tileSize*11/6;
 
         if(gp.keyH.xKeyPressed){
             gp.playSoundEffect(4);
@@ -1043,8 +1050,6 @@ public class UIHandler {
         g2.setColor(Color.yellow);
 
         g2.drawString(text,textX,textY);
-
-
     }
 
     public void settingsQuitConfirmation(int frameY){
@@ -1066,6 +1071,7 @@ public class UIHandler {
             if(gp.keyH.xKeyPressed){
                 subState=0;
                 gp.gameState=gp.titleState;
+                gp.stopMusic();
             }
             g2.setColor(Color.yellow);
         } else

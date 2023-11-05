@@ -4,6 +4,7 @@ import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
 import environment.EnvironmentHandler;
+import tile.Map;
 import tile.TileManager;
 import tile_interactive.InteractiveTile;
 
@@ -60,6 +61,7 @@ public class GamePanel extends JPanel implements Runnable{
     ArrayList<Entity> entityList = new ArrayList<>();
     Config config = new Config(this);
     public PathFinder pathFinder = new PathFinder(this);
+    Map map = new Map(this);
     Thread gameThread;
 
     //Gamestate
@@ -109,9 +111,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void reset(){
-        environmentH.lighting.dayNumber=1;
-        environmentH.lighting.dayCounter=0;
-        environmentH.lighting.dayState=0;
+        environmentH.lighting.reset();
         uiH.messages.clear();
         uiH.messageCounters.clear();
         player.setDefaultValues();
@@ -290,6 +290,9 @@ public class GamePanel extends JPanel implements Runnable{
 
             //Environment
             environmentH.draw(g2);
+
+            //Map
+            map.drawMiniMap(g2);
 
             //UI
             uiH.draw(g2);

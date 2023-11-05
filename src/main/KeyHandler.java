@@ -122,6 +122,9 @@ public class KeyHandler implements KeyListener {
             gp.uiH.playerSlotRow =0;
             gp.uiH.playerSlotCol =0;
         }
+        if(keyCode==KeyEvent.VK_M){
+            gp.map.miniMapOn=!gp.map.miniMapOn;
+        }
 
         //Debug
         if(keyCode==KeyEvent.VK_D){
@@ -172,6 +175,9 @@ public class KeyHandler implements KeyListener {
             gp.player.useItem();
         }
         if (keyCode==KeyEvent.VK_C){
+            gp.gameState = gp.playState;
+        }
+        if (keyCode==KeyEvent.VK_Z){
             gp.gameState = gp.playState;
         }
     }
@@ -267,6 +273,9 @@ public class KeyHandler implements KeyListener {
                 if(gp.uiH.commandNum>2)
                     gp.uiH.commandNum=0;
                 gp.playSoundEffect(3);
+            }
+            if(keyCode==KeyEvent.VK_Z){
+                gp.gameState = gp.playState;
             }
         } else if(gp.uiH.subState==1){
             tradeNpcInvControls(keyCode);
