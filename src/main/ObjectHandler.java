@@ -1,5 +1,6 @@
 package main;
 
+import entity.Apol;
 import entity.Bobo;
 import entity.Budi;
 import monster.Ogim;
@@ -29,6 +30,10 @@ public class ObjectHandler {
         gp.obj[mapNum][i] = new Chest(gp,new SleepPotion(gp));
         gp.obj[mapNum][i].worldX = gp.tileSize*13;
         gp.obj[mapNum][i].worldY = gp.tileSize*6;
+        i++;
+        gp.obj[mapNum][i] = new Carrot(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize*23;
+        gp.obj[mapNum][i].worldY = gp.tileSize*23;
         /*
         i++;
         gp.obj[mapNum][i] = new FireballRed(gp);
@@ -90,8 +95,8 @@ public class ObjectHandler {
         gp.monsters[mapNum][i].worldY = gp.tileSize*11;
         i++;
 
-        gp.monsters[mapNum][i] = new Ogim(gp);
-        gp.monsters[mapNum][i].worldX = gp.tileSize*10;
+        gp.monsters[mapNum][i] = new Apol(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize*11;
         gp.monsters[mapNum][i].worldY = gp.tileSize*32;
     }
 

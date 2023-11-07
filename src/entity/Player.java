@@ -277,6 +277,7 @@ public class Player extends Entity{
 
     }
 
+    @Override
     public void attackUpdate(){
         spriteCounter++;
 
@@ -297,14 +298,20 @@ public class Player extends Entity{
             collisionBox.width = attackArea.width;
             collisionBox.height = attackArea.height;
 
-            int monsterIndex = gp.collisionH.checkEntity(this,gp.monsters);
-            attackMonster(monsterIndex,attack,currentFireball.knockBackPower);
+            if(type == typeMonster){
+                if(gp.collisionH.checkPlayer(this)){
+                    attackPlayer(attack);
+                }
+            }else{
+                int monsterIndex = gp.collisionH.checkEntity(this,gp.monsters);
+                gp.player.attackMonster(monsterIndex,this,attack,currentFireball.knockBackPower);
 
-            int iTileIndex = gp.collisionH.checkEntity(this,gp.iTiles);
-            attackInteractiveTile(iTileIndex);
+                int iTileIndex = gp.collisionH.checkEntity(this,gp.iTiles);
+                gp.player.attackInteractiveTile(iTileIndex);
 
-            int projectileIndex = gp.collisionH.checkEntity(this,gp.projectiles);
-            attackProjectile(projectileIndex);
+                int projectileIndex = gp.collisionH.checkEntity(this,gp.projectiles);
+                gp.player.attackProjectile(projectileIndex);
+            }
 
             worldX=currentWorldX;
             worldY=currentWorldY;
@@ -386,12 +393,12 @@ public class Player extends Entity{
         }
     }
 
-    public void attackMonster(int index, int attack, int knockBackPower){
+    public void attackMonster(int index, Entity attacker, int attack, int knockBackPower){
         if(index!=999){
             if(gp.monsters[gp.currentMap][index].hp>0 && !gp.monsters[gp.currentMap][index].invincible){
                 gp.playSoundEffect(8);
                 if(knockBackPower>0)
-                    knockBack(gp.monsters[gp.currentMap][index], knockBackPower);
+                    applyKnockBack(gp.monsters[gp.currentMap][index], attacker, knockBackPower);
                 int damage = attack-gp.monsters[gp.currentMap][index].defense;
                 if(damage<0)
                     damage=0;
@@ -526,12 +533,6 @@ public class Player extends Entity{
         }
 
         return canObtainItem;
-    }
-
-    public void knockBack(Entity entity, int knockBackPower){
-        entity.direction=direction;
-        entity.speed+=knockBackPower;
-        entity.knockBack=true;
     }
 
     public void draw(Graphics2D g2){

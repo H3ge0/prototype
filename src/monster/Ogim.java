@@ -4,22 +4,20 @@ import entity.Entity;
 import main.GamePanel;
 import object.*;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Ogim extends Entity {
 
-    Random random;
-
     public Ogim(GamePanel gp) {
         super(gp);
-        random = new Random();
 
         collisionBox.x=3;
         collisionBox.y=3;
         collisionBox.width=42;
         collisionBox.height=42;
+        collisionBoxDefaultX=collisionBox.x;
+        collisionBoxDefaultY=collisionBox.y;
 
         type = typeMonster;
         name = "Ogim";
@@ -33,8 +31,8 @@ public class Ogim extends Entity {
         currentProjectile=new Rock(gp);
 
         getImage();
-        spriteNum = random.nextInt(1,17);
-        actionLockCounter = random.nextInt(1,120);
+        spriteNum = new Random().nextInt(1,17);
+        actionLockCounter = new Random().nextInt(1,120);
     }
 
     public void getImage(){
@@ -50,59 +48,21 @@ public class Ogim extends Entity {
     }
 
     @Override
-    public void update() {
-        super.update();
-
-        int xDistance = Math.abs(worldX-gp.player.worldX);
-        int yDistance = Math.abs(worldY-gp.player.worldY);
-        int distanceAsTile = (xDistance+yDistance)/gp.tileSize;
-
-        if(!onPath && distanceAsTile<5){
-            int i = new Random().nextInt(100)+1;
-            if(i>50){
-                onPath=true;
-            }
-        }
-    }
-
-    @Override
     public void setAction() {
+        //If onPath
         if(onPath){
-            int goalCol=(gp.player.worldX+gp.player.collisionBox.x)/gp.tileSize;
-            int goalRow=(gp.player.worldY+gp.player.collisionBox.y)/gp.tileSize;
-            searchPath(goalCol,goalRow);
+            checkAndStopAggro(gp.player,15,100);
 
-            int i = random.nextInt(100)+1;
-            if(i==99 && !currentProjectile.alive && projectileCooldownCounter==60){
-                currentProjectile.setProjectile(worldX,worldY,direction,true,this);
-                //Check empty place in array
-                for(int j=0;j<gp.projectiles[gp.currentMap].length;j++){
-                    if(gp.projectiles[gp.currentMap][j]==null){
-                        gp.projectiles[gp.currentMap][j]=currentProjectile;
-                        break;
-                    }
-                }
-                if(Math.abs(gp.player.worldX-worldX)<gp.screenWidth/2+gp.tileSize && Math.abs(gp.player.worldY-worldY)<gp.screenHeight/2+gp.tileSize)
-                    gp.playSoundEffect(12);
-                projectileCooldownCounter=0;
-            }
-        }else{
-            actionLockCounter++;
+            searchPath(getGoalCol(gp.player),getGoalRow(gp.player));
 
-            if (actionLockCounter==120){
-                int i = random.nextInt(100)+1;
+            checkAndShootProjectile(200,60);
+        }
 
-                if(i<=25){
-                    direction="up";
-                } else if (i<=50){
-                    direction="down";
-                } else if (i<=75){
-                    direction="left";
-                } else {
-                    direction="right";
-                }
-                actionLockCounter=0;
-            }
+        //If not onPath
+        else{
+            checkAndStartAggro(gp.player,5,100);
+
+            pickARandomDirection();
         }
     }
 
@@ -120,21 +80,21 @@ public class Ogim extends Entity {
     }
 
     @Override
-     public BufferedImage setDrawImage(){
+    public BufferedImage setDrawImage(){
         BufferedImage image=null;
-         switch(spriteNum){
-             case 1, 9 -> image = upidle;
-             case 2, 8 -> image = up1;
-             case 3, 7 -> image = up2;
-             case 4, 6 -> image = downidle;
-             case 5 -> image = down1;
-             case 10, 16 -> image = down2;
-             case 11, 15 -> image = leftidle;
-             case 12, 14 -> image = left1;
-             case 13 -> image = left2;
-         }
-         return image;
-     }
+        switch(spriteNum){
+            case 1, 9 -> image = upidle;
+            case 2, 8 -> image = up1;
+            case 3, 7 -> image = up2;
+            case 4, 6 -> image = downidle;
+            case 5 -> image = down1;
+            case 10, 16 -> image = down2;
+            case 11, 15 -> image = leftidle;
+            case 12, 14 -> image = left1;
+            case 13 -> image = left2;
+        }
+        return image;
+    }
 
     @Override
     public void damageReaction() {

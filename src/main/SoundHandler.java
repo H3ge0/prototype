@@ -31,6 +31,8 @@ public class SoundHandler {
         soundURL[13] = getClass().getResource("/sounds/gopi_death.wav");
         soundURL[14] = getClass().getResource("/sounds/door.wav");
         soundURL[15] = getClass().getResource("/sounds/sleep.wav");
+        soundURL[16] = getClass().getResource("/sounds/apol_charge.wav");
+        soundURL[17] = getClass().getResource("/sounds/apol_shoot.wav");
     }
 
     public void setFile(int i){

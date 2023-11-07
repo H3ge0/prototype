@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 public class Entity {
 
@@ -21,6 +22,7 @@ public class Entity {
     public int collisionBoxDefaultX=collisionBox.x, collisionBoxDefaultY=collisionBox.y;
     public boolean collisionOn = false;
     String[] dialogues = new String[20];
+    public Entity attacker;
 
     //Throwing Knife
     public BufferedImage upidlev2,up1v2,up2v2,downidlev2,down1v2,down2v2,leftidlev2,left1v2,left2v2,rightidlev2,right1v2,right2v2;
@@ -38,6 +40,7 @@ public class Entity {
     public boolean hpBarOn = false;
     public boolean onPath = false;
     public boolean knockBack = false;
+    public String knockBackDirection;
 
     //Counters
     public int actionLockCounter = 0;
@@ -121,6 +124,26 @@ public class Entity {
         return (worldY+collisionBox.y)/gp.tileSize;
     }
 
+    public int getXDistance(Entity target){
+        return Math.abs(worldX-target.worldX);
+    }
+
+    public int getYDistance(Entity target){
+        return Math.abs(worldY-target.worldY);
+    }
+
+    public int getDistanceAsTile(Entity target){
+        return (getXDistance(target)+getYDistance(target))/gp.tileSize;
+    }
+
+    public int getGoalCol(Entity target){
+        return (target.worldX+target.collisionBox.x)/gp.tileSize;
+    }
+
+    public int getGoalRow(Entity target){
+        return (target.worldY+target.collisionBox.y)/gp.tileSize;
+    }
+
     public void setAction(){}
 
     public boolean use(Entity entity){return false;}
@@ -178,7 +201,7 @@ public class Entity {
                 knockBackCounter=0;
                 speed=defaultSpeed;
             }else{
-                switch(gp.player.direction){
+                switch(knockBackDirection){
                     case "up" -> worldY-=speed;
                     case "down" -> worldY+=speed;
                     case "left" -> worldX-=speed;
@@ -192,6 +215,8 @@ public class Entity {
                 knockBackCounter=0;
                 speed=defaultSpeed;
             }
+        }else if(attacking){
+            attackUpdate();
         }else{
             setAction();
 
@@ -205,9 +230,9 @@ public class Entity {
                     case "right" -> worldX+=speed;
                 }
             }
-        }
 
-        increaseSpriteCounter();
+            increaseSpriteCounter();
+        }
 
         if (projectileCooldownCounter<60)
             projectileCooldownCounter++;
@@ -220,6 +245,154 @@ public class Entity {
             }
         }
 
+    }
+
+    public void attackUpdate(){
+        spriteCounter++;
+
+        //Attacking
+        if(spriteCounter>40 && spriteCounter<=85){
+            int currentWorldX=worldX;
+            int currentWorldY=worldY;
+            int collisionBoxWidth = collisionBox.width;
+            int collisionBoxHeight = collisionBox.height;
+
+            switch(direction){
+                case "up" -> worldY-=attackArea.height;
+                case "down" -> worldY+=attackArea.height;
+                case "left" -> worldX-=attackArea.width;
+                case "right" -> worldX+=attackArea.width;
+            }
+
+            collisionBox.width = attackArea.width;
+            collisionBox.height = attackArea.height;
+
+            if(type == typeMonster){
+                if(gp.collisionH.checkPlayer(this)){
+                    attackPlayer(attack);
+                }
+            }else{
+                int monsterIndex = gp.collisionH.checkEntity(this,gp.monsters);
+                gp.player.attackMonster(monsterIndex,this,attack,currentFireball.knockBackPower);
+
+                int iTileIndex = gp.collisionH.checkEntity(this,gp.iTiles);
+                gp.player.attackInteractiveTile(iTileIndex);
+
+                int projectileIndex = gp.collisionH.checkEntity(this,gp.projectiles);
+                gp.player.attackProjectile(projectileIndex);
+            }
+
+            worldX=currentWorldX;
+            worldY=currentWorldY;
+            collisionBox.width=collisionBoxWidth;
+            collisionBox.height=collisionBoxHeight;
+        }
+
+        //Sprite
+        if(spriteCounter<=40){
+            spriteNum = 1;
+        }
+        if(spriteCounter>40 && spriteCounter<=85){
+            spriteNum = 2;
+        }
+        if(spriteCounter>85){
+            attacking=false;
+            spriteCounter=0;
+        }
+    }
+
+    public void checkAndAttack(int rate, int straight, int horizontal){
+        boolean targetInRange = false;
+        int xDis = getXDistance(gp.player);
+        int yDis = getYDistance(gp.player);
+
+        switch(direction){
+            case "up" ->{
+                if(gp.player.worldY<worldY && yDis<straight && xDis<horizontal){
+                    targetInRange=true;
+                }
+            }
+            case "down" ->{
+                if(gp.player.worldY>worldY && yDis<straight && xDis<horizontal){
+                    targetInRange=true;
+                }
+            }
+            case "left" ->{
+                if(gp.player.worldX<worldX && xDis<straight && yDis<horizontal){
+                    targetInRange=true;
+                }
+            }
+            case "right" ->{
+                if(gp.player.worldX>worldX && xDis<straight && yDis<horizontal){
+                    targetInRange=true;
+                }
+            }
+        }
+
+        if(targetInRange){
+            int i = new Random().nextInt(rate);
+            if(i==1){
+                attacking=true;
+                spriteCounter=0;
+                spriteNum=1;
+                projectileCooldownCounter=0;
+            }
+        }
+
+    }
+
+    public void checkAndStopAggro(Entity target, int distance, int rate){
+        if(getDistanceAsTile(target)>distance){
+            int i = new Random().nextInt(rate);
+            if(i==0){
+                onPath=false;
+            }
+        }
+    }
+
+    public void checkAndStartAggro(Entity target, int distance, int rate){
+        if(getDistanceAsTile(target)<distance){
+            int i = new Random().nextInt(rate);
+            if(i==0){
+                onPath=true;
+            }
+        }
+    }
+
+    public void checkAndShootProjectile(int rate, int shootDelay){
+        int i = new Random().nextInt(rate);
+        if(i==0 && !currentProjectile.alive && projectileCooldownCounter==shootDelay){
+            currentProjectile.setProjectile(worldX,worldY,direction,true,this);
+            //Check empty place in array
+            for(int j=0;j<gp.projectiles[gp.currentMap].length;j++){
+                if(gp.projectiles[gp.currentMap][j]==null){
+                    gp.projectiles[gp.currentMap][j]=currentProjectile;
+                    break;
+                }
+            }
+            if(Math.abs(gp.player.worldX-worldX)<gp.screenWidth/2+gp.tileSize && Math.abs(gp.player.worldY-worldY)<gp.screenHeight/2+gp.tileSize)
+                gp.playSoundEffect(12);
+            projectileCooldownCounter=0;
+        }
+    }
+
+    public void pickARandomDirection(){
+        actionLockCounter++;
+
+        if (actionLockCounter==120){
+            int i = new Random().nextInt(100)+1;
+
+            if(i<=25){
+                direction="up";
+            } else if (i<=50){
+                direction="down";
+            } else if (i<=75){
+                direction="left";
+            } else {
+                direction="right";
+            }
+            actionLockCounter=0;
+        }
     }
 
     public void attackPlayer(int attack){
@@ -238,6 +411,13 @@ public class Entity {
         }
     }
 
+    public void applyKnockBack(Entity target,Entity attacker, int knockBackPower){
+        this.attacker = attacker;
+        target.knockBackDirection = attacker.direction;
+        target.speed+=knockBackPower;
+        target.knockBack=true;
+    }
+
     public void increaseSpriteCounter() {
         spriteCounter++;
         if (spriteCounter>10){
@@ -252,13 +432,55 @@ public class Entity {
 
     public void draw(Graphics2D g2) {
 
-        BufferedImage image = null;
+        BufferedImage image;
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
         if(Math.abs(gp.player.worldX-worldX)<gp.screenWidth/2+gp.tileSize && Math.abs(gp.player.worldY-worldY)<gp.screenHeight/2+gp.tileSize){
 
             image = setDrawImage();
+
+            int tempScreenX=screenX;
+            int tempScreenY=screenY;
+
+            if (attacking){
+                switch (direction) {
+                    case "up" -> {
+                        tempScreenY-=gp.tileSize;
+                        if (spriteNum == 1)
+                            image = attackUp1;
+                        if (spriteNum == 2)
+                            image = attackUp2;
+                        if (spriteNum == 3)
+                            image = attackUp3;
+                    }
+                    case "down" -> {
+                        if (spriteNum == 1)
+                            image = attackDown1;
+                        if (spriteNum == 2)
+                            image = attackDown2;
+                        if (spriteNum == 3)
+                            image = attackDown3;
+                    }
+                    case "left" -> {
+                        tempScreenX-=gp.tileSize;
+                        if (spriteNum == 1)
+                            image = attackLeft1;
+                        if (spriteNum == 2)
+                            image = attackLeft2;
+                        if (spriteNum == 3)
+                            image = attackLeft3;
+                    }
+                    case "right" -> {
+                        if (spriteNum == 1)
+                            image = attackRight1;
+                        if (spriteNum == 2)
+                            image = attackRight2;
+                        if (spriteNum == 3)
+                            image = attackRight3;
+                    }
+                }
+            }
 
             if(type==typeMonster && hpBarOn){
                 double oneScale = (double)gp.tileSize/maxHp;
@@ -299,7 +521,7 @@ public class Entity {
                 dyingAnimation(g2);
             }
 
-            drawTheImage(g2,image,screenX,screenY);
+            drawTheImage(g2,image,tempScreenX,tempScreenY);
 
             setG2Alpha(g2, 1f);
         }

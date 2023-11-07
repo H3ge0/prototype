@@ -25,7 +25,13 @@ public class CollisionHandler {
 
         int tileNum1, tileNum2;
 
-        switch (entity.direction) {
+        //For KnockBack
+        String direction = entity.direction;
+        if(entity.knockBack){
+            direction=entity.knockBackDirection;
+        }
+
+        switch (direction) {
             case "up" -> {
                 entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
                 tileNum1 = gp.tileManager.map[gp.currentMap][entityLeftCol][entityTopRow];
@@ -65,6 +71,12 @@ public class CollisionHandler {
     public int checkObject(Entity entity, boolean player){
         int index = 999;
 
+        //For KnockBack
+        String direction = entity.direction;
+        if(entity.knockBack){
+            direction=entity.knockBackDirection;
+        }
+
         for(int i=0;i<gp.obj[gp.currentMap].length;i++){
             if(gp.obj[gp.currentMap][i]!=null){
                 //Get entity's collision box co-ords
@@ -75,7 +87,7 @@ public class CollisionHandler {
                 gp.obj[gp.currentMap][i].collisionBox.x += gp.obj[gp.currentMap][i].worldX;
                 gp.obj[gp.currentMap][i].collisionBox.y += gp.obj[gp.currentMap][i].worldY;
 
-                switch(entity.direction){
+                switch(direction){
                     case "up" -> entity.collisionBox.y-=entity.speed;
                     case "down" -> entity.collisionBox.y+=entity.speed;
                     case "left" -> entity.collisionBox.x-=entity.speed;
@@ -108,6 +120,12 @@ public class CollisionHandler {
 
         boolean thisCollision = false;
 
+        //For KnockBack
+        String direction = entity.direction;
+        if(entity.knockBack){
+            direction=entity.knockBackDirection;
+        }
+
         for(int i=0;i<target[gp.currentMap].length;i++){
             if(target[gp.currentMap][i]!=null&&target[gp.currentMap][i]!=entity){
                 //Get entity's collision box co-ords
@@ -118,7 +136,7 @@ public class CollisionHandler {
                 target[gp.currentMap][i].collisionBox.x += target[gp.currentMap][i].worldX;
                 target[gp.currentMap][i].collisionBox.y += target[gp.currentMap][i].worldY;
 
-                switch(entity.direction){
+                switch(direction){
                     case "up" -> entity.collisionBox.y-=entity.speed;
                     case "down" -> entity.collisionBox.y+=entity.speed;
                     case "left" -> entity.collisionBox.x-=entity.speed;
