@@ -338,12 +338,17 @@ public class UIHandler {
         text = "Kaydet";
         x=getXPosForCenteredText(text);
         y+=gp.tileSize*3/2;
-        g2.setColor(new Color(25,0,53));
+        g2.setColor(new Color(75,0,103));
         g2.drawString(text,x+3,y+3);
-        if(commandNum==2)
+        if(commandNum==2) {
+            if(gp.keyH.xKeyPressed){
+                gp.saveLoad.save();
+                gp.gameState = gp.dialogueState;
+                currentDialogueText = "Oyun kaydedildi";
+            }
             g2.setColor(Color.yellow);
-        else
-            g2.setColor(Color.darkGray);
+        }else
+            g2.setColor(Color.white);
         g2.drawString(text,x,y);
 
         text = "Çıkış";
@@ -560,6 +565,8 @@ public class UIHandler {
                 gp.gameState=gp.titleState;
                 subState=0;
                 commandNum=0;
+                gp.resetGame(false);
+                gp.saveLoad.save();
             }
             g2.setColor(Color.yellow);
         }
@@ -1003,7 +1010,7 @@ public class UIHandler {
         //Texts
         text = "Yürüme - Oklar";
         textX = getXPosForCenteredText(text);
-        textY+=gp.tileSize*3/2;
+        textY+=gp.tileSize*5/4;
 
         g2.drawString(text,textX,textY);
 
@@ -1031,6 +1038,12 @@ public class UIHandler {
 
         g2.drawString(text,textX,textY);
 
+        text = "Savunma - S";
+        textX = getXPosForCenteredText(text);
+        textY+=gp.tileSize;
+
+        g2.drawString(text,textX,textY);
+
         text = "Durdur - ESC";
         textX = getXPosForCenteredText(text);
         textY+=gp.tileSize;
@@ -1040,7 +1053,7 @@ public class UIHandler {
         //Back
         text="Geri Dön";
         textX=getXPosForCenteredText(text);
-        textY+=gp.tileSize*11/6;
+        textY+=gp.tileSize*13/12;
 
         if(gp.keyH.xKeyPressed){
             gp.playSoundEffect(4);
@@ -1072,7 +1085,7 @@ public class UIHandler {
                 subState=0;
                 gp.gameState=gp.titleState;
                 gp.stopMusic();
-                gp.resetGame(false);
+                gp.saveLoad.save();
             }
             g2.setColor(Color.yellow);
         } else

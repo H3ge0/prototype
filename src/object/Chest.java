@@ -5,12 +5,8 @@ import main.GamePanel;
 
 public class Chest extends Entity {
 
-    Entity loot;
-    boolean opened=false;
-
-    public Chest(GamePanel gp, Entity loot){
+    public Chest(GamePanel gp){
         super(gp);
-        this.loot=loot;
 
         type=typeObstacle;
         name = "Chest";
@@ -28,6 +24,11 @@ public class Chest extends Entity {
         collisionBox.height = 36;
         collisionBoxDefaultX=collisionBox.x;
         collisionBoxDefaultY=collisionBox.y;
+    }
+
+    @Override
+    public void setLoot(Entity loot){
+        this.loot = loot;
     }
 
     @Override

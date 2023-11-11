@@ -45,6 +45,8 @@ public class Entity {
     public boolean guarding = false;
     public boolean transparent = false;
     public boolean weak = false;
+    public Entity loot;
+    public boolean opened=false;
 
     //Counters
     public int actionLockCounter = 0;
@@ -149,6 +151,8 @@ public class Entity {
     public int getGoalRow(Entity target){
         return (target.worldY+target.collisionBox.y)/gp.tileSize;
     }
+
+    public void setLoot(Entity loot){}
 
     public void setAction(){}
 

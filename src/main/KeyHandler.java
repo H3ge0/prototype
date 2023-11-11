@@ -81,7 +81,7 @@ public class KeyHandler implements KeyListener {
                 gp.gameState=gp.playState;
                 gp.playMusic(0);
             }else if(gp.uiH.commandNum==1){
-                gp.resetGame(false);
+                gp.saveLoad.load();
                 gp.gameState=gp.playState;
                 gp.playMusic(0);
             }else if(gp.uiH.commandNum==2){
@@ -146,18 +146,14 @@ public class KeyHandler implements KeyListener {
         }
 
         if(keyCode==KeyEvent.VK_UP){
-            if(gp.uiH.commandNum==3)
-                gp.uiH.commandNum=1;
-            else if(gp.uiH.commandNum==0)
+            if(gp.uiH.commandNum==0)
                 gp.uiH.commandNum=3;
             else
                 gp.uiH.commandNum--;
             gp.playSoundEffect(3);
         }
         if(keyCode==KeyEvent.VK_DOWN){
-            if(gp.uiH.commandNum==1)
-                gp.uiH.commandNum=3;
-            else if(gp.uiH.commandNum==3)
+            if(gp.uiH.commandNum==3)
                 gp.uiH.commandNum=0;
             else
                 gp.uiH.commandNum++;
