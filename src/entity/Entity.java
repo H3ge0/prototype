@@ -55,7 +55,7 @@ public class Entity {
     public int projectileCooldownCounter = 0;
     public int knockBackCounter = 0;
     public int guardCounter = 0;
-    int weakCounter = 0;
+    public int weakCounter = 0;
 
     //Character
     public String name;
@@ -435,7 +435,7 @@ public class Entity {
                 if(gp.player.guardCounter<15){
                     damage=0;
                     gp.playSoundEffect(19);
-                    applyKnockBack(this,gp.player,knockBackPower);
+                    applyKnockBack(this,gp.player,5);
                     weak=true;
                     spriteCounter = -60;
                 }else{
@@ -575,6 +575,8 @@ public class Entity {
             }
 
             drawTheImage(g2,image,tempScreenX,tempScreenY);
+
+            gp.effectH.drawEffect(g2,this);
 
             setG2Alpha(g2, 1f);
         }

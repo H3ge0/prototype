@@ -51,6 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
     public CollisionHandler collisionH = new CollisionHandler(this);
     public TileManager tileManager = new TileManager(this);
     public EnvironmentHandler environmentH = new EnvironmentHandler(this);
+    public EffectHandler effectH = new EffectHandler(this);
     public Player player = new Player(this, keyH);
     public Entity[][] npcs = new Entity[mapAmount][10];
     public Entity[][] obj = new Entity[mapAmount][20];
