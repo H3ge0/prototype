@@ -7,7 +7,7 @@ public class KeyHandler implements KeyListener {
 
     GamePanel gp;
     public boolean keyPressed;
-    public boolean upPressed,downPressed,leftPressed,rightPressed,xKeyPressed,zKeyPressed;
+    public boolean upPressed,downPressed,leftPressed,rightPressed,xKeyPressed,zKeyPressed,sKeyPressed;
 
     //Debug
     boolean debugMode=false;
@@ -21,7 +21,7 @@ public class KeyHandler implements KeyListener {
         int keyCode = e.getKeyCode();
 
         //TitleState
-        if(gp.gameState== gp.titleState){
+        if(gp.gameState==gp.titleState){
             titleState(keyCode);
         }
 
@@ -110,6 +110,9 @@ public class KeyHandler implements KeyListener {
         }
         if(keyCode==KeyEvent.VK_Z){
             zKeyPressed = true;
+        }
+        if(keyCode==KeyEvent.VK_S){
+            sKeyPressed = true;
         }
 
         //Other
@@ -384,8 +387,14 @@ public class KeyHandler implements KeyListener {
         if (keyCode == KeyEvent.VK_RIGHT) {
             rightPressed = false;
         }
+        if(keyCode==KeyEvent.VK_X){
+            xKeyPressed = false;
+        }
         if(keyCode==KeyEvent.VK_Z){
             zKeyPressed = false;
+        }
+        if(keyCode==KeyEvent.VK_S){
+            sKeyPressed = false;
         }
 
     }

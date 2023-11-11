@@ -33,7 +33,7 @@ public class Projectile extends Entity{
             boolean contactPlayer = gp.collisionH.checkPlayer(this);
             if(contactPlayer){
                 attackPlayer(attack);
-                generateParticle(user.currentProjectile,gp.player);
+                generateParticle(user.currentProjectile,user.currentProjectile);
                 alive=false;
             }
         }

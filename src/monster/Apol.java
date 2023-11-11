@@ -1,11 +1,12 @@
-package entity;
+package monster;
 
+import entity.Entity;
 import main.GamePanel;
 import object.*;
 
 import java.util.Random;
 
-public class Apol extends Entity{
+public class Apol extends Entity {
 
     public Apol(GamePanel gp) {
         super(gp);
@@ -28,6 +29,7 @@ public class Apol extends Entity{
         attack = 8;
         defense = 2;
         exp = 10;
+        knockBackPower = 5;
 
         getImage();
         getAttackImage();

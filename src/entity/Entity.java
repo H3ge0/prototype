@@ -16,6 +16,7 @@ public class Entity {
     public GamePanel gp;
     public BufferedImage upidle,up1,up2,downidle,down1,down2,leftidle,left1,left2,rightidle,right1,right2;
     public BufferedImage attackUp1,attackUp2,attackUp3,attackDown1,attackDown2,attackDown3,attackLeft1,attackLeft2,attackLeft3,attackRight1,attackRight2,attackRight3;
+    public BufferedImage guardUp,guardDown,guardLeft,guardRight;
     public BufferedImage image1,image2,image3;
     public Rectangle collisionBox = new Rectangle(0,0,48,48);
     public Rectangle attackArea = new Rectangle(0,0,0,0);
@@ -41,6 +42,9 @@ public class Entity {
     public boolean onPath = false;
     public boolean knockBack = false;
     public String knockBackDirection;
+    public boolean guarding = false;
+    public boolean transparent = false;
+    public boolean weak = false;
 
     //Counters
     public int actionLockCounter = 0;
@@ -50,6 +54,8 @@ public class Entity {
     public int hpBarCounter = 0;
     public int projectileCooldownCounter = 0;
     public int knockBackCounter = 0;
+    public int guardCounter = 0;
+    int weakCounter = 0;
 
     //Character
     public String name;
@@ -245,6 +251,18 @@ public class Entity {
             }
         }
 
+        if(weak){
+            weakCounter++;
+            if(weakCounter>60){
+                weak=false;
+                weakCounter=0;
+            }
+        }
+
+        if(spriteCounter==-1){
+            attacking=false;
+        }
+
     }
 
     public void attackUpdate(){
@@ -299,6 +317,17 @@ public class Entity {
             attacking=false;
             spriteCounter=0;
         }
+    }
+
+    public String getOppositeDirection(String direction){
+        String oppositeDirection = "";
+        switch(direction){
+            case "up" -> oppositeDirection="down";
+            case "down" -> oppositeDirection="up";
+            case "left" -> oppositeDirection="right";
+            case "right" -> oppositeDirection="left";
+        }
+        return oppositeDirection;
     }
 
     public void checkAndAttack(int rate, int straight, int horizontal){
@@ -398,15 +427,39 @@ public class Entity {
     public void attackPlayer(int attack){
         if(gp.player.hp>0 && !gp.player.invincible && !dying){
             int damage = attack-gp.player.defense;
-            if(damage>0){
-                gp.player.hp-=damage;
-            } else {
-                gp.player.hp--;
+
+            //Get opposite direction of player
+            String neededGuardDirection = getOppositeDirection(direction);
+
+            if(gp.player.guarding && gp.player.direction.equals(neededGuardDirection)){
+                if(gp.player.guardCounter<15){
+                    damage=0;
+                    gp.playSoundEffect(19);
+                    applyKnockBack(this,gp.player,knockBackPower);
+                    weak=true;
+                    spriteCounter = -60;
+                }else{
+                    damage /= 3;
+                }
+            }else {
+                if(damage<1)
+                    damage=1;
             }
+
+            if(damage!=0){
+                gp.player.transparent=true;
+                applyKnockBack(gp.player,this,knockBackPower);
+            }
+
+            gp.player.hp-=damage;
+
             if(gp.player.hp<=0)
                 gp.playSoundEffect(13);
+            else if(gp.player.guarding)
+                gp.playSoundEffect(12);
             else
                 gp.playSoundEffect(7);
+
             gp.player.invincible=true;
         }
     }

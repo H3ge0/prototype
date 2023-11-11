@@ -25,7 +25,7 @@ public class Ogim extends Entity {
         speed = defaultSpeed;
         maxHp = 4;
         hp = maxHp;
-        attack = 3;
+        attack = 5;
         defense = 0;
         exp = 2;
         currentProjectile=new Rock(gp);
