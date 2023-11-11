@@ -174,7 +174,7 @@ public class Apol extends Entity {
             if(!hasPurpleFireball)
                 dropItem(new FireballPurple(gp));
             else
-                dropItem(new BronzeCoin(gp));
+                dropItem(new SilverCoin(gp));
         }else if(i<=25){
             boolean hasIronArmor=false;
             for(Entity e:gp.player.inventory){
@@ -188,10 +188,10 @@ public class Apol extends Entity {
             if(!hasIronArmor)
                 dropItem(new ArmorIron(gp));
             else
-                dropItem(new BronzeCoin(gp));
+                dropItem(new SilverCoin(gp));
         }else {
             if(i<=85){
-                dropItem(new BronzeCoin(gp));
+                dropItem(new SilverCoin(gp));
             }else{
                 dropItem(new SleepPotion(gp));
             }

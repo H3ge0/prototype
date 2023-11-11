@@ -539,7 +539,7 @@ public class UIHandler {
             if(gp.keyH.xKeyPressed){
                 gp.playSoundEffect(4);
                 gp.gameState=gp.playState;
-                gp.retry();
+                gp.resetGame(false);
                 gp.playMusic(0);
                 subState=0;
                 commandNum=0;
@@ -1072,6 +1072,7 @@ public class UIHandler {
                 subState=0;
                 gp.gameState=gp.titleState;
                 gp.stopMusic();
+                gp.resetGame(false);
             }
             g2.setColor(Color.yellow);
         } else

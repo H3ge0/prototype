@@ -33,10 +33,6 @@ public class Player extends Entity{
         collisionBoxDefaultY = collisionBox.y;
 
         setDefaultValues();
-        getImages();
-        getAttackImages();
-        setInventory();
-        getGuardImages();
     }
 
     public void setDefaultValues() {
@@ -46,8 +42,9 @@ public class Player extends Entity{
         //Player Stats
         level=1;
         maxHp=6;
+        hp=maxHp;
         maxEnergy=3;
-        restoreHpAndEnergy();
+        energy=maxEnergy;
         strength=1;
         dexterity=1;
         exp=0;
@@ -55,9 +52,15 @@ public class Player extends Entity{
         coin=0;
         currentFireball=new FireballOrange(gp);
         currentArmor=new ArmorLeather(gp);
+        currentLightSource=null;
         currentProjectile=new ThrowingKnife(gp);
         attack=getAttack();
         defense=getDefense();
+
+        getImages();
+        getAttackImages();
+        setInventory();
+        getGuardImages();
     }
 
     public void setDefaultPosition(){
@@ -67,11 +70,15 @@ public class Player extends Entity{
         direction="down";
     }
 
-    public void restoreHpAndEnergy(){
+    public void restoreStatus(){
         hp=maxHp;
         energy=maxEnergy;
         invincible=false;
         transparent=false;
+        attacking=false;
+        guarding=false;
+        knockBack=false;
+        lightUpdated=true;
     }
 
     public void setInventory(){

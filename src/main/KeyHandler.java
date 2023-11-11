@@ -77,11 +77,11 @@ public class KeyHandler implements KeyListener {
         if(keyCode==KeyEvent.VK_X){
             gp.playSoundEffect(4);
             if(gp.uiH.commandNum==0){
-                gp.reset();
+                gp.resetGame(true);
                 gp.gameState=gp.playState;
                 gp.playMusic(0);
             }else if(gp.uiH.commandNum==1){
-                gp.retry();
+                gp.resetGame(false);
                 gp.gameState=gp.playState;
                 gp.playMusic(0);
             }else if(gp.uiH.commandNum==2){

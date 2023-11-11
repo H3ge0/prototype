@@ -102,27 +102,22 @@ public class GamePanel extends JPanel implements Runnable{
             setFullScreen();
     }
 
-    public void retry(){
-        player.coin=0;
+    public void resetGame(boolean restart) {
+        player.coin/=2;
         player.exp=player.nextLevelExp/2;
         player.setDefaultPosition();
-        player.restoreHpAndEnergy();
+        player.restoreStatus();
         objectH.setNPCs();
         objectH.setMonsters();
-    }
-
-    public void reset(){
-        environmentH.lighting.reset();
         uiH.messages.clear();
         uiH.messageCounters.clear();
-        player.setDefaultValues();
-        player.getImages();
-        player.getAttackImages();
-        player.setInventory();
-        objectH.setObjects();
-        objectH.setNPCs();
-        objectH.setMonsters();
-        objectH.setInteractiveTiles();
+
+        if (restart) {
+            player.setDefaultValues();
+            objectH.setObjects();
+            objectH.setInteractiveTiles();
+            environmentH.lighting.reset();
+        }
     }
 
     public void setFullScreen() {
