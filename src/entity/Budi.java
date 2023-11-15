@@ -25,6 +25,8 @@ public class Budi extends Entity{
         collisionBox.width=32;
         collisionBox.height=32;
 
+        dialogueSet=-1;
+
         getImages();
         setDialogues();
         actionLockCounter = random.nextInt(1,120);
@@ -46,11 +48,20 @@ public class Budi extends Entity{
     }
 
     public void setDialogues(){
-        dialogues[0] = "Meraba kanki.";
-        dialogues[1] = "Demek o hazine için geldin...";
-        dialogues[2] = "O hazine fazla korumalı. O mağaradakileri\nkendi gözümle gördüm.";
-        dialogues[3] = "Kesinlikle normal değiller...";
-        dialogues[4] = "Dikkat et kendine.";
+        dialogues[0][0] = "Meraba kanki.";
+        dialogues[0][1] = "Ben budi! Tek işim yürümek!!!!";
+        dialogues[0][2] = "Neden bilmiyorum :O";
+
+        dialogues[1][0] = "Batı tarafında bir ev var...";
+        dialogues[1][1] = "Ve bu evin sadece bodrumu var?!?";
+        dialogues[1][2] = "Bu bodruma giren kimse geri dönemedi :(";
+        dialogues[1][3] = "Belki de dönmek istemedi...";
+        dialogues[1][4] = "Neyse demek istediğim oraya gitmeyi düşünüyorsan\nbirkaç kere daha düşün.";
+
+        dialogues[2][0] = "Eğer yorulursan yukardaki gölden su içebilirsin.";
+        dialogues[2][1] = "Ama nedense su içersen canavarlar tekrar doğuyor.";
+
+        dialogues[3][0] = "Sana kolay gelsin...";
     }
 
     @Override
@@ -80,18 +91,19 @@ public class Budi extends Entity{
     }
 
     public void speak(){
-        if(gp.player.hp<=1&&this.dialogueIndex>=1){
+        if(gp.player.hp<=1){
             gp.playSoundEffect(1);
             gp.player.hp+=4;
             gp.uiH.currentDialogueText="Canın kalmamış kanki, al şu iksiri.\n\n\n*İyileştin!*";
-            switch(gp.player.direction){
-                case "up" -> direction = "down";
-                case "down" -> direction = "up";
-                case "left" -> direction = "right";
-                case "right" -> direction = "left";
+        }else{
+            startDialogue(this, dialogueSet);
+            dialogueSet++;
+
+            if(dialogues[dialogueSet][0]==null){
+                dialogueSet--;
             }
-        }else
-            super.speak();
+        }
+        facePlayer();
         onPath=!onPath;
     }
 

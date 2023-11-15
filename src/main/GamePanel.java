@@ -109,10 +109,9 @@ public class GamePanel extends JPanel implements Runnable{
         player.exp=player.nextLevelExp/2;
         player.setDefaultPosition();
         player.restoreStatus();
+        player.resetCounters();
         objectH.setNPCs();
         objectH.setMonsters();
-        uiH.messages.clear();
-        uiH.messageCounters.clear();
 
         if (restart) {
             player.setDefaultValues();

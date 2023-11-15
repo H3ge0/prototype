@@ -26,33 +26,32 @@ public class Chest extends Entity {
         collisionBoxDefaultY=collisionBox.y;
     }
 
+    public void setDialogues(){
+        dialogues[0][0] = "Sandıktan "+loot.displayedName+" çıktı!";
+        dialogues[1][0] = "Sandıktan "+loot.displayedName+" çıktı!\nAma üstün dolu...";
+        dialogues[2][0] = "Sandık zaten açılmış kardes :P";
+    }
+
     @Override
     public void setLoot(Entity loot){
         this.loot = loot;
+        setDialogues();
     }
 
     @Override
     public void interact() {
-        gp.gameState=gp.dialogueState;
-
         if(!opened){
-            gp.uiH.currentDialogueText="";
-
-            StringBuilder sb = new StringBuilder();
-            sb.append("Sandıktan ").append(loot.displayedName).append(" çıktı!");
-
             if(gp.player.canObtainItem(loot)){
                 gp.playSoundEffect(6);
                 down1=image2;
                 opened=true;
+                startDialogue(this,0);
             }
             else{
-                sb.append("\nAma üstün dolu...");
+                startDialogue(this,1);
             }
-
-            gp.uiH.currentDialogueText = sb.toString();
         }else{
-            gp.uiH.currentDialogueText = "Sandık zaten açılmış kardes :P";
+            startDialogue(this,2);
         }
     }
 }

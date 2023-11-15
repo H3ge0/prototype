@@ -47,7 +47,12 @@ public class Bobo extends Entity{
     }
 
     public void setDialogues(){
-        dialogues[0] = "Nasi buldun beni?? Bu degil onemli olan.\nAlış veriş yapmak ister misin sen?";
+        dialogues[0][0] = "Nasi buldun beni?? Bu degil onemli olan.\nAlış veriş yapmak ister misin sen?";
+        dialogues[1][0] = "Yine bekleriz...";
+        dialogues[2][0] = "Yetmiyor senin paran :(";
+        dialogues[3][0] = "Dolu senin envanterin :(";
+        dialogues[4][0] = "Sende kalsin o. Lazim olur :)";
+        dialogues[5][0] = "Yeter artik kardes. Benim de var sinirim.";
     }
 
     public void setItems(){
@@ -60,7 +65,6 @@ public class Bobo extends Entity{
 
     @Override
     public void speak() {
-        super.speak();
         gp.gameState=gp.tradeState;
         gp.uiH.commandNum=0;
         gp.uiH.subState=0;

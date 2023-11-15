@@ -22,7 +22,7 @@ public class Entity {
     public Rectangle attackArea = new Rectangle(0,0,0,0);
     public int collisionBoxDefaultX=collisionBox.x, collisionBoxDefaultY=collisionBox.y;
     public boolean collisionOn = false;
-    String[] dialogues = new String[20];
+    public String[][] dialogues = new String[20][20];
     public Entity attacker;
 
     //Throwing Knife
@@ -32,7 +32,8 @@ public class Entity {
     public int worldX, worldY;
     public String direction = "down";
     public int spriteNum = 1;
-    int dialogueIndex=0;
+    public int dialogueSet = 0;
+    public int dialogueIndex=0;
     public boolean collision = false;
     public boolean invincible = false;
     public boolean attacking = false;
@@ -152,6 +153,18 @@ public class Entity {
         return (target.worldY+target.collisionBox.y)/gp.tileSize;
     }
 
+    public void resetCounters(){
+        actionLockCounter = 0;
+        spriteCounter = 0;
+        invincibleCounter = 0;
+        dyingCounter = 0;
+        hpBarCounter = 0;
+        projectileCooldownCounter = 0;
+        knockBackCounter = 0;
+        guardCounter = 0;
+        weakCounter = 0;
+    }
+
     public void setLoot(Entity loot){}
 
     public void setAction(){}
@@ -175,12 +188,17 @@ public class Entity {
         }
     }
 
-    public void speak(){
-        if(dialogues[dialogueIndex]==null)
-            dialogueIndex--;
-        gp.uiH.currentDialogueText = dialogues[dialogueIndex];
-        dialogueIndex++;
+    public void startDialogue(Entity entity, int setNum){
+        gp.gameState=gp.dialogueState;
+        gp.uiH.npc = entity;
+        dialogueSet = setNum;
+    }
 
+    public void speak(){
+
+    }
+
+    public void facePlayer(){
         switch(gp.player.direction){
             case "up" -> direction = "down";
             case "down" -> direction = "up";

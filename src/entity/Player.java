@@ -61,6 +61,7 @@ public class Player extends Entity{
         getAttackImages();
         setInventory();
         getGuardImages();
+        setDialogues();
     }
 
     public void setDefaultPosition(){
@@ -73,6 +74,7 @@ public class Player extends Entity{
     public void restoreStatus(){
         hp=maxHp;
         energy=maxEnergy;
+        speed=defaultSpeed;
         invincible=false;
         transparent=false;
         attacking=false;
@@ -203,6 +205,10 @@ public class Player extends Entity{
         guardDown = setImage("/player/gopi_down_guard",gp.tileSize,gp.tileSize);
         guardLeft = setImage("/player/gopi_left_guard",gp.tileSize,gp.tileSize);
         guardRight = setImage("/player/gopi_right_guard",gp.tileSize,gp.tileSize);
+    }
+
+    public void setDialogues(){
+        dialogues[0][0]="Seviye atladın!! Artık "+level+". seviyesin!";
     }
 
     public void update() {
@@ -451,7 +457,6 @@ public class Player extends Entity{
         if(keyH.xKeyPressed){
             if(index!=999){
                 attackCanceled = true;
-                gp.gameState=gp.dialogueState;
                 gp.npcs[gp.currentMap][index].speak();
             }
         }
@@ -542,8 +547,8 @@ public class Player extends Entity{
             defense=getDefense();
 
             gp.playSoundEffect(6);
-            gp.gameState=gp.dialogueState;
-            gp.uiH.currentDialogueText="Seviye atladın!! Artık "+level+". seviyesin!";
+
+            startDialogue(this,0);
         }
     }
 

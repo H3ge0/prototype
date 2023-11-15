@@ -8,6 +8,8 @@ public class Rabbit extends Entity {
     public Rabbit(GamePanel gp){
         super(gp);
 
+        setDialogues();
+
         type=typeObstacle;
         name = "Rabbit";
         displayedName = "Tavşan";
@@ -20,10 +22,13 @@ public class Rabbit extends Entity {
 
     }
 
+    public void setDialogues(){
+        dialogues[0][0] = "Havuç lazım...";
+    }
+
     @Override
     public void interact() {
-        gp.gameState=gp.dialogueState;
-        gp.uiH.currentDialogueText="Havuç lazım...";
+        startDialogue(this,0);
     }
 }
 

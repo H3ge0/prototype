@@ -6,6 +6,7 @@ public class EventHandler {
 
     GamePanel gp;
     EventRect[][][] eventRect;
+    Entity eventMaster;
 
     int previousEventX, previousEventY;
     boolean canTouchEvent=true;
@@ -13,6 +14,8 @@ public class EventHandler {
 
     public EventHandler(GamePanel gp){
         this.gp = gp;
+
+        eventMaster = new Entity(gp);
 
         eventRect = new EventRect[gp.mapAmount][gp.maxWorldCol][gp.maxWorldRow];
 
@@ -38,6 +41,17 @@ public class EventHandler {
                 }
             }
         }
+
+        setDialogues();
+    }
+
+    public void setDialogues(){
+        eventMaster.dialogues[0][0] = "Çukura düştün! Canın azaldı!";
+        eventMaster.dialogues[1][0] = "Bu sefer çukuru fark ettin. Aptallık bir\nyere kadar...";
+        eventMaster.dialogues[2][0] = "Aptallık bir yere kadar...";
+        eventMaster.dialogues[3][0] = "Sudan içtin. Nedense canavarlar tekrar doğdu!?";
+        eventMaster.dialogues[4][0] = "\"YOOOK.\"";
+        eventMaster.dialogues[5][0] = "Suda böcek gördün. \"Ben daha içmem aga.\"";
     }
 
     public void checkEvent(){
@@ -93,15 +107,15 @@ public class EventHandler {
         gp.gameState=gameState;
         if(gp.player.canFall){
             if(gp.player.hp>=2) {
-                gp.uiH.currentDialogueText = "Çukura düştün! Canın azaldı!";
+                eventMaster.startDialogue(eventMaster,0);
                 gp.playSoundEffect(7);
                 gp.player.hp -= 1;
             } else {
-                gp.uiH.currentDialogueText = "Bu sefer çukuru fark ettin. Aptallık bir\nyere kadar...";
+                eventMaster.startDialogue(eventMaster,1);
                 gp.player.canFall=false;
             }
         } else {
-            gp.uiH.currentDialogueText = "Aptallık bir yere kadar...";
+            eventMaster.startDialogue(eventMaster,2);
             gp.playSoundEffect(2);
         }
         canTouchEvent=false;
@@ -114,19 +128,19 @@ public class EventHandler {
             gp.player.attackCanceled=true;
             if(gp.player.hp<gp.player.maxHp) {
                 if(gp.player.canDrink){
-                    gp.uiH.currentDialogueText = "Sudan içtin. Nedense canavarlar tekrar doğdu!?";
+                    eventMaster.startDialogue(eventMaster,3);
                     gp.playSoundEffect(1);
                     gp.player.hp+=1;
                 } else {
-                    gp.uiH.currentDialogueText = "\"YOOOK.\"";
+                    eventMaster.startDialogue(eventMaster,4);
                     gp.playSoundEffect(2);
                 }
             } else {
                 if(gp.player.canDrink){
                     gp.player.canDrink = false;
-                    gp.uiH.currentDialogueText = "Suda böcek gördün. \"Ben daha içmem aga.\"";
+                    eventMaster.startDialogue(eventMaster,5);
                 } else {
-                    gp.uiH.currentDialogueText = "\"YOOOK.\"";
+                    eventMaster.startDialogue(eventMaster,4);
                     gp.playSoundEffect(2);
                 }
             }

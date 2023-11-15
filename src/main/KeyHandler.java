@@ -163,7 +163,7 @@ public class KeyHandler implements KeyListener {
 
     void dialogueState(int keyCode){
         if(keyCode==KeyEvent.VK_X){
-            gp.gameState = gp.playState;
+            xKeyPressed=true;
         }
     }
 

@@ -31,6 +31,8 @@ public class UIHandler {
     public int subState=0;
     int counter=0;
     public Entity npc;
+    int charIndex = 0;
+    String combinedText = "";
 
     public UIHandler(GamePanel gp) {
         this.gp = gp;
@@ -387,6 +389,35 @@ public class UIHandler {
         g2.setColor(Color.white);
         g2.setFont(fixedsys.deriveFont(26f));
 
+        if(npc.dialogues[npc.dialogueSet][npc.dialogueIndex]!=null){
+            char[] chars = npc.dialogues[npc.dialogueSet][npc.dialogueIndex].toCharArray();
+
+            if(charIndex<chars.length){
+                String str = String.valueOf(chars[charIndex]);
+                combinedText+=str;
+                gp.playSoundEffect(20);
+
+                currentDialogueText=combinedText;
+
+                charIndex++;
+            }
+
+            if(gp.keyH.xKeyPressed){
+                charIndex=0;
+                combinedText="";
+                if(gp.gameState==gp.dialogueState){
+                    npc.dialogueIndex++;
+                    gp.keyH.xKeyPressed=false;
+                }
+            }
+        }else{
+            npc.dialogueIndex=0;
+
+            if(gp.gameState==gp.dialogueState){
+                gp.gameState=gp.playState;
+            }
+        }
+
         for(String line:currentDialogueText.split("\n")){
             g2.drawString(line,x,y);
             y+=40;
@@ -628,6 +659,8 @@ public class UIHandler {
     }
 
     public void tradeSelect(){
+        npc.dialogueSet=0;
+
         //Shorter Dialogue Screen
             //Window
             int x = gp.tileSize*2;
@@ -643,7 +676,7 @@ public class UIHandler {
             g2.setColor(Color.white);
             g2.setFont(fixedsys.deriveFont(26f));
 
-            for(String line:currentDialogueText.split("\n")){
+            for(String line:npc.dialogues[0][0].split("\n")){
                 g2.drawString(line,x,y);
                 y+=40;
             }
@@ -692,8 +725,7 @@ public class UIHandler {
             g2.setColor(Color.yellow);
             if(gp.keyH.xKeyPressed){
                 commandNum=0;
-                gp.gameState=gp.dialogueState;
-                currentDialogueText="Yine bekleriz...";
+                npc.startDialogue(npc,1);
             }
         }else
             g2.setColor(Color.white);
@@ -745,9 +777,7 @@ public class UIHandler {
                     subState=0;
                     npcSlotCol=0;
                     npcSlotRow=0;
-                    gp.gameState=gp.dialogueState;
-                    currentDialogueText="Yetmiyor senin paran :(";
-                    drawDialogueScreen();
+                    npc.startDialogue(npc,2);
                 }else{
                     if(gp.player.canObtainItem(npc.inventory.get(itemIndex))){
                         gp.player.coin-=price;
@@ -759,8 +789,7 @@ public class UIHandler {
                         subState=0;
                         npcSlotCol=0;
                         npcSlotRow=0;
-                        gp.gameState= gp.dialogueState;
-                        currentDialogueText="Dolu senin envanterin :(";
+                        npc.startDialogue(npc,3);
                     }
                 }
             }
@@ -814,17 +843,13 @@ public class UIHandler {
                     subState=0;
                     playerSlotCol=0;
                     playerSlotRow=0;
-                    gp.gameState= gp.dialogueState;
-                    currentDialogueText="Sende kalsin o. Lazim olur :)";
-                    drawDialogueScreen();
+                    npc.startDialogue(npc,4);
                 } else if(npc.inventory.size()==npc.maxInvSize){
                     commandNum=0;
                     subState=0;
                     playerSlotCol=0;
                     playerSlotRow=0;
-                    gp.gameState= gp.dialogueState;
-                    currentDialogueText="Yeter artik kardes. Benim de var sinirim.";
-                    drawDialogueScreen();
+                    npc.startDialogue(npc,5);
                 } else{
                     if(!gp.player.inventory.get(itemIndex).stackable && !npcHasItem)
                         npc.inventory.add(gp.player.inventory.get(itemIndex));
