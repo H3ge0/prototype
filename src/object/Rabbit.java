@@ -5,13 +5,15 @@ import main.GamePanel;
 
 public class Rabbit extends Entity {
 
+    public static final String objName = "Rabbit";
+
     public Rabbit(GamePanel gp){
         super(gp);
 
         setDialogues();
 
         type=typeObstacle;
-        name = "Rabbit";
+        name = objName;
         displayedName = "Tavşan";
         description = "Bu neden burada?";
         coin=10;

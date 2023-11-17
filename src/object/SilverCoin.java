@@ -4,12 +4,15 @@ import entity.Entity;
 import main.GamePanel;
 
 public class SilverCoin extends Entity {
+
+    public static final String objName = "Silver Coin";
+
     public SilverCoin(GamePanel gp) {
         super(gp);
 
         type=typePickUpOnly;
 
-        name="Silver Coin";
+        name=objName;
         displayedName="Gümüş Para";
         value=5;
         down1=setImage("/objects/silver_coin",gp.tileSize,gp.tileSize);

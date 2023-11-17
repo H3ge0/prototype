@@ -5,12 +5,14 @@ import main.GamePanel;
 
 public class Carrot extends Entity {
 
+    public static final String objName = "Carrot";
+
     public Carrot(GamePanel gp){
         super(gp);
 
         setDialogues();
 
-        name = "Carrot";
+        name = objName;
         displayedName="Havuç";
         description="Tavşanlar bunu havada\nkapar.\n\n\n*3 can iyileştirir.*";
         type=typeConsumable;

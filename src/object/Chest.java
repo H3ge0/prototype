@@ -5,11 +5,13 @@ import main.GamePanel;
 
 public class Chest extends Entity {
 
+    public static final String objName = "Chest";
+
     public Chest(GamePanel gp){
         super(gp);
 
         type=typeObstacle;
-        name = "Chest";
+        name = objName;
         displayedName = "Sandık";
         description = "Birşeyler saklamak için on numara";
         image1 = setImage("/objects/chest",gp.tileSize,gp.tileSize);

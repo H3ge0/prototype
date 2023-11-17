@@ -4,10 +4,13 @@ import entity.Entity;
 import main.GamePanel;
 
 public class ArmorLeather extends Entity {
+
+    public static final String objName = "Leather Armor";
+
     public ArmorLeather(GamePanel gp) {
         super(gp);
 
-        name="Leather Armor";
+        name=objName;
         displayedName="Deri Zırh";
         description="Ormanın ortasında bulmuş\nolsan da iş görüyor.";
         coin=5;

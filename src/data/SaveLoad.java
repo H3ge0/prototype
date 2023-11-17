@@ -14,32 +14,6 @@ public class SaveLoad {
         this.gp = gp;
     }
 
-    public Entity getObject(String itemName){
-        Entity obj = null;
-
-        switch (itemName){
-            case "Iron Armor" -> obj = new ArmorIron(gp);
-            case "Leather Armor" -> obj = new ArmorLeather(gp);
-            case "Candy" -> obj = new Candy(gp);
-            case "Carrot" -> obj = new Carrot(gp);
-            case "Chest" -> obj = new Chest(gp);
-            case "Orange Fireball" -> obj = new FireballOrange(gp);
-            case "Purple Fireball" -> obj = new FireballPurple(gp);
-            case "Red Fireball" -> obj = new FireballRed(gp);
-            case "Rabbit" -> obj = new Rabbit(gp);
-            case "Sleep Potion" -> obj = new SleepPotion(gp);
-            case "Throwing Knife" -> obj = new ThrowingKnife(gp);
-            case "Torch" -> obj = new Torch(gp);
-            case "Treasure Chest" -> obj = new TreasureChest(gp);
-            case "Heart" -> obj = new Heart(gp);
-            case "Energy" -> obj = new Energy(gp);
-            case "Bronze Coin" -> obj = new BronzeCoin(gp);
-            case "Silver Coin" -> obj = new SilverCoin(gp);
-        }
-
-        return obj;
-    }
-
     public void save(){
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("save.dat"));
@@ -133,7 +107,7 @@ public class SaveLoad {
             //Player Inventory
             gp.player.inventory.clear();
             for(int i=0;i<ds.itemNames.size();i++){
-                gp.player.inventory.add(getObject(ds.itemNames.get(i)));
+                gp.player.inventory.add(gp.entityGenerator.getObject(ds.itemNames.get(i)));
                 gp.player.inventory.get(i).amount=ds.itemAmounts.get(i);
             }
 
@@ -150,11 +124,11 @@ public class SaveLoad {
                     if(ds.mapObjectNames[mapNum][i].equals("N/A")){
                         gp.obj[mapNum][i] = null;
                     }else{
-                        gp.obj[mapNum][i] = getObject(ds.mapObjectNames[mapNum][i]);
+                        gp.obj[mapNum][i] = gp.entityGenerator.getObject(ds.mapObjectNames[mapNum][i]);
                         gp.obj[mapNum][i].worldX = ds.mapObjectWorldX[mapNum][i];
                         gp.obj[mapNum][i].worldY = ds.mapObjectWorldY[mapNum][i];
                         if(ds.mapObjectLootNames[mapNum][i]!=null){
-                            gp.obj[mapNum][i].loot = getObject(ds.mapObjectLootNames[mapNum][i]);
+                            gp.obj[mapNum][i].loot = gp.entityGenerator.getObject(ds.mapObjectLootNames[mapNum][i]);
                         }
                         gp.obj[mapNum][i].opened = ds.mapObjectOpened[mapNum][i];
                         if(gp.obj[mapNum][i].opened){

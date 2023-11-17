@@ -5,12 +5,14 @@ import main.GamePanel;
 
 public class Candy extends Entity {
 
+    public static final String objName = "Candy";
+
     public Candy(GamePanel gp){
         super(gp);
 
         setDialogues();
 
-        name = "Candy";
+        name = objName;
         displayedName="Şeker";
         description="Çok tatlı duruyor...\n\n\n\n*Enerjini doldurur.*";
         coin=15;

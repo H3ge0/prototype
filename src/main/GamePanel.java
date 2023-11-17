@@ -53,6 +53,7 @@ public class GamePanel extends JPanel implements Runnable{
     public TileManager tileManager = new TileManager(this);
     public EnvironmentHandler environmentH = new EnvironmentHandler(this);
     public EffectHandler effectH = new EffectHandler(this);
+    public EntityGenerator entityGenerator = new EntityGenerator(this);
     public Player player = new Player(this, keyH);
     public Entity[][] npcs = new Entity[mapAmount][10];
     public Entity[][] obj = new Entity[mapAmount][20];
@@ -215,8 +216,6 @@ public class GamePanel extends JPanel implements Runnable{
             }
             //Environment
             environmentH.update();
-        } else if(gameState==pauseState){
-            //Nothing
         }
     }
 

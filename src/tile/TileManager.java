@@ -24,7 +24,7 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp = gp;
 
-        tiles = new Tile[50];
+        tiles = new Tile[60];
 
         map = new int[gp.mapAmount][gp.maxWorldCol][gp.maxWorldRow];
         random = new Random();
@@ -87,6 +87,9 @@ public class TileManager {
         setTile(45,"house",false);
         setTile(46,"planks",false);
         setTile(47,"table",true);
+        setTile(48,"dirt",false);
+        setTile(49,"ladder_down",false);
+        setTile(50,"ladder_up",false);
     }
 
     public void setTile(int index, String name, boolean collision){

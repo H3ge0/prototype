@@ -8,10 +8,12 @@ import java.awt.image.BufferedImage;
 
 public class Heart extends Entity {
 
+    public static final String objName = "Heart";
+
     public Heart(GamePanel gp) {
         super(gp);
 
-        name = "Heart";
+        name = objName;
         value = 2;
         type=typePickUpOnly;
 

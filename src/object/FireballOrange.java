@@ -4,10 +4,13 @@ import entity.Entity;
 import main.GamePanel;
 
 public class FireballOrange extends Entity {
+
+    public static final String objName = "Orange Fireball";
+
     public FireballOrange(GamePanel gp) {
         super(gp);
 
-        name="Orange Fireball";
+        name=objName;
         displayedName="Turuncu Ateş Topu";
         description="Doğduğundan beri\nkullandığın ateş topu.\nYine de gayet kuvvetli.\n\n(Kalsiyum).";
         coin=5;

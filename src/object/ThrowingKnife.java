@@ -8,10 +8,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ThrowingKnife extends Projectile {
+
+    public static final String objName = "Throwing Knife";
+
     public ThrowingKnife(GamePanel gp) {
         super(gp);
 
-        name="Throwing Knife";
+        name=objName;
         displayedName="Fırlatma Bıçağı";
         speed=6;
         maxHp=80;

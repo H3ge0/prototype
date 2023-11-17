@@ -7,10 +7,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Rock extends Projectile {
+
+    public static final String objName = "Rock";
+
     public Rock(GamePanel gp) {
         super(gp);
 
-        name="Rock";
+        name=objName;
         displayedName="Taş";
         speed=7;
         maxHp=80;

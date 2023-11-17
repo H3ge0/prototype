@@ -7,10 +7,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Energy extends Entity {
+
+    public static final String objName = "Energy";
+
     public Energy(GamePanel gp) {
         super(gp);
 
-        name = "Energy";
+        name = objName;
         value = 1;
         type=typePickUpOnly;
 

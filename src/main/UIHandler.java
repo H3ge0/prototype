@@ -31,11 +31,16 @@ public class UIHandler {
     public int subState=0;
     int counter=0;
     public Entity npc;
+    Entity huso;
     int charIndex = 0;
     String combinedText = "";
 
     public UIHandler(GamePanel gp) {
         this.gp = gp;
+
+        huso = new Entity(gp);
+
+        huso.dialogues[0][0] = "Oyun Kaydedildi!";
 
         InputStream inputStream = Objects.requireNonNull(getClass().getResourceAsStream("/fonts/fixedsys.ttf"));
 
@@ -345,8 +350,7 @@ public class UIHandler {
         if(commandNum==2) {
             if(gp.keyH.xKeyPressed){
                 gp.saveLoad.save();
-                gp.gameState = gp.dialogueState;
-                currentDialogueText = "Oyun kaydedildi";
+                huso.startDialogue(huso,0);
             }
             g2.setColor(Color.yellow);
         }else

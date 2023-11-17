@@ -4,10 +4,13 @@ import entity.Entity;
 import main.GamePanel;
 
 public class FireballPurple extends Entity {
+
+    public static final String objName = "Purple Fireball";
+
     public FireballPurple(GamePanel gp) {
         super(gp);
 
-        name="Purple Fireball";
+        name=objName;
         displayedName="Mor Ateş Topu";
         description="Hatalarını geri\nçevirebilir.\n\n\n(Potasyum).";
         coin=20;

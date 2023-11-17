@@ -5,11 +5,13 @@ import main.GamePanel;
 
 public class Torch extends Entity {
 
+    public static final String objName = "Torch";
+
     public Torch(GamePanel gp){
         super(gp);
 
         type=typeLightSource;
-        name = "Torch";
+        name = objName;
         displayedName = "Meşale";
         description = "Karanlığa karşı on numara";
         coin=20;

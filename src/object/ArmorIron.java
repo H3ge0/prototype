@@ -4,10 +4,13 @@ import entity.Entity;
 import main.GamePanel;
 
 public class ArmorIron extends Entity {
+
+    public static final String objName = "Iron Armor";
+
     public ArmorIron(GamePanel gp) {
         super(gp);
 
-        name="Iron Armor";
+        name=objName;
         displayedName="Demir Zırh";
         description="Parlak, ama yeteri kadar\ndeğil...";
         coin=20;

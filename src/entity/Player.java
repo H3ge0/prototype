@@ -548,6 +548,7 @@ public class Player extends Entity{
 
             gp.playSoundEffect(6);
 
+            dialogues[0][0] = "Seviye atladın!! Artık "+level+". seviyesin!";
             startDialogue(this,0);
         }
     }
@@ -608,22 +609,25 @@ public class Player extends Entity{
     }
 
     public boolean canObtainItem(Entity item){
-        int itemIndex = searchItemInInventory(item.name);
         boolean canObtainItem = false;
 
-        if(item.stackable){
+        Entity newItem = gp.entityGenerator.getObject(item.name);
+
+        if(newItem.stackable){
+            int itemIndex = searchItemInInventory(newItem.name);
+
             if(itemIndex!=999){
                 inventory.get(itemIndex).amount++;
                 canObtainItem=true;
             }else{
                 if(inventory.size()<maxInvSize){
-                    inventory.add(item);
+                    inventory.add(newItem);
                     canObtainItem=true;
                 }
             }
         }else{
             if(inventory.size()<maxInvSize){
-                inventory.add(item);
+                inventory.add(newItem);
                 canObtainItem=true;
             }
         }
