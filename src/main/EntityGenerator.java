@@ -20,11 +20,13 @@ public class EntityGenerator {
             case FireballOrange.objName -> obj = new FireballOrange(gp);
             case FireballPurple.objName -> obj = new FireballPurple(gp);
             case FireballRed.objName -> obj = new FireballRed(gp);
+            case FireballBlack.objName -> obj = new FireballBlack(gp);
             case Torch.objName -> obj = new Torch(gp);
             case SleepPotion.objName -> obj = new SleepPotion(gp);
             case Candy.objName -> obj = new Candy(gp);
             case Carrot.objName -> obj = new Carrot(gp);
             case Rabbit.objName -> obj = new Rabbit(gp);
+            case IronDoor.objName -> obj = new IronDoor(gp);
             case Chest.objName -> obj = new Chest(gp);
             case Heart.objName -> obj = new Heart(gp);
             case Energy.objName -> obj = new Energy(gp);

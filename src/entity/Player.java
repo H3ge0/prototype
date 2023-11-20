@@ -196,6 +196,20 @@ public class Player extends Entity{
                 attackRight2 = setImage("/player/red/gopi_attack_right_2", gp.tileSize * 2, gp.tileSize);
                 attackRight3 = setImage("/player/red/gopi_attack_right_3", gp.tileSize * 2, gp.tileSize);
             }
+            case "Black Fireball" -> {
+                attackUp1 = setImage("/player/black/gopi_attack_up_1", gp.tileSize, gp.tileSize * 2);
+                attackUp2 = setImage("/player/black/gopi_attack_up_2", gp.tileSize, gp.tileSize * 2);
+                attackUp3 = setImage("/player/black/gopi_attack_up_3", gp.tileSize, gp.tileSize * 2);
+                attackDown1 = setImage("/player/black/gopi_attack_down_1", gp.tileSize, gp.tileSize * 2);
+                attackDown2 = setImage("/player/black/gopi_attack_down_2", gp.tileSize, gp.tileSize * 2);
+                attackDown3 = setImage("/player/black/gopi_attack_down_3", gp.tileSize, gp.tileSize * 2);
+                attackLeft1 = setImage("/player/black/gopi_attack_left_1", gp.tileSize * 2, gp.tileSize);
+                attackLeft2 = setImage("/player/black/gopi_attack_left_2", gp.tileSize * 2, gp.tileSize);
+                attackLeft3 = setImage("/player/black/gopi_attack_left_3", gp.tileSize * 2, gp.tileSize);
+                attackRight1 = setImage("/player/black/gopi_attack_right_1", gp.tileSize * 2, gp.tileSize);
+                attackRight2 = setImage("/player/black/gopi_attack_right_2", gp.tileSize * 2, gp.tileSize);
+                attackRight3 = setImage("/player/black/gopi_attack_right_3", gp.tileSize * 2, gp.tileSize);
+            }
         }
 
     }
@@ -454,11 +468,12 @@ public class Player extends Entity{
     }
 
     public void interactWithNPC(int index){
-        if(keyH.xKeyPressed){
-            if(index!=999){
+        if(index!=999){
+            if(keyH.xKeyPressed){
                 attackCanceled = true;
                 gp.npcs[gp.currentMap][index].speak();
             }
+            gp.npcs[gp.currentMap][index].move(direction);
         }
     }
 
@@ -514,10 +529,15 @@ public class Player extends Entity{
     }
 
     public void attackInteractiveTile(int index){
-        if(index!=999 && gp.iTiles[gp.currentMap][index].canChange && gp.iTiles[gp.currentMap][index].isCorrectItem(this)){
+        if(index!=999 && gp.iTiles[gp.currentMap][index].canChange && gp.iTiles[gp.currentMap][index].isCorrectItem(this) && !gp.iTiles[gp.currentMap][index].invincible){
             gp.iTiles[gp.currentMap][index].generateITileParticle(index);
 
-            gp.iTiles[gp.currentMap][index].attack(index);
+            gp.iTiles[gp.currentMap][index].hp--;
+            gp.iTiles[gp.currentMap][index].invincible=true;
+
+            if(gp.iTiles[gp.currentMap][index].hp == 0){
+                gp.iTiles[gp.currentMap][index].attack(index);
+            }
         }
     }
 

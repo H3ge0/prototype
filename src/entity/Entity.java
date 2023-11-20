@@ -24,6 +24,7 @@ public class Entity {
     public boolean collisionOn = false;
     public String[][] dialogues = new String[20][20];
     public Entity attacker;
+    public Entity linkedEntity;
 
     //Throwing Knife
     public BufferedImage upidlev2,up1v2,up2v2,downidlev2,down1v2,down2v2,leftidlev2,left1v2,left2v2,rightidlev2,right1v2,right2v2;
@@ -168,6 +169,8 @@ public class Entity {
     public void setLoot(Entity loot){}
 
     public void setAction(){}
+
+    public void move(String direction){}
 
     public boolean use(Entity entity){return false;}
 
@@ -463,15 +466,15 @@ public class Entity {
                 }else{
                     damage /= 3;
                 }
-            }else {
-                if(damage<1)
-                    damage=1;
             }
 
             if(damage!=0){
                 gp.player.transparent=true;
                 applyKnockBack(gp.player,this,knockBackPower);
             }
+
+            if(damage<1)
+                damage=1;
 
             gp.player.hp-=damage;
 
@@ -506,7 +509,6 @@ public class Entity {
     }
 
     public void draw(Graphics2D g2) {
-
         BufferedImage image;
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;

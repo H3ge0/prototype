@@ -625,6 +625,7 @@ public class UIHandler {
             gp.player.worldY=gp.eventH.tempRow*gp.tileSize;
             gp.eventH.previousEventX=gp.player.worldX;
             gp.eventH.previousEventY=gp.player.worldY;
+            gp.changeArea();
         }
     }
 

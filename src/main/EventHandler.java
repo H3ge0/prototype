@@ -67,12 +67,24 @@ public class EventHandler {
                 damagePit(gp.dialogueState);
             else if(hit(0,23,7,"up"))
                 healingPool(gp.dialogueState);
+
             else if(hit(0,13,39,"any"))
-                teleport(1,12,13);
+                teleport(1,12,13,14,gp.inside);
             else if(hit(1,12,13,"any"))
-                teleport(0,13,39);
+                teleport(0,13,39,14,gp.outside);
+
             else if(hit(1,12,9,"up"))
                 speak(gp.npcs[1][0]);
+
+            else if(hit(0,10,7,"any"))  //Enter Dungeon
+                teleport(2,9,41,21,gp.dungeon);
+            else if(hit(2,7,40,"any"))  //Exit Dungeon
+                teleport(0,10,7,22,gp.outside);
+
+            else if(hit(2,8,7,"any")) //Enter 2nd floor
+                teleport(3,26,40,21,gp.dungeon);
+            else if(hit(3,24,39,"any")) //Exit 2nd floor
+                teleport(2,8,7,22,gp.dungeon);
         }
 
     }
@@ -147,16 +159,17 @@ public class EventHandler {
         }
     }
 
-    public void teleport(int map,int col,int row){
+    public void teleport(int map,int col,int row,int soundNum,int areaNum){
         gp.gameState=gp.transitionState;
+
+        gp.nextArea = areaNum;
+
         tempMap=map;
         tempCol=col;
         tempRow=row;
 
-
-
         canTouchEvent=false;
-        gp.playSoundEffect(14);
+        gp.playSoundEffect(soundNum);
     }
 
     public void speak(Entity entity){

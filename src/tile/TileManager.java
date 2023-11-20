@@ -30,8 +30,11 @@ public class TileManager {
         random = new Random();
 
         getTileImages();
+
         loadMap("/maps/world01.txt",0);
         loadMap("/maps/house01.txt",1);
+        loadMap("/maps/dungeon01.txt",2);
+        loadMap("/maps/dungeon02.txt",3);
     }
 
     public void getTileImages(){
@@ -90,6 +93,7 @@ public class TileManager {
         setTile(48,"dirt",false);
         setTile(49,"ladder_down",false);
         setTile(50,"ladder_up",false);
+        setTile(51,"ladder_down_dirt",false);
     }
 
     public void setTile(int index, String name, boolean collision){

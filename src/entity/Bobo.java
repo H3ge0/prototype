@@ -68,6 +68,10 @@ public class Bobo extends Entity{
         gp.gameState=gp.tradeState;
         gp.uiH.commandNum=0;
         gp.uiH.subState=0;
+        gp.uiH.npcSlotCol=0;
+        gp.uiH.npcSlotRow=0;
+        gp.uiH.playerSlotRow=0;
+        gp.uiH.playerSlotCol=0;
         gp.uiH.npc=this;
     }
 }

@@ -1,11 +1,14 @@
 package main;
 
+import entity.BigRock;
 import monster.Apol;
 import entity.Bobo;
 import entity.Budi;
 import monster.Ogim;
 import object.*;
-import tile_interactive.DryTree0;
+import tile_interactive.DryTree;
+import tile_interactive.DungeonPlate;
+import tile_interactive.WeakBrick;
 
 public class ObjectHandler {
 
@@ -31,16 +34,51 @@ public class ObjectHandler {
         gp.obj[mapNum][i].setLoot(new SleepPotion(gp));
         gp.obj[mapNum][i].worldX = gp.tileSize*13;
         gp.obj[mapNum][i].worldY = gp.tileSize*6;
+        i++;
+        gp.obj[mapNum][i] = new Carrot(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize*23;
+        gp.obj[mapNum][i].worldY = gp.tileSize*23;
+        i++;
+        gp.obj[mapNum][i] = new Carrot(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize*23;
+        gp.obj[mapNum][i].worldY = gp.tileSize*23;
+        i++;
+        gp.obj[mapNum][i] = new Torch(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize*23;
+        gp.obj[mapNum][i].worldY = gp.tileSize*23;
         /*
         i++;
         gp.obj[mapNum][i] = new FireballRed(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize*23;
         gp.obj[mapNum][i].worldY = gp.tileSize*23;
-        i++;
-        gp.obj[mapNum][i] = new Torch(gp);
-        gp.obj[mapNum][i].worldX = gp.tileSize*24;
-        gp.obj[mapNum][i].worldY = gp.tileSize*23;
         */
+
+        i=0;
+        mapNum=2;
+
+        gp.obj[mapNum][i] = new Chest(gp);
+        gp.obj[mapNum][i].setLoot(new FireballBlack(gp));
+        gp.obj[mapNum][i].worldX = gp.tileSize*40;
+        gp.obj[mapNum][i].worldY = gp.tileSize*41;
+        i++;
+        gp.obj[mapNum][i] = new Chest(gp);
+        gp.obj[mapNum][i].setLoot(new SleepPotion(gp));
+        gp.obj[mapNum][i].worldX = gp.tileSize*13;
+        gp.obj[mapNum][i].worldY = gp.tileSize*16;
+        i++;
+        gp.obj[mapNum][i] = new Chest(gp);
+        gp.obj[mapNum][i].setLoot(new SleepPotion(gp));
+        gp.obj[mapNum][i].worldX = gp.tileSize*26;
+        gp.obj[mapNum][i].worldY = gp.tileSize*34;
+        i++;
+        gp.obj[mapNum][i] = new Chest(gp);
+        gp.obj[mapNum][i].setLoot(new SleepPotion(gp));
+        gp.obj[mapNum][i].worldX = gp.tileSize*27;
+        gp.obj[mapNum][i].worldY = gp.tileSize*15;
+        i++;
+        gp.obj[mapNum][i] = new IronDoor(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize*18;
+        gp.obj[mapNum][i].worldY = gp.tileSize*23;
     }
 
     public void setNPCs(){
@@ -52,10 +90,24 @@ public class ObjectHandler {
         gp.npcs[mapNum][i].worldY = gp.tileSize*21;
 
         mapNum=1;
-        i=0;
+
         gp.npcs[mapNum][i] = new Bobo(gp);
         gp.npcs[mapNum][i].worldX = gp.tileSize*12;
         gp.npcs[mapNum][i].worldY = gp.tileSize*7;
+
+        mapNum=2;
+
+        gp.npcs[mapNum][i] = new BigRock(gp);
+        gp.npcs[mapNum][i].worldX = gp.tileSize*20;
+        gp.npcs[mapNum][i].worldY = gp.tileSize*25;
+        i++;
+        gp.npcs[mapNum][i] = new BigRock(gp);
+        gp.npcs[mapNum][i].worldX = gp.tileSize*11;
+        gp.npcs[mapNum][i].worldY = gp.tileSize*18;
+        i++;
+        gp.npcs[mapNum][i] = new BigRock(gp);
+        gp.npcs[mapNum][i].worldX = gp.tileSize*23;
+        gp.npcs[mapNum][i].worldY = gp.tileSize*14;
     }
 
     public void setMonsters(){
@@ -65,61 +117,124 @@ public class ObjectHandler {
         gp.monsters[mapNum][i] = new Ogim(gp);
         gp.monsters[mapNum][i].worldX = gp.tileSize*23;
         gp.monsters[mapNum][i].worldY = gp.tileSize*36;
-        i++;
 
+        i++;
         gp.monsters[mapNum][i] = new Ogim(gp);
         gp.monsters[mapNum][i].worldX = gp.tileSize*25;
         gp.monsters[mapNum][i].worldY = gp.tileSize*37;
-        i++;
 
+        i++;
         gp.monsters[mapNum][i] = new Ogim(gp);
         gp.monsters[mapNum][i].worldX = gp.tileSize*35;
         gp.monsters[mapNum][i].worldY = gp.tileSize*38;
-        i++;
 
+        i++;
         gp.monsters[mapNum][i] = new Ogim(gp);
         gp.monsters[mapNum][i].worldX = gp.tileSize*38;
         gp.monsters[mapNum][i].worldY = gp.tileSize*42;
-        i++;
 
+        i++;
         gp.monsters[mapNum][i] = new Ogim(gp);
         gp.monsters[mapNum][i].worldX = gp.tileSize*35;
         gp.monsters[mapNum][i].worldY = gp.tileSize*9;
-        i++;
 
+        i++;
         gp.monsters[mapNum][i] = new Ogim(gp);
         gp.monsters[mapNum][i].worldX = gp.tileSize*39;
         gp.monsters[mapNum][i].worldY = gp.tileSize*11;
-        i++;
 
+        i++;
         gp.monsters[mapNum][i] = new Apol(gp);
         gp.monsters[mapNum][i].worldX = gp.tileSize*11;
         gp.monsters[mapNum][i].worldY = gp.tileSize*32;
+
+        i=0;
+        mapNum=2;
     }
 
     public void setInteractiveTiles() {
         int i=0;
         int mapNum=0;
 
-        gp.iTiles[mapNum][i] = new DryTree0(gp,30,22); i++;
+        gp.iTiles[mapNum][i] = new DryTree(gp,30,22);
 
-        gp.iTiles[mapNum][i] = new DryTree0(gp,11,25); i++;
-        gp.iTiles[mapNum][i] = new DryTree0(gp,10,25); i++;
-        gp.iTiles[mapNum][i] = new DryTree0(gp,9,25); i++;
+        i++;
+        gp.iTiles[mapNum][i] = new DryTree(gp,11,25);
+        i++;
+        gp.iTiles[mapNum][i] = new DryTree(gp,10,25);
+        i++;
+        gp.iTiles[mapNum][i] = new DryTree(gp,9,25);
 
-        gp.iTiles[mapNum][i] = new DryTree0(gp,13,40); i++;
-        gp.iTiles[mapNum][i] = new DryTree0(gp,13,41); i++;
-        gp.iTiles[mapNum][i] = new DryTree0(gp,14,41); i++;
-        gp.iTiles[mapNum][i] = new DryTree0(gp,15,41); i++;
-        gp.iTiles[mapNum][i] = new DryTree0(gp,15,40); i++;
-        gp.iTiles[mapNum][i] = new DryTree0(gp,16,40); i++;
-        gp.iTiles[mapNum][i] = new DryTree0(gp,17,40); i++;
+        i++;
+        gp.iTiles[mapNum][i] = new DryTree(gp,13,40);
+        i++;
+        gp.iTiles[mapNum][i] = new DryTree(gp,13,41);
+        i++;
+        gp.iTiles[mapNum][i] = new DryTree(gp,14,41);
+        i++;
+        gp.iTiles[mapNum][i] = new DryTree(gp,15,41);
+        i++;
+        gp.iTiles[mapNum][i] = new DryTree(gp,15,40);
+        i++;
+        gp.iTiles[mapNum][i] = new DryTree(gp,16,40);
+        i++;
+        gp.iTiles[mapNum][i] = new DryTree(gp,17,40);
 
-        gp.iTiles[mapNum][i] = new DryTree0(gp,14,6); i++;
-        gp.iTiles[mapNum][i] = new DryTree0(gp,15,6); i++;
-        gp.iTiles[mapNum][i] = new DryTree0(gp,16,6); i++;
-        gp.iTiles[mapNum][i] = new DryTree0(gp,17,6); i++;
-        gp.iTiles[mapNum][i] = new DryTree0(gp,18,6); i++;
+        i++;
+        gp.iTiles[mapNum][i] = new DryTree(gp,14,6);
+        i++;
+        gp.iTiles[mapNum][i] = new DryTree(gp,15,6);
+        i++;
+        gp.iTiles[mapNum][i] = new DryTree(gp,16,6);
+        i++;
+        gp.iTiles[mapNum][i] = new DryTree(gp,17,6);
+        i++;
+        gp.iTiles[mapNum][i] = new DryTree(gp,18,6);
+
+        i=0;
+        mapNum=2;
+
+        gp.iTiles[mapNum][i] = new WeakBrick(gp,18,30);
+        i++;
+        gp.iTiles[mapNum][i] = new WeakBrick(gp,17,31);
+        i++;
+        gp.iTiles[mapNum][i] = new WeakBrick(gp,17,32);
+        i++;
+        gp.iTiles[mapNum][i] = new WeakBrick(gp,17,34);
+        i++;
+        gp.iTiles[mapNum][i] = new WeakBrick(gp,18,34);
+        i++;
+        gp.iTiles[mapNum][i] = new WeakBrick(gp,18,33);
+        i++;
+        gp.iTiles[mapNum][i] = new WeakBrick(gp,10,22);
+        i++;
+        gp.iTiles[mapNum][i] = new WeakBrick(gp,10,24);
+        i++;
+        gp.iTiles[mapNum][i] = new WeakBrick(gp,38,18);
+        i++;
+        gp.iTiles[mapNum][i] = new WeakBrick(gp,38,19);
+        i++;
+        gp.iTiles[mapNum][i] = new WeakBrick(gp,38,20);
+        i++;
+        gp.iTiles[mapNum][i] = new WeakBrick(gp,38,21);
+        i++;
+        gp.iTiles[mapNum][i] = new WeakBrick(gp,18,13);
+        i++;
+        gp.iTiles[mapNum][i] = new WeakBrick(gp,18,14);
+        i++;
+        gp.iTiles[mapNum][i] = new WeakBrick(gp,22,28);
+        i++;
+        gp.iTiles[mapNum][i] = new WeakBrick(gp,30,28);
+        i++;
+        gp.iTiles[mapNum][i] = new WeakBrick(gp,32,28);
+
+
+        i++;
+        gp.iTiles[mapNum][i] = new DungeonPlate(gp,20,22);
+        i++;
+        gp.iTiles[mapNum][i] = new DungeonPlate(gp,8,17);
+        i++;
+        gp.iTiles[mapNum][i] = new DungeonPlate(gp,39,31);
     }
 
 }

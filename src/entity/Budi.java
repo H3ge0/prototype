@@ -7,7 +7,6 @@ import java.util.Random;
 
 public class Budi extends Entity{
 
-
     Random random;
 
     public Budi(GamePanel gp) {

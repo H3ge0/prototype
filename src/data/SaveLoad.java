@@ -32,9 +32,11 @@ public class SaveLoad {
             ds.nextLevelExp = gp.player.nextLevelExp;
             ds.coin = gp.player.coin;
 
+            /*
             ds.mapNum = gp.currentMap;
             ds.playerWorldX = gp.player.worldX;
             ds.playerWorldY = gp.player.worldY;
+            */
 
             //Player Inventory
             for(Entity entity:gp.player.inventory){
@@ -100,9 +102,11 @@ public class SaveLoad {
             gp.player.nextLevelExp = ds.nextLevelExp;
             gp.player.coin = ds.coin;
 
+            /*
             gp.currentMap = ds.mapNum;
             gp.player.worldX = ds.playerWorldX;
             gp.player.worldY = ds.playerWorldY;
+            */
 
             //Player Inventory
             gp.player.inventory.clear();
@@ -128,7 +132,7 @@ public class SaveLoad {
                         gp.obj[mapNum][i].worldX = ds.mapObjectWorldX[mapNum][i];
                         gp.obj[mapNum][i].worldY = ds.mapObjectWorldY[mapNum][i];
                         if(ds.mapObjectLootNames[mapNum][i]!=null){
-                            gp.obj[mapNum][i].loot = gp.entityGenerator.getObject(ds.mapObjectLootNames[mapNum][i]);
+                            gp.obj[mapNum][i].setLoot(gp.entityGenerator.getObject(ds.mapObjectLootNames[mapNum][i]));
                         }
                         gp.obj[mapNum][i].opened = ds.mapObjectOpened[mapNum][i];
                         if(gp.obj[mapNum][i].opened){

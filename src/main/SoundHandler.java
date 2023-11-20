@@ -36,6 +36,13 @@ public class SoundHandler {
         soundURL[18] = getClass().getResource("/sounds/guard.wav");
         soundURL[19] = getClass().getResource("/sounds/parry.wav");
         soundURL[20] = getClass().getResource("/sounds/dialogue.wav");
+        soundURL[21] = getClass().getResource("/sounds/ladder_down.wav");
+        soundURL[22] = getClass().getResource("/sounds/ladder_up.wav");
+        soundURL[23] = getClass().getResource("/sounds/House.wav");
+        soundURL[24] = getClass().getResource("/sounds/Dungeon.wav");
+        soundURL[25] = getClass().getResource("/sounds/Boss.wav");
+        soundURL[26] = getClass().getResource("/sounds/attack_wall.wav");
+        soundURL[27] = getClass().getResource("/sounds/dungeon_door.wav");
     }
 
     public void setFile(int i){
