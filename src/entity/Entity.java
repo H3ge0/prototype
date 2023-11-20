@@ -430,10 +430,10 @@ public class Entity {
         }
     }
 
-    public void pickARandomDirection(){
+    public void pickARandomDirection(int interval){
         actionLockCounter++;
 
-        if (actionLockCounter==120){
+        if (actionLockCounter==interval){
             int i = new Random().nextInt(100)+1;
 
             if(i<=25){

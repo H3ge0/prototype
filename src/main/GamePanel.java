@@ -104,7 +104,6 @@ public class GamePanel extends JPanel implements Runnable{
         environmentH.setUp();
 
         gameState=titleState;
-        currentArea=outside;
 
         tempScreen = new BufferedImage(screenWidth,screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D)tempScreen.getGraphics();
@@ -114,8 +113,9 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void resetGame(boolean restart) {
-        player.coin/=2;
-        player.exp=player.nextLevelExp/2;
+        currentArea = outside;
+        player.coin /= 2;
+        player.exp = player.nextLevelExp/2;
         player.setDefaultPosition();
         player.restoreStatus();
         player.resetCounters();

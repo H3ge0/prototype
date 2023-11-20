@@ -1,6 +1,7 @@
 package main;
 
 import entity.BigRock;
+import monster.Afag;
 import monster.Apol;
 import entity.Bobo;
 import entity.Budi;
@@ -150,6 +151,26 @@ public class ObjectHandler {
 
         i=0;
         mapNum=2;
+
+        gp.monsters[mapNum][i] = new Afag(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize*34;
+        gp.monsters[mapNum][i].worldY = gp.tileSize*39;
+        i++;
+        gp.monsters[mapNum][i] = new Afag(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize*36;
+        gp.monsters[mapNum][i].worldY = gp.tileSize*25;
+        i++;
+        gp.monsters[mapNum][i] = new Afag(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize*39;
+        gp.monsters[mapNum][i].worldY = gp.tileSize*26;
+        i++;
+        gp.monsters[mapNum][i] = new Afag(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize*28;
+        gp.monsters[mapNum][i].worldY = gp.tileSize*11;
+        i++;
+        gp.monsters[mapNum][i] = new Afag(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize*10;
+        gp.monsters[mapNum][i].worldY = gp.tileSize*19;
     }
 
     public void setInteractiveTiles() {

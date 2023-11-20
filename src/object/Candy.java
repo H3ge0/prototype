@@ -35,7 +35,8 @@ public class Candy extends Entity {
         } else
             startDialogue(this,1);
         entity.energy=entity.maxEnergy;
-        entity.speed++;
+        entity.defaultSpeed++;
+        entity.speed = entity.defaultSpeed;
         gp.playSoundEffect(5);
         return true;
     }

@@ -142,7 +142,7 @@ public class Apol extends Entity {
         else{
             checkAndStartAggro(gp.player,5,100);
 
-            pickARandomDirection();
+            pickARandomDirection(120);
         }
 
         //Attack

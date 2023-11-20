@@ -366,9 +366,11 @@ public class Player extends Entity{
         if(energy>maxEnergy){
             energy=maxEnergy;
         }
-        if(speed>6){
-            speed=6;
+        /*
+        if(defaultSpeed>6){
+            defaultSpeed=6;
         }
+        */
 
         if(hp<=0){
             gp.playSoundEffect(13);

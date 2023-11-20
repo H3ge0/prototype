@@ -7,91 +7,69 @@ import object.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Ogim extends Entity {
-
-    public Ogim(GamePanel gp) {
+public class Afag extends Entity {
+    public Afag(GamePanel gp) {
         super(gp);
 
-        collisionBox.x=3;
+        collisionBox.x=6;
         collisionBox.y=3;
-        collisionBox.width=42;
-        collisionBox.height=42;
+        collisionBox.width=36;
+        collisionBox.height=39;
         collisionBoxDefaultX=collisionBox.x;
         collisionBoxDefaultY=collisionBox.y;
 
         type = typeMonster;
-        name = "Ogim";
-        defaultSpeed = 1;
+        name = "Afag";
+        defaultSpeed = 4;
         speed = defaultSpeed;
-        maxHp = 4;
+        maxHp = 7;
         hp = maxHp;
-        attack = 5;
+        attack = 7;
         defense = 0;
-        exp = 2;
-        currentProjectile=new Rock(gp);
+        exp = 7;
 
         getImage();
-        spriteNum = new Random().nextInt(1,17);
-        actionLockCounter = new Random().nextInt(1,120);
+        spriteNum = new Random().nextInt(1,2);
+        actionLockCounter = new Random().nextInt(1,10);
     }
 
     public void getImage(){
-        upidle = setImage("/monsters/ogim_1",gp.tileSize,gp.tileSize);
-        up1 = setImage("/monsters/ogim_2",gp.tileSize,gp.tileSize);
-        up2 = setImage("/monsters/ogim_3",gp.tileSize,gp.tileSize);
-        downidle = setImage("/monsters/ogim_4",gp.tileSize,gp.tileSize);
-        down1 = setImage("/monsters/ogim_5",gp.tileSize,gp.tileSize);
-        down2 = setImage("/monsters/ogim_6",gp.tileSize,gp.tileSize);
-        leftidle = setImage("/monsters/ogim_7",gp.tileSize,gp.tileSize);
-        left1 = setImage("/monsters/ogim_8",gp.tileSize,gp.tileSize);
-        left2 = setImage("/monsters/ogim_9",gp.tileSize,gp.tileSize);
+        down1 = setImage("/monsters/afag_1",gp.tileSize,gp.tileSize);
+        down2 = setImage("/monsters/afag_2",gp.tileSize,gp.tileSize);
     }
 
     @Override
     public void setAction() {
-        //If onPath
-        if(onPath){
-            checkAndStopAggro(gp.player,15,100);
-
-            searchPath(getGoalCol(gp.player),getGoalRow(gp.player));
-
-            checkAndShootProjectile(200,60);
-        }
-
-        //If not onPath
-        else{
-            checkAndStartAggro(gp.player,5,100);
-
-            pickARandomDirection(120);
+        if (!onPath) {
+            pickARandomDirection(10);
         }
     }
 
     @Override
     public void increaseSpriteCounter() {
         spriteCounter++;
-        if (spriteCounter>5){
-            if (spriteNum==16){
+        if (spriteCounter>20){
+            if (spriteNum==2){
                 spriteNum=1;
             } else {
-                spriteNum++;
+                spriteNum=2;
             }
             spriteCounter=0;
         }
     }
 
     @Override
+    public void update() {
+        super.update();
+        System.out.println(spriteNum);
+    }
+
+    @Override
     public BufferedImage setDrawImage(){
         BufferedImage image=null;
         switch(spriteNum){
-            case 1, 9 -> image = upidle;
-            case 2, 8 -> image = up1;
-            case 3, 7 -> image = up2;
-            case 4, 6 -> image = downidle;
-            case 5 -> image = down1;
-            case 10, 16 -> image = down2;
-            case 11, 15 -> image = leftidle;
-            case 12, 14 -> image = left1;
-            case 13 -> image = left2;
+            case 1 -> image = down1;
+            case 2 -> image = down2;
         }
         return image;
     }
@@ -99,7 +77,6 @@ public class Ogim extends Entity {
     @Override
     public void damageReaction() {
         actionLockCounter=0;
-        onPath=true;
     }
 
     @Override
