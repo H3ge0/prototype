@@ -15,7 +15,7 @@ public class Torch extends Entity {
         displayedName = "Meşale";
         description = "Karanlığa karşı on numara";
         coin=20;
-        lightRadius=500;
+        lightRadius=600;
 
         down1 = setImage("/objects/torch",gp.tileSize,gp.tileSize);
     }

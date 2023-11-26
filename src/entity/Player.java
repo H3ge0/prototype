@@ -32,6 +32,8 @@ public class Player extends Entity{
         collisionBoxDefaultX = collisionBox.x;
         collisionBoxDefaultY = collisionBox.y;
 
+        name = "Gopi";
+
         setDefaultValues();
     }
 
@@ -503,29 +505,31 @@ public class Player extends Entity{
 
     public void attackMonster(int index, Entity attacker, int attack, int knockBackPower){
         if(index!=999){
-            if(gp.monsters[gp.currentMap][index].hp>0 && !gp.monsters[gp.currentMap][index].invincible){
-                gp.playSoundEffect(8);
-                if(knockBackPower>0)
-                    applyKnockBack(gp.monsters[gp.currentMap][index], attacker, knockBackPower);
+            if(!gp.monsters[gp.currentMap][index].resistant){
+                if(gp.monsters[gp.currentMap][index].hp>0 && !gp.monsters[gp.currentMap][index].invincible){
+                    gp.playSoundEffect(8);
+                    if(knockBackPower>0)
+                        applyKnockBack(gp.monsters[gp.currentMap][index], attacker, knockBackPower);
 
-                if(gp.monsters[gp.currentMap][index].weak){
-                    attack *=5;
+                    if(gp.monsters[gp.currentMap][index].weak){
+                        attack *=5;
+                    }
+
+                    int damage = attack-gp.monsters[gp.currentMap][index].defense;
+                    if(damage<0)
+                        damage=0;
+                    gp.monsters[gp.currentMap][index].hp-=damage;
+                    gp.uiH.addMessage(damage+" hasar!");
+                    gp.monsters[gp.currentMap][index].invincible=true;
+                    gp.monsters[gp.currentMap][index].damageReaction();
                 }
-
-                int damage = attack-gp.monsters[gp.currentMap][index].defense;
-                if(damage<0)
-                    damage=0;
-                gp.monsters[gp.currentMap][index].hp-=damage;
-                gp.uiH.addMessage(damage+" hasar!");
-                gp.monsters[gp.currentMap][index].invincible=true;
-                gp.monsters[gp.currentMap][index].damageReaction();
-            }
-            if (gp.monsters[gp.currentMap][index].hp<=0 && !gp.monsters[gp.currentMap][index].dying){
-                gp.monsters[gp.currentMap][index].dying = true;
-                gp.uiH.addMessage(gp.monsters[gp.currentMap][index].name+" öldü.");
-                exp += gp.monsters[gp.currentMap][index].exp;
-                gp.uiH.addMessage("+"+gp.monsters[gp.currentMap][index].exp+" deneyim.");
-                checkLevelUp();
+                if (gp.monsters[gp.currentMap][index].hp<=0 && !gp.monsters[gp.currentMap][index].dying){
+                    gp.monsters[gp.currentMap][index].dying = true;
+                    gp.uiH.addMessage(gp.monsters[gp.currentMap][index].displayedName+" öldü.");
+                    exp += gp.monsters[gp.currentMap][index].exp;
+                    gp.uiH.addMessage("+"+gp.monsters[gp.currentMap][index].exp+" deneyim.");
+                    checkLevelUp();
+                }
             }
         }
     }
@@ -789,7 +793,8 @@ public class Player extends Entity{
             }
         }
 
-        g2.drawImage(image, tempScreenX, tempScreenY, null);
+        if(drawing)
+            g2.drawImage(image, tempScreenX, tempScreenY, null);
 
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 

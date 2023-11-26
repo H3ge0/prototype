@@ -170,6 +170,10 @@ public class CollisionHandler {
                 target[gp.currentMap][i].collisionBox.x = target[gp.currentMap][i].collisionBoxDefaultX;
                 target[gp.currentMap][i].collisionBox.y = target[gp.currentMap][i].collisionBoxDefaultY;
 
+                if(entity.name!=null && target[gp.currentMap][i].name!=null){
+                    if(entity.name.equals("Ipog") && (target[gp.currentMap][i].name.equals("Part1") || target[gp.currentMap][i].name.equals("Part2")))
+                        thisCollision=false;
+                }
 
 
                 entity.collision=entity.collision||thisCollision;

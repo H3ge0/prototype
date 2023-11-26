@@ -1,5 +1,7 @@
 package main;
 
+import data.Progress;
+import entity.Bobo;
 import entity.Entity;
 
 public class EventHandler {
@@ -73,8 +75,11 @@ public class EventHandler {
             else if(hit(1,12,13,"any"))
                 teleport(0,13,39,14,gp.outside);
 
-            else if(hit(1,12,9,"up"))
-                speak(gp.npcs[1][0]);
+            else if(hit(1,12,9,"up")) {
+                if(gp.npcs[1][0]!=null && gp.npcs[1][0].name.equals(Bobo.npcName)){
+                    speak(gp.npcs[1][0]);
+                }
+            }
 
             else if(hit(0,10,7,"any"))  //Enter Dungeon
                 teleport(2,9,41,21,gp.dungeon);
@@ -85,6 +90,9 @@ public class EventHandler {
                 teleport(3,26,40,21,gp.dungeon);
             else if(hit(3,24,39,"any")) //Exit 2nd floor
                 teleport(2,8,7,22,gp.dungeon);
+
+            else if(hit(3,25,27,"any")) //Boss
+                ipog();
         }
 
     }
@@ -177,6 +185,13 @@ public class EventHandler {
             gp.gameState=gp.dialogueState;
             gp.player.attackCanceled=true;
             entity.speak();
+        }
+    }
+
+    public void ipog(){
+        if(!gp.bossBattleOn && !Progress.ipogDefeated){
+            gp.gameState= gp.cutsceneState;
+            gp.cutsceneH.sceneNum = gp.cutsceneH.ipogScene;
         }
     }
 

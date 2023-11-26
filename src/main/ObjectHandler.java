@@ -1,11 +1,9 @@
 package main;
 
 import entity.BigRock;
-import monster.Afag;
-import monster.Apol;
+import monster.*;
 import entity.Bobo;
 import entity.Budi;
-import monster.Ogim;
 import object.*;
 import tile_interactive.DryTree;
 import tile_interactive.DungeonPlate;
@@ -35,6 +33,7 @@ public class ObjectHandler {
         gp.obj[mapNum][i].setLoot(new SleepPotion(gp));
         gp.obj[mapNum][i].worldX = gp.tileSize*13;
         gp.obj[mapNum][i].worldY = gp.tileSize*6;
+        /*
         i++;
         gp.obj[mapNum][i] = new Carrot(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize*23;
@@ -47,7 +46,6 @@ public class ObjectHandler {
         gp.obj[mapNum][i] = new Torch(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize*23;
         gp.obj[mapNum][i].worldY = gp.tileSize*23;
-        /*
         i++;
         gp.obj[mapNum][i] = new FireballRed(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize*23;
@@ -80,6 +78,13 @@ public class ObjectHandler {
         gp.obj[mapNum][i] = new IronDoor(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize*18;
         gp.obj[mapNum][i].worldY = gp.tileSize*23;
+
+        i=0;
+        mapNum=3;
+
+        gp.obj[mapNum][i] = new IronDoor(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize*25;
+        gp.obj[mapNum][i].worldY = gp.tileSize*15;
     }
 
     public void setNPCs(){
@@ -96,19 +101,23 @@ public class ObjectHandler {
         gp.npcs[mapNum][i].worldX = gp.tileSize*12;
         gp.npcs[mapNum][i].worldY = gp.tileSize*7;
 
-        mapNum=2;
+        setDungeonNpcs();
+    }
 
-        gp.npcs[mapNum][i] = new BigRock(gp);
-        gp.npcs[mapNum][i].worldX = gp.tileSize*20;
-        gp.npcs[mapNum][i].worldY = gp.tileSize*25;
+    public void setDungeonNpcs(){
+        int i=0;
+
+        gp.npcs[2][i] = new BigRock(gp);
+        gp.npcs[2][i].worldX = gp.tileSize*20;
+        gp.npcs[2][i].worldY = gp.tileSize*25;
         i++;
-        gp.npcs[mapNum][i] = new BigRock(gp);
-        gp.npcs[mapNum][i].worldX = gp.tileSize*11;
-        gp.npcs[mapNum][i].worldY = gp.tileSize*18;
+        gp.npcs[2][i] = new BigRock(gp);
+        gp.npcs[2][i].worldX = gp.tileSize*11;
+        gp.npcs[2][i].worldY = gp.tileSize*18;
         i++;
-        gp.npcs[mapNum][i] = new BigRock(gp);
-        gp.npcs[mapNum][i].worldX = gp.tileSize*23;
-        gp.npcs[mapNum][i].worldY = gp.tileSize*14;
+        gp.npcs[2][i] = new BigRock(gp);
+        gp.npcs[2][i].worldX = gp.tileSize*23;
+        gp.npcs[2][i].worldY = gp.tileSize*14;
     }
 
     public void setMonsters(){
@@ -171,6 +180,24 @@ public class ObjectHandler {
         gp.monsters[mapNum][i] = new Afag(gp);
         gp.monsters[mapNum][i].worldX = gp.tileSize*10;
         gp.monsters[mapNum][i].worldY = gp.tileSize*19;
+
+        i=0;
+        mapNum=3;
+
+        gp.monsters[mapNum][i] = new Ipog(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize*24;
+        gp.monsters[mapNum][i].worldY = gp.tileSize*16;
+
+        i++;
+        gp.monsters[mapNum][i] = new Obob(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize*28;
+        gp.monsters[mapNum][i].worldY = gp.tileSize*17;
+
+        i++;
+        gp.monsters[mapNum][i] = new Idub(gp);
+        gp.monsters[mapNum][i].connectedEntity = gp.monsters[mapNum][i-1];
+        gp.monsters[mapNum][i].worldX = gp.tileSize*21;
+        gp.monsters[mapNum][i].worldY = gp.tileSize*17;
     }
 
     public void setInteractiveTiles() {

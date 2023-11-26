@@ -20,6 +20,7 @@ public class Afag extends Entity {
 
         type = typeMonster;
         name = "Afag";
+        displayedName = name;
         defaultSpeed = 4;
         speed = defaultSpeed;
         maxHp = 7;
@@ -34,8 +35,8 @@ public class Afag extends Entity {
     }
 
     public void getImage(){
-        down1 = setImage("/monsters/afag_1",gp.tileSize,gp.tileSize);
-        down2 = setImage("/monsters/afag_2",gp.tileSize,gp.tileSize);
+        down1 = setImage("/monsters/afag/afag_1",gp.tileSize,gp.tileSize);
+        down2 = setImage("/monsters/afag/afag_2",gp.tileSize,gp.tileSize);
     }
 
     @Override
@@ -56,12 +57,6 @@ public class Afag extends Entity {
             }
             spriteCounter=0;
         }
-    }
-
-    @Override
-    public void update() {
-        super.update();
-        System.out.println(spriteNum);
     }
 
     @Override

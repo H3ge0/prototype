@@ -9,10 +9,13 @@ public class Budi extends Entity{
 
     Random random;
 
+    public static final String npcName = "Budi";
+
     public Budi(GamePanel gp) {
         super(gp);
         random = new Random();
 
+        name = npcName;
         direction = "down";
         speed=1;
 

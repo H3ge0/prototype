@@ -1,6 +1,7 @@
 package main;
 
 import entity.Entity;
+import monster.Ipog;
 import object.BronzeCoin;
 import object.Energy;
 import object.Heart;
@@ -86,6 +87,7 @@ public class UIHandler {
         //PlayState
         if (gp.gameState==gp.playState){
             drawPlayerHealthAndEnergy();
+            drawMonsterHp();
             gp.map.drawMiniMap(g2);
             drawMessages();
         }
@@ -265,6 +267,145 @@ public class UIHandler {
         }
     }
 
+    public void drawMonsterHp(){
+        int biggestBossType=0;
+        Entity biggestBoss=null;
+
+        for(Entity monster:gp.monsters[gp.currentMap]){
+            if(monster!=null && monster.inScreen()){
+                if(monster.hpBarOn && !monster.boss){
+                    double oneScale = (double)gp.tileSize/monster.maxHp;
+                    double hpBarWidth = oneScale*monster.hp;
+
+                    g2.setColor(new Color(135,35,35));
+                    g2.fillRect(monster.getScreenX()-1,monster.getScreenY()-16,gp.tileSize+2,12);
+
+                    g2.setColor(new Color(255,0,30));
+                    g2.fillRect(monster.getScreenX(),monster.getScreenY()-15,(int)hpBarWidth,10);
+
+                    monster.hpBarCounter++;
+                    if(monster.hpBarCounter>=600){
+                        monster.hpBarCounter=0;
+                        monster.hpBarOn=false;
+                    }
+                }
+
+                //BOSS
+                if(monster.boss){
+                    if(biggestBossType<monster.bossType){
+                        biggestBossType=monster.bossType;
+                        biggestBoss=monster;
+                    }
+                }
+            }
+        }
+
+        g2.setFont(fixedsys.deriveFont(Font.BOLD,24f));
+
+        if(biggestBoss!=null){
+            switch(biggestBoss.bossType){
+                case Entity.gen3 -> {
+                    int x = gp.screenWidth/2 - gp.tileSize*5;
+                    int y = gp.tileSize*10;
+
+                    double oneScale = (double)gp.tileSize*2/biggestBoss.maxHp;
+                    double hpBarWidth = oneScale*biggestBoss.hp;
+
+                    g2.setColor(new Color(54,184,184));
+                    g2.fillRect(x-1,y-1,gp.tileSize*6+1,22);
+
+                    g2.setColor(new Color(16,255,255));
+                    g2.fillRect(x,y,gp.tileSize*6,20);
+
+                    g2.setColor(Color.white);
+                    g2.drawString(biggestBoss.connectedEntity.connectedEntity.name,x+4,y-10);
+
+                    //Obob
+                    x += gp.tileSize*6;
+                    g2.setColor(new Color(50,81,191));
+                    g2.fillRect(x,y-1,gp.tileSize*2,22);
+
+                    g2.setColor(new Color(103,123,193));
+                    g2.fillRect(x,y,gp.tileSize*2,20);
+
+                    g2.setColor(Color.white);
+                    g2.drawString(biggestBoss.connectedEntity.name,x+4,y-10);
+
+                    //Idub
+                    x += gp.tileSize*2;
+                    g2.setColor(new Color(105,90,146));
+                    g2.fillRect(x,y-1,gp.tileSize*2+1,22);
+
+                    g2.setColor(new Color(149,129,210));
+                    g2.fillRect(x,y,(int)hpBarWidth,20);
+
+                    g2.setColor(Color.white);
+                    g2.drawString(biggestBoss.name,x+4,y-10);
+                }
+
+                case Entity.gen2 -> {
+                    int x = gp.screenWidth/2 - gp.tileSize*5;
+                    int y = gp.tileSize*10;
+
+                    double oneScale = (double)gp.tileSize*2/biggestBoss.maxHp;
+                    double hpBarWidth = oneScale*biggestBoss.hp;
+
+                    g2.setColor(new Color(54,184,184));
+                    g2.fillRect(x-1,y-1,gp.tileSize*6+1,22);
+
+                    g2.setColor(new Color(16,255,255));
+                    g2.fillRect(x,y,gp.tileSize*6,20);
+
+                    g2.setColor(Color.white);
+                    g2.drawString(biggestBoss.connectedEntity.name,x+4,y-10);
+
+                    //Obob
+                    x += gp.tileSize*6;
+                    g2.setColor(new Color(50,81,191));
+                    g2.fillRect(x,y-1,gp.tileSize*2,22);
+
+                    g2.setColor(new Color(103,123,193));
+                    g2.fillRect(x,y,(int)hpBarWidth,20);
+
+                    g2.setColor(Color.white);
+                    g2.drawString(biggestBoss.name,x+4,y-10);
+
+                    //Idub
+                    x += gp.tileSize*2;
+                    g2.setColor(new Color(105,90,146));
+                    g2.fillRect(x,y-1,gp.tileSize*2+1,22);
+                }
+
+                case Entity.gen1 -> {
+                    int x = gp.screenWidth/2 - gp.tileSize*5;
+                    int y = gp.tileSize*10;
+
+                    double oneScale = (double)gp.tileSize*6/biggestBoss.maxHp;
+                    double hpBarWidth = oneScale*biggestBoss.hp;
+
+                    g2.setColor(new Color(54,184,184));
+                    g2.fillRect(x-1,y-1,gp.tileSize*6+1,22);
+
+                    g2.setColor(new Color(16,255,255));
+                    g2.fillRect(x,y,(int)hpBarWidth,20);
+
+                    g2.setColor(Color.white);
+                    g2.drawString(biggestBoss.name,x+4,y-10);
+
+                    //Obob
+                    x += gp.tileSize*6;
+                    g2.setColor(new Color(50,81,191));
+                    g2.fillRect(x,y-1,gp.tileSize*2,22);
+
+                    //Idub
+                    x += gp.tileSize*2;
+                    g2.setColor(new Color(105,90,146));
+                    g2.fillRect(x,y-1,gp.tileSize*2+1,22);
+                }
+            }
+        }
+    }
+
     public void drawMessages(){
         int messageX = gp.tileSize/2;
         int messageY = gp.screenHeight-gp.tileSize/2;
@@ -409,7 +550,7 @@ public class UIHandler {
             if(gp.keyH.xKeyPressed){
                 charIndex=0;
                 combinedText="";
-                if(gp.gameState==gp.dialogueState){
+                if(gp.gameState==gp.dialogueState || gp.gameState==gp.cutsceneState){
                     npc.dialogueIndex++;
                     gp.keyH.xKeyPressed=false;
                 }
@@ -419,6 +560,9 @@ public class UIHandler {
 
             if(gp.gameState==gp.dialogueState){
                 gp.gameState=gp.playState;
+            }
+            if(gp.gameState==gp.cutsceneState){
+                gp.cutsceneH.scenePhase++;
             }
         }
 

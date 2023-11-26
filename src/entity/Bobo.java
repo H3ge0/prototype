@@ -7,9 +7,12 @@ import java.awt.*;
 
 public class Bobo extends Entity{
 
+    public static final String npcName = "Bobo";
+
     public Bobo(GamePanel gp) {
         super(gp);
 
+        name = npcName;
         direction = "down";
         speed=1;
 
@@ -59,6 +62,7 @@ public class Bobo extends Entity{
         inventory.add(new Carrot(gp));
         inventory.add(new Candy(gp));
         inventory.add(new SleepPotion(gp));
+        inventory.add(new HealthPotion(gp));
         inventory.add(new FireballPurple(gp));
         inventory.add(new Torch(gp));
     }

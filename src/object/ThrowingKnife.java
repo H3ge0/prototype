@@ -19,7 +19,7 @@ public class ThrowingKnife extends Projectile {
         speed=6;
         maxHp=80;
         hp=maxHp;
-        attack=2;
+        attack=1;
         useCost=1;
         alive=false;
         getImages();

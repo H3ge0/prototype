@@ -66,6 +66,7 @@ public class GamePanel extends JPanel implements Runnable{
     public PathFinder pathFinder = new PathFinder(this);
     Map map = new Map(this);
     SaveLoad saveLoad = new SaveLoad(this);
+    CutsceneHandler cutsceneH = new CutsceneHandler(this);
     Thread gameThread;
 
     //Gamestate
@@ -80,6 +81,9 @@ public class GamePanel extends JPanel implements Runnable{
     public final int transitionState = 7;
     public final int tradeState = 8;
     public final int sleepState = 9;
+    public final int cutsceneState = 10;
+
+    public boolean bossBattleOn = false;
 
     //AreaState
     public int currentArea;
@@ -116,6 +120,8 @@ public class GamePanel extends JPanel implements Runnable{
         currentArea = outside;
         player.coin /= 2;
         player.exp = player.nextLevelExp/2;
+        removeTempEntities();
+        bossBattleOn=false;
         player.setDefaultPosition();
         player.restoreStatus();
         player.resetCounters();
@@ -298,6 +304,9 @@ public class GamePanel extends JPanel implements Runnable{
             //Map
             map.drawMiniMap(g2);
 
+            //Cutscene
+            cutsceneH.draw(g2);
+
             //UI
             uiH.draw(g2);
         }
@@ -348,11 +357,21 @@ public class GamePanel extends JPanel implements Runnable{
             if(nextArea==dungeon)
                 playMusic(24);
 
-            objectH.setNPCs();
+            objectH.setDungeonNpcs();
         }
 
         currentArea=nextArea;
 
         objectH.setMonsters();
+    }
+
+    public void removeTempEntities(){
+        for(int mapNum=0;mapNum<mapAmount;mapNum++){
+            for(int i=0;i<obj[currentMap].length;i++){
+                if(obj[mapNum][i]!=null && obj[mapNum][i].temp){
+                    obj[mapNum][i]=null;
+                }
+            }
+        }
     }
 }

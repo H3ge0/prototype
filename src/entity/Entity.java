@@ -25,6 +25,8 @@ public class Entity {
     public String[][] dialogues = new String[20][20];
     public Entity attacker;
     public Entity linkedEntity;
+    public Entity connectedEntity;
+    public boolean temp = false;
 
     //Throwing Knife
     public BufferedImage upidlev2,up1v2,up2v2,downidlev2,down1v2,down2v2,leftidlev2,left1v2,left2v2,rightidlev2,right1v2,right2v2;
@@ -49,6 +51,9 @@ public class Entity {
     public boolean weak = false;
     public Entity loot;
     public boolean opened=false;
+    public boolean resistant=false;
+    public boolean sleep=false;
+    public boolean drawing=true;
 
     //Counters
     public int actionLockCounter = 0;
@@ -60,6 +65,7 @@ public class Entity {
     public int knockBackCounter = 0;
     public int guardCounter = 0;
     public int weakCounter = 0;
+    public int resistantCounter = 0;
 
     //Character
     public String name;
@@ -81,6 +87,7 @@ public class Entity {
     public Entity currentArmor;
     public Entity currentLightSource;
     public Projectile currentProjectile;
+    public boolean boss;
 
     //Item
     public ArrayList<Entity> inventory = new ArrayList<>();
@@ -106,8 +113,21 @@ public class Entity {
     public final int typeObstacle=7;
     public final int typeLightSource=8;
 
+    public int bossType;
+    public final static int gen1 = 80;
+    public final static int gen2 = 81;
+    public final static int gen3 = 82;
+
     public Entity(GamePanel gp){
         this.gp = gp;
+    }
+
+    public int getScreenX(){
+        return worldX - gp.player.worldX + gp.player.screenX;
+    }
+
+    public int getScreenY(){
+        return worldY - gp.player.worldY + gp.player.screenY;
     }
 
     public int getLeftX(){
@@ -134,12 +154,20 @@ public class Entity {
         return (worldY+collisionBox.y)/gp.tileSize;
     }
 
+    public int getCenterX() {
+        return worldX + down1.getWidth()/2;
+    }
+
+    public int getCenterY(){
+        return worldY + down1.getHeight()/2;
+    }
+
     public int getXDistance(Entity target){
-        return Math.abs(worldX-target.worldX);
+        return Math.abs(getCenterX()-target.getCenterX());
     }
 
     public int getYDistance(Entity target){
-        return Math.abs(worldY-target.worldY);
+        return Math.abs(getCenterY()-target.getCenterY());
     }
 
     public int getDistanceAsTile(Entity target){
@@ -165,6 +193,10 @@ public class Entity {
         guardCounter = 0;
         weakCounter = 0;
     }
+
+    public void reGetImages(){}
+
+    public void reGetAttackImages(){}
 
     public void setLoot(Entity loot){}
 
@@ -344,6 +376,28 @@ public class Entity {
         }
     }
 
+    public void moveTowardPlayer(int interval){
+        actionLockCounter++;
+
+        if(actionLockCounter>interval){
+            if(getXDistance(gp.player) > getYDistance(gp.player)){
+                if(gp.player.getCenterX() < getCenterX()){
+                    direction="left";
+                }else{
+                    direction="right";
+                }
+            }else if(getXDistance(gp.player) < getYDistance(gp.player)){
+                if(gp.player.getCenterY() < getCenterY()){
+                    direction="up";
+                }else{
+                    direction="down";
+                }
+            }
+
+            actionLockCounter=0;
+        }
+    }
+
     public String getOppositeDirection(String direction){
         String oppositeDirection = "";
         switch(direction){
@@ -351,6 +405,7 @@ public class Entity {
             case "down" -> oppositeDirection="up";
             case "left" -> oppositeDirection="right";
             case "right" -> oppositeDirection="left";
+            case "any" -> oppositeDirection="any";
         }
         return oppositeDirection;
     }
@@ -362,22 +417,22 @@ public class Entity {
 
         switch(direction){
             case "up" ->{
-                if(gp.player.worldY<worldY && yDis<straight && xDis<horizontal){
+                if(gp.player.getCenterY() < getCenterY() && yDis<straight && xDis<horizontal){
                     targetInRange=true;
                 }
             }
             case "down" ->{
-                if(gp.player.worldY>worldY && yDis<straight && xDis<horizontal){
+                if(gp.player.getCenterY() > getCenterY() && yDis<straight && xDis<horizontal){
                     targetInRange=true;
                 }
             }
             case "left" ->{
-                if(gp.player.worldX<worldX && xDis<straight && yDis<horizontal){
+                if(gp.player.getCenterX() < getCenterX() && xDis<straight && yDis<horizontal){
                     targetInRange=true;
                 }
             }
             case "right" ->{
-                if(gp.player.worldX>worldX && xDis<straight && yDis<horizontal){
+                if(gp.player.getCenterX() > getCenterX() && xDis<straight && yDis<horizontal){
                     targetInRange=true;
                 }
             }
@@ -433,7 +488,7 @@ public class Entity {
     public void pickARandomDirection(int interval){
         actionLockCounter++;
 
-        if (actionLockCounter==interval){
+        if (actionLockCounter>interval){
             int i = new Random().nextInt(100)+1;
 
             if(i<=25){
@@ -456,7 +511,7 @@ public class Entity {
             //Get opposite direction of player
             String neededGuardDirection = getOppositeDirection(direction);
 
-            if(gp.player.guarding && gp.player.direction.equals(neededGuardDirection)){
+            if(gp.player.guarding && (gp.player.direction.equals(neededGuardDirection) || neededGuardDirection.equals("any"))){
                 if(gp.player.guardCounter<15){
                     damage=0;
                     gp.playSoundEffect(19);
@@ -473,8 +528,17 @@ public class Entity {
                 applyKnockBack(gp.player,this,knockBackPower);
             }
 
-            if(damage<1)
-                damage=1;
+            if(gp.player.guarding && (gp.player.direction.equals(neededGuardDirection) || neededGuardDirection.equals("any"))){
+                if(gp.player.guardCounter<15){
+                    damage=0;
+                }else if(damage<0){
+                    damage=0;
+                }
+            }else{
+                if(damage<1){
+                    damage=1;
+                }
+            }
 
             gp.player.hp-=damage;
 
@@ -491,7 +555,11 @@ public class Entity {
 
     public void applyKnockBack(Entity target,Entity attacker, int knockBackPower){
         this.attacker = attacker;
-        target.knockBackDirection = attacker.direction;
+        if(attacker.direction.equals("any")){
+            target.knockBackDirection = getOppositeDirection(target.direction);
+        }else{
+            target.knockBackDirection = attacker.direction;
+        }
         target.speed+=knockBackPower;
         target.knockBack=true;
     }
@@ -508,22 +576,24 @@ public class Entity {
         }
     }
 
+    public boolean inScreen(){
+        return Math.abs(gp.player.worldX-worldX)<gp.screenWidth/2+gp.tileSize*5 && Math.abs(gp.player.worldY-worldY)<gp.screenHeight/2+gp.tileSize*5;
+    }
+
     public void draw(Graphics2D g2) {
         BufferedImage image;
-        int screenX = worldX - gp.player.worldX + gp.player.screenX;
-        int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-        if(Math.abs(gp.player.worldX-worldX)<gp.screenWidth/2+gp.tileSize && Math.abs(gp.player.worldY-worldY)<gp.screenHeight/2+gp.tileSize){
+        if(inScreen()){
 
             image = setDrawImage();
 
-            int tempScreenX=screenX;
-            int tempScreenY=screenY;
+            int tempScreenX = getScreenX();
+            int tempScreenY = getScreenY();
 
             if (attacking){
                 switch (direction) {
                     case "up" -> {
-                        tempScreenY-=gp.tileSize;
+                        tempScreenY-=down1.getHeight();
                         if (spriteNum == 1)
                             image = attackUp1;
                         if (spriteNum == 2)
@@ -540,7 +610,7 @@ public class Entity {
                             image = attackDown3;
                     }
                     case "left" -> {
-                        tempScreenX-=gp.tileSize;
+                        tempScreenX-=down1.getWidth();
                         if (spriteNum == 1)
                             image = attackLeft1;
                         if (spriteNum == 2)
@@ -556,23 +626,6 @@ public class Entity {
                         if (spriteNum == 3)
                             image = attackRight3;
                     }
-                }
-            }
-
-            if(type==typeMonster && hpBarOn){
-                double oneScale = (double)gp.tileSize/maxHp;
-                double hpBarWidth = oneScale*hp;
-
-                g2.setColor(new Color(135,35,35));
-                g2.fillRect(screenX-1,screenY-16,gp.tileSize+2,12);
-
-                g2.setColor(new Color(255,0,30));
-                g2.fillRect(screenX,screenY-15,(int)hpBarWidth,10);
-
-                hpBarCounter++;
-                if(hpBarCounter>=600){
-                    hpBarCounter=0;
-                    hpBarOn=false;
                 }
             }
 
@@ -674,7 +727,6 @@ public class Entity {
         else {
             alive=false;
         }
-
     }
 
     public static void setG2Alpha(Graphics2D g2, float alpha) {
