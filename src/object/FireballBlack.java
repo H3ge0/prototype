@@ -17,11 +17,11 @@ public class FireballBlack extends Entity {
         type=typeFireball;
         knockBackPower=3;
 
-        down1=setImage("/objects/fireball_black",gp.tileSize,gp.tileSize);
+        down1=setImage("/objects/fireball_black",gp.TILE_SIZE,gp.TILE_SIZE);
 
         attackArea.width=36;
         attackArea.height=36;
 
-        attackValue=121;
+        attackValue=1;
     }
 }

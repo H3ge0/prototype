@@ -19,7 +19,7 @@ public class Carrot extends Entity {
         coin=10;
         stackable=true;
 
-        down1=setImage("/objects/carrot",gp.tileSize,gp.tileSize);
+        down1=setImage("/objects/carrot",gp.TILE_SIZE,gp.TILE_SIZE);
     }
 
     public void setDialogues(){
@@ -29,12 +29,12 @@ public class Carrot extends Entity {
 
     @Override
     public boolean use(Entity entity){
-        int objIndex = getDetected(entity, gp.obj, "Rabbit");
+        int objIndex = getDetected(entity, gp.objects, "Rabbit");
 
         if(objIndex!=999){
             startDialogue(this,0);
             gp.playSoundEffect(5);
-            gp.obj[gp.currentMap][objIndex]=null;
+            gp.objects[gp.currentMap][objIndex]=null;
             gp.player.inventory.add(new Rabbit(gp));
         }else{
             startDialogue(this,1);

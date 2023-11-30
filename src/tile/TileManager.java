@@ -26,7 +26,7 @@ public class TileManager {
 
         tiles = new Tile[60];
 
-        map = new int[gp.mapAmount][gp.maxWorldCol][gp.maxWorldRow];
+        map = new int[gp.MAP_AMOUNT][gp.MAX_WORLD_COL][gp.MAX_WORLD_ROW];
         random = new Random();
 
         getTileImages();
@@ -101,7 +101,7 @@ public class TileManager {
         try {
             tiles[index] = new Tile();
             tiles[index].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/"+name+".png")));
-            tiles[index].image = utility.scaleImage(tiles[index].image,gp.tileSize,gp.tileSize);
+            tiles[index].image = utility.scaleImage(tiles[index].image,gp.TILE_SIZE,gp.TILE_SIZE);
             tiles[index].collision = collision;
         } catch(IOException e){
             e.printStackTrace();
@@ -110,7 +110,6 @@ public class TileManager {
 
     public void loadMap(String path, int mapNum){
         try {
-
             InputStream is = getClass().getResourceAsStream(path);
             assert is != null;
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -118,10 +117,10 @@ public class TileManager {
             int col = 0;
             int row = 0;
 
-            while(col<gp.maxWorldCol&&row<gp.maxWorldRow){
+            while(col<gp.MAX_WORLD_COL &&row<gp.MAX_WORLD_ROW){
                 String line = br.readLine();
 
-                while (col<gp.maxWorldCol){
+                while (col<gp.MAX_WORLD_COL){
                     String[] numbers = line.split(" ");
 
                     int num = Integer.parseInt(numbers[col]);
@@ -129,7 +128,7 @@ public class TileManager {
                     map[mapNum][col][row] = num;
                     col++;
                 }
-                if(col==gp.maxWorldRow){
+                if(col==gp.MAX_WORLD_ROW){
                     col=0;
                     row++;
                 }
@@ -144,8 +143,8 @@ public class TileManager {
     }
 
     public void randomizeGrass(int mapNum){
-        for(int i=0;i<gp.maxWorldCol;i++){
-            for (int j=0;j<gp.maxWorldRow;j++){
+        for(int i = 0; i<gp.MAX_WORLD_COL; i++){
+            for (int j = 0; j<gp.MAX_WORLD_ROW; j++){
                 if(map[mapNum][i][j]==10){
                     map[mapNum][i][j] = random.nextInt(10,12);
                 }
@@ -154,8 +153,8 @@ public class TileManager {
     }
 
     public void randomizeTrees(int mapNum){
-        for(int i=0;i<gp.maxWorldCol;i++){
-            for (int j=0;j<gp.maxWorldRow;j++){
+        for(int i = 0; i<gp.MAX_WORLD_COL; i++){
+            for (int j = 0; j<gp.MAX_WORLD_ROW; j++){
                 if(map[mapNum][i][j]==16){
                     map[mapNum][i][j] = random.nextInt(16,19);
                 }
@@ -168,21 +167,21 @@ public class TileManager {
         int worldCol = 0;
         int worldRow = 0;
 
-        while(worldCol<gp.maxWorldRow&&worldRow<gp.maxWorldRow){
+        while(worldCol<gp.MAX_WORLD_ROW &&worldRow<gp.MAX_WORLD_ROW){
 
             int tileNum = map[gp.currentMap][worldCol][worldRow];
 
-            int worldX = worldCol * gp.tileSize;
-            int worldY = worldRow * gp.tileSize;
+            int worldX = worldCol * gp.TILE_SIZE;
+            int worldY = worldRow * gp.TILE_SIZE;
             int screenX = worldX - gp.player.worldX+gp.player.screenX;
             int screenY = worldY - gp.player.worldY+gp.player.screenY;
 
-            if(Math.abs(gp.player.worldX-worldX)<gp.screenWidth/2+gp.tileSize && Math.abs(gp.player.worldY-worldY)<gp.screenHeight/2+gp.tileSize)
+            if(Math.abs(gp.player.worldX-worldX)<gp.SCREEN_WIDTH /2+gp.TILE_SIZE && Math.abs(gp.player.worldY-worldY)<gp.SCREEN_HEIGHT /2+gp.TILE_SIZE)
                 g2.drawImage(tiles[tileNum].image,screenX,screenY,null);
 
             worldCol++;
 
-            if(worldCol==gp.maxWorldCol){
+            if(worldCol==gp.MAX_WORLD_COL){
                 worldCol=0;
                 worldRow++;
             }
@@ -191,12 +190,12 @@ public class TileManager {
         if(drawPath){
             g2.setColor(new Color(255,0,0,70));
             for(Node node:gp.pathFinder.pathList){
-                int worldX = node.col * gp.tileSize;
-                int worldY = node.row * gp.tileSize;
+                int worldX = node.col * gp.TILE_SIZE;
+                int worldY = node.row * gp.TILE_SIZE;
                 int screenX = worldX - gp.player.worldX+gp.player.screenX;
                 int screenY = worldY - gp.player.worldY+gp.player.screenY;
 
-                g2.fillRect(screenX,screenY,gp.tileSize,gp.tileSize);
+                g2.fillRect(screenX,screenY,gp.TILE_SIZE,gp.TILE_SIZE);
             }
         }
     }

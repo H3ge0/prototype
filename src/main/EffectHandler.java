@@ -27,18 +27,18 @@ public class EffectHandler {
     }
 
     public void getWeakEffectImages(){
-        weak1 = setImage("/effects/weak/1",gp.tileSize,gp.tileSize);
-        weak2 = setImage("/effects/weak/2",gp.tileSize,gp.tileSize);
-        weak3 = setImage("/effects/weak/3",gp.tileSize,gp.tileSize);
-        weak4 = setImage("/effects/weak/4",gp.tileSize,gp.tileSize);
-        weak5 = setImage("/effects/weak/5",gp.tileSize,gp.tileSize);
-        weak6 = setImage("/effects/weak/6",gp.tileSize,gp.tileSize);
-        resistant1 = setImage("/effects/resistant/1",gp.tileSize*4,gp.tileSize*4);
-        resistant2 = setImage("/effects/resistant/2",gp.tileSize*4,gp.tileSize*4);
-        resistant3 = setImage("/effects/resistant/3",gp.tileSize*4,gp.tileSize*4);
-        resistant4 = setImage("/effects/resistant/4",gp.tileSize*4,gp.tileSize*4);
-        resistant5 = setImage("/effects/resistant/5",gp.tileSize*4,gp.tileSize*4);
-        resistant6 = setImage("/effects/resistant/6",gp.tileSize*4,gp.tileSize*4);
+        weak1 = setImage("/effects/weak/1",gp.TILE_SIZE,gp.TILE_SIZE);
+        weak2 = setImage("/effects/weak/2",gp.TILE_SIZE,gp.TILE_SIZE);
+        weak3 = setImage("/effects/weak/3",gp.TILE_SIZE,gp.TILE_SIZE);
+        weak4 = setImage("/effects/weak/4",gp.TILE_SIZE,gp.TILE_SIZE);
+        weak5 = setImage("/effects/weak/5",gp.TILE_SIZE,gp.TILE_SIZE);
+        weak6 = setImage("/effects/weak/6",gp.TILE_SIZE,gp.TILE_SIZE);
+        resistant1 = setImage("/effects/resistant/1",gp.TILE_SIZE *4,gp.TILE_SIZE *4);
+        resistant2 = setImage("/effects/resistant/2",gp.TILE_SIZE *4,gp.TILE_SIZE *4);
+        resistant3 = setImage("/effects/resistant/3",gp.TILE_SIZE *4,gp.TILE_SIZE *4);
+        resistant4 = setImage("/effects/resistant/4",gp.TILE_SIZE *4,gp.TILE_SIZE *4);
+        resistant5 = setImage("/effects/resistant/5",gp.TILE_SIZE *4,gp.TILE_SIZE *4);
+        resistant6 = setImage("/effects/resistant/6",gp.TILE_SIZE *4,gp.TILE_SIZE *4);
     }
 
     public void drawEffect(Graphics2D g2, Entity entity){
@@ -47,7 +47,7 @@ public class EffectHandler {
         int screenY = entity.worldY - gp.player.worldY + gp.player.screenY;
 
         if(entity.weak){
-            if(Math.abs(gp.player.worldX-entity.worldX)<gp.screenWidth/2+gp.tileSize && Math.abs(gp.player.worldY-entity.worldY)<gp.screenHeight/2+gp.tileSize){
+            if(Math.abs(gp.player.worldX-entity.worldX)<gp.SCREEN_WIDTH /2+gp.TILE_SIZE && Math.abs(gp.player.worldY-entity.worldY)<gp.SCREEN_HEIGHT /2+gp.TILE_SIZE){
 
                 BufferedImage image = weak1;
 
@@ -69,7 +69,7 @@ public class EffectHandler {
 
         if(entity.resistant){
             entity.resistantCounter++;
-            if(Math.abs(gp.player.worldX-entity.worldX)<gp.screenWidth/2+gp.tileSize*4 && Math.abs(gp.player.worldY-entity.worldY)<gp.screenHeight/2+gp.tileSize*4){
+            if(Math.abs(gp.player.worldX-entity.worldX)<gp.SCREEN_WIDTH /2+gp.TILE_SIZE *4 && Math.abs(gp.player.worldY-entity.worldY)<gp.SCREEN_HEIGHT /2+gp.TILE_SIZE *4){
 
                 BufferedImage image;
 

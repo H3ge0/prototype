@@ -36,18 +36,18 @@ public class Budi extends Entity{
     }
 
     public void getImages(){
-        upidle = setImage("/npc/budi_up_idle",gp.tileSize,gp.tileSize);
-        up1 = setImage("/npc/budi_up_1",gp.tileSize,gp.tileSize);
-        up2 = setImage("/npc/budi_up_2",gp.tileSize,gp.tileSize);
-        downidle = setImage("/npc/budi_down_idle",gp.tileSize,gp.tileSize);
-        down1 = setImage("/npc/budi_down_1",gp.tileSize,gp.tileSize);
-        down2 = setImage("/npc/budi_down_2",gp.tileSize,gp.tileSize);
-        leftidle = setImage("/npc/budi_left_idle",gp.tileSize,gp.tileSize);
-        left1 = setImage("/npc/budi_left_1",gp.tileSize,gp.tileSize);
-        left2 = setImage("/npc/budi_left_2",gp.tileSize,gp.tileSize);
-        rightidle = setImage("/npc/budi_right_idle",gp.tileSize,gp.tileSize);
-        right1 = setImage("/npc/budi_right_1",gp.tileSize,gp.tileSize);
-        right2 = setImage("/npc/budi_right_2",gp.tileSize,gp.tileSize);
+        upidle = setImage("/npc/budi_up_idle",gp.TILE_SIZE,gp.TILE_SIZE);
+        up1 = setImage("/npc/budi_up_1",gp.TILE_SIZE,gp.TILE_SIZE);
+        up2 = setImage("/npc/budi_up_2",gp.TILE_SIZE,gp.TILE_SIZE);
+        downidle = setImage("/npc/budi_down_idle",gp.TILE_SIZE,gp.TILE_SIZE);
+        down1 = setImage("/npc/budi_down_1",gp.TILE_SIZE,gp.TILE_SIZE);
+        down2 = setImage("/npc/budi_down_2",gp.TILE_SIZE,gp.TILE_SIZE);
+        leftidle = setImage("/npc/budi_left_idle",gp.TILE_SIZE,gp.TILE_SIZE);
+        left1 = setImage("/npc/budi_left_1",gp.TILE_SIZE,gp.TILE_SIZE);
+        left2 = setImage("/npc/budi_left_2",gp.TILE_SIZE,gp.TILE_SIZE);
+        rightidle = setImage("/npc/budi_right_idle",gp.TILE_SIZE,gp.TILE_SIZE);
+        right1 = setImage("/npc/budi_right_1",gp.TILE_SIZE,gp.TILE_SIZE);
+        right2 = setImage("/npc/budi_right_2",gp.TILE_SIZE,gp.TILE_SIZE);
     }
 
     public void setDialogues(){
@@ -73,15 +73,15 @@ public class Budi extends Entity{
     public void update() {
         super.update();
         if(Progress.ipogDefeated){
-            gp.removeNpcs();
+            gp.objectHandler.removeNpcsAfterDefeatingIpog();
         }
     }
 
     @Override
     public void setAction(){
         if(onPath){
-            int goalCol=(gp.player.worldX+gp.player.collisionBox.x)/gp.tileSize;
-            int goalRow=(gp.player.worldY+gp.player.collisionBox.y)/gp.tileSize;
+            int goalCol=(gp.player.worldX+gp.player.collisionBox.x)/gp.TILE_SIZE;
+            int goalRow=(gp.player.worldY+gp.player.collisionBox.y)/gp.TILE_SIZE;
             searchPath(goalCol,goalRow);
         }else{
             actionLockCounter++;

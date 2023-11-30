@@ -38,33 +38,33 @@ public class Apol extends Entity {
     }
 
     public void getImage(){
-        upidle = setImage("/monsters/apol/apol_up_idle",gp.tileSize,gp.tileSize);
-        up1 = setImage("/monsters/apol/apol_up_1",gp.tileSize,gp.tileSize);
-        up2 = setImage("/monsters/apol/apol_up_2",gp.tileSize,gp.tileSize);
-        downidle = setImage("/monsters/apol/apol_down_idle",gp.tileSize,gp.tileSize);
-        down1 = setImage("/monsters/apol/apol_down_1",gp.tileSize,gp.tileSize);
-        down2 = setImage("/monsters/apol/apol_down_2",gp.tileSize,gp.tileSize);
-        leftidle = setImage("/monsters/apol/apol_left_idle",gp.tileSize,gp.tileSize);
-        left1 = setImage("/monsters/apol/apol_left_1",gp.tileSize,gp.tileSize);
-        left2 = setImage("/monsters/apol/apol_left_2",gp.tileSize,gp.tileSize);
-        rightidle = setImage("/monsters/apol/apol_right_idle",gp.tileSize,gp.tileSize);
-        right1 = setImage("/monsters/apol/apol_right_1",gp.tileSize,gp.tileSize);
-        right2 = setImage("/monsters/apol/apol_right_2",gp.tileSize,gp.tileSize);
+        upidle = setImage("/monsters/apol/apol_up_idle",gp.TILE_SIZE,gp.TILE_SIZE);
+        up1 = setImage("/monsters/apol/apol_up_1",gp.TILE_SIZE,gp.TILE_SIZE);
+        up2 = setImage("/monsters/apol/apol_up_2",gp.TILE_SIZE,gp.TILE_SIZE);
+        downidle = setImage("/monsters/apol/apol_down_idle",gp.TILE_SIZE,gp.TILE_SIZE);
+        down1 = setImage("/monsters/apol/apol_down_1",gp.TILE_SIZE,gp.TILE_SIZE);
+        down2 = setImage("/monsters/apol/apol_down_2",gp.TILE_SIZE,gp.TILE_SIZE);
+        leftidle = setImage("/monsters/apol/apol_left_idle",gp.TILE_SIZE,gp.TILE_SIZE);
+        left1 = setImage("/monsters/apol/apol_left_1",gp.TILE_SIZE,gp.TILE_SIZE);
+        left2 = setImage("/monsters/apol/apol_left_2",gp.TILE_SIZE,gp.TILE_SIZE);
+        rightidle = setImage("/monsters/apol/apol_right_idle",gp.TILE_SIZE,gp.TILE_SIZE);
+        right1 = setImage("/monsters/apol/apol_right_1",gp.TILE_SIZE,gp.TILE_SIZE);
+        right2 = setImage("/monsters/apol/apol_right_2",gp.TILE_SIZE,gp.TILE_SIZE);
     }
 
     public void getAttackImage(){
-        attackUp1 = setImage("/monsters/apol/apol_attack_up_1",gp.tileSize,gp.tileSize*2);
-        attackUp2 = setImage("/monsters/apol/apol_attack_up_2",gp.tileSize,gp.tileSize*2);
-        attackUp3 = setImage("/monsters/apol/apol_attack_up_2",gp.tileSize,gp.tileSize*2);
-        attackDown1 = setImage("/monsters/apol/apol_attack_down_1",gp.tileSize,gp.tileSize*2);
-        attackDown2 = setImage("/monsters/apol/apol_attack_down_2",gp.tileSize,gp.tileSize*2);
-        attackDown3 = setImage("/monsters/apol/apol_attack_down_2",gp.tileSize,gp.tileSize*2);
-        attackLeft1 = setImage("/monsters/apol/apol_attack_left_1",gp.tileSize*2,gp.tileSize);
-        attackLeft2 = setImage("/monsters/apol/apol_attack_left_2",gp.tileSize*2,gp.tileSize);
-        attackLeft3 = setImage("/monsters/apol/apol_attack_left_2",gp.tileSize*2,gp.tileSize);
-        attackRight1 = setImage("/monsters/apol/apol_attack_right_1",gp.tileSize*2,gp.tileSize);
-        attackRight2 = setImage("/monsters/apol/apol_attack_right_2",gp.tileSize*2,gp.tileSize);
-        attackRight3 = setImage("/monsters/apol/apol_attack_right_2",gp.tileSize*2,gp.tileSize);
+        attackUp1 = setImage("/monsters/apol/apol_attack_up_1",gp.TILE_SIZE,gp.TILE_SIZE *2);
+        attackUp2 = setImage("/monsters/apol/apol_attack_up_2",gp.TILE_SIZE,gp.TILE_SIZE *2);
+        attackUp3 = setImage("/monsters/apol/apol_attack_up_2",gp.TILE_SIZE,gp.TILE_SIZE *2);
+        attackDown1 = setImage("/monsters/apol/apol_attack_down_1",gp.TILE_SIZE,gp.TILE_SIZE *2);
+        attackDown2 = setImage("/monsters/apol/apol_attack_down_2",gp.TILE_SIZE,gp.TILE_SIZE *2);
+        attackDown3 = setImage("/monsters/apol/apol_attack_down_2",gp.TILE_SIZE,gp.TILE_SIZE *2);
+        attackLeft1 = setImage("/monsters/apol/apol_attack_left_1",gp.TILE_SIZE *2,gp.TILE_SIZE);
+        attackLeft2 = setImage("/monsters/apol/apol_attack_left_2",gp.TILE_SIZE *2,gp.TILE_SIZE);
+        attackLeft3 = setImage("/monsters/apol/apol_attack_left_2",gp.TILE_SIZE *2,gp.TILE_SIZE);
+        attackRight1 = setImage("/monsters/apol/apol_attack_right_1",gp.TILE_SIZE *2,gp.TILE_SIZE);
+        attackRight2 = setImage("/monsters/apol/apol_attack_right_2",gp.TILE_SIZE *2,gp.TILE_SIZE);
+        attackRight3 = setImage("/monsters/apol/apol_attack_right_2",gp.TILE_SIZE *2,gp.TILE_SIZE);
     }
 
     @Override
@@ -89,17 +89,17 @@ public class Apol extends Entity {
             collisionBox.height = attackArea.height;
 
             if(type == typeMonster){
-                if(gp.collisionH.checkPlayer(this)){
+                if(gp.collisionHandler.checkPlayer(this)){
                     attackPlayer(attack);
                 }
             }else{
-                int monsterIndex = gp.collisionH.checkEntity(this,gp.monsters);
+                int monsterIndex = gp.collisionHandler.checkEntity(this,gp.monsters);
                 gp.player.attackMonster(monsterIndex,this,attack,currentFireball.knockBackPower);
 
-                int iTileIndex = gp.collisionH.checkEntity(this,gp.iTiles);
+                int iTileIndex = gp.collisionHandler.checkEntity(this,gp.interactiveTiles);
                 gp.player.attackInteractiveTile(iTileIndex);
 
-                int projectileIndex = gp.collisionH.checkEntity(this,gp.projectiles);
+                int projectileIndex = gp.collisionHandler.checkEntity(this,gp.projectiles);
                 gp.player.attackProjectile(projectileIndex);
             }
 
@@ -148,7 +148,7 @@ public class Apol extends Entity {
 
         //Attack
         if(!attacking){
-            checkAndAttack(30,gp.tileSize*4,gp.tileSize);
+            checkAndAttack(30,gp.TILE_SIZE *4,gp.TILE_SIZE);
         }
     }
 

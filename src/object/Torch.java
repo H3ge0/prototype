@@ -17,6 +17,6 @@ public class Torch extends Entity {
         coin=20;
         lightRadius=600;
 
-        down1 = setImage("/objects/torch",gp.tileSize,gp.tileSize);
+        down1 = setImage("/objects/torch",gp.TILE_SIZE,gp.TILE_SIZE);
     }
 }

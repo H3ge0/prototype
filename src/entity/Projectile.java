@@ -23,14 +23,14 @@ public class Projectile extends Entity{
     @Override
     public void update(){
         if(user==gp.player){
-            int monsterIndex = gp.collisionH.checkEntity(this,gp.monsters);
+            int monsterIndex = gp.collisionHandler.checkEntity(this,gp.monsters);
             if(monsterIndex!=999){
                 gp.player.attackMonster(monsterIndex,this,attack*gp.player.level,knockBackPower);
                 generateParticle(user.currentProjectile,gp.monsters[gp.currentMap][monsterIndex]);
                 alive=false;
             }
         } else{
-            boolean contactPlayer = gp.collisionH.checkPlayer(this);
+            boolean contactPlayer = gp.collisionHandler.checkPlayer(this);
             if(contactPlayer){
                 attackPlayer(attack);
                 generateParticle(user.currentProjectile,user.currentProjectile);

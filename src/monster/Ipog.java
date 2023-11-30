@@ -61,31 +61,31 @@ public class Ipog extends Entity {
         int i = 3;
 
         if(resistant){
-            upidle = setImage("/monsters/boss/ipog/ipog_up_idle",gp.tileSize*i,gp.tileSize*i);
-            up1 = setImage("/monsters/boss/ipog/ipog_up_1",gp.tileSize*i,gp.tileSize*i);
-            up2 = setImage("/monsters/boss/ipog/ipog_up_2",gp.tileSize*i,gp.tileSize*i);
-            downidle = setImage("/monsters/boss/ipog/ipog_down_idle",gp.tileSize*i,gp.tileSize*i);
-            down1 = setImage("/monsters/boss/ipog/ipog_down_1",gp.tileSize*i,gp.tileSize*i);
-            down2 = setImage("/monsters/boss/ipog/ipog_down_2",gp.tileSize*i,gp.tileSize*i);
-            leftidle = setImage("/monsters/boss/ipog/ipog_left_idle",gp.tileSize*i,gp.tileSize*i);
-            left1 = setImage("/monsters/boss/ipog/ipog_left_1",gp.tileSize*i,gp.tileSize*i);
-            left2 = setImage("/monsters/boss/ipog/ipog_left_2",gp.tileSize*i,gp.tileSize*i);
-            rightidle = setImage("/monsters/boss/ipog/ipog_right_idle",gp.tileSize*i,gp.tileSize*i);
-            right1 = setImage("/monsters/boss/ipog/ipog_right_1",gp.tileSize*i,gp.tileSize*i);
-            right2 = setImage("/monsters/boss/ipog/ipog_right_2",gp.tileSize*i,gp.tileSize*i);
+            upidle = setImage("/monsters/boss/ipog/ipog_up_idle",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            up1 = setImage("/monsters/boss/ipog/ipog_up_1",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            up2 = setImage("/monsters/boss/ipog/ipog_up_2",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            downidle = setImage("/monsters/boss/ipog/ipog_down_idle",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            down1 = setImage("/monsters/boss/ipog/ipog_down_1",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            down2 = setImage("/monsters/boss/ipog/ipog_down_2",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            leftidle = setImage("/monsters/boss/ipog/ipog_left_idle",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            left1 = setImage("/monsters/boss/ipog/ipog_left_1",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            left2 = setImage("/monsters/boss/ipog/ipog_left_2",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            rightidle = setImage("/monsters/boss/ipog/ipog_right_idle",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            right1 = setImage("/monsters/boss/ipog/ipog_right_1",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            right2 = setImage("/monsters/boss/ipog/ipog_right_2",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
         }else {
-            upidle = setImage("/monsters/boss/ipog/rage/ipog_up_idle",gp.tileSize*i,gp.tileSize*i);
-            up1 = setImage("/monsters/boss/ipog/rage/ipog_up_1",gp.tileSize*i,gp.tileSize*i);
-            up2 = setImage("/monsters/boss/ipog/rage/ipog_up_2",gp.tileSize*i,gp.tileSize*i);
-            downidle = setImage("/monsters/boss/ipog/rage/ipog_down_idle",gp.tileSize*i,gp.tileSize*i);
-            down1 = setImage("/monsters/boss/ipog/rage/ipog_down_1",gp.tileSize*i,gp.tileSize*i);
-            down2 = setImage("/monsters/boss/ipog/rage/ipog_down_2",gp.tileSize*i,gp.tileSize*i);
-            leftidle = setImage("/monsters/boss/ipog/rage/ipog_left_idle",gp.tileSize*i,gp.tileSize*i);
-            left1 = setImage("/monsters/boss/ipog/rage/ipog_left_1",gp.tileSize*i,gp.tileSize*i);
-            left2 = setImage("/monsters/boss/ipog/rage/ipog_left_2",gp.tileSize*i,gp.tileSize*i);
-            rightidle = setImage("/monsters/boss/ipog/rage/ipog_right_idle",gp.tileSize*i,gp.tileSize*i);
-            right1 = setImage("/monsters/boss/ipog/rage/ipog_right_1",gp.tileSize*i,gp.tileSize*i);
-            right2 = setImage("/monsters/boss/ipog/rage/ipog_right_2",gp.tileSize*i,gp.tileSize*i);
+            upidle = setImage("/monsters/boss/ipog/rage/ipog_up_idle",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            up1 = setImage("/monsters/boss/ipog/rage/ipog_up_1",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            up2 = setImage("/monsters/boss/ipog/rage/ipog_up_2",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            downidle = setImage("/monsters/boss/ipog/rage/ipog_down_idle",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            down1 = setImage("/monsters/boss/ipog/rage/ipog_down_1",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            down2 = setImage("/monsters/boss/ipog/rage/ipog_down_2",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            leftidle = setImage("/monsters/boss/ipog/rage/ipog_left_idle",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            left1 = setImage("/monsters/boss/ipog/rage/ipog_left_1",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            left2 = setImage("/monsters/boss/ipog/rage/ipog_left_2",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            rightidle = setImage("/monsters/boss/ipog/rage/ipog_right_idle",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            right1 = setImage("/monsters/boss/ipog/rage/ipog_right_1",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
+            right2 = setImage("/monsters/boss/ipog/rage/ipog_right_2",gp.TILE_SIZE *i,gp.TILE_SIZE *i);
         }
     }
 
@@ -94,31 +94,31 @@ public class Ipog extends Entity {
         int i = 3;
 
         if(resistant){
-            attackUp1 = setImage("/monsters/boss/ipog/ipog_attack_up_1", gp.tileSize*i, gp.tileSize*i * 2);
-            attackUp2 = setImage("/monsters/boss/ipog/ipog_attack_up_2", gp.tileSize*i, gp.tileSize*i * 2);
-            attackUp3 = setImage("/monsters/boss/ipog/ipog_attack_up_3", gp.tileSize*i, gp.tileSize*i * 2);
-            attackDown1 = setImage("/monsters/boss/ipog/ipog_attack_down_1", gp.tileSize*i, gp.tileSize*i * 2);
-            attackDown2 = setImage("/monsters/boss/ipog/ipog_attack_down_2", gp.tileSize*i, gp.tileSize*i * 2);
-            attackDown3 = setImage("/monsters/boss/ipog/ipog_attack_down_3", gp.tileSize*i, gp.tileSize*i * 2);
-            attackLeft1 = setImage("/monsters/boss/ipog/ipog_attack_left_1", gp.tileSize*i * 2, gp.tileSize*i);
-            attackLeft2 = setImage("/monsters/boss/ipog/ipog_attack_left_2", gp.tileSize*i * 2, gp.tileSize*i);
-            attackLeft3 = setImage("/monsters/boss/ipog/ipog_attack_left_3", gp.tileSize*i * 2, gp.tileSize*i);
-            attackRight1 = setImage("/monsters/boss/ipog/ipog_attack_right_1", gp.tileSize*i * 2, gp.tileSize*i);
-            attackRight2 = setImage("/monsters/boss/ipog/ipog_attack_right_2", gp.tileSize*i * 2, gp.tileSize*i);
-            attackRight3 = setImage("/monsters/boss/ipog/ipog_attack_right_3", gp.tileSize*i * 2, gp.tileSize*i);
+            attackUp1 = setImage("/monsters/boss/ipog/ipog_attack_up_1", gp.TILE_SIZE *i, gp.TILE_SIZE *i * 2);
+            attackUp2 = setImage("/monsters/boss/ipog/ipog_attack_up_2", gp.TILE_SIZE *i, gp.TILE_SIZE *i * 2);
+            attackUp3 = setImage("/monsters/boss/ipog/ipog_attack_up_3", gp.TILE_SIZE *i, gp.TILE_SIZE *i * 2);
+            attackDown1 = setImage("/monsters/boss/ipog/ipog_attack_down_1", gp.TILE_SIZE *i, gp.TILE_SIZE *i * 2);
+            attackDown2 = setImage("/monsters/boss/ipog/ipog_attack_down_2", gp.TILE_SIZE *i, gp.TILE_SIZE *i * 2);
+            attackDown3 = setImage("/monsters/boss/ipog/ipog_attack_down_3", gp.TILE_SIZE *i, gp.TILE_SIZE *i * 2);
+            attackLeft1 = setImage("/monsters/boss/ipog/ipog_attack_left_1", gp.TILE_SIZE *i * 2, gp.TILE_SIZE *i);
+            attackLeft2 = setImage("/monsters/boss/ipog/ipog_attack_left_2", gp.TILE_SIZE *i * 2, gp.TILE_SIZE *i);
+            attackLeft3 = setImage("/monsters/boss/ipog/ipog_attack_left_3", gp.TILE_SIZE *i * 2, gp.TILE_SIZE *i);
+            attackRight1 = setImage("/monsters/boss/ipog/ipog_attack_right_1", gp.TILE_SIZE *i * 2, gp.TILE_SIZE *i);
+            attackRight2 = setImage("/monsters/boss/ipog/ipog_attack_right_2", gp.TILE_SIZE *i * 2, gp.TILE_SIZE *i);
+            attackRight3 = setImage("/monsters/boss/ipog/ipog_attack_right_3", gp.TILE_SIZE *i * 2, gp.TILE_SIZE *i);
         }else{
-            attackUp1 = setImage("/monsters/boss/ipog/rage/ipog_attack_up_1", gp.tileSize*i, gp.tileSize*i * 2);
-            attackUp2 = setImage("/monsters/boss/ipog/rage/ipog_attack_up_2", gp.tileSize*i, gp.tileSize*i * 2);
-            attackUp3 = setImage("/monsters/boss/ipog/rage/ipog_attack_up_3", gp.tileSize*i, gp.tileSize*i * 2);
-            attackDown1 = setImage("/monsters/boss/ipog/rage/ipog_attack_down_1", gp.tileSize*i, gp.tileSize*i * 2);
-            attackDown2 = setImage("/monsters/boss/ipog/rage/ipog_attack_down_2", gp.tileSize*i, gp.tileSize*i * 2);
-            attackDown3 = setImage("/monsters/boss/ipog/rage/ipog_attack_down_3", gp.tileSize*i, gp.tileSize*i * 2);
-            attackLeft1 = setImage("/monsters/boss/ipog/rage/ipog_attack_left_1", gp.tileSize*i * 2, gp.tileSize*i);
-            attackLeft2 = setImage("/monsters/boss/ipog/rage/ipog_attack_left_2", gp.tileSize*i * 2, gp.tileSize*i);
-            attackLeft3 = setImage("/monsters/boss/ipog/rage/ipog_attack_left_3", gp.tileSize*i * 2, gp.tileSize*i);
-            attackRight1 = setImage("/monsters/boss/ipog/rage/ipog_attack_right_1", gp.tileSize*i * 2, gp.tileSize*i);
-            attackRight2 = setImage("/monsters/boss/ipog/rage/ipog_attack_right_2", gp.tileSize*i * 2, gp.tileSize*i);
-            attackRight3 = setImage("/monsters/boss/ipog/rage/ipog_attack_right_3", gp.tileSize*i * 2, gp.tileSize*i);
+            attackUp1 = setImage("/monsters/boss/ipog/rage/ipog_attack_up_1", gp.TILE_SIZE *i, gp.TILE_SIZE *i * 2);
+            attackUp2 = setImage("/monsters/boss/ipog/rage/ipog_attack_up_2", gp.TILE_SIZE *i, gp.TILE_SIZE *i * 2);
+            attackUp3 = setImage("/monsters/boss/ipog/rage/ipog_attack_up_3", gp.TILE_SIZE *i, gp.TILE_SIZE *i * 2);
+            attackDown1 = setImage("/monsters/boss/ipog/rage/ipog_attack_down_1", gp.TILE_SIZE *i, gp.TILE_SIZE *i * 2);
+            attackDown2 = setImage("/monsters/boss/ipog/rage/ipog_attack_down_2", gp.TILE_SIZE *i, gp.TILE_SIZE *i * 2);
+            attackDown3 = setImage("/monsters/boss/ipog/rage/ipog_attack_down_3", gp.TILE_SIZE *i, gp.TILE_SIZE *i * 2);
+            attackLeft1 = setImage("/monsters/boss/ipog/rage/ipog_attack_left_1", gp.TILE_SIZE *i * 2, gp.TILE_SIZE *i);
+            attackLeft2 = setImage("/monsters/boss/ipog/rage/ipog_attack_left_2", gp.TILE_SIZE *i * 2, gp.TILE_SIZE *i);
+            attackLeft3 = setImage("/monsters/boss/ipog/rage/ipog_attack_left_3", gp.TILE_SIZE *i * 2, gp.TILE_SIZE *i);
+            attackRight1 = setImage("/monsters/boss/ipog/rage/ipog_attack_right_1", gp.TILE_SIZE *i * 2, gp.TILE_SIZE *i);
+            attackRight2 = setImage("/monsters/boss/ipog/rage/ipog_attack_right_2", gp.TILE_SIZE *i * 2, gp.TILE_SIZE *i);
+            attackRight3 = setImage("/monsters/boss/ipog/rage/ipog_attack_right_3", gp.TILE_SIZE *i * 2, gp.TILE_SIZE *i);
         }
     }
 
@@ -208,17 +208,17 @@ public class Ipog extends Entity {
             collisionBox.height = attackArea.height;
 
             if(type == typeMonster){
-                if(gp.collisionH.checkPlayer(this)){
+                if(gp.collisionHandler.checkPlayer(this)){
                     attackPlayer(attack);
                 }
             }else{
-                int monsterIndex = gp.collisionH.checkEntity(this,gp.monsters);
+                int monsterIndex = gp.collisionHandler.checkEntity(this,gp.monsters);
                 gp.player.attackMonster(monsterIndex,this,attack,currentFireball.knockBackPower);
 
-                int iTileIndex = gp.collisionH.checkEntity(this,gp.iTiles);
+                int iTileIndex = gp.collisionHandler.checkEntity(this,gp.interactiveTiles);
                 gp.player.attackInteractiveTile(iTileIndex);
 
-                int projectileIndex = gp.collisionH.checkEntity(this,gp.projectiles);
+                int projectileIndex = gp.collisionHandler.checkEntity(this,gp.projectiles);
                 gp.player.attackProjectile(projectileIndex);
             }
 
@@ -259,7 +259,7 @@ public class Ipog extends Entity {
 
         //Attack
         if(!attacking){
-            checkAndAttack(60,gp.tileSize*7,gp.tileSize*5);
+            checkAndAttack(60,gp.TILE_SIZE *7,gp.TILE_SIZE *5);
         }
     }
 
@@ -277,10 +277,10 @@ public class Ipog extends Entity {
         gp.playMusic(24);
 
         //Remove the iron doors
-        for(int i=0;i<gp.obj[1].length;i++){
-            if(gp.obj[gp.currentMap][i]!=null && gp.obj[gp.currentMap][i].name.equals(IronDoor.objName)){
+        for(int i = 0; i<gp.objects[1].length; i++){
+            if(gp.objects[gp.currentMap][i]!=null && gp.objects[gp.currentMap][i].name.equals(IronDoor.objName)){
                 gp.playSoundEffect(27);
-                gp.obj[gp.currentMap][i]=null;
+                gp.objects[gp.currentMap][i]=null;
             }
         }
 

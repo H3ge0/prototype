@@ -11,10 +11,10 @@ public class DryTree extends InteractiveTile{
 
         name="Dry Tree";
 
-        worldX=gp.tileSize*col;
-        worldY=gp.tileSize*row;
+        worldX=gp.TILE_SIZE *col;
+        worldY=gp.TILE_SIZE *row;
 
-        down1=setImage("/interactive_tiles/dry_tree0",gp.tileSize,gp.tileSize);
+        down1=setImage("/interactive_tiles/dry_tree0",gp.TILE_SIZE,gp.TILE_SIZE);
         canChange=true;
         destructible=true;
         collisionOn=true;
@@ -29,7 +29,7 @@ public class DryTree extends InteractiveTile{
 
     @Override
     public void attack(int i) {
-        gp.iTiles[gp.currentMap][i]=new BurntTree(gp,worldX/gp.tileSize,worldY/gp.tileSize);
+        gp.interactiveTiles[gp.currentMap][i]=new BurntTree(gp,worldX/gp.TILE_SIZE,worldY/gp.TILE_SIZE);
     }
 
     @Override

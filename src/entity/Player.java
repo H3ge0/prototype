@@ -25,10 +25,10 @@ public class Player extends Entity{
 
         random = new Random();
 
-        screenX = gp.screenWidth/2-gp.tileSize/2;
-        screenY = gp.screenHeight/2-gp.tileSize/2;
+        screenX = gp.SCREEN_WIDTH /2-gp.TILE_SIZE /2;
+        screenY = gp.SCREEN_HEIGHT /2-gp.TILE_SIZE /2;
 
-        collisionBox = new Rectangle(3*gp.scale,7*gp.scale,10*gp.scale,8*gp.scale);
+        collisionBox = new Rectangle(3*gp.SCALE,7*gp.SCALE,10*gp.SCALE,8*gp.SCALE);
         collisionBoxDefaultX = collisionBox.x;
         collisionBoxDefaultY = collisionBox.y;
 
@@ -67,9 +67,9 @@ public class Player extends Entity{
     }
 
     public void setDefaultPosition(){
-        gp.currentMap=0;
-        worldX=gp.tileSize*23;
-        worldY=gp.tileSize*22;
+        gp.currentMap=gp.OUTSIDE;
+        worldX=gp.TILE_SIZE *23;
+        worldY=gp.TILE_SIZE *22;
         direction="down";
     }
 
@@ -134,20 +134,20 @@ public class Player extends Entity{
     }
 
     public void getImages(){
-        upidle = setImage("/player/gopi_up_idle",gp.tileSize,gp.tileSize);
-        up1 = setImage("/player/gopi_up_1",gp.tileSize,gp.tileSize);
-        up2 = setImage("/player/gopi_up_2",gp.tileSize,gp.tileSize);
-        downidle = setImage("/player/gopi_down_idle",gp.tileSize,gp.tileSize);
-        down1 = setImage("/player/gopi_down_1",gp.tileSize,gp.tileSize);
-        down2 = setImage("/player/gopi_down_2",gp.tileSize,gp.tileSize);
-        leftidle = setImage("/player/gopi_left_idle",gp.tileSize,gp.tileSize);
-        left1 = setImage("/player/gopi_left_1",gp.tileSize,gp.tileSize);
-        left2 = setImage("/player/gopi_left_2",gp.tileSize,gp.tileSize);
-        rightidle = setImage("/player/gopi_right_idle",gp.tileSize,gp.tileSize);
-        right1 = setImage("/player/gopi_right_1",gp.tileSize,gp.tileSize);
-        right2 = setImage("/player/gopi_right_2",gp.tileSize,gp.tileSize);
+        upidle = setImage("/player/gopi_up_idle",gp.TILE_SIZE,gp.TILE_SIZE);
+        up1 = setImage("/player/gopi_up_1",gp.TILE_SIZE,gp.TILE_SIZE);
+        up2 = setImage("/player/gopi_up_2",gp.TILE_SIZE,gp.TILE_SIZE);
+        downidle = setImage("/player/gopi_down_idle",gp.TILE_SIZE,gp.TILE_SIZE);
+        down1 = setImage("/player/gopi_down_1",gp.TILE_SIZE,gp.TILE_SIZE);
+        down2 = setImage("/player/gopi_down_2",gp.TILE_SIZE,gp.TILE_SIZE);
+        leftidle = setImage("/player/gopi_left_idle",gp.TILE_SIZE,gp.TILE_SIZE);
+        left1 = setImage("/player/gopi_left_1",gp.TILE_SIZE,gp.TILE_SIZE);
+        left2 = setImage("/player/gopi_left_2",gp.TILE_SIZE,gp.TILE_SIZE);
+        rightidle = setImage("/player/gopi_right_idle",gp.TILE_SIZE,gp.TILE_SIZE);
+        right1 = setImage("/player/gopi_right_1",gp.TILE_SIZE,gp.TILE_SIZE);
+        right2 = setImage("/player/gopi_right_2",gp.TILE_SIZE,gp.TILE_SIZE);
 
-        image1 = setImage("/player/gopi_sleep",gp.tileSize,gp.tileSize);
+        image1 = setImage("/player/gopi_sleep",gp.TILE_SIZE,gp.TILE_SIZE);
     }
 
     public void getSleepingImage(){
@@ -168,70 +168,70 @@ public class Player extends Entity{
     public void getAttackImages(){
         switch (currentFireball.name) {
             case "Orange Fireball" -> {
-                attackUp1 = setImage("/player/gopi_attack_up_1", gp.tileSize, gp.tileSize * 2);
-                attackUp2 = setImage("/player/gopi_attack_up_2", gp.tileSize, gp.tileSize * 2);
-                attackUp3 = setImage("/player/gopi_attack_up_3", gp.tileSize, gp.tileSize * 2);
-                attackDown1 = setImage("/player/gopi_attack_down_1", gp.tileSize, gp.tileSize * 2);
-                attackDown2 = setImage("/player/gopi_attack_down_2", gp.tileSize, gp.tileSize * 2);
-                attackDown3 = setImage("/player/gopi_attack_down_3", gp.tileSize, gp.tileSize * 2);
-                attackLeft1 = setImage("/player/gopi_attack_left_1", gp.tileSize * 2, gp.tileSize);
-                attackLeft2 = setImage("/player/gopi_attack_left_2", gp.tileSize * 2, gp.tileSize);
-                attackLeft3 = setImage("/player/gopi_attack_left_3", gp.tileSize * 2, gp.tileSize);
-                attackRight1 = setImage("/player/gopi_attack_right_1", gp.tileSize * 2, gp.tileSize);
-                attackRight2 = setImage("/player/gopi_attack_right_2", gp.tileSize * 2, gp.tileSize);
-                attackRight3 = setImage("/player/gopi_attack_right_3", gp.tileSize * 2, gp.tileSize);
+                attackUp1 = setImage("/player/gopi_attack_up_1", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackUp2 = setImage("/player/gopi_attack_up_2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackUp3 = setImage("/player/gopi_attack_up_3", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackDown1 = setImage("/player/gopi_attack_down_1", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackDown2 = setImage("/player/gopi_attack_down_2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackDown3 = setImage("/player/gopi_attack_down_3", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackLeft1 = setImage("/player/gopi_attack_left_1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackLeft2 = setImage("/player/gopi_attack_left_2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackLeft3 = setImage("/player/gopi_attack_left_3", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackRight1 = setImage("/player/gopi_attack_right_1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackRight2 = setImage("/player/gopi_attack_right_2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackRight3 = setImage("/player/gopi_attack_right_3", gp.TILE_SIZE * 2, gp.TILE_SIZE);
             }
             case "Purple Fireball" -> {
-                attackUp1 = setImage("/player/purple/gopi_attack_up_1", gp.tileSize, gp.tileSize * 2);
-                attackUp2 = setImage("/player/purple/gopi_attack_up_2", gp.tileSize, gp.tileSize * 2);
-                attackUp3 = setImage("/player/purple/gopi_attack_up_3", gp.tileSize, gp.tileSize * 2);
-                attackDown1 = setImage("/player/purple/gopi_attack_down_1", gp.tileSize, gp.tileSize * 2);
-                attackDown2 = setImage("/player/purple/gopi_attack_down_2", gp.tileSize, gp.tileSize * 2);
-                attackDown3 = setImage("/player/purple/gopi_attack_down_3", gp.tileSize, gp.tileSize * 2);
-                attackLeft1 = setImage("/player/purple/gopi_attack_left_1", gp.tileSize * 2, gp.tileSize);
-                attackLeft2 = setImage("/player/purple/gopi_attack_left_2", gp.tileSize * 2, gp.tileSize);
-                attackLeft3 = setImage("/player/purple/gopi_attack_left_3", gp.tileSize * 2, gp.tileSize);
-                attackRight1 = setImage("/player/purple/gopi_attack_right_1", gp.tileSize * 2, gp.tileSize);
-                attackRight2 = setImage("/player/purple/gopi_attack_right_2", gp.tileSize * 2, gp.tileSize);
-                attackRight3 = setImage("/player/purple/gopi_attack_right_3", gp.tileSize * 2, gp.tileSize);
+                attackUp1 = setImage("/player/purple/gopi_attack_up_1", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackUp2 = setImage("/player/purple/gopi_attack_up_2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackUp3 = setImage("/player/purple/gopi_attack_up_3", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackDown1 = setImage("/player/purple/gopi_attack_down_1", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackDown2 = setImage("/player/purple/gopi_attack_down_2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackDown3 = setImage("/player/purple/gopi_attack_down_3", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackLeft1 = setImage("/player/purple/gopi_attack_left_1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackLeft2 = setImage("/player/purple/gopi_attack_left_2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackLeft3 = setImage("/player/purple/gopi_attack_left_3", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackRight1 = setImage("/player/purple/gopi_attack_right_1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackRight2 = setImage("/player/purple/gopi_attack_right_2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackRight3 = setImage("/player/purple/gopi_attack_right_3", gp.TILE_SIZE * 2, gp.TILE_SIZE);
             }
             case "Red Fireball" -> {
-                attackUp1 = setImage("/player/red/gopi_attack_up_1", gp.tileSize, gp.tileSize * 2);
-                attackUp2 = setImage("/player/red/gopi_attack_up_2", gp.tileSize, gp.tileSize * 2);
-                attackUp3 = setImage("/player/red/gopi_attack_up_3", gp.tileSize, gp.tileSize * 2);
-                attackDown1 = setImage("/player/red/gopi_attack_down_1", gp.tileSize, gp.tileSize * 2);
-                attackDown2 = setImage("/player/red/gopi_attack_down_2", gp.tileSize, gp.tileSize * 2);
-                attackDown3 = setImage("/player/red/gopi_attack_down_3", gp.tileSize, gp.tileSize * 2);
-                attackLeft1 = setImage("/player/red/gopi_attack_left_1", gp.tileSize * 2, gp.tileSize);
-                attackLeft2 = setImage("/player/red/gopi_attack_left_2", gp.tileSize * 2, gp.tileSize);
-                attackLeft3 = setImage("/player/red/gopi_attack_left_3", gp.tileSize * 2, gp.tileSize);
-                attackRight1 = setImage("/player/red/gopi_attack_right_1", gp.tileSize * 2, gp.tileSize);
-                attackRight2 = setImage("/player/red/gopi_attack_right_2", gp.tileSize * 2, gp.tileSize);
-                attackRight3 = setImage("/player/red/gopi_attack_right_3", gp.tileSize * 2, gp.tileSize);
+                attackUp1 = setImage("/player/red/gopi_attack_up_1", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackUp2 = setImage("/player/red/gopi_attack_up_2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackUp3 = setImage("/player/red/gopi_attack_up_3", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackDown1 = setImage("/player/red/gopi_attack_down_1", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackDown2 = setImage("/player/red/gopi_attack_down_2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackDown3 = setImage("/player/red/gopi_attack_down_3", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackLeft1 = setImage("/player/red/gopi_attack_left_1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackLeft2 = setImage("/player/red/gopi_attack_left_2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackLeft3 = setImage("/player/red/gopi_attack_left_3", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackRight1 = setImage("/player/red/gopi_attack_right_1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackRight2 = setImage("/player/red/gopi_attack_right_2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackRight3 = setImage("/player/red/gopi_attack_right_3", gp.TILE_SIZE * 2, gp.TILE_SIZE);
             }
             case "Black Fireball" -> {
-                attackUp1 = setImage("/player/black/gopi_attack_up_1", gp.tileSize, gp.tileSize * 2);
-                attackUp2 = setImage("/player/black/gopi_attack_up_2", gp.tileSize, gp.tileSize * 2);
-                attackUp3 = setImage("/player/black/gopi_attack_up_3", gp.tileSize, gp.tileSize * 2);
-                attackDown1 = setImage("/player/black/gopi_attack_down_1", gp.tileSize, gp.tileSize * 2);
-                attackDown2 = setImage("/player/black/gopi_attack_down_2", gp.tileSize, gp.tileSize * 2);
-                attackDown3 = setImage("/player/black/gopi_attack_down_3", gp.tileSize, gp.tileSize * 2);
-                attackLeft1 = setImage("/player/black/gopi_attack_left_1", gp.tileSize * 2, gp.tileSize);
-                attackLeft2 = setImage("/player/black/gopi_attack_left_2", gp.tileSize * 2, gp.tileSize);
-                attackLeft3 = setImage("/player/black/gopi_attack_left_3", gp.tileSize * 2, gp.tileSize);
-                attackRight1 = setImage("/player/black/gopi_attack_right_1", gp.tileSize * 2, gp.tileSize);
-                attackRight2 = setImage("/player/black/gopi_attack_right_2", gp.tileSize * 2, gp.tileSize);
-                attackRight3 = setImage("/player/black/gopi_attack_right_3", gp.tileSize * 2, gp.tileSize);
+                attackUp1 = setImage("/player/black/gopi_attack_up_1", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackUp2 = setImage("/player/black/gopi_attack_up_2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackUp3 = setImage("/player/black/gopi_attack_up_3", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackDown1 = setImage("/player/black/gopi_attack_down_1", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackDown2 = setImage("/player/black/gopi_attack_down_2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackDown3 = setImage("/player/black/gopi_attack_down_3", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+                attackLeft1 = setImage("/player/black/gopi_attack_left_1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackLeft2 = setImage("/player/black/gopi_attack_left_2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackLeft3 = setImage("/player/black/gopi_attack_left_3", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackRight1 = setImage("/player/black/gopi_attack_right_1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackRight2 = setImage("/player/black/gopi_attack_right_2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+                attackRight3 = setImage("/player/black/gopi_attack_right_3", gp.TILE_SIZE * 2, gp.TILE_SIZE);
             }
         }
 
     }
 
     public void getGuardImages(){
-        guardUp = setImage("/player/gopi_up_guard",gp.tileSize,gp.tileSize);
-        guardDown = setImage("/player/gopi_down_guard",gp.tileSize,gp.tileSize);
-        guardLeft = setImage("/player/gopi_left_guard",gp.tileSize,gp.tileSize);
-        guardRight = setImage("/player/gopi_right_guard",gp.tileSize,gp.tileSize);
+        guardUp = setImage("/player/gopi_up_guard",gp.TILE_SIZE,gp.TILE_SIZE);
+        guardDown = setImage("/player/gopi_down_guard",gp.TILE_SIZE,gp.TILE_SIZE);
+        guardLeft = setImage("/player/gopi_left_guard",gp.TILE_SIZE,gp.TILE_SIZE);
+        guardRight = setImage("/player/gopi_right_guard",gp.TILE_SIZE,gp.TILE_SIZE);
     }
 
     public void setDialogues(){
@@ -244,15 +244,15 @@ public class Player extends Entity{
 
         if(knockBack){
 
-            gp.collisionH.checkEntity(this,gp.iTiles);
+            gp.collisionHandler.checkEntity(this,gp.interactiveTiles);
 
-            gp.collisionH.checkTile(this);
+            gp.collisionHandler.checkTile(this);
 
-            gp.collisionH.checkObject(this,true);
+            gp.collisionHandler.checkObject(this,true);
 
-            gp.collisionH.checkEntity(this,gp.npcs);
+            gp.collisionHandler.checkEntity(this,gp.npcs);
 
-            gp.collisionH.checkEntity(this,gp.monsters);
+            gp.collisionHandler.checkEntity(this,gp.monsters);
 
             if(collision){
                 knockBack=false;
@@ -294,20 +294,20 @@ public class Player extends Entity{
             }
 
             collision = false;
-            gp.collisionH.checkEntity(this,gp.iTiles);
+            gp.collisionHandler.checkEntity(this,gp.interactiveTiles);
 
-            gp.collisionH.checkTile(this);
+            gp.collisionHandler.checkTile(this);
 
-            int objIndex = gp.collisionH.checkObject(this,true);
+            int objIndex = gp.collisionHandler.checkObject(this,true);
             interactWithObj(objIndex);
 
-            int npcIndex = gp.collisionH.checkEntity(this,gp.npcs);
+            int npcIndex = gp.collisionHandler.checkEntity(this,gp.npcs);
             interactWithNPC(npcIndex);
 
-            int monsterIndex = gp.collisionH.checkEntity(this,gp.monsters);
+            int monsterIndex = gp.collisionHandler.checkEntity(this,gp.monsters);
             interactWithMonster(monsterIndex);
 
-            gp.eventH.checkEvent();
+            gp.eventHandler.checkEvent();
 
             if(!collision&&!keyH.xKeyPressed) {
                 switch (direction) {
@@ -344,7 +344,7 @@ public class Player extends Entity{
             guardCounter = 0;
         }
 
-        if(projectileCooldownCounter==60 && gp.keyH.zKeyPressed && !currentProjectile.alive){
+        if(projectileCooldownCounter==60 && gp.keyHandler.zKeyPressed && !currentProjectile.alive){
             if(currentProjectile.hasEnergy(this)){
                 currentProjectile.subtractEnergy(this);
                 currentProjectile.setProjectile(worldX,worldY,direction,true,this);
@@ -357,7 +357,7 @@ public class Player extends Entity{
                 }
                 gp.playSoundEffect(11);
             }else {
-                gp.uiH.addMessage("Yeterli enerjin yok.");
+                gp.uiHandler.addMessage("Yeterli enerjin yok.");
             }
             projectileCooldownCounter=0;
         }
@@ -387,8 +387,8 @@ public class Player extends Entity{
 
         if(hp<=0){
             gp.playSoundEffect(13);
-            gp.gameState=gp.deadState;
-            gp.uiH.commandNum=-1;
+            gp.gameState=gp.DEAD_STATE;
+            gp.uiHandler.commandNum=-1;
             gp.stopMusic();
         }
 
@@ -416,17 +416,17 @@ public class Player extends Entity{
             collisionBox.height = attackArea.height;
 
             if(type == typeMonster){
-                if(gp.collisionH.checkPlayer(this)){
+                if(gp.collisionHandler.checkPlayer(this)){
                     attackPlayer(attack);
                 }
             }else{
-                int monsterIndex = gp.collisionH.checkEntity(this,gp.monsters);
+                int monsterIndex = gp.collisionHandler.checkEntity(this,gp.monsters);
                 gp.player.attackMonster(monsterIndex,this,attack,currentFireball.knockBackPower);
 
-                int iTileIndex = gp.collisionH.checkEntity(this,gp.iTiles);
+                int iTileIndex = gp.collisionHandler.checkEntity(this,gp.interactiveTiles);
                 gp.player.attackInteractiveTile(iTileIndex);
 
-                int projectileIndex = gp.collisionH.checkEntity(this,gp.projectiles);
+                int projectileIndex = gp.collisionHandler.checkEntity(this,gp.projectiles);
                 gp.player.attackProjectile(projectileIndex);
             }
 
@@ -455,15 +455,15 @@ public class Player extends Entity{
     public void interactWithObj(int index){
         if(index!=999){
             //Pickup only items
-            if(gp.obj[gp.currentMap][index].type==typePickUpOnly){
-                gp.obj[gp.currentMap][index].use(this);
-                gp.obj[gp.currentMap][index] = null;
+            if(gp.objects[gp.currentMap][index].type==typePickUpOnly){
+                gp.objects[gp.currentMap][index].use(this);
+                gp.objects[gp.currentMap][index] = null;
             }
 
             //Obstacle items
-            else if(gp.obj[gp.currentMap][index].type==typeObstacle){
+            else if(gp.objects[gp.currentMap][index].type==typeObstacle){
                 if(keyH.xKeyPressed){
-                    gp.obj[gp.currentMap][index].interact();
+                    gp.objects[gp.currentMap][index].interact();
                     attackCanceled=true;
                 }
             }
@@ -471,13 +471,13 @@ public class Player extends Entity{
             //Normal Items
             else{
                 String text;
-                if(canObtainItem(gp.obj[gp.currentMap][index])){
+                if(canObtainItem(gp.objects[gp.currentMap][index])){
                     gp.playSoundEffect(4);
-                    text = "Bir "+gp.obj[gp.currentMap][index].displayedName+" buldun!";
+                    text = "Bir "+gp.objects[gp.currentMap][index].displayedName+" buldun!";
                 }else
-                    text = "Envanterin dolu. Ama canın "+ gp.obj[gp.currentMap][index].displayedName +" yemek istedi.";
-                gp.uiH.addMessage(text);
-                gp.obj[gp.currentMap][index] = null;
+                    text = "Envanterin dolu. Ama canın "+ gp.objects[gp.currentMap][index].displayedName +" yemek istedi.";
+                gp.uiHandler.addMessage(text);
+                gp.objects[gp.currentMap][index] = null;
             }
         }
     }
@@ -530,15 +530,15 @@ public class Player extends Entity{
                     if(damage<0)
                         damage=0;
                     gp.monsters[gp.currentMap][index].hp-=damage;
-                    gp.uiH.addMessage(damage+" hasar!");
+                    gp.uiHandler.addMessage(damage+" hasar!");
                     gp.monsters[gp.currentMap][index].invincible=true;
                     gp.monsters[gp.currentMap][index].damageReaction();
                 }
                 if (gp.monsters[gp.currentMap][index].hp<=0 && !gp.monsters[gp.currentMap][index].dying){
                     gp.monsters[gp.currentMap][index].dying = true;
-                    gp.uiH.addMessage(gp.monsters[gp.currentMap][index].displayedName+" öldü.");
+                    gp.uiHandler.addMessage(gp.monsters[gp.currentMap][index].displayedName+" öldü.");
                     exp += gp.monsters[gp.currentMap][index].exp;
-                    gp.uiH.addMessage("+"+gp.monsters[gp.currentMap][index].exp+" deneyim.");
+                    gp.uiHandler.addMessage("+"+gp.monsters[gp.currentMap][index].exp+" deneyim.");
                     checkLevelUp();
                 }
             }
@@ -546,14 +546,14 @@ public class Player extends Entity{
     }
 
     public void attackInteractiveTile(int index){
-        if(index!=999 && gp.iTiles[gp.currentMap][index].canChange && gp.iTiles[gp.currentMap][index].isCorrectItem(this) && !gp.iTiles[gp.currentMap][index].invincible){
-            gp.iTiles[gp.currentMap][index].generateITileParticle(index);
+        if(index!=999 && gp.interactiveTiles[gp.currentMap][index].canChange && gp.interactiveTiles[gp.currentMap][index].isCorrectItem(this) && !gp.interactiveTiles[gp.currentMap][index].invincible){
+            gp.interactiveTiles[gp.currentMap][index].generateITileParticle(index);
 
-            gp.iTiles[gp.currentMap][index].hp--;
-            gp.iTiles[gp.currentMap][index].invincible=true;
+            gp.interactiveTiles[gp.currentMap][index].hp--;
+            gp.interactiveTiles[gp.currentMap][index].invincible=true;
 
-            if(gp.iTiles[gp.currentMap][index].hp == 0){
-                gp.iTiles[gp.currentMap][index].attack(index);
+            if(gp.interactiveTiles[gp.currentMap][index].hp == 0){
+                gp.interactiveTiles[gp.currentMap][index].attack(index);
             }
         }
     }
@@ -591,7 +591,7 @@ public class Player extends Entity{
     }
 
     public void useItem(){
-        int itemIndex = gp.uiH.getItemIndex(this);
+        int itemIndex = gp.uiHandler.getItemIndex(this);
 
         if(itemIndex<inventory.size()){
             Entity selectedItem = inventory.get(itemIndex);
@@ -680,7 +680,7 @@ public class Player extends Entity{
         if (attacking){
             switch (direction) {
                 case "up" -> {
-                    tempScreenY-=gp.tileSize;
+                    tempScreenY-=gp.TILE_SIZE;
                     if (spriteNum == 1)
                         image = attackUp1;
                     if (spriteNum == 2)
@@ -697,7 +697,7 @@ public class Player extends Entity{
                         image = attackDown3;
                 }
                 case "left" -> {
-                    tempScreenX-=gp.tileSize;
+                    tempScreenX-=gp.TILE_SIZE;
                     if (spriteNum == 1)
                         image = attackLeft1;
                     if (spriteNum == 2)

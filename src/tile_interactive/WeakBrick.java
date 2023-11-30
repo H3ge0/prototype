@@ -11,10 +11,10 @@ public class WeakBrick extends InteractiveTile{
 
         name="Weak Brick";
 
-        worldX=gp.tileSize*col;
-        worldY=gp.tileSize*row;
+        worldX=gp.TILE_SIZE *col;
+        worldY=gp.TILE_SIZE *row;
 
-        down1=setImage("/interactive_tiles/weak_brick",gp.tileSize,gp.tileSize);
+        down1=setImage("/interactive_tiles/weak_brick",gp.TILE_SIZE,gp.TILE_SIZE);
         canChange=true;
         destructible=true;
         collisionOn=true;
@@ -29,7 +29,7 @@ public class WeakBrick extends InteractiveTile{
 
     @Override
     public void attack(int i) {
-        gp.iTiles[gp.currentMap][i]=null;
+        gp.interactiveTiles[gp.currentMap][i]=null;
     }
 
     @Override

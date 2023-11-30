@@ -17,12 +17,12 @@ public class SleepPotion extends Entity {
         stackable=true;
         type=typeConsumable;
 
-        down1 = setImage("/objects/sleep_potion",gp.tileSize,gp.tileSize);
+        down1 = setImage("/objects/sleep_potion",gp.TILE_SIZE,gp.TILE_SIZE);
     }
 
     @Override
     public boolean use(Entity entity){
-        gp.gameState=gp.sleepState;
+        gp.gameState=gp.SLEEP_STATE;
         gp.player.getSleepingImage();
         gp.playSoundEffect(15);
         return true;

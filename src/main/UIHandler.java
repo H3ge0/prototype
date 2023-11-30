@@ -1,7 +1,6 @@
 package main;
 
 import entity.Entity;
-import monster.Ipog;
 import object.BronzeCoin;
 import object.Energy;
 import object.Heart;
@@ -80,61 +79,61 @@ public class UIHandler {
         this.g2 = g2;
 
         //TitleState
-        if (gp.gameState==gp.titleState){
+        if (gp.gameState==gp.TITLE_STATE){
             drawTitleScreen();
         }
 
         //PlayState
-        if (gp.gameState==gp.playState){
+        if (gp.gameState==gp.PLAY_STATE){
             drawPlayerHealthAndEnergy();
             drawMonsterHp();
-            gp.map.drawMiniMap(g2);
+            gp.miniMap.drawMiniMap(g2);
             drawMessages();
         }
 
         //PauseState
-        if (gp.gameState==gp.pauseState){
+        if (gp.gameState==gp.PAUSE_STATE){
             drawPlayerHealthAndEnergy();
             drawPauseScreen();
         }
 
         //DialogueState
-        if (gp.gameState==gp.dialogueState){
+        if (gp.gameState==gp.DIALOGUE_STATE){
             drawPlayerHealthAndEnergy();
             drawDialogueScreen();
         }
 
         //CharInfoState
-        if (gp.gameState==gp.charInfoState){
+        if (gp.gameState==gp.CHAR_INFO_STATE){
             drawCharInfoScreen();
             drawInventory(gp.player,true);
         }
 
         //SettingsState
-        if (gp.gameState==gp.settingsState){
+        if (gp.gameState==gp.SETTINGS_STATE){
             drawPlayerHealthAndEnergy();
             drawSettingsScreen();
         }
 
         //DeadState
-        if (gp.gameState==gp.deadState){
+        if (gp.gameState==gp.DEAD_STATE){
             drawPlayerHealthAndEnergy();
             drawDeadScreen();
         }
 
         //TransitionState
-        if (gp.gameState==gp.transitionState){
+        if (gp.gameState==gp.TRANSITION_STATE){
             drawTransition();
         }
 
         //TradeState
-        if (gp.gameState==gp.tradeState){
+        if (gp.gameState==gp.TRADE_STATE){
             drawPlayerHealthAndEnergy();
             drawTradeScreen();
         }
 
         //SleepState
-        if (gp.gameState==gp.sleepState){
+        if (gp.gameState==gp.SLEEP_STATE){
             drawPlayerHealthAndEnergy();
             drawSleepScreen();
         }
@@ -149,7 +148,7 @@ public class UIHandler {
 
         String text = "GOPİ";
         int x = getXPosForCenteredText(text);
-        int y = gp.tileSize*2;
+        int y = gp.TILE_SIZE *2;
 
         g2.setColor(Color.darkGray);
         g2.drawString(text,x+5,y+5);
@@ -158,8 +157,8 @@ public class UIHandler {
         g2.drawString(text,x,y);
 
         //GopiImage
-        x = gp.screenWidth/2-gp.tileSize;
-        y += gp.tileSize*2;
+        x = gp.SCREEN_WIDTH /2-gp.TILE_SIZE;
+        y += gp.TILE_SIZE *2;
         BufferedImage image = null;
 
         if (titlePlayerSpriteNum == 1)
@@ -172,8 +171,8 @@ public class UIHandler {
             image = gp.player.down2;
 
         g2.setColor(Color.black);
-        g2.fillRect(x,y,gp.tileSize*2,gp.tileSize*2);
-        g2.drawImage(image,x,y,gp.tileSize*2,gp.tileSize*2,null);
+        g2.fillRect(x,y,gp.TILE_SIZE *2,gp.TILE_SIZE *2);
+        g2.drawImage(image,x,y,gp.TILE_SIZE *2,gp.TILE_SIZE *2,null);
 
         titlePlayerSpriteCounter++;
         if(titlePlayerSpriteCounter>20){
@@ -188,7 +187,7 @@ public class UIHandler {
         g2.setFont(fixedsys.deriveFont(Font.PLAIN,48f));
         text = "Yeni Oyun";
         x=getXPosForCenteredText(text);
-        y+=gp.tileSize*7/2;
+        y+=gp.TILE_SIZE *7/2;
         g2.setColor(new Color(75,0,103));
         g2.drawString(text,x+3,y+3);
         if(commandNum==0)
@@ -199,7 +198,7 @@ public class UIHandler {
 
         text = "Devam Et";
         x=getXPosForCenteredText(text);
-        y+=gp.tileSize*3/2;
+        y+=gp.TILE_SIZE *3/2;
         g2.setColor(new Color(75,0,103));
         g2.drawString(text,x+3,y+3);
         if(commandNum==1)
@@ -210,7 +209,7 @@ public class UIHandler {
 
         text = "Çıkış";
         x=getXPosForCenteredText(text);
-        y+=gp.tileSize*3/2;
+        y+=gp.TILE_SIZE *3/2;
         g2.setColor(new Color(75,0,103));
         g2.drawString(text,x+3,y+3);
         if(commandNum==2)
@@ -224,17 +223,17 @@ public class UIHandler {
     public void drawPlayerHealthAndEnergy(){
 
         //Draw Health
-        int x = gp.tileSize/2;
-        int y = gp.tileSize/2;
+        int x = gp.TILE_SIZE /2;
+        int y = gp.TILE_SIZE /2;
         int i = 0;
 
         while (i<gp.player.maxHp/2){
             g2.drawImage(heart_empty,x,y,null);
             i++;
-            x+=gp.tileSize*6/5;
+            x+=gp.TILE_SIZE *6/5;
         }
 
-        x = gp.tileSize/2;
+        x = gp.TILE_SIZE /2;
         i = 0;
 
         while(i<gp.player.hp){
@@ -243,12 +242,12 @@ public class UIHandler {
             if(i<gp.player.hp)
                 g2.drawImage(heart_full,x,y,null);
             i++;
-            x+=gp.tileSize*6/5;
+            x+=gp.TILE_SIZE *6/5;
         }
 
         //Draw Energy
-        x = gp.tileSize/2-5;
-        y = gp.tileSize*2;
+        x = gp.TILE_SIZE /2-5;
+        y = gp.TILE_SIZE *2;
         i=0;
 
         while (i<gp.player.maxEnergy){
@@ -257,7 +256,7 @@ public class UIHandler {
             x+=40;
         }
 
-        x = gp.tileSize/2-5;
+        x = gp.TILE_SIZE /2-5;
         i = 0;
 
         while(i<gp.player.energy){
@@ -274,11 +273,11 @@ public class UIHandler {
         for(Entity monster:gp.monsters[gp.currentMap]){
             if(monster!=null && monster.inScreen()){
                 if(monster.hpBarOn && !monster.boss){
-                    double oneScale = (double)gp.tileSize/monster.maxHp;
+                    double oneScale = (double)gp.TILE_SIZE /monster.maxHp;
                     double hpBarWidth = oneScale*monster.hp;
 
                     g2.setColor(new Color(135,35,35));
-                    g2.fillRect(monster.getScreenX()-1,monster.getScreenY()-16,gp.tileSize+2,12);
+                    g2.fillRect(monster.getScreenX()-1,monster.getScreenY()-16,gp.TILE_SIZE +2,12);
 
                     g2.setColor(new Color(255,0,30));
                     g2.fillRect(monster.getScreenX(),monster.getScreenY()-15,(int)hpBarWidth,10);
@@ -305,36 +304,36 @@ public class UIHandler {
         if(biggestBoss!=null){
             switch(biggestBoss.bossType){
                 case Entity.gen3 -> {
-                    int x = gp.screenWidth/2 - gp.tileSize*5;
-                    int y = gp.tileSize*10;
+                    int x = gp.SCREEN_WIDTH /2 - gp.TILE_SIZE *5;
+                    int y = gp.TILE_SIZE *10;
 
-                    double oneScale = (double)gp.tileSize*2/biggestBoss.maxHp;
+                    double oneScale = (double)gp.TILE_SIZE *2/biggestBoss.maxHp;
                     double hpBarWidth = oneScale*biggestBoss.hp;
 
                     g2.setColor(new Color(54,184,184));
-                    g2.fillRect(x-1,y-1,gp.tileSize*6+1,22);
+                    g2.fillRect(x-1,y-1,gp.TILE_SIZE *6+1,22);
 
                     g2.setColor(new Color(16,255,255));
-                    g2.fillRect(x,y,gp.tileSize*6,20);
+                    g2.fillRect(x,y,gp.TILE_SIZE *6,20);
 
                     g2.setColor(Color.white);
                     g2.drawString(biggestBoss.connectedEntity.connectedEntity.name,x+4,y-10);
 
                     //Obob
-                    x += gp.tileSize*6;
+                    x += gp.TILE_SIZE *6;
                     g2.setColor(new Color(50,81,191));
-                    g2.fillRect(x,y-1,gp.tileSize*2,22);
+                    g2.fillRect(x,y-1,gp.TILE_SIZE *2,22);
 
                     g2.setColor(new Color(103,123,193));
-                    g2.fillRect(x,y,gp.tileSize*2,20);
+                    g2.fillRect(x,y,gp.TILE_SIZE *2,20);
 
                     g2.setColor(Color.white);
                     g2.drawString(biggestBoss.connectedEntity.name,x+4,y-10);
 
                     //Idub
-                    x += gp.tileSize*2;
+                    x += gp.TILE_SIZE *2;
                     g2.setColor(new Color(105,90,146));
-                    g2.fillRect(x,y-1,gp.tileSize*2+1,22);
+                    g2.fillRect(x,y-1,gp.TILE_SIZE *2+1,22);
 
                     g2.setColor(new Color(149,129,210));
                     g2.fillRect(x,y,(int)hpBarWidth,20);
@@ -344,25 +343,25 @@ public class UIHandler {
                 }
 
                 case Entity.gen2 -> {
-                    int x = gp.screenWidth/2 - gp.tileSize*5;
-                    int y = gp.tileSize*10;
+                    int x = gp.SCREEN_WIDTH /2 - gp.TILE_SIZE *5;
+                    int y = gp.TILE_SIZE *10;
 
-                    double oneScale = (double)gp.tileSize*2/biggestBoss.maxHp;
+                    double oneScale = (double)gp.TILE_SIZE *2/biggestBoss.maxHp;
                     double hpBarWidth = oneScale*biggestBoss.hp;
 
                     g2.setColor(new Color(54,184,184));
-                    g2.fillRect(x-1,y-1,gp.tileSize*6+1,22);
+                    g2.fillRect(x-1,y-1,gp.TILE_SIZE *6+1,22);
 
                     g2.setColor(new Color(16,255,255));
-                    g2.fillRect(x,y,gp.tileSize*6,20);
+                    g2.fillRect(x,y,gp.TILE_SIZE *6,20);
 
                     g2.setColor(Color.white);
                     g2.drawString(biggestBoss.connectedEntity.name,x+4,y-10);
 
                     //Obob
-                    x += gp.tileSize*6;
+                    x += gp.TILE_SIZE *6;
                     g2.setColor(new Color(50,81,191));
-                    g2.fillRect(x,y-1,gp.tileSize*2,22);
+                    g2.fillRect(x,y-1,gp.TILE_SIZE *2,22);
 
                     g2.setColor(new Color(103,123,193));
                     g2.fillRect(x,y,(int)hpBarWidth,20);
@@ -371,20 +370,20 @@ public class UIHandler {
                     g2.drawString(biggestBoss.name,x+4,y-10);
 
                     //Idub
-                    x += gp.tileSize*2;
+                    x += gp.TILE_SIZE *2;
                     g2.setColor(new Color(105,90,146));
-                    g2.fillRect(x,y-1,gp.tileSize*2+1,22);
+                    g2.fillRect(x,y-1,gp.TILE_SIZE *2+1,22);
                 }
 
                 case Entity.gen1 -> {
-                    int x = gp.screenWidth/2 - gp.tileSize*5;
-                    int y = gp.tileSize*10;
+                    int x = gp.SCREEN_WIDTH /2 - gp.TILE_SIZE *5;
+                    int y = gp.TILE_SIZE *10;
 
-                    double oneScale = (double)gp.tileSize*6/biggestBoss.maxHp;
+                    double oneScale = (double)gp.TILE_SIZE *6/biggestBoss.maxHp;
                     double hpBarWidth = oneScale*biggestBoss.hp;
 
                     g2.setColor(new Color(54,184,184));
-                    g2.fillRect(x-1,y-1,gp.tileSize*6+1,22);
+                    g2.fillRect(x-1,y-1,gp.TILE_SIZE *6+1,22);
 
                     g2.setColor(new Color(16,255,255));
                     g2.fillRect(x,y,(int)hpBarWidth,20);
@@ -393,22 +392,22 @@ public class UIHandler {
                     g2.drawString(biggestBoss.name,x+4,y-10);
 
                     //Obob
-                    x += gp.tileSize*6;
+                    x += gp.TILE_SIZE *6;
                     g2.setColor(new Color(50,81,191));
-                    g2.fillRect(x,y-1,gp.tileSize*2,22);
+                    g2.fillRect(x,y-1,gp.TILE_SIZE *2,22);
 
                     //Idub
-                    x += gp.tileSize*2;
+                    x += gp.TILE_SIZE *2;
                     g2.setColor(new Color(105,90,146));
-                    g2.fillRect(x,y-1,gp.tileSize*2+1,22);
+                    g2.fillRect(x,y-1,gp.TILE_SIZE *2+1,22);
                 }
             }
         }
     }
 
     public void drawMessages(){
-        int messageX = gp.tileSize/2;
-        int messageY = gp.screenHeight-gp.tileSize/2;
+        int messageX = gp.TILE_SIZE /2;
+        int messageY = gp.SCREEN_HEIGHT -gp.TILE_SIZE /2;
         g2.setFont(fixedsys.deriveFont(30f));
 
         for(int i=0;i<messages.size();i++){
@@ -432,13 +431,13 @@ public class UIHandler {
 
     public void drawPauseScreen(){
         g2.setColor(lessOpaqueBlack);
-        g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
+        g2.fillRect(0,0,gp.SCREEN_WIDTH,gp.SCREEN_HEIGHT);
 
         g2.setFont(fixedsys.deriveFont(Font.BOLD,96f));
 
         String text = "Oyun Durdu";
         int x = getXPosForCenteredText(text);
-        int y = gp.tileSize*2;
+        int y = gp.TILE_SIZE *2;
 
         g2.setColor(new Color(75,0,103));
         g2.drawString(text,x+4,y+4);
@@ -450,13 +449,13 @@ public class UIHandler {
 
         text = "Oyuna Dön";
         x = getXPosForCenteredText(text);
-        y += gp.tileSize*7/2;
+        y += gp.TILE_SIZE *7/2;
         g2.setColor(new Color(75,0,103));
         g2.drawString(text,x+3,y+3);
         if(commandNum==0){
-            if(gp.keyH.xKeyPressed){
+            if(gp.keyHandler.xKeyPressed){
                 gp.playSoundEffect(4);
-                gp.gameState=gp.playState;
+                gp.gameState=gp.PLAY_STATE;
                 subState=0;
                 commandNum=0;
             }
@@ -467,13 +466,13 @@ public class UIHandler {
 
         text = "Ayarlar";
         x = getXPosForCenteredText(text);
-        y += gp.tileSize*3/2;
+        y += gp.TILE_SIZE *3/2;
         g2.setColor(new Color(75,0,103));
         g2.drawString(text,x+3,y+3);
         if(commandNum==1){
-            if(gp.keyH.xKeyPressed){
+            if(gp.keyHandler.xKeyPressed){
                 gp.playSoundEffect(4);
-                gp.gameState=gp.settingsState;
+                gp.gameState=gp.SETTINGS_STATE;
                 subState=0;
                 commandNum=0;
             }
@@ -485,11 +484,11 @@ public class UIHandler {
 
         text = "Kaydet";
         x=getXPosForCenteredText(text);
-        y+=gp.tileSize*3/2;
+        y+=gp.TILE_SIZE *3/2;
         g2.setColor(new Color(75,0,103));
         g2.drawString(text,x+3,y+3);
         if(commandNum==2) {
-            if(gp.keyH.xKeyPressed){
+            if(gp.keyHandler.xKeyPressed){
                 gp.saveLoad.save();
                 huso.startDialogue(huso,0);
             }
@@ -500,13 +499,13 @@ public class UIHandler {
 
         text = "Çıkış";
         x = getXPosForCenteredText(text);
-        y += gp.tileSize*3/2;
+        y += gp.TILE_SIZE *3/2;
         g2.setColor(new Color(75,0,103));
         g2.drawString(text,x+3,y+3);
         if(commandNum==3){
-            if(gp.keyH.xKeyPressed){
+            if(gp.keyHandler.xKeyPressed){
                 gp.playSoundEffect(4);
-                gp.gameState=gp.settingsState;
+                gp.gameState=gp.SETTINGS_STATE;
                 subState=3;
                 commandNum=0;
             }
@@ -516,21 +515,21 @@ public class UIHandler {
             g2.setColor(Color.white);
         g2.drawString(text,x,y);
 
-        gp.keyH.xKeyPressed=false;
+        gp.keyHandler.xKeyPressed=false;
     }
 
     public void drawDialogueScreen(){
         //Window
-        int x = gp.tileSize*2;
-        int y = gp.tileSize/2;
-        int width = gp.screenWidth-gp.tileSize*4;
-        int height = gp.tileSize*5;
+        int x = gp.TILE_SIZE *2;
+        int y = gp.TILE_SIZE /2;
+        int width = gp.SCREEN_WIDTH -gp.TILE_SIZE *4;
+        int height = gp.TILE_SIZE *5;
 
         drawSubWindow(x,y,width,height);
 
         //Text
-        x+=gp.tileSize/2;
-        y+=gp.tileSize;
+        x+=gp.TILE_SIZE /2;
+        y+=gp.TILE_SIZE;
         g2.setColor(Color.white);
         g2.setFont(fixedsys.deriveFont(26f));
 
@@ -547,22 +546,22 @@ public class UIHandler {
                 charIndex++;
             }
 
-            if(gp.keyH.xKeyPressed){
+            if(gp.keyHandler.xKeyPressed){
                 charIndex=0;
                 combinedText="";
-                if(gp.gameState==gp.dialogueState || gp.gameState==gp.cutsceneState){
+                if(gp.gameState==gp.DIALOGUE_STATE || gp.gameState==gp.CUTSCENE_STATE){
                     npc.dialogueIndex++;
-                    gp.keyH.xKeyPressed=false;
+                    gp.keyHandler.xKeyPressed=false;
                 }
             }
         }else{
             npc.dialogueIndex=0;
 
-            if(gp.gameState==gp.dialogueState){
-                gp.gameState=gp.playState;
+            if(gp.gameState==gp.DIALOGUE_STATE){
+                gp.gameState=gp.PLAY_STATE;
             }
-            if(gp.gameState==gp.cutsceneState){
-                gp.cutsceneH.scenePhase++;
+            if(gp.gameState==gp.CUTSCENE_STATE){
+                gp.cutsceneHandler.scenePhase++;
             }
         }
 
@@ -574,10 +573,10 @@ public class UIHandler {
 
     public void drawCharInfoScreen(){
         //Create a window
-        final int windowX=gp.tileSize/2;
-        final int windowY=gp.tileSize;
-        final int windowWidth=gp.tileSize*5;
-        final int windowHeight=gp.tileSize*9;
+        final int windowX=gp.TILE_SIZE /2;
+        final int windowY=gp.TILE_SIZE;
+        final int windowWidth=gp.TILE_SIZE *5;
+        final int windowHeight=gp.TILE_SIZE *9;
         drawSubWindow(windowX,windowY,windowWidth,windowHeight);
 
         //Text
@@ -585,7 +584,7 @@ public class UIHandler {
         g2.setFont(fixedsys.deriveFont(20f));
 
         int textX = windowX+20;
-        int textY = windowY+gp.tileSize;
+        int textY = windowY+gp.TILE_SIZE;
         final int lineHeight = 21;
 
         //Value Names
@@ -615,7 +614,7 @@ public class UIHandler {
 
         //Values
         int endOfRect = windowX+windowWidth-20;
-        textY = windowY+gp.tileSize;
+        textY = windowY+gp.TILE_SIZE;
         String value;
 
         value = String.valueOf(gp.player.level);
@@ -668,21 +667,21 @@ public class UIHandler {
         g2.drawString(value,textX,textY);
         textY+=lineHeight;
 
-        g2.drawImage(gp.player.currentFireball.down1,endOfRect-gp.tileSize,textY,null);
-        textY+=lineHeight*2+gp.tileSize;
-        g2.drawImage(gp.player.currentArmor.down1,endOfRect-gp.tileSize,textY,null);
+        g2.drawImage(gp.player.currentFireball.down1,endOfRect-gp.TILE_SIZE,textY,null);
+        textY+=lineHeight*2+gp.TILE_SIZE;
+        g2.drawImage(gp.player.currentArmor.down1,endOfRect-gp.TILE_SIZE,textY,null);
     }
 
     public void drawSettingsScreen(){
         g2.setColor(lessOpaqueBlack);
-        g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
+        g2.fillRect(0,0,gp.SCREEN_WIDTH,gp.SCREEN_HEIGHT);
 
         g2.setColor(Color.white);
         g2.setFont(fixedsys.deriveFont(Font.PLAIN,32));
 
         //Sub Window
-        int frameX = gp.tileSize*6, frameY = gp.tileSize;
-        int frameWidth = gp.tileSize*8, frameHeight = gp.tileSize*10;
+        int frameX = gp.TILE_SIZE *6, frameY = gp.TILE_SIZE;
+        int frameWidth = gp.TILE_SIZE *8, frameHeight = gp.TILE_SIZE *10;
 
         drawSubWindow(frameX,frameY,frameWidth,frameHeight);
 
@@ -693,18 +692,18 @@ public class UIHandler {
             case 3 -> settingsQuitConfirmation(frameY);
         }
 
-        gp.keyH.xKeyPressed=false;
+        gp.keyHandler.xKeyPressed=false;
     }
 
     public void drawDeadScreen(){
         g2.setColor(lessOpaqueBlack);
-        g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
+        g2.fillRect(0,0,gp.SCREEN_WIDTH,gp.SCREEN_HEIGHT);
 
         g2.setFont(fixedsys.deriveFont(Font.BOLD,96f));
 
         String text = "Oyun Bitti";
         int x = getXPosForCenteredText(text);
-        int y = gp.tileSize*2;
+        int y = gp.TILE_SIZE *2;
 
         g2.setColor(new Color(150,0,0));
         g2.drawString(text,x+4,y+4);
@@ -716,13 +715,13 @@ public class UIHandler {
 
         text = "Yeniden Doğ";
         x = getXPosForCenteredText(text);
-        y += gp.tileSize*9/2;
+        y += gp.TILE_SIZE *9/2;
         g2.setColor(new Color(75,0,103));
         g2.drawString(text,x+3,y+3);
         if(commandNum==0){
-            if(gp.keyH.xKeyPressed){
+            if(gp.keyHandler.xKeyPressed){
                 gp.playSoundEffect(4);
-                gp.gameState=gp.playState;
+                gp.gameState=gp.PLAY_STATE;
                 gp.resetGame(false);
                 gp.playMusic(0);
                 subState=0;
@@ -735,13 +734,13 @@ public class UIHandler {
 
         text = "Çıkış";
         x = getXPosForCenteredText(text);
-        y += gp.tileSize*3/2;
+        y += gp.TILE_SIZE *3/2;
         g2.setColor(new Color(75,0,103));
         g2.drawString(text,x+3,y+3);
         if(commandNum==1){
-            if(gp.keyH.xKeyPressed){
+            if(gp.keyHandler.xKeyPressed){
                 gp.playSoundEffect(4);
-                gp.gameState=gp.titleState;
+                gp.gameState=gp.TITLE_STATE;
                 subState=0;
                 commandNum=0;
                 gp.resetGame(false);
@@ -753,23 +752,25 @@ public class UIHandler {
             g2.setColor(Color.white);
         g2.drawString(text,x,y);
 
-        gp.keyH.xKeyPressed=false;
+        gp.keyHandler.xKeyPressed=false;
     }
 
     public void drawTransition(){
         counter++;
         g2.setColor(new Color(0,0,0,counter*5));
-        g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
+        g2.fillRect(0,0,gp.SCREEN_WIDTH,gp.SCREEN_HEIGHT);
+
+        boolean isTheSameArea = (gp.eventHandler.tempMap == gp.DUNGEON_FLOOR_1 && gp.currentMap == gp.DUNGEON_FLOOR_2) || (gp.eventHandler.tempMap == gp.DUNGEON_FLOOR_2 && gp.currentMap == gp.DUNGEON_FLOOR_1);
 
         if(counter==50){
             counter=0;
-            gp.gameState=gp.playState;
-            gp.currentMap=gp.eventH.tempMap;
-            gp.player.worldX=gp.eventH.tempCol*gp.tileSize;
-            gp.player.worldY=gp.eventH.tempRow*gp.tileSize;
-            gp.eventH.previousEventX=gp.player.worldX;
-            gp.eventH.previousEventY=gp.player.worldY;
-            gp.changeArea();
+            gp.gameState = gp.PLAY_STATE;
+            gp.currentMap = gp.eventHandler.tempMap;
+            gp.player.worldX = gp.eventHandler.tempCol*gp.TILE_SIZE;
+            gp.player.worldY = gp.eventHandler.tempRow*gp.TILE_SIZE;
+            gp.eventHandler.previousEventX = gp.player.worldX;
+            gp.eventHandler.previousEventY = gp.player.worldY;
+            gp.changeArea(isTheSameArea);
         }
     }
 
@@ -780,28 +781,28 @@ public class UIHandler {
             case 2 -> tradeSell();
         }
 
-        gp.keyH.xKeyPressed=false;
+        gp.keyHandler.xKeyPressed=false;
     }
 
     public void drawSleepScreen(){
         counter++;
 
         if(counter<120){
-            if(gp.environmentH.lighting.dayState!=gp.environmentH.lighting.dawn)
-                gp.environmentH.lighting.filterAlpha += 0.01f;
-            if(gp.environmentH.lighting.filterAlpha>1f || gp.environmentH.lighting.dayState==gp.environmentH.lighting.dawn){
-                gp.environmentH.lighting.filterAlpha=1f;
+            if(gp.environmentHandler.lighting.dayState!=gp.environmentHandler.lighting.dawn)
+                gp.environmentHandler.lighting.filterAlpha += 0.01f;
+            if(gp.environmentHandler.lighting.filterAlpha>1f || gp.environmentHandler.lighting.dayState==gp.environmentHandler.lighting.dawn){
+                gp.environmentHandler.lighting.filterAlpha=1f;
                 counter=120;
             }
         }else {
-            gp.environmentH.lighting.filterAlpha -= 0.01f;
-            if(gp.environmentH.lighting.filterAlpha<=0f){
-                gp.environmentH.lighting.filterAlpha=0f;
+            gp.environmentHandler.lighting.filterAlpha -= 0.01f;
+            if(gp.environmentHandler.lighting.filterAlpha<=0f){
+                gp.environmentHandler.lighting.filterAlpha=0f;
                 counter=0;
-                gp.environmentH.lighting.dayState = gp.environmentH.lighting.day;
-                gp.environmentH.lighting.dayCounter=0;
-                gp.environmentH.lighting.dayNumber++;
-                gp.gameState=gp.playState;
+                gp.environmentHandler.lighting.dayState = gp.environmentHandler.lighting.day;
+                gp.environmentHandler.lighting.dayCounter=0;
+                gp.environmentHandler.lighting.dayNumber++;
+                gp.gameState=gp.PLAY_STATE;
                 gp.player.getImages();
             }
         }
@@ -812,16 +813,16 @@ public class UIHandler {
 
         //Shorter Dialogue Screen
             //Window
-            int x = gp.tileSize*2;
-            int y = gp.tileSize/2;
-            int width = gp.screenWidth-gp.tileSize*7;
-            int height = gp.tileSize*5;
+            int x = gp.TILE_SIZE *2;
+            int y = gp.TILE_SIZE /2;
+            int width = gp.SCREEN_WIDTH -gp.TILE_SIZE *7;
+            int height = gp.TILE_SIZE *5;
 
             drawSubWindow(x,y,width,height);
 
             //Text
-            x+=gp.tileSize/2;
-            y+=gp.tileSize;
+            x+=gp.TILE_SIZE /2;
+            y+=gp.TILE_SIZE;
             g2.setColor(Color.white);
             g2.setFont(fixedsys.deriveFont(26f));
 
@@ -831,20 +832,20 @@ public class UIHandler {
             }
         //Shorter Dialogue Screen
 
-        x = gp.screenWidth-gp.tileSize*5;
-        y = gp.tileSize/2;
-        width = gp.tileSize*3;
-        height = gp.tileSize*5;
+        x = gp.SCREEN_WIDTH -gp.TILE_SIZE *5;
+        y = gp.TILE_SIZE /2;
+        width = gp.TILE_SIZE *3;
+        height = gp.TILE_SIZE *5;
         drawSubWindow(x,y,width,height);
 
         //Options
         String text = "Satın Al";
-        x=getXPosForCenteredText(text)+gp.tileSize*13/2;
-        y+=gp.tileSize;
+        x=getXPosForCenteredText(text)+gp.TILE_SIZE *13/2;
+        y+=gp.TILE_SIZE;
 
         if(commandNum==0) {
             g2.setColor(Color.yellow);
-            if(gp.keyH.xKeyPressed){
+            if(gp.keyHandler.xKeyPressed){
                 subState=1;
             }
         }else
@@ -853,12 +854,12 @@ public class UIHandler {
         g2.drawString(text,x,y);
 
         text = "Sat";
-        x=getXPosForCenteredText(text)+gp.tileSize*13/2;
-        y+=gp.tileSize*3/2;
+        x=getXPosForCenteredText(text)+gp.TILE_SIZE *13/2;
+        y+=gp.TILE_SIZE *3/2;
 
         if(commandNum==1){
             g2.setColor(Color.yellow);
-            if(gp.keyH.xKeyPressed){
+            if(gp.keyHandler.xKeyPressed){
                 subState=2;
             }
         }else
@@ -867,12 +868,12 @@ public class UIHandler {
         g2.drawString(text,x,y);
 
         text = "Ayrıl";
-        x=getXPosForCenteredText(text)+gp.tileSize*13/2;
-        y+=gp.tileSize*3/2;
+        x=getXPosForCenteredText(text)+gp.TILE_SIZE *13/2;
+        y+=gp.TILE_SIZE *3/2;
 
         if(commandNum==2){
             g2.setColor(Color.yellow);
-            if(gp.keyH.xKeyPressed){
+            if(gp.keyHandler.xKeyPressed){
                 commandNum=0;
                 npc.startDialogue(npc,1);
             }
@@ -889,38 +890,38 @@ public class UIHandler {
         //Hint Box
         int x,y,width,height;
 
-        x = gp.tileSize/2;
-        width = gp.tileSize*6;
-        height = gp.tileSize*2;
+        x = gp.TILE_SIZE /2;
+        width = gp.TILE_SIZE *6;
+        height = gp.TILE_SIZE *2;
 
         if(getItemIndex(npc)<npc.inventory.size()){
-            y = gp.tileSize*19/2;
+            y = gp.TILE_SIZE *19/2;
         }else{
-            y = gp.tileSize*11/2;
+            y = gp.TILE_SIZE *11/2;
         }
         drawSubWindow(x,y,width,height);
         g2.drawString("[Z] Çıkış, [X] Onayla",x+24,y+54);
 
         //Player Coin
-        x = gp.screenWidth-gp.tileSize*13/2;
-        y = gp.tileSize*11/2;
+        x = gp.SCREEN_WIDTH -gp.TILE_SIZE *13/2;
+        y = gp.TILE_SIZE *11/2;
         drawSubWindow(x,y,width,height);
         g2.drawString("Şu anki paran:"+gp.player.coin,x+64,y+54);
 
         //Price
         int itemIndex = getItemIndex(npc);
         if(itemIndex<npc.inventory.size()){
-            x=gp.tileSize*4;
-            y=gp.tileSize*5;
-            width=gp.tileSize*5/2;
-            height=gp.tileSize;
+            x=gp.TILE_SIZE *4;
+            y=gp.TILE_SIZE *5;
+            width=gp.TILE_SIZE *5/2;
+            height=gp.TILE_SIZE;
             drawSubWindow(x,y,width,height);
             g2.drawImage(coinImg,x+10,y+8,32,32,null);
             int price = npc.inventory.get(itemIndex).coin;
             g2.drawString(":"+price,x+38,y+30);
 
             //Buy
-            if(gp.keyH.xKeyPressed){
+            if(gp.keyHandler.xKeyPressed){
                 if(price>gp.player.coin){
                     commandNum=0;
                     subState=0;
@@ -952,33 +953,33 @@ public class UIHandler {
         //Hint Box
         int x,y,width,height;
 
-        x = gp.tileSize/2;
-        y = gp.tileSize*11/2;
-        width = gp.tileSize*6;
-        height = gp.tileSize*2;
+        x = gp.TILE_SIZE /2;
+        y = gp.TILE_SIZE *11/2;
+        width = gp.TILE_SIZE *6;
+        height = gp.TILE_SIZE *2;
         drawSubWindow(x,y,width,height);
         g2.drawString("[Z] Çıkış, [X] Onayla",x+24,y+54);
 
         //Player Coin
-        x = gp.screenWidth-gp.tileSize*13/2;
+        x = gp.SCREEN_WIDTH -gp.TILE_SIZE *13/2;
         if(getItemIndex(gp.player)<gp.player.inventory.size())
-            y = gp.tileSize*19/2;
+            y = gp.TILE_SIZE *19/2;
         drawSubWindow(x,y,width,height);
         g2.drawString("Şu anki paran:"+gp.player.coin,x+64,y+54);
 
         //Value
         int itemIndex = getItemIndex(gp.player);
         if(itemIndex<gp.player.inventory.size()){
-            y=gp.tileSize*5;
-            width=gp.tileSize*5/2;
-            height=gp.tileSize;
+            y=gp.TILE_SIZE *5;
+            width=gp.TILE_SIZE *5/2;
+            height=gp.TILE_SIZE;
             drawSubWindow(x,y,width,height);
             g2.drawImage(coinImg,x+10,y+8,32,32,null);
             int price = gp.player.inventory.get(itemIndex).coin/2;
             g2.drawString(":"+price,x+38,y+30);
 
             //Sell
-            if(gp.keyH.xKeyPressed){
+            if(gp.keyHandler.xKeyPressed){
                 boolean npcHasItem=false;
                 for(Entity entity:npc.inventory){
                     if(entity.name.equals(gp.player.inventory.get(itemIndex).name)){
@@ -1019,16 +1020,16 @@ public class UIHandler {
         //Title
         String text = "Ayarlar";
         textX=getXPosForCenteredText(text);
-        textY=frameY+gp.tileSize;
+        textY=frameY+gp.TILE_SIZE;
 
         g2.drawString(text,textX,textY);
 
         //Full Screen
-        textX=frameX+gp.tileSize/2;
-        textY+=gp.tileSize*2;
+        textX=frameX+gp.TILE_SIZE /2;
+        textY+=gp.TILE_SIZE *2;
 
         if(commandNum==0) {
-            if (gp.keyH.xKeyPressed){
+            if (gp.keyHandler.xKeyPressed){
                 gp.playSoundEffect(4);
                 gp.fullScreenOn = !gp.fullScreenOn;
                 subState=1;
@@ -1041,7 +1042,7 @@ public class UIHandler {
         g2.drawString("Tam Ekran",textX,textY);
 
         //Music
-        textY+=gp.tileSize;
+        textY+=gp.TILE_SIZE;
 
         if(commandNum==1)
             g2.setColor(Color.yellow);
@@ -1051,7 +1052,7 @@ public class UIHandler {
         g2.drawString("Müzik",textX,textY);
 
         //SFX
-        textY+=gp.tileSize;
+        textY+=gp.TILE_SIZE;
 
         if(commandNum==2)
             g2.setColor(Color.yellow);
@@ -1061,10 +1062,10 @@ public class UIHandler {
         g2.drawString("Ses E.",textX,textY);
 
         //Controls
-        textY+=gp.tileSize;
+        textY+=gp.TILE_SIZE;
 
         if(commandNum==3) {
-            if (gp.keyH.xKeyPressed) {
+            if (gp.keyHandler.xKeyPressed) {
                 gp.playSoundEffect(4);
                 subState = 2;
                 commandNum=0;
@@ -1078,12 +1079,12 @@ public class UIHandler {
         //Back
         text="Geri Dön";
         textX=getXPosForCenteredText(text);
-        textY+=gp.tileSize*10/3;
+        textY+=gp.TILE_SIZE *10/3;
 
         if(commandNum==4){
-            if(gp.keyH.xKeyPressed){
+            if(gp.keyHandler.xKeyPressed){
                 gp.playSoundEffect(4);
-                gp.gameState=gp.pauseState;
+                gp.gameState=gp.PAUSE_STATE;
                 commandNum=1;
             }
             g2.setColor(Color.yellow);
@@ -1098,8 +1099,8 @@ public class UIHandler {
 
         //Full Screen CheckBox
         g2.setColor(Color.white);
-        textX=frameX+gp.tileSize*9/2;
-        textY=frameY+gp.tileSize*2+26;
+        textX=frameX+gp.TILE_SIZE *9/2;
+        textY=frameY+gp.TILE_SIZE *2+26;
         g2.setStroke(new BasicStroke(3));
 
         if(commandNum==0){
@@ -1113,7 +1114,7 @@ public class UIHandler {
             g2.fillRect(textX,textY,24,24);
 
         //Music Volume
-        textY+=gp.tileSize;
+        textY+=gp.TILE_SIZE;
 
         if(commandNum==1)
             g2.setColor(Color.yellow);
@@ -1126,7 +1127,7 @@ public class UIHandler {
         g2.fillRect(textX,textY,volumeWidth,24);
 
         //SFX Volume
-        textY+=gp.tileSize;
+        textY+=gp.TILE_SIZE;
 
         if(commandNum==2)
             g2.setColor(Color.yellow);
@@ -1143,7 +1144,7 @@ public class UIHandler {
 
     public void settingsFullScreenNotification(int frameY){
         int textX;
-        int textY = frameY + gp.tileSize*3;
+        int textY = frameY + gp.TILE_SIZE *3;
 
         if(gp.fullScreenOn)
             currentDialogueText = "Tam ekrana geçmek\niçin oyunu yeniden\nbaşlatmanız gerek.";
@@ -1162,7 +1163,7 @@ public class UIHandler {
         textY+=80;
 
         g2.drawString(currentDialogueText,textX,textY);
-        if(gp.keyH.xKeyPressed){
+        if(gp.keyHandler.xKeyPressed){
             gp.playSoundEffect(4);
             subState=0;
         }
@@ -1177,59 +1178,59 @@ public class UIHandler {
         //Title
         String text = "Kontroller";
         textX=getXPosForCenteredText(text);
-        textY=frameY+gp.tileSize;
+        textY=frameY+gp.TILE_SIZE;
 
         g2.drawString(text,textX,textY);
 
         //Texts
         text = "Yürüme - Oklar";
         textX = getXPosForCenteredText(text);
-        textY+=gp.tileSize*5/4;
+        textY+=gp.TILE_SIZE *5/4;
 
         g2.drawString(text,textX,textY);
 
         text = "Ateş Topu - X";
         textX = getXPosForCenteredText(text);
-        textY+=gp.tileSize;
+        textY+=gp.TILE_SIZE;
 
         g2.drawString(text,textX,textY);
 
         text = "Fırlat - Z";
         textX = getXPosForCenteredText(text);
-        textY+=gp.tileSize;
+        textY+=gp.TILE_SIZE;
 
         g2.drawString(text,textX,textY);
 
         text = "Envanter - C";
         textX = getXPosForCenteredText(text);
-        textY+=gp.tileSize;
+        textY+=gp.TILE_SIZE;
 
         g2.drawString(text,textX,textY);
 
         text = "Harita - M";
         textX = getXPosForCenteredText(text);
-        textY+=gp.tileSize;
+        textY+=gp.TILE_SIZE;
 
         g2.drawString(text,textX,textY);
 
         text = "Savunma - S";
         textX = getXPosForCenteredText(text);
-        textY+=gp.tileSize;
+        textY+=gp.TILE_SIZE;
 
         g2.drawString(text,textX,textY);
 
         text = "Durdur - ESC";
         textX = getXPosForCenteredText(text);
-        textY+=gp.tileSize;
+        textY+=gp.TILE_SIZE;
 
         g2.drawString(text,textX,textY);
 
         //Back
         text="Geri Dön";
         textX=getXPosForCenteredText(text);
-        textY+=gp.tileSize*13/12;
+        textY+=gp.TILE_SIZE *13/12;
 
-        if(gp.keyH.xKeyPressed){
+        if(gp.keyHandler.xKeyPressed){
             gp.playSoundEffect(4);
             subState=0;
             commandNum=3;
@@ -1241,7 +1242,7 @@ public class UIHandler {
 
     public void settingsQuitConfirmation(int frameY){
         int textX;
-        int textY = frameY + gp.tileSize*2;
+        int textY = frameY + gp.TILE_SIZE *2;
 
         currentDialogueText="Oyundan çıkıp\nana menüye dönmek\nistediğinize\nemin misiniz?";
         for(String line:currentDialogueText.split("\n")){
@@ -1253,11 +1254,11 @@ public class UIHandler {
         //Yes
         String text = "Evet";
         textX = getXPosForCenteredText(text);
-        textY += gp.tileSize;
+        textY += gp.TILE_SIZE;
         if(commandNum==0){
-            if(gp.keyH.xKeyPressed){
+            if(gp.keyHandler.xKeyPressed){
                 subState=0;
-                gp.gameState=gp.titleState;
+                gp.gameState=gp.TITLE_STATE;
                 gp.stopMusic();
                 gp.saveLoad.save();
             }
@@ -1270,10 +1271,10 @@ public class UIHandler {
         //No
         text = "Hayır";
         textX = getXPosForCenteredText(text);
-        textY += gp.tileSize;
+        textY += gp.TILE_SIZE;
         if(commandNum==1){
-            if(gp.keyH.xKeyPressed){
-                gp.gameState=gp.pauseState;
+            if(gp.keyHandler.xKeyPressed){
+                gp.gameState=gp.PAUSE_STATE;
                 subState=0;
                 commandNum=3;
             }
@@ -1292,17 +1293,17 @@ public class UIHandler {
         int slotCol,slotRow;
 
         if(isPlayer){
-            windowX = gp.screenWidth-gp.tileSize*13/2;
-            windowY = gp.tileSize/2;
-            windowWidth = gp.tileSize*6;
-            windowHeight = gp.tileSize*5;
+            windowX = gp.SCREEN_WIDTH -gp.TILE_SIZE *13/2;
+            windowY = gp.TILE_SIZE /2;
+            windowWidth = gp.TILE_SIZE *6;
+            windowHeight = gp.TILE_SIZE *5;
             slotCol=playerSlotCol;
             slotRow=playerSlotRow;
         }else{
-            windowX = gp.tileSize/2;
-            windowY = gp.tileSize/2;
-            windowWidth = gp.tileSize*6;
-            windowHeight = gp.tileSize*5;
+            windowX = gp.TILE_SIZE /2;
+            windowY = gp.TILE_SIZE /2;
+            windowWidth = gp.TILE_SIZE *6;
+            windowHeight = gp.TILE_SIZE *5;
             slotCol=npcSlotCol;
             slotRow=npcSlotRow;
         }
@@ -1314,13 +1315,13 @@ public class UIHandler {
         final int slotYStart = windowY + 20;
         int slotX = slotXStart;
         int slotY = slotYStart;
-        int slotSize = gp.tileSize+2;
+        int slotSize = gp.TILE_SIZE +2;
 
         //Draw Inventory
         for (int i=0; i<entity.inventory.size();i++){
             if(entity.inventory.get(i)==entity.currentFireball || entity.inventory.get(i)==entity.currentArmor || entity.inventory.get(i)==entity.currentLightSource){
                 g2.setColor(new Color(240,190,90));
-                g2.fillRoundRect(slotX,slotY,gp.tileSize,gp.tileSize,10,10);
+                g2.fillRoundRect(slotX,slotY,gp.TILE_SIZE,gp.TILE_SIZE,10,10);
             }
 
             g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
@@ -1331,8 +1332,8 @@ public class UIHandler {
                 int amountY;
 
                 String s = String.valueOf(entity.inventory.get(i).amount);
-                amountX = getXForRightAlignedText(s,slotX+gp.tileSize);
-                amountY = slotY+gp.tileSize;
+                amountX = getXForRightAlignedText(s,slotX+gp.TILE_SIZE);
+                amountY = slotY+gp.TILE_SIZE;
 
                 g2.setColor(new Color(60,60,60));
                 g2.drawString(s,amountX,amountY);
@@ -1353,8 +1354,8 @@ public class UIHandler {
             //Cursor
             int cursorX = slotXStart + slotCol*slotSize;
             int cursorY = slotYStart + slotRow*slotSize;
-            int cursorWidth = gp.tileSize;
-            int cursorHeight = gp.tileSize;
+            int cursorWidth = gp.TILE_SIZE;
+            int cursorHeight = gp.TILE_SIZE;
             g2.setColor(Color.white);
             g2.setStroke(new BasicStroke(3));
 
@@ -1365,7 +1366,7 @@ public class UIHandler {
             int dWindowX = windowX;
             int dWindowY = windowY+windowHeight;
             int dWindowWidth = windowWidth;
-            int dWindowHeight = gp.tileSize*4;
+            int dWindowHeight = gp.TILE_SIZE *4;
 
             //Description
             int textX = dWindowX + 20;
@@ -1420,7 +1421,7 @@ public class UIHandler {
     public int getXPosForCenteredText(String text){
         int textLength = (int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
 
-        return gp.screenWidth/2-textLength/2;
+        return gp.SCREEN_WIDTH /2-textLength/2;
     }
 
     public int getXForRightAlignedText(String text,int endOfRect){

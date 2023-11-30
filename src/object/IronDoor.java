@@ -18,7 +18,7 @@ public class IronDoor extends Entity {
         description = "Bu ne kardeş?";
         coin=10;
 
-        down1 = setImage("/objects/dungeon_door",gp.tileSize,gp.tileSize);
+        down1 = setImage("/objects/dungeon_door",gp.TILE_SIZE,gp.TILE_SIZE);
 
         collisionOn=true;
 

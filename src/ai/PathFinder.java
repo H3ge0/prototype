@@ -1,6 +1,5 @@
 package ai;
 
-import ai.Node;
 import main.GamePanel;
 
 import java.util.ArrayList;
@@ -21,16 +20,16 @@ public class PathFinder {
     }
 
     public void instantiateNodes(){
-        node = new Node[gp.maxWorldCol][gp.maxWorldRow];
+        node = new Node[gp.MAX_WORLD_COL][gp.MAX_WORLD_ROW];
 
         int col=0;
         int row=0;
 
-        while(col<gp.maxWorldCol && row<gp.maxWorldRow){
+        while(col<gp.MAX_WORLD_COL && row<gp.MAX_WORLD_ROW){
             node[col][row] = new Node(col,row);
 
             col++;
-            if(col==gp.maxWorldCol){
+            if(col==gp.MAX_WORLD_COL){
                 col=0;
                 row++;
             }
@@ -41,13 +40,13 @@ public class PathFinder {
         int col=0;
         int row=0;
 
-        while(col<gp.maxWorldCol && row<gp.maxWorldRow){
+        while(col<gp.MAX_WORLD_COL && row<gp.MAX_WORLD_ROW){
             node[col][row].open=false;
             node[col][row].checked=false;
             node[col][row].solid=false;
 
             col++;
-            if(col==gp.maxWorldCol){
+            if(col==gp.MAX_WORLD_COL){
                 col=0;
                 row++;
             }
@@ -70,7 +69,7 @@ public class PathFinder {
         int col=0;
         int row=0;
 
-        while(col<gp.maxWorldCol && row<gp.maxWorldRow){
+        while(col<gp.MAX_WORLD_COL && row<gp.MAX_WORLD_ROW){
             //Tile
             int tileNum = gp.tileManager.map[gp.currentMap][col][row];
             if(gp.tileManager.tiles[tileNum].collision)
@@ -79,17 +78,17 @@ public class PathFinder {
             getCost(node[col][row]);
 
             col++;
-            if(col==gp.maxWorldCol){
+            if(col==gp.MAX_WORLD_COL){
                 col=0;
                 row++;
             }
         }
 
         //iTile
-        for(int i=0;i<gp.iTiles[gp.currentMap].length;i++){
-            if(gp.iTiles[gp.currentMap][i]!=null && gp.iTiles[gp.currentMap][i].destructible){
-                int iTileCol = gp.iTiles[gp.currentMap][i].worldX/gp.tileSize;
-                int iTileRow = gp.iTiles[gp.currentMap][i].worldY/gp.tileSize;
+        for(int i = 0; i<gp.interactiveTiles[gp.currentMap].length; i++){
+            if(gp.interactiveTiles[gp.currentMap][i]!=null && gp.interactiveTiles[gp.currentMap][i].destructible){
+                int iTileCol = gp.interactiveTiles[gp.currentMap][i].worldX/gp.TILE_SIZE;
+                int iTileRow = gp.interactiveTiles[gp.currentMap][i].worldY/gp.TILE_SIZE;
                 node[iTileCol][iTileRow].solid = true;
             }
         }
@@ -124,9 +123,9 @@ public class PathFinder {
                 openNode(node[col][row-1]);
             if(col-1>=0)
                 openNode(node[col-1][row]);
-            if(row+1<gp.maxWorldRow)
+            if(row+1<gp.MAX_WORLD_ROW)
                 openNode(node[col][row+1]);
-            if(col+1<gp.maxWorldCol)
+            if(col+1<gp.MAX_WORLD_COL)
                 openNode(node[col+1][row]);
 
             //Find the best node

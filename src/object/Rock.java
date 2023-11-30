@@ -30,7 +30,7 @@ public class Rock extends Projectile {
     }
 
     public void getImages(){
-        upidle = setImage("/projectiles/rock/01",gp.tileSize,gp.tileSize);
+        upidle = setImage("/projectiles/rock/01",gp.TILE_SIZE,gp.TILE_SIZE);
     }
 
     public BufferedImage setDrawImage(){

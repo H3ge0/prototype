@@ -19,11 +19,11 @@ public class EventHandler {
 
         eventMaster = new Entity(gp);
 
-        eventRect = new EventRect[gp.mapAmount][gp.maxWorldCol][gp.maxWorldRow];
+        eventRect = new EventRect[gp.MAP_AMOUNT][gp.MAX_WORLD_COL][gp.MAX_WORLD_ROW];
 
         int map=0,col=0,row=0;
 
-        while(map<gp.mapAmount && col<gp.maxWorldCol && row<gp.maxWorldRow){
+        while(map<gp.MAP_AMOUNT && col<gp.MAX_WORLD_COL && row<gp.MAX_WORLD_ROW){
             eventRect[map][col][row] = new EventRect();
             eventRect[map][col][row].x = 23;
             eventRect[map][col][row].y = 23;
@@ -33,11 +33,11 @@ public class EventHandler {
             eventRect[map][col][row].eventRectDefaultY = eventRect[map][col][row].y;
 
             col++;
-            if(col==gp.maxWorldCol){
+            if(col==gp.MAX_WORLD_COL){
                 col=0;
                 row++;
 
-                if(row==gp.maxWorldRow){
+                if(row==gp.MAX_WORLD_ROW){
                     row=0;
                     map++;
                 }
@@ -60,20 +60,20 @@ public class EventHandler {
         int xDistance = Math.abs(gp.player.worldX-previousEventX);
         int yDistance = Math.abs(gp.player.worldY-previousEventY);
         int distance = Math.max(xDistance,yDistance);
-        if (distance> gp.tileSize/2){
+        if (distance> gp.TILE_SIZE /2){
             canTouchEvent=true;
         }
 
         if(canTouchEvent){
             if(hit(0,27,13,"right"))
-                damagePit(gp.dialogueState);
+                damagePit(gp.DIALOGUE_STATE);
             else if(hit(0,23,7,"up"))
-                healingPool(gp.dialogueState);
+                healingWater(gp.DIALOGUE_STATE);
 
             else if(hit(0,13,39,"any"))
-                teleport(1,12,13,14,gp.inside);
+                teleport(gp.INSIDE,12,13,14);
             else if(hit(1,12,13,"any"))
-                teleport(0,13,39,14,gp.outside);
+                teleport(gp.OUTSIDE,13,39,14);
 
             else if(hit(1,12,9,"up")) {
                 if(gp.npcs[1][0]!=null && gp.npcs[1][0].name.equals(Bobo.npcName)){
@@ -82,14 +82,14 @@ public class EventHandler {
             }
 
             else if(hit(0,10,7,"any"))  //Enter Dungeon
-                teleport(2,9,41,21,gp.dungeon);
+                teleport(gp.DUNGEON_FLOOR_1,9,41,21);
             else if(hit(2,7,40,"any"))  //Exit Dungeon
-                teleport(0,10,7,22,gp.outside);
+                teleport(gp.OUTSIDE,10,7,22);
 
             else if(hit(2,8,7,"any")) //Enter 2nd floor
-                teleport(3,26,40,21,gp.dungeon);
+                teleport(gp.DUNGEON_FLOOR_2,26,40,21);
             else if(hit(3,24,39,"any")) //Exit 2nd floor
-                teleport(2,8,7,22,gp.dungeon);
+                teleport(gp.DUNGEON_FLOOR_1,8,7,22);
 
             else if(hit(3,25,27,"any")) //Boss
                 ipog();
@@ -103,8 +103,8 @@ public class EventHandler {
         if(map==gp.currentMap){
             gp.player.collisionBox.x += gp.player.worldX;
             gp.player.collisionBox.y += gp.player.worldY;
-            eventRect[map][col][row].x += col*gp.tileSize;
-            eventRect[map][col][row].y += row*gp.tileSize;
+            eventRect[map][col][row].x += col*gp.TILE_SIZE;
+            eventRect[map][col][row].y += row*gp.TILE_SIZE;
 
             if(gp.player.collisionBox.intersects(eventRect[map][col][row]) && !eventRect[map][col][row].eventDone){
                 if(reqDirection.equals("any")||reqDirection.equals(gp.player.direction)){
@@ -141,9 +141,9 @@ public class EventHandler {
         canTouchEvent=false;
     }
 
-    public void healingPool(int gameState){
-        if(gp.keyH.xKeyPressed){
-            gp.objectH.setMonsters();
+    public void healingWater(int gameState){
+        if(gp.keyHandler.xKeyPressed){
+            gp.objectHandler.setMonsters(0);
             gp.gameState=gameState;
             gp.player.attackCanceled=true;
             if(gp.player.hp<gp.player.maxHp) {
@@ -167,10 +167,8 @@ public class EventHandler {
         }
     }
 
-    public void teleport(int map,int col,int row,int soundNum,int areaNum){
-        gp.gameState=gp.transitionState;
-
-        gp.nextArea = areaNum;
+    public void teleport(int map,int col,int row,int soundNum){
+        gp.gameState=gp.TRANSITION_STATE;
 
         tempMap=map;
         tempCol=col;
@@ -181,8 +179,8 @@ public class EventHandler {
     }
 
     public void speak(Entity entity){
-        if(gp.keyH.xKeyPressed){
-            gp.gameState=gp.dialogueState;
+        if(gp.keyHandler.xKeyPressed){
+            gp.gameState=gp.DIALOGUE_STATE;
             gp.player.attackCanceled=true;
             entity.speak();
         }
@@ -190,8 +188,8 @@ public class EventHandler {
 
     public void ipog(){
         if(!gp.bossBattleOn && !Progress.ipogDefeated){
-            gp.gameState= gp.cutsceneState;
-            gp.cutsceneH.sceneNum = gp.cutsceneH.ipogScene;
+            gp.gameState= gp.CUTSCENE_STATE;
+            gp.cutsceneHandler.sceneNum = gp.cutsceneHandler.ipogScene;
         }
     }
 

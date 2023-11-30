@@ -1,6 +1,5 @@
 package tile_interactive;
 
-import entity.Entity;
 import main.GamePanel;
 
 public class DungeonPlate extends InteractiveTile{
@@ -12,10 +11,10 @@ public class DungeonPlate extends InteractiveTile{
 
         name= itName;
 
-        worldX=gp.tileSize*col;
-        worldY=gp.tileSize*row;
+        worldX=gp.TILE_SIZE *col;
+        worldY=gp.TILE_SIZE *row;
 
-        down1=setImage("/interactive_tiles/dungeon_plate",gp.tileSize,gp.tileSize);
+        down1=setImage("/interactive_tiles/dungeon_plate",gp.TILE_SIZE,gp.TILE_SIZE);
         canChange=false;
         destructible=false;
         collisionOn=false;

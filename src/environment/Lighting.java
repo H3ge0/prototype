@@ -24,7 +24,7 @@ public class Lighting {
     }
 
     public void setLightSource(){
-        darknessFilter=new BufferedImage(gp.screenWidth,gp.screenHeight,BufferedImage.TYPE_INT_ARGB);
+        darknessFilter=new BufferedImage(gp.SCREEN_WIDTH,gp.SCREEN_HEIGHT,BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D g2 = (Graphics2D) darknessFilter.getGraphics();
 
@@ -36,8 +36,8 @@ public class Lighting {
             circleRadius=200;
         }
 
-        int centerX = gp.player.screenX+gp.tileSize/2;
-        int centerY = gp.player.screenY+gp.tileSize/2;
+        int centerX = gp.player.screenX+gp.TILE_SIZE /2;
+        int centerY = gp.player.screenY+gp.TILE_SIZE /2;
 
         Color[] color = new Color[12];
         float[] fraction = new float[12];
@@ -72,7 +72,7 @@ public class Lighting {
 
         g2.setPaint(gPaint);
 
-        g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
+        g2.fillRect(0,0,gp.SCREEN_WIDTH,gp.SCREEN_HEIGHT);
 
         g2.dispose();
     }
@@ -117,18 +117,18 @@ public class Lighting {
     }
 
     public void draw(Graphics2D g2){
-        if(gp.currentArea==gp.outside){
+        if(gp.currentMap==gp.OUTSIDE){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, filterAlpha));
         }
 
-        if(gp.currentArea==gp.outside || gp.currentArea==gp.dungeon) {
+        if(gp.currentMap==gp.OUTSIDE || gp.currentMap==gp.DUNGEON_FLOOR_1 || gp.currentMap==gp.DUNGEON_FLOOR_2) {
             g2.drawImage(darknessFilter,0,0,null);
         }
 
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
         g2.setColor(Color.white);
-        g2.setFont(gp.uiH.fixedsys.deriveFont(50f));
+        g2.setFont(gp.uiHandler.fixedsys.deriveFont(50f));
         g2.drawString(dayNumber+". gün",750,540);
     }
 

@@ -37,15 +37,15 @@ public class Ogim extends Entity {
     }
 
     public void getImage(){
-        upidle = setImage("/monsters/ogim/ogim_1",gp.tileSize,gp.tileSize);
-        up1 = setImage("/monsters/ogim/ogim_2",gp.tileSize,gp.tileSize);
-        up2 = setImage("/monsters/ogim/ogim_3",gp.tileSize,gp.tileSize);
-        downidle = setImage("/monsters/ogim/ogim_4",gp.tileSize,gp.tileSize);
-        down1 = setImage("/monsters/ogim/ogim_5",gp.tileSize,gp.tileSize);
-        down2 = setImage("/monsters/ogim/ogim_6",gp.tileSize,gp.tileSize);
-        leftidle = setImage("/monsters/ogim/ogim_7",gp.tileSize,gp.tileSize);
-        left1 = setImage("/monsters/ogim/ogim_8",gp.tileSize,gp.tileSize);
-        left2 = setImage("/monsters/ogim/ogim_9",gp.tileSize,gp.tileSize);
+        upidle = setImage("/monsters/ogim/ogim_1",gp.TILE_SIZE,gp.TILE_SIZE);
+        up1 = setImage("/monsters/ogim/ogim_2",gp.TILE_SIZE,gp.TILE_SIZE);
+        up2 = setImage("/monsters/ogim/ogim_3",gp.TILE_SIZE,gp.TILE_SIZE);
+        downidle = setImage("/monsters/ogim/ogim_4",gp.TILE_SIZE,gp.TILE_SIZE);
+        down1 = setImage("/monsters/ogim/ogim_5",gp.TILE_SIZE,gp.TILE_SIZE);
+        down2 = setImage("/monsters/ogim/ogim_6",gp.TILE_SIZE,gp.TILE_SIZE);
+        leftidle = setImage("/monsters/ogim/ogim_7",gp.TILE_SIZE,gp.TILE_SIZE);
+        left1 = setImage("/monsters/ogim/ogim_8",gp.TILE_SIZE,gp.TILE_SIZE);
+        left2 = setImage("/monsters/ogim/ogim_9",gp.TILE_SIZE,gp.TILE_SIZE);
     }
 
     @Override

@@ -147,11 +147,11 @@ public class Entity {
     }
 
     public int getCol(){
-        return (worldX+collisionBox.x)/gp.tileSize;
+        return (worldX+collisionBox.x)/gp.TILE_SIZE;
     }
 
     public int getRow(){
-        return (worldY+collisionBox.y)/gp.tileSize;
+        return (worldY+collisionBox.y)/gp.TILE_SIZE;
     }
 
     public int getCenterX() {
@@ -171,15 +171,15 @@ public class Entity {
     }
 
     public int getDistanceAsTile(Entity target){
-        return (getXDistance(target)+getYDistance(target))/gp.tileSize;
+        return (getXDistance(target)+getYDistance(target))/gp.TILE_SIZE;
     }
 
     public int getGoalCol(Entity target){
-        return (target.worldX+target.collisionBox.x)/gp.tileSize;
+        return (target.worldX+target.collisionBox.x)/gp.TILE_SIZE;
     }
 
     public int getGoalRow(Entity target){
-        return (target.worldY+target.collisionBox.y)/gp.tileSize;
+        return (target.worldY+target.collisionBox.y)/gp.TILE_SIZE;
     }
 
     public void resetCounters(){
@@ -213,19 +213,19 @@ public class Entity {
     public void interact(){}
 
     public void dropItem(Entity item){
-        for(int i=0;i<gp.obj[gp.currentMap].length;i++){
-            if (gp.obj[gp.currentMap][i]==null){
-                gp.obj[gp.currentMap][i]=item;
-                gp.obj[gp.currentMap][i].worldX=worldX;
-                gp.obj[gp.currentMap][i].worldY=worldY;
+        for(int i = 0; i<gp.objects[gp.currentMap].length; i++){
+            if (gp.objects[gp.currentMap][i]==null){
+                gp.objects[gp.currentMap][i]=item;
+                gp.objects[gp.currentMap][i].worldX=worldX;
+                gp.objects[gp.currentMap][i].worldY=worldY;
                 break;
             }
         }
     }
 
     public void startDialogue(Entity entity, int setNum){
-        gp.gameState=gp.dialogueState;
-        gp.uiH.npc = entity;
+        gp.gameState=gp.DIALOGUE_STATE;
+        gp.uiHandler.npc = entity;
         dialogueSet = setNum;
     }
 
@@ -244,12 +244,12 @@ public class Entity {
 
     public void checkCollision(){
         collision=false;
-        gp.collisionH.checkEntity(this,gp.iTiles);
-        gp.collisionH.checkTile(this);
-        gp.collisionH.checkObject(this,false);
-        gp.collisionH.checkEntity(this,gp.npcs);
-        gp.collisionH.checkEntity(this,gp.monsters);
-        boolean contactPlayer = gp.collisionH.checkPlayer(this);
+        gp.collisionHandler.checkEntity(this,gp.interactiveTiles);
+        gp.collisionHandler.checkTile(this);
+        gp.collisionHandler.checkObject(this,false);
+        gp.collisionHandler.checkEntity(this,gp.npcs);
+        gp.collisionHandler.checkEntity(this,gp.monsters);
+        boolean contactPlayer = gp.collisionHandler.checkPlayer(this);
 
         if (type==typeMonster && contactPlayer){
             attackPlayer(attack);
@@ -343,17 +343,17 @@ public class Entity {
             collisionBox.height = attackArea.height;
 
             if(type == typeMonster){
-                if(gp.collisionH.checkPlayer(this)){
+                if(gp.collisionHandler.checkPlayer(this)){
                     attackPlayer(attack);
                 }
             }else{
-                int monsterIndex = gp.collisionH.checkEntity(this,gp.monsters);
+                int monsterIndex = gp.collisionHandler.checkEntity(this,gp.monsters);
                 gp.player.attackMonster(monsterIndex,this,attack,currentFireball.knockBackPower);
 
-                int iTileIndex = gp.collisionH.checkEntity(this,gp.iTiles);
+                int iTileIndex = gp.collisionHandler.checkEntity(this,gp.interactiveTiles);
                 gp.player.attackInteractiveTile(iTileIndex);
 
-                int projectileIndex = gp.collisionH.checkEntity(this,gp.projectiles);
+                int projectileIndex = gp.collisionHandler.checkEntity(this,gp.projectiles);
                 gp.player.attackProjectile(projectileIndex);
             }
 
@@ -479,7 +479,7 @@ public class Entity {
                     break;
                 }
             }
-            if(Math.abs(gp.player.worldX-worldX)<gp.screenWidth/2+gp.tileSize && Math.abs(gp.player.worldY-worldY)<gp.screenHeight/2+gp.tileSize)
+            if(Math.abs(gp.player.worldX-worldX)<gp.SCREEN_WIDTH /2+gp.TILE_SIZE && Math.abs(gp.player.worldY-worldY)<gp.SCREEN_HEIGHT /2+gp.TILE_SIZE)
                 gp.playSoundEffect(12);
             projectileCooldownCounter=0;
         }
@@ -577,7 +577,7 @@ public class Entity {
     }
 
     public boolean inScreen(){
-        return Math.abs(gp.player.worldX-worldX)<gp.screenWidth/2+gp.tileSize*5 && Math.abs(gp.player.worldY-worldY)<gp.screenHeight/2+gp.tileSize*5;
+        return Math.abs(gp.player.worldX-worldX)<gp.SCREEN_WIDTH /2+gp.TILE_SIZE *5 && Math.abs(gp.player.worldY-worldY)<gp.SCREEN_HEIGHT /2+gp.TILE_SIZE *5;
     }
 
     public void draw(Graphics2D g2) {
@@ -653,7 +653,7 @@ public class Entity {
 
             drawTheImage(g2,image,tempScreenX,tempScreenY);
 
-            gp.effectH.drawEffect(g2,this);
+            gp.effectHandler.drawEffect(g2,this);
 
             setG2Alpha(g2, 1f);
         }
@@ -787,19 +787,19 @@ public class Entity {
 
         if(gp.pathFinder.search()){
             //Next worldX and worldY
-            int nextX = gp.pathFinder.pathList.get(0).col*gp.tileSize;
-            int nextY = gp.pathFinder.pathList.get(0).row*gp.tileSize;
+            int nextX = gp.pathFinder.pathList.get(0).col*gp.TILE_SIZE;
+            int nextY = gp.pathFinder.pathList.get(0).row*gp.TILE_SIZE;
             //Collision box positions
             int enLeftX = getLeftX();
             int enRightX = getRightX();
             int enTopY = getTopY();
             int enBottomY = getBottomY();
 
-            if(enTopY>nextY && enLeftX>=nextX && enRightX<nextX+gp.tileSize){
+            if(enTopY>nextY && enLeftX>=nextX && enRightX<nextX+gp.TILE_SIZE){
                 direction="up";
-            }else if(enTopY<nextY && enLeftX>=nextX && enRightX<nextX+gp.tileSize){
+            }else if(enTopY<nextY && enLeftX>=nextX && enRightX<nextX+gp.TILE_SIZE){
                 direction="down";
-            }else if(enTopY>=nextY && enBottomY<nextY+gp.tileSize){
+            }else if(enTopY>=nextY && enBottomY<nextY+gp.TILE_SIZE){
                 //Left or Right
                 if(enLeftX>nextX){
                     direction="left";

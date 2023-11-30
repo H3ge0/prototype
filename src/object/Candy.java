@@ -19,7 +19,7 @@ public class Candy extends Entity {
         stackable=true;
         type=typeConsumable;
 
-        down1 = setImage("/objects/candy",gp.tileSize,gp.tileSize);
+        down1 = setImage("/objects/candy",gp.TILE_SIZE,gp.TILE_SIZE);
     }
 
     public void setDialogues(){
@@ -29,7 +29,7 @@ public class Candy extends Entity {
 
     @Override
     public boolean use(Entity entity){
-        gp.gameState = gp.dialogueState;
+        gp.gameState = gp.DIALOGUE_STATE;
         if(gp.player.speed<6){
             startDialogue(this,0);
         } else

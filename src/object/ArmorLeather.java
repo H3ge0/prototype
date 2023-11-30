@@ -16,7 +16,7 @@ public class ArmorLeather extends Entity {
         coin=5;
         type=typeArmor;
 
-        down1=setImage("/objects/armor_leather",gp.tileSize,gp.tileSize);
+        down1=setImage("/objects/armor_leather",gp.TILE_SIZE,gp.TILE_SIZE);
 
         defenseValue=1;
     }

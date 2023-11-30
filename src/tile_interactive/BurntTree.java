@@ -9,10 +9,10 @@ public class BurntTree extends InteractiveTile{
 
         name="Burnt Tree";
 
-        worldX=gp.tileSize*col;
-        worldY=gp.tileSize*row;
+        worldX=gp.TILE_SIZE *col;
+        worldY=gp.TILE_SIZE *row;
 
-        down1=setImage("/interactive_tiles/burnt_tree0",gp.tileSize,gp.tileSize);
+        down1=setImage("/interactive_tiles/burnt_tree0",gp.TILE_SIZE,gp.TILE_SIZE);
         canChange=true;
         destructible=false;
         collisionOn=false;
@@ -31,7 +31,7 @@ public class BurntTree extends InteractiveTile{
         collisionBox.y+=worldY;
 
         if(!collisionBox.intersects(gp.player.collisionBox))
-            gp.iTiles[gp.currentMap][i]=new DryTree(gp,worldX/gp.tileSize,worldY/gp.tileSize);
+            gp.interactiveTiles[gp.currentMap][i]=new DryTree(gp,worldX/gp.TILE_SIZE,worldY/gp.TILE_SIZE);
 
         collisionBox.x=collisionBoxDefaultX;
         collisionBox.y=collisionBoxDefaultY;

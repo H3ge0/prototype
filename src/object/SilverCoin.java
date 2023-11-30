@@ -15,7 +15,7 @@ public class SilverCoin extends Entity {
         name=objName;
         displayedName="Gümüş Para";
         value=5;
-        down1=setImage("/objects/silver_coin",gp.tileSize,gp.tileSize);
+        down1=setImage("/objects/silver_coin",gp.TILE_SIZE,gp.TILE_SIZE);
     }
 
     @Override

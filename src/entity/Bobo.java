@@ -36,18 +36,18 @@ public class Bobo extends Entity{
     }
 
     public void getImages(){
-        upidle = setImage("/npc/bobo1",gp.tileSize,gp.tileSize);
-        up1 = setImage("/npc/bobo1",gp.tileSize,gp.tileSize);
-        up2 = setImage("/npc/bobo1",gp.tileSize,gp.tileSize);
-        downidle = setImage("/npc/bobo1",gp.tileSize,gp.tileSize);
-        down1 = setImage("/npc/bobo1",gp.tileSize,gp.tileSize);
-        down2 = setImage("/npc/bobo1",gp.tileSize,gp.tileSize);
-        leftidle = setImage("/npc/bobo1",gp.tileSize,gp.tileSize);
-        left1 = setImage("/npc/bobo1",gp.tileSize,gp.tileSize);
-        left2 = setImage("/npc/bobo1",gp.tileSize,gp.tileSize);
-        rightidle = setImage("/npc/bobo1",gp.tileSize,gp.tileSize);
-        right1 = setImage("/npc/bobo1",gp.tileSize,gp.tileSize);
-        right2 = setImage("/npc/bobo1",gp.tileSize,gp.tileSize);
+        upidle = setImage("/npc/bobo1",gp.TILE_SIZE,gp.TILE_SIZE);
+        up1 = setImage("/npc/bobo1",gp.TILE_SIZE,gp.TILE_SIZE);
+        up2 = setImage("/npc/bobo1",gp.TILE_SIZE,gp.TILE_SIZE);
+        downidle = setImage("/npc/bobo1",gp.TILE_SIZE,gp.TILE_SIZE);
+        down1 = setImage("/npc/bobo1",gp.TILE_SIZE,gp.TILE_SIZE);
+        down2 = setImage("/npc/bobo1",gp.TILE_SIZE,gp.TILE_SIZE);
+        leftidle = setImage("/npc/bobo1",gp.TILE_SIZE,gp.TILE_SIZE);
+        left1 = setImage("/npc/bobo1",gp.TILE_SIZE,gp.TILE_SIZE);
+        left2 = setImage("/npc/bobo1",gp.TILE_SIZE,gp.TILE_SIZE);
+        rightidle = setImage("/npc/bobo1",gp.TILE_SIZE,gp.TILE_SIZE);
+        right1 = setImage("/npc/bobo1",gp.TILE_SIZE,gp.TILE_SIZE);
+        right2 = setImage("/npc/bobo1",gp.TILE_SIZE,gp.TILE_SIZE);
     }
 
     public void setDialogues(){
@@ -69,13 +69,13 @@ public class Bobo extends Entity{
 
     @Override
     public void speak() {
-        gp.gameState=gp.tradeState;
-        gp.uiH.commandNum=0;
-        gp.uiH.subState=0;
-        gp.uiH.npcSlotCol=0;
-        gp.uiH.npcSlotRow=0;
-        gp.uiH.playerSlotRow=0;
-        gp.uiH.playerSlotCol=0;
-        gp.uiH.npc=this;
+        gp.gameState=gp.TRADE_STATE;
+        gp.uiHandler.commandNum=0;
+        gp.uiHandler.subState=0;
+        gp.uiHandler.npcSlotCol=0;
+        gp.uiHandler.npcSlotRow=0;
+        gp.uiHandler.playerSlotRow=0;
+        gp.uiHandler.playerSlotCol=0;
+        gp.uiHandler.npc=this;
     }
 }

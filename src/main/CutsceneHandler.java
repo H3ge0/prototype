@@ -1,6 +1,5 @@
 package main;
 
-import entity.Entity;
 import entity.PlayerDummy;
 import monster.Ipog;
 import object.IronDoor;
@@ -35,12 +34,12 @@ public class CutsceneHandler {
             gp.bossBattleOn=true;
 
             //Place the door
-            for(int i=0; i<gp.obj[1].length; i++){
-                if(gp.obj[gp.currentMap][i]==null){
-                    gp.obj[gp.currentMap][i] = new IronDoor(gp);
-                    gp.obj[gp.currentMap][i].worldX = gp.tileSize*25;
-                    gp.obj[gp.currentMap][i].worldY = gp.tileSize*28;
-                    gp.obj[gp.currentMap][i].temp = true;
+            for(int i = 0; i<gp.objects[1].length; i++){
+                if(gp.objects[gp.currentMap][i]==null){
+                    gp.objects[gp.currentMap][i] = new IronDoor(gp);
+                    gp.objects[gp.currentMap][i].worldX = gp.TILE_SIZE *25;
+                    gp.objects[gp.currentMap][i].worldY = gp.TILE_SIZE *28;
+                    gp.objects[gp.currentMap][i].temp = true;
                     gp.playSoundEffect(27);
                     break;
                 }
@@ -65,7 +64,7 @@ public class CutsceneHandler {
         if (scenePhase==1){
             gp.player.worldY -= 2;
 
-            if (gp.player.worldY < gp.tileSize * 17) {
+            if (gp.player.worldY < gp.TILE_SIZE * 17) {
                 scenePhase++;
             }
         }
@@ -75,7 +74,7 @@ public class CutsceneHandler {
             for(int i=0; i<gp.monsters[1].length; i++){
                 if(gp.monsters[gp.currentMap][i]!=null && gp.monsters[gp.currentMap][i].name.equals(Ipog.monName)){
                     gp.monsters[gp.currentMap][i].sleep=false;
-                    gp.uiH.npc = gp.monsters[gp.currentMap][i];
+                    gp.uiHandler.npc = gp.monsters[gp.currentMap][i];
                     scenePhase++;
                     break;
                 }
@@ -83,7 +82,7 @@ public class CutsceneHandler {
         }
 
         if (scenePhase==3){
-            gp.uiH.drawDialogueScreen();
+            gp.uiHandler.drawDialogueScreen();
         }
 
         if (scenePhase==4){
@@ -101,7 +100,7 @@ public class CutsceneHandler {
 
             sceneNum = NA;
             scenePhase = 0;
-            gp.gameState = gp.playState;
+            gp.gameState = gp.PLAY_STATE;
             gp.stopMusic();
             gp.playMusic(25);
         }

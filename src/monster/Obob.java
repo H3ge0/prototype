@@ -6,12 +6,11 @@ import object.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 public class Obob extends Entity {
 
     public static final String monName = "Obob";
-    int radius = gp.tileSize*4;
+    int radius = gp.TILE_SIZE *4;
     double angle = 0;
 
     public Obob(GamePanel gp) {
@@ -48,7 +47,7 @@ public class Obob extends Entity {
     }
 
     public void getImage(){
-        down1 = setImage("/monsters/boss/boss_part1",gp.tileSize*2,gp.tileSize*2);
+        down1 = setImage("/monsters/boss/boss_part1",gp.TILE_SIZE *2,gp.TILE_SIZE *2);
     }
 
     @Override
@@ -60,7 +59,7 @@ public class Obob extends Entity {
     public void update() {
         if(!sleep){
             collision=false;
-            boolean contactPlayer = gp.collisionH.checkPlayer(this);
+            boolean contactPlayer = gp.collisionHandler.checkPlayer(this);
 
             if (type==typeMonster && contactPlayer){
                 attackPlayer(attack);
@@ -76,8 +75,8 @@ public class Obob extends Entity {
 
             increaseAngleAndMove();
 
-            worldX += connectedEntity.getCenterX()-gp.tileSize*3/2;
-            worldY += connectedEntity.getCenterY()-gp.tileSize*3/2;
+            worldX += connectedEntity.getCenterX()-gp.TILE_SIZE *3/2;
+            worldY += connectedEntity.getCenterY()-gp.TILE_SIZE *3/2;
 
             if(invincible){
                 invincibleCounter++;

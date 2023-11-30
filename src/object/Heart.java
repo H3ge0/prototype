@@ -17,10 +17,10 @@ public class Heart extends Entity {
         value = 2;
         type=typePickUpOnly;
 
-        down1 = setImage("/ui/heart_full",gp.tileSize*2/3,gp.tileSize*2/3);
-        image1 = setImage("/ui/heart_full",gp.tileSize,gp.tileSize);
-        image2 = setImage("/ui/heart_half",gp.tileSize,gp.tileSize);
-        image3 = setImage("/ui/heart_empty",gp.tileSize,gp.tileSize);
+        down1 = setImage("/ui/heart_full",gp.TILE_SIZE *2/3,gp.TILE_SIZE *2/3);
+        image1 = setImage("/ui/heart_full",gp.TILE_SIZE,gp.TILE_SIZE);
+        image2 = setImage("/ui/heart_half",gp.TILE_SIZE,gp.TILE_SIZE);
+        image3 = setImage("/ui/heart_empty",gp.TILE_SIZE,gp.TILE_SIZE);
 
     }
 

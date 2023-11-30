@@ -22,7 +22,7 @@ public class Particle extends Entity{
         this.yd=yd;
 
         hp=maxHp;
-        int offset = gp.tileSize/2 - size/2;
+        int offset = gp.TILE_SIZE /2 - size/2;
         worldX=target.worldX+offset;
         worldY=target.worldY+offset;
     }

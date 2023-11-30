@@ -15,17 +15,17 @@ public class PlayerDummy extends Entity{
     }
 
     public void getImages(){
-        upidle = setImage("/player/gopi_up_idle",gp.tileSize,gp.tileSize);
-        up1 = setImage("/player/gopi_up_1",gp.tileSize,gp.tileSize);
-        up2 = setImage("/player/gopi_up_2",gp.tileSize,gp.tileSize);
-        downidle = setImage("/player/gopi_down_idle",gp.tileSize,gp.tileSize);
-        down1 = setImage("/player/gopi_down_1",gp.tileSize,gp.tileSize);
-        down2 = setImage("/player/gopi_down_2",gp.tileSize,gp.tileSize);
-        leftidle = setImage("/player/gopi_left_idle",gp.tileSize,gp.tileSize);
-        left1 = setImage("/player/gopi_left_1",gp.tileSize,gp.tileSize);
-        left2 = setImage("/player/gopi_left_2",gp.tileSize,gp.tileSize);
-        rightidle = setImage("/player/gopi_right_idle",gp.tileSize,gp.tileSize);
-        right1 = setImage("/player/gopi_right_1",gp.tileSize,gp.tileSize);
-        right2 = setImage("/player/gopi_right_2",gp.tileSize,gp.tileSize);
+        upidle = setImage("/player/gopi_up_idle",gp.TILE_SIZE,gp.TILE_SIZE);
+        up1 = setImage("/player/gopi_up_1",gp.TILE_SIZE,gp.TILE_SIZE);
+        up2 = setImage("/player/gopi_up_2",gp.TILE_SIZE,gp.TILE_SIZE);
+        downidle = setImage("/player/gopi_down_idle",gp.TILE_SIZE,gp.TILE_SIZE);
+        down1 = setImage("/player/gopi_down_1",gp.TILE_SIZE,gp.TILE_SIZE);
+        down2 = setImage("/player/gopi_down_2",gp.TILE_SIZE,gp.TILE_SIZE);
+        leftidle = setImage("/player/gopi_left_idle",gp.TILE_SIZE,gp.TILE_SIZE);
+        left1 = setImage("/player/gopi_left_1",gp.TILE_SIZE,gp.TILE_SIZE);
+        left2 = setImage("/player/gopi_left_2",gp.TILE_SIZE,gp.TILE_SIZE);
+        rightidle = setImage("/player/gopi_right_idle",gp.TILE_SIZE,gp.TILE_SIZE);
+        right1 = setImage("/player/gopi_right_1",gp.TILE_SIZE,gp.TILE_SIZE);
+        right2 = setImage("/player/gopi_right_2",gp.TILE_SIZE,gp.TILE_SIZE);
     }
 }

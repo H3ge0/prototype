@@ -54,33 +54,33 @@ public class SaveLoad {
             }
 
             //Objects On Map
-            ds.mapObjectNames = new String[gp.mapAmount][gp.obj[1].length];
-            ds.mapObjectWorldX = new int[gp.mapAmount][gp.obj[1].length];
-            ds.mapObjectWorldY = new int[gp.mapAmount][gp.obj[1].length];
-            ds.mapObjectLootNames = new String[gp.mapAmount][gp.obj[1].length];
-            ds.mapObjectOpened = new boolean[gp.mapAmount][gp.obj[1].length];
+            ds.mapObjectNames = new String[gp.MAP_AMOUNT][gp.objects[1].length];
+            ds.mapObjectWorldX = new int[gp.MAP_AMOUNT][gp.objects[1].length];
+            ds.mapObjectWorldY = new int[gp.MAP_AMOUNT][gp.objects[1].length];
+            ds.mapObjectLootNames = new String[gp.MAP_AMOUNT][gp.objects[1].length];
+            ds.mapObjectOpened = new boolean[gp.MAP_AMOUNT][gp.objects[1].length];
 
-            for(int mapNum=0; mapNum<gp.mapAmount; mapNum++){
-                for(int i=0; i<gp.obj[1].length; i++){
-                    if(gp.obj[mapNum][i]==null){
+            for(int mapNum = 0; mapNum<gp.MAP_AMOUNT; mapNum++){
+                for(int i = 0; i<gp.objects[1].length; i++){
+                    if(gp.objects[mapNum][i]==null){
                         ds.mapObjectNames[mapNum][i] = "N/A";
                     }else{
-                        ds.mapObjectNames[mapNum][i] = gp.obj[mapNum][i].name;
-                        ds.mapObjectWorldX[mapNum][i] = gp.obj[mapNum][i].worldX;
-                        ds.mapObjectWorldY[mapNum][i] = gp.obj[mapNum][i].worldY;
-                        if(gp.obj[mapNum][i].loot!=null){
-                            ds.mapObjectLootNames[mapNum][i] = gp.obj[mapNum][i].loot.name;
+                        ds.mapObjectNames[mapNum][i] = gp.objects[mapNum][i].name;
+                        ds.mapObjectWorldX[mapNum][i] = gp.objects[mapNum][i].worldX;
+                        ds.mapObjectWorldY[mapNum][i] = gp.objects[mapNum][i].worldY;
+                        if(gp.objects[mapNum][i].loot!=null){
+                            ds.mapObjectLootNames[mapNum][i] = gp.objects[mapNum][i].loot.name;
                         }
-                        ds.mapObjectOpened[mapNum][i] = gp.obj[mapNum][i].opened;
+                        ds.mapObjectOpened[mapNum][i] = gp.objects[mapNum][i].opened;
                     }
                 }
             }
 
             //Lighting
-            ds.dayNumber = gp.environmentH.lighting.dayNumber;
-            ds.dayCounter = gp.environmentH.lighting.dayCounter;
-            ds.filterAlpha = gp.environmentH.lighting.filterAlpha;
-            ds.dayState = gp.environmentH.lighting.dayState;
+            ds.dayNumber = gp.environmentHandler.lighting.dayNumber;
+            ds.dayCounter = gp.environmentHandler.lighting.dayCounter;
+            ds.filterAlpha = gp.environmentHandler.lighting.filterAlpha;
+            ds.dayState = gp.environmentHandler.lighting.dayState;
 
             //Progress
             ds.ipogDefeated = Progress.ipogDefeated;
@@ -140,30 +140,30 @@ public class SaveLoad {
             }
 
             //Objects On Map
-            for(int mapNum=0; mapNum<gp.mapAmount; mapNum++){
-                for(int i=0; i<gp.obj[1].length; i++){
+            for(int mapNum = 0; mapNum<gp.MAP_AMOUNT; mapNum++){
+                for(int i = 0; i<gp.objects[1].length; i++){
                     if(ds.mapObjectNames[mapNum][i].equals("N/A")){
-                        gp.obj[mapNum][i] = null;
+                        gp.objects[mapNum][i] = null;
                     }else{
-                        gp.obj[mapNum][i] = gp.entityGenerator.getObject(ds.mapObjectNames[mapNum][i]);
-                        gp.obj[mapNum][i].worldX = ds.mapObjectWorldX[mapNum][i];
-                        gp.obj[mapNum][i].worldY = ds.mapObjectWorldY[mapNum][i];
+                        gp.objects[mapNum][i] = gp.entityGenerator.getObject(ds.mapObjectNames[mapNum][i]);
+                        gp.objects[mapNum][i].worldX = ds.mapObjectWorldX[mapNum][i];
+                        gp.objects[mapNum][i].worldY = ds.mapObjectWorldY[mapNum][i];
                         if(ds.mapObjectLootNames[mapNum][i]!=null){
-                            gp.obj[mapNum][i].setLoot(gp.entityGenerator.getObject(ds.mapObjectLootNames[mapNum][i]));
+                            gp.objects[mapNum][i].setLoot(gp.entityGenerator.getObject(ds.mapObjectLootNames[mapNum][i]));
                         }
-                        gp.obj[mapNum][i].opened = ds.mapObjectOpened[mapNum][i];
-                        if(gp.obj[mapNum][i].opened){
-                            gp.obj[mapNum][i].down1 = gp.obj[mapNum][i].image2;
+                        gp.objects[mapNum][i].opened = ds.mapObjectOpened[mapNum][i];
+                        if(gp.objects[mapNum][i].opened){
+                            gp.objects[mapNum][i].down1 = gp.objects[mapNum][i].image2;
                         }
                     }
                 }
             }
 
             //Lighting
-            gp.environmentH.lighting.dayNumber = ds.dayNumber;
-            gp.environmentH.lighting.dayCounter = ds.dayCounter;
-            gp.environmentH.lighting.filterAlpha = ds.filterAlpha;
-            gp.environmentH.lighting.dayState = ds.dayState;
+            gp.environmentHandler.lighting.dayNumber = ds.dayNumber;
+            gp.environmentHandler.lighting.dayCounter = ds.dayCounter;
+            gp.environmentHandler.lighting.filterAlpha = ds.filterAlpha;
+            gp.environmentHandler.lighting.dayState = ds.dayState;
 
             //Progress
             Progress.ipogDefeated = ds.ipogDefeated;

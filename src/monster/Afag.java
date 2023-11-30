@@ -35,8 +35,8 @@ public class Afag extends Entity {
     }
 
     public void getImage(){
-        down1 = setImage("/monsters/afag/afag_1",gp.tileSize,gp.tileSize);
-        down2 = setImage("/monsters/afag/afag_2",gp.tileSize,gp.tileSize);
+        down1 = setImage("/monsters/afag/afag_1",gp.TILE_SIZE,gp.TILE_SIZE);
+        down2 = setImage("/monsters/afag/afag_2",gp.TILE_SIZE,gp.TILE_SIZE);
     }
 
     @Override

@@ -18,7 +18,7 @@ public class HealthPotion extends Entity {
         type=typeConsumable;
 
         setDialogues();
-        down1 = setImage("/objects/health_potion",gp.tileSize,gp.tileSize);
+        down1 = setImage("/objects/health_potion",gp.TILE_SIZE,gp.TILE_SIZE);
     }
 
     public void setDialogues(){

@@ -14,8 +14,8 @@ public class Chest extends Entity {
         name = objName;
         displayedName = "Sandık";
         description = "Birşeyler saklamak için on numara";
-        image1 = setImage("/objects/chest",gp.tileSize,gp.tileSize);
-        image2 = setImage("/objects/chest_open",gp.tileSize,gp.tileSize);
+        image1 = setImage("/objects/chest",gp.TILE_SIZE,gp.TILE_SIZE);
+        image2 = setImage("/objects/chest_open",gp.TILE_SIZE,gp.TILE_SIZE);
         down1 = image1;
 
         collisionOn=true;
