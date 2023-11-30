@@ -87,12 +87,12 @@ public class BigRock extends Entity{
         ArrayList<InteractiveTile> plateList = new ArrayList<>();
         ArrayList<Entity> rockList = new ArrayList<>();
 
-        for(InteractiveTile iTile:gp.interactiveTiles[gp.currentMap]){
+        for(InteractiveTile iTile:gp.interactiveTiles[gp.currentMapNum]){
             if(iTile!=null && iTile.name.equals(DungeonPlate.itName)){
                 plateList.add(iTile);
             }
         }
-        for(Entity rock:gp.npcs[gp.currentMap]){
+        for(Entity rock:gp.npcs[gp.currentMapNum]){
             if(rock!=null && rock.name.equals(BigRock.npcName)){
                 rockList.add(rock);
             }
@@ -124,9 +124,9 @@ public class BigRock extends Entity{
         }
 
         if(count==rockList.size()){
-            for(int i = 0; i<gp.objects[gp.currentMap].length; i++){
-                if(gp.objects[gp.currentMap][i]!=null && gp.objects[gp.currentMap][i].name.equals(IronDoor.objName)){
-                    gp.objects[gp.currentMap][i]=null;
+            for(int i = 0; i<gp.objects[gp.currentMapNum].length; i++){
+                if(gp.objects[gp.currentMapNum][i]!=null && gp.objects[gp.currentMapNum][i].name.equals(IronDoor.objName)){
+                    gp.objects[gp.currentMapNum][i]=null;
                     gp.playSoundEffect(27);
                 }
             }

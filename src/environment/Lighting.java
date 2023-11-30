@@ -1,6 +1,7 @@
 package environment;
 
 import main.GamePanel;
+import tile.Map;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -117,11 +118,11 @@ public class Lighting {
     }
 
     public void draw(Graphics2D g2){
-        if(gp.currentMap==gp.OUTSIDE){
+        if(gp.currentArea == Map.WORLD1){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, filterAlpha));
         }
 
-        if(gp.currentMap==gp.OUTSIDE || gp.currentMap==gp.DUNGEON_FLOOR_1 || gp.currentMap==gp.DUNGEON_FLOOR_2) {
+        if(gp.currentArea ==Map.WORLD1 || gp.currentArea ==Map.DUNGEON) {
             g2.drawImage(darknessFilter,0,0,null);
         }
 

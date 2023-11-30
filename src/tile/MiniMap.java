@@ -17,23 +17,24 @@ public class MiniMap extends TileManager{
 
     public void createWorldMap(){
         worldMap = new BufferedImage[gp.MAP_AMOUNT];
-        int worldMapWidth = gp.TILE_SIZE *gp.MAX_WORLD_COL;
-        int worldMapHeight = gp.TILE_SIZE *gp.MAX_WORLD_ROW;
 
         for(int i = 0; i<gp.MAP_AMOUNT; i++){
+            int worldMapWidth = gp.TILE_SIZE *gp.tileManager.maps[i].maxWorldCol;
+            int worldMapHeight = gp.TILE_SIZE *gp.tileManager.maps[i].maxWorldRow;
+
             worldMap[i] = new BufferedImage(worldMapWidth,worldMapHeight,BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = worldMap[i].createGraphics();
 
             int col=0, row=0;
 
-            while(col<gp.MAX_WORLD_COL && row<gp.MAX_WORLD_ROW){
-                int tileNum = map[i][col][row];
+            while(col<gp.tileManager.maps[i].maxWorldCol && row<gp.tileManager.maps[i].maxWorldRow){
+                int tileNum = maps[i].mapData[col][row];
                 int x = gp.TILE_SIZE *col;
                 int y = gp.TILE_SIZE *row;
                 g2.drawImage(tiles[tileNum].image,x,y,null);
 
                 col++;
-                if(col==gp.MAX_WORLD_COL){
+                if(col==gp.tileManager.maps[i].maxWorldCol){
                     col=0;
                     row++;
                 }
@@ -51,14 +52,15 @@ public class MiniMap extends TileManager{
 
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.8f));
             //Draw Minimap
-            g2.setColor(Color.black);
-            g2.drawImage(worldMap[gp.currentMap],x,y,width,height,null);
+            g2.setColor(Color.orange);
+            g2.drawImage(worldMap[gp.currentMapNum],x,y,width,height,null);
             g2.setStroke(new BasicStroke(2));
-            g2.drawRect(x,y,width,height);
+            g2.drawRect(x-1,y-1,width+1,height+1);
 
-            double scale = (double)(gp.TILE_SIZE * gp.MAX_WORLD_COL)/width;
-            int playerX = (int) (x + gp.player.worldX/scale);
-            int playerY = (int) (y + gp.player.worldY/scale);
+            double scaleX = (double)(gp.TILE_SIZE * gp.tileManager.getCurrentMapMaxCol())/width;
+            double scaleY = (double)(gp.TILE_SIZE * gp.tileManager.getCurrentMapMaxRow())/height;
+            int playerX = (int) (x + gp.player.getCenterX()/scaleX);
+            int playerY = (int) (y + gp.player.getCenterY()/scaleY);
             g2.setColor(Color.red);
             g2.fillRect(playerX,playerY,5,5);
 

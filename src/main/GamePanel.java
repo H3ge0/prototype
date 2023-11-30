@@ -5,6 +5,7 @@ import data.SaveLoad;
 import entity.Entity;
 import entity.Player;
 import environment.EnvironmentHandler;
+import tile.Map;
 import tile.MiniMap;
 import tile.TileManager;
 import tile_interactive.InteractiveTile;
@@ -27,15 +28,9 @@ public class GamePanel extends JPanel implements Runnable{
     public final int SCREEN_HEIGHT = MAX_SCREEN_ROW * TILE_SIZE; // 576
 
     //World Settings
-    public final int MAX_WORLD_COL = 50;
-    public final int MAX_WORLD_ROW = 50;
-    public final int MAP_AMOUNT = 10;
-    MiniMap miniMap = new MiniMap(this);
-    public int currentMap = 0;
-    public final int OUTSIDE = 0;
-    public final int INSIDE = 1;
-    public final int DUNGEON_FLOOR_1 = 2;
-    public final int DUNGEON_FLOOR_2 = 3;
+    public final int MAP_AMOUNT = 4;
+    public int currentMapNum = 0;
+    public int currentArea = 0;
 
     //Full Screen
     int screenWidthForFullScreen = SCREEN_WIDTH;
@@ -51,12 +46,12 @@ public class GamePanel extends JPanel implements Runnable{
     //Handlers
     SoundHandler music = new SoundHandler();
     SoundHandler soundEffect = new SoundHandler();
+    public TileManager tileManager = new TileManager(this);
     public KeyHandler keyHandler = new KeyHandler(this);
     public UIHandler uiHandler = new UIHandler(this);
     public ObjectHandler objectHandler = new ObjectHandler(this);
     public EventHandler eventHandler = new EventHandler(this);
     public CollisionHandler collisionHandler = new CollisionHandler(this);
-    public TileManager tileManager = new TileManager(this);
     public EnvironmentHandler environmentHandler = new EnvironmentHandler(this);
     public EffectHandler effectHandler = new EffectHandler(this);
     CutsceneHandler cutsceneHandler = new CutsceneHandler(this);
@@ -64,6 +59,7 @@ public class GamePanel extends JPanel implements Runnable{
     public PathFinder pathFinder = new PathFinder(this);
     Config config = new Config(this);
     SaveLoad saveLoad = new SaveLoad(this);
+    MiniMap miniMap = new MiniMap(this);
 
     //Entities
     public Player player = new Player(this, keyHandler);
@@ -187,28 +183,28 @@ public class GamePanel extends JPanel implements Runnable{
             //Player
             player.update();
             //Npcs
-            for(Entity entity:npcs[currentMap]){
+            for(Entity entity:npcs[currentMapNum]){
                 if(entity!=null)
                     entity.update();
             }
             //Monsters
-            for(int i=0;i<monsters[currentMap].length;i++){
-                if(monsters[currentMap][i]!=null){
-                    if(monsters[currentMap][i].alive && !monsters[currentMap][i].dying)
-                        monsters[currentMap][i].update();
-                    if(!monsters[currentMap][i].alive){
-                        monsters[currentMap][i].checkDrop();
-                        monsters[currentMap][i]=null;
+            for(int i = 0; i<monsters[currentMapNum].length; i++){
+                if(monsters[currentMapNum][i]!=null){
+                    if(monsters[currentMapNum][i].alive && !monsters[currentMapNum][i].dying)
+                        monsters[currentMapNum][i].update();
+                    if(!monsters[currentMapNum][i].alive){
+                        monsters[currentMapNum][i].checkDrop();
+                        monsters[currentMapNum][i]=null;
                     }
                 }
             }
             //Projectiles
-            for(int i=0;i<projectiles[currentMap].length;i++){
-                if(projectiles[currentMap][i]!=null){
-                    if(projectiles[currentMap][i].alive)
-                        projectiles[currentMap][i].update();
-                    if(!projectiles[currentMap][i].alive)
-                        projectiles[currentMap][i]=null;
+            for(int i = 0; i<projectiles[currentMapNum].length; i++){
+                if(projectiles[currentMapNum][i]!=null){
+                    if(projectiles[currentMapNum][i].alive)
+                        projectiles[currentMapNum][i].update();
+                    if(!projectiles[currentMapNum][i].alive)
+                        projectiles[currentMapNum][i]=null;
                 }
             }
             //Particles
@@ -223,7 +219,7 @@ public class GamePanel extends JPanel implements Runnable{
                 }
             }
             //InteractiveTiles
-            for(InteractiveTile iTile: interactiveTiles[currentMap]){
+            for(InteractiveTile iTile: interactiveTiles[currentMapNum]){
                 if(iTile!=null)
                     iTile.update();
             }
@@ -253,29 +249,29 @@ public class GamePanel extends JPanel implements Runnable{
             tileManager.draw(g2);
 
             //InteractiveTiles
-            for(InteractiveTile iTile: interactiveTiles[currentMap]){
+            for(InteractiveTile iTile: interactiveTiles[currentMapNum]){
                 if(iTile!=null)
                     iTile.draw(g2);
             }
 
             //Add all entities to the list
             entityList.add(player);
-            for(Entity e:npcs[currentMap]){
+            for(Entity e:npcs[currentMapNum]){
                 if(e!=null){
                     entityList.add(e);
                 }
             }
-            for(Entity e: objects[currentMap]){
+            for(Entity e: objects[currentMapNum]){
                 if(e!=null){
                     entityList.add(e);
                 }
             }
-            for(Entity e:monsters[currentMap]){
+            for(Entity e:monsters[currentMapNum]){
                 if(e!=null){
                     entityList.add(e);
                 }
             }
-            for(Entity e:projectiles[currentMap]){
+            for(Entity e:projectiles[currentMapNum]){
                 if(e!=null){
                     entityList.add(e);
                 }
@@ -348,19 +344,16 @@ public class GamePanel extends JPanel implements Runnable{
         if(!isTheSameArea){
             stopMusic();
 
-            if(currentMap==OUTSIDE)
+            if(currentArea==Map.WORLD1)
                 playMusic(0);
-            if(currentMap==INSIDE)
+            if(currentArea==Map.BOBO_HOUSE)
                 playMusic(23);
-            if(currentMap==DUNGEON_FLOOR_1){
+            if(currentArea==Map.DUNGEON){
                 playMusic(24);
                 objectHandler.setNPCs(2);
             }
-            if(currentMap==DUNGEON_FLOOR_2){
-                playMusic(24);
-            }
         }
 
-        objectHandler.setMonsters(currentMap);
+        objectHandler.setMonsters(currentMapNum);
     }
 }

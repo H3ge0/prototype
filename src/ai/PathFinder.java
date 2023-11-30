@@ -20,16 +20,16 @@ public class PathFinder {
     }
 
     public void instantiateNodes(){
-        node = new Node[gp.MAX_WORLD_COL][gp.MAX_WORLD_ROW];
+        node = new Node[gp.tileManager.getCurrentMapMaxCol()][gp.tileManager.getCurrentMapMaxRow()];
 
         int col=0;
         int row=0;
 
-        while(col<gp.MAX_WORLD_COL && row<gp.MAX_WORLD_ROW){
+        while(col<gp.tileManager.getCurrentMapMaxCol() && row<gp.tileManager.getCurrentMapMaxRow()){
             node[col][row] = new Node(col,row);
 
             col++;
-            if(col==gp.MAX_WORLD_COL){
+            if(col==gp.tileManager.getCurrentMapMaxCol()){
                 col=0;
                 row++;
             }
@@ -40,13 +40,13 @@ public class PathFinder {
         int col=0;
         int row=0;
 
-        while(col<gp.MAX_WORLD_COL && row<gp.MAX_WORLD_ROW){
+        while(col<gp.tileManager.getCurrentMapMaxCol() && row<gp.tileManager.getCurrentMapMaxRow()){
             node[col][row].open=false;
             node[col][row].checked=false;
             node[col][row].solid=false;
 
             col++;
-            if(col==gp.MAX_WORLD_COL){
+            if(col==gp.tileManager.getCurrentMapMaxCol()){
                 col=0;
                 row++;
             }
@@ -69,26 +69,26 @@ public class PathFinder {
         int col=0;
         int row=0;
 
-        while(col<gp.MAX_WORLD_COL && row<gp.MAX_WORLD_ROW){
+        while(col<gp.tileManager.getCurrentMapMaxCol() && row<gp.tileManager.getCurrentMapMaxRow()){
             //Tile
-            int tileNum = gp.tileManager.map[gp.currentMap][col][row];
+            int tileNum = gp.tileManager.maps[gp.currentMapNum].mapData[col][row];
             if(gp.tileManager.tiles[tileNum].collision)
                 node[col][row].solid=true;
 
             getCost(node[col][row]);
 
             col++;
-            if(col==gp.MAX_WORLD_COL){
+            if(col==gp.tileManager.getCurrentMapMaxCol()){
                 col=0;
                 row++;
             }
         }
 
         //iTile
-        for(int i = 0; i<gp.interactiveTiles[gp.currentMap].length; i++){
-            if(gp.interactiveTiles[gp.currentMap][i]!=null && gp.interactiveTiles[gp.currentMap][i].destructible){
-                int iTileCol = gp.interactiveTiles[gp.currentMap][i].worldX/gp.TILE_SIZE;
-                int iTileRow = gp.interactiveTiles[gp.currentMap][i].worldY/gp.TILE_SIZE;
+        for(int i = 0; i<gp.interactiveTiles[gp.currentMapNum].length; i++){
+            if(gp.interactiveTiles[gp.currentMapNum][i]!=null && gp.interactiveTiles[gp.currentMapNum][i].destructible){
+                int iTileCol = gp.interactiveTiles[gp.currentMapNum][i].worldX/gp.TILE_SIZE;
+                int iTileRow = gp.interactiveTiles[gp.currentMapNum][i].worldY/gp.TILE_SIZE;
                 node[iTileCol][iTileRow].solid = true;
             }
         }
@@ -123,9 +123,9 @@ public class PathFinder {
                 openNode(node[col][row-1]);
             if(col-1>=0)
                 openNode(node[col-1][row]);
-            if(row+1<gp.MAX_WORLD_ROW)
+            if(row+1<gp.tileManager.getCurrentMapMaxRow())
                 openNode(node[col][row+1]);
-            if(col+1<gp.MAX_WORLD_COL)
+            if(col+1<gp.tileManager.getCurrentMapMaxCol())
                 openNode(node[col+1][row]);
 
             //Find the best node

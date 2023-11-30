@@ -34,32 +34,32 @@ public class CollisionHandler {
         switch (direction) {
             case "up" -> {
                 entityTopRow = (entityTopWorldY - entity.speed) / gp.TILE_SIZE;
-                tileNum1 = gp.tileManager.map[gp.currentMap][entityLeftCol][entityTopRow];
-                tileNum2 = gp.tileManager.map[gp.currentMap][entityRightCol][entityTopRow];
+                tileNum1 = gp.tileManager.maps[gp.currentMapNum].mapData[entityLeftCol][entityTopRow];
+                tileNum2 = gp.tileManager.maps[gp.currentMapNum].mapData[entityRightCol][entityTopRow];
                 if (gp.tileManager.tiles[tileNum1].collision || gp.tileManager.tiles[tileNum2].collision) {
                     entity.collision = true;
                 }
             }
             case "down" -> {
                 entityBottomRow = (entityBottomWorldY + entity.speed) / gp.TILE_SIZE;
-                tileNum1 = gp.tileManager.map[gp.currentMap][entityLeftCol][entityBottomRow];
-                tileNum2 = gp.tileManager.map[gp.currentMap][entityRightCol][entityBottomRow];
+                tileNum1 = gp.tileManager.maps[gp.currentMapNum].mapData[entityLeftCol][entityBottomRow];
+                tileNum2 = gp.tileManager.maps[gp.currentMapNum].mapData[entityRightCol][entityBottomRow];
                 if (gp.tileManager.tiles[tileNum1].collision || gp.tileManager.tiles[tileNum2].collision) {
                     entity.collision = true;
                 }
             }
             case "left" -> {
                 entityLeftCol = (entityLeftWorldX - entity.speed) / gp.TILE_SIZE;
-                tileNum1 = gp.tileManager.map[gp.currentMap][entityLeftCol][entityTopRow];
-                tileNum2 = gp.tileManager.map[gp.currentMap][entityLeftCol][entityBottomRow];
+                tileNum1 = gp.tileManager.maps[gp.currentMapNum].mapData[entityLeftCol][entityTopRow];
+                tileNum2 = gp.tileManager.maps[gp.currentMapNum].mapData[entityLeftCol][entityBottomRow];
                 if (gp.tileManager.tiles[tileNum1].collision || gp.tileManager.tiles[tileNum2].collision) {
                     entity.collision = true;
                 }
             }
             case "right" -> {
                 entityRightCol = (entityRightWorldX + entity.speed) / gp.TILE_SIZE;
-                tileNum1 = gp.tileManager.map[gp.currentMap][entityRightCol][entityTopRow];
-                tileNum2 = gp.tileManager.map[gp.currentMap][entityRightCol][entityBottomRow];
+                tileNum1 = gp.tileManager.maps[gp.currentMapNum].mapData[entityRightCol][entityTopRow];
+                tileNum2 = gp.tileManager.maps[gp.currentMapNum].mapData[entityRightCol][entityBottomRow];
                 if (gp.tileManager.tiles[tileNum1].collision || gp.tileManager.tiles[tileNum2].collision) {
                     entity.collision = true;
                 }
@@ -77,15 +77,15 @@ public class CollisionHandler {
             direction=entity.knockBackDirection;
         }
 
-        for(int i = 0; i<gp.objects[gp.currentMap].length; i++){
-            if(gp.objects[gp.currentMap][i]!=null){
+        for(int i = 0; i<gp.objects[gp.currentMapNum].length; i++){
+            if(gp.objects[gp.currentMapNum][i]!=null){
                 //Get entity's collision box co-ords
                 entity.collisionBox.x += entity.worldX;
                 entity.collisionBox.y += entity.worldY;
 
                 //Get entity's collision box co-ords
-                gp.objects[gp.currentMap][i].collisionBox.x += gp.objects[gp.currentMap][i].worldX;
-                gp.objects[gp.currentMap][i].collisionBox.y += gp.objects[gp.currentMap][i].worldY;
+                gp.objects[gp.currentMapNum][i].collisionBox.x += gp.objects[gp.currentMapNum][i].worldX;
+                gp.objects[gp.currentMapNum][i].collisionBox.y += gp.objects[gp.currentMapNum][i].worldY;
 
                 switch(direction){
                     case "up" -> entity.collisionBox.y-=entity.speed;
@@ -94,8 +94,8 @@ public class CollisionHandler {
                     case "right" -> entity.collisionBox.x+=entity.speed;
                 }
 
-                if(entity.collisionBox.intersects(gp.objects[gp.currentMap][i].collisionBox)) {
-                    if(gp.objects[gp.currentMap][i].collisionOn)
+                if(entity.collisionBox.intersects(gp.objects[gp.currentMapNum][i].collisionBox)) {
+                    if(gp.objects[gp.currentMapNum][i].collisionOn)
                         entity.collision = true;
                     if (player)
                         index = i;
@@ -106,8 +106,8 @@ public class CollisionHandler {
                 entity.collisionBox.y = entity.collisionBoxDefaultY;
 
                 //Set entity's collision box co-ords to normal
-                gp.objects[gp.currentMap][i].collisionBox.x = gp.objects[gp.currentMap][i].collisionBoxDefaultX;
-                gp.objects[gp.currentMap][i].collisionBox.y = gp.objects[gp.currentMap][i].collisionBoxDefaultY;
+                gp.objects[gp.currentMapNum][i].collisionBox.x = gp.objects[gp.currentMapNum][i].collisionBoxDefaultX;
+                gp.objects[gp.currentMapNum][i].collisionBox.y = gp.objects[gp.currentMapNum][i].collisionBoxDefaultY;
 
             }
         }
@@ -126,15 +126,15 @@ public class CollisionHandler {
             direction=entity.knockBackDirection;
         }
 
-        for(int i=0;i<target[gp.currentMap].length;i++){
-            if(target[gp.currentMap][i]!=null&&target[gp.currentMap][i]!=entity){
+        for(int i = 0; i<target[gp.currentMapNum].length; i++){
+            if(target[gp.currentMapNum][i]!=null&&target[gp.currentMapNum][i]!=entity){
                 //Get entity's collision box co-ords
                 entity.collisionBox.x += entity.worldX;
                 entity.collisionBox.y += entity.worldY;
 
                 //Get entity's collision box co-ords
-                target[gp.currentMap][i].collisionBox.x += target[gp.currentMap][i].worldX;
-                target[gp.currentMap][i].collisionBox.y += target[gp.currentMap][i].worldY;
+                target[gp.currentMapNum][i].collisionBox.x += target[gp.currentMapNum][i].worldX;
+                target[gp.currentMapNum][i].collisionBox.y += target[gp.currentMapNum][i].worldY;
 
                 switch(direction){
                     case "up" -> entity.collisionBox.y-=entity.speed;
@@ -145,18 +145,18 @@ public class CollisionHandler {
 
                 boolean isInteractiveTile=false;
 
-                for(InteractiveTile iTile:gp.interactiveTiles[gp.currentMap]){
+                for(InteractiveTile iTile:gp.interactiveTiles[gp.currentMapNum]){
                     if(iTile!=null){
-                        if (iTile == target[gp.currentMap][i]) {
+                        if (iTile == target[gp.currentMapNum][i]) {
                             isInteractiveTile = true;
                             break;
                         }
                     }
                 }
 
-                if(entity.collisionBox.intersects(target[gp.currentMap][i].collisionBox)) {
+                if(entity.collisionBox.intersects(target[gp.currentMapNum][i].collisionBox)) {
                     if(isInteractiveTile)
-                        thisCollision=target[gp.currentMap][i].collisionOn;
+                        thisCollision=target[gp.currentMapNum][i].collisionOn;
                     else
                         thisCollision=true;
                     index = i;
@@ -167,11 +167,11 @@ public class CollisionHandler {
                 entity.collisionBox.y = entity.collisionBoxDefaultY;
 
                 //Set entity's collision box co-ords to normal
-                target[gp.currentMap][i].collisionBox.x = target[gp.currentMap][i].collisionBoxDefaultX;
-                target[gp.currentMap][i].collisionBox.y = target[gp.currentMap][i].collisionBoxDefaultY;
+                target[gp.currentMapNum][i].collisionBox.x = target[gp.currentMapNum][i].collisionBoxDefaultX;
+                target[gp.currentMapNum][i].collisionBox.y = target[gp.currentMapNum][i].collisionBoxDefaultY;
 
-                if(entity.name!=null && target[gp.currentMap][i].name!=null){
-                    if(entity.name.equals("Ipog") && (target[gp.currentMap][i].name.equals("Part1") || target[gp.currentMap][i].name.equals("Part2")))
+                if(entity.name!=null && target[gp.currentMapNum][i].name!=null){
+                    if(entity.name.equals("Ipog") && (target[gp.currentMapNum][i].name.equals("Part1") || target[gp.currentMapNum][i].name.equals("Part2")))
                         thisCollision=false;
                 }
 

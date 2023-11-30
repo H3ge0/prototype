@@ -67,7 +67,8 @@ public class Player extends Entity{
     }
 
     public void setDefaultPosition(){
-        gp.currentMap=gp.OUTSIDE;
+        gp.currentMapNum=0;
+        gp.currentArea=0;
         worldX=gp.TILE_SIZE *23;
         worldY=gp.TILE_SIZE *22;
         direction="down";
@@ -349,9 +350,9 @@ public class Player extends Entity{
                 currentProjectile.subtractEnergy(this);
                 currentProjectile.setProjectile(worldX,worldY,direction,true,this);
                 //Check empty place in array
-                for(int i=0;i<gp.projectiles[gp.currentMap].length;i++){
-                    if(gp.projectiles[gp.currentMap][i]==null){
-                        gp.projectiles[gp.currentMap][i]=currentProjectile;
+                for(int i = 0; i<gp.projectiles[gp.currentMapNum].length; i++){
+                    if(gp.projectiles[gp.currentMapNum][i]==null){
+                        gp.projectiles[gp.currentMapNum][i]=currentProjectile;
                         break;
                     }
                 }
@@ -455,15 +456,15 @@ public class Player extends Entity{
     public void interactWithObj(int index){
         if(index!=999){
             //Pickup only items
-            if(gp.objects[gp.currentMap][index].type==typePickUpOnly){
-                gp.objects[gp.currentMap][index].use(this);
-                gp.objects[gp.currentMap][index] = null;
+            if(gp.objects[gp.currentMapNum][index].type==typePickUpOnly){
+                gp.objects[gp.currentMapNum][index].use(this);
+                gp.objects[gp.currentMapNum][index] = null;
             }
 
             //Obstacle items
-            else if(gp.objects[gp.currentMap][index].type==typeObstacle){
+            else if(gp.objects[gp.currentMapNum][index].type==typeObstacle){
                 if(keyH.xKeyPressed){
-                    gp.objects[gp.currentMap][index].interact();
+                    gp.objects[gp.currentMapNum][index].interact();
                     attackCanceled=true;
                 }
             }
@@ -471,13 +472,13 @@ public class Player extends Entity{
             //Normal Items
             else{
                 String text;
-                if(canObtainItem(gp.objects[gp.currentMap][index])){
+                if(canObtainItem(gp.objects[gp.currentMapNum][index])){
                     gp.playSoundEffect(4);
-                    text = "Bir "+gp.objects[gp.currentMap][index].displayedName+" buldun!";
+                    text = "Bir "+gp.objects[gp.currentMapNum][index].displayedName+" buldun!";
                 }else
-                    text = "Envanterin dolu. Ama canın "+ gp.objects[gp.currentMap][index].displayedName +" yemek istedi.";
+                    text = "Envanterin dolu. Ama canın "+ gp.objects[gp.currentMapNum][index].displayedName +" yemek istedi.";
                 gp.uiHandler.addMessage(text);
-                gp.objects[gp.currentMap][index] = null;
+                gp.objects[gp.currentMapNum][index] = null;
             }
         }
     }
@@ -486,16 +487,16 @@ public class Player extends Entity{
         if(index!=999){
             if(keyH.xKeyPressed){
                 attackCanceled = true;
-                gp.npcs[gp.currentMap][index].speak();
+                gp.npcs[gp.currentMapNum][index].speak();
             }
-            gp.npcs[gp.currentMap][index].move(direction);
+            gp.npcs[gp.currentMapNum][index].move(direction);
         }
     }
 
     public void interactWithMonster(int index){
         if(index!=999){
-            if(hp>0 && !invincible && !gp.monsters[gp.currentMap][index].dying){
-                int damage = gp.monsters[gp.currentMap][index].attack-defense;
+            if(hp>0 && !invincible && !gp.monsters[gp.currentMapNum][index].dying){
+                int damage = gp.monsters[gp.currentMapNum][index].attack-defense;
 
                 if(damage<1){
                     damage=1;
@@ -516,29 +517,29 @@ public class Player extends Entity{
 
     public void attackMonster(int index, Entity attacker, int attack, int knockBackPower){
         if(index!=999){
-            if(!gp.monsters[gp.currentMap][index].resistant){
-                if(gp.monsters[gp.currentMap][index].hp>0 && !gp.monsters[gp.currentMap][index].invincible){
+            if(!gp.monsters[gp.currentMapNum][index].resistant){
+                if(gp.monsters[gp.currentMapNum][index].hp>0 && !gp.monsters[gp.currentMapNum][index].invincible){
                     gp.playSoundEffect(8);
                     if(knockBackPower>0)
-                        applyKnockBack(gp.monsters[gp.currentMap][index], attacker, knockBackPower);
+                        applyKnockBack(gp.monsters[gp.currentMapNum][index], attacker, knockBackPower);
 
-                    if(gp.monsters[gp.currentMap][index].weak){
+                    if(gp.monsters[gp.currentMapNum][index].weak){
                         attack *=5;
                     }
 
-                    int damage = attack-gp.monsters[gp.currentMap][index].defense;
+                    int damage = attack-gp.monsters[gp.currentMapNum][index].defense;
                     if(damage<0)
                         damage=0;
-                    gp.monsters[gp.currentMap][index].hp-=damage;
+                    gp.monsters[gp.currentMapNum][index].hp-=damage;
                     gp.uiHandler.addMessage(damage+" hasar!");
-                    gp.monsters[gp.currentMap][index].invincible=true;
-                    gp.monsters[gp.currentMap][index].damageReaction();
+                    gp.monsters[gp.currentMapNum][index].invincible=true;
+                    gp.monsters[gp.currentMapNum][index].damageReaction();
                 }
-                if (gp.monsters[gp.currentMap][index].hp<=0 && !gp.monsters[gp.currentMap][index].dying){
-                    gp.monsters[gp.currentMap][index].dying = true;
-                    gp.uiHandler.addMessage(gp.monsters[gp.currentMap][index].displayedName+" öldü.");
-                    exp += gp.monsters[gp.currentMap][index].exp;
-                    gp.uiHandler.addMessage("+"+gp.monsters[gp.currentMap][index].exp+" deneyim.");
+                if (gp.monsters[gp.currentMapNum][index].hp<=0 && !gp.monsters[gp.currentMapNum][index].dying){
+                    gp.monsters[gp.currentMapNum][index].dying = true;
+                    gp.uiHandler.addMessage(gp.monsters[gp.currentMapNum][index].displayedName+" öldü.");
+                    exp += gp.monsters[gp.currentMapNum][index].exp;
+                    gp.uiHandler.addMessage("+"+gp.monsters[gp.currentMapNum][index].exp+" deneyim.");
                     checkLevelUp();
                 }
             }
@@ -546,21 +547,21 @@ public class Player extends Entity{
     }
 
     public void attackInteractiveTile(int index){
-        if(index!=999 && gp.interactiveTiles[gp.currentMap][index].canChange && gp.interactiveTiles[gp.currentMap][index].isCorrectItem(this) && !gp.interactiveTiles[gp.currentMap][index].invincible){
-            gp.interactiveTiles[gp.currentMap][index].generateITileParticle(index);
+        if(index!=999 && gp.interactiveTiles[gp.currentMapNum][index].canChange && gp.interactiveTiles[gp.currentMapNum][index].isCorrectItem(this) && !gp.interactiveTiles[gp.currentMapNum][index].invincible){
+            gp.interactiveTiles[gp.currentMapNum][index].generateITileParticle(index);
 
-            gp.interactiveTiles[gp.currentMap][index].hp--;
-            gp.interactiveTiles[gp.currentMap][index].invincible=true;
+            gp.interactiveTiles[gp.currentMapNum][index].hp--;
+            gp.interactiveTiles[gp.currentMapNum][index].invincible=true;
 
-            if(gp.interactiveTiles[gp.currentMap][index].hp == 0){
-                gp.interactiveTiles[gp.currentMap][index].attack(index);
+            if(gp.interactiveTiles[gp.currentMapNum][index].hp == 0){
+                gp.interactiveTiles[gp.currentMapNum][index].attack(index);
             }
         }
     }
 
     public void attackProjectile(int index){
         if(index!=999){
-            Entity projectile = gp.projectiles[gp.currentMap][index];
+            Entity projectile = gp.projectiles[gp.currentMapNum][index];
             if(projectile.name.equals("Rock")){
                 projectile.alive=false;
                 generateParticle(projectile,projectile);

@@ -213,11 +213,11 @@ public class Entity {
     public void interact(){}
 
     public void dropItem(Entity item){
-        for(int i = 0; i<gp.objects[gp.currentMap].length; i++){
-            if (gp.objects[gp.currentMap][i]==null){
-                gp.objects[gp.currentMap][i]=item;
-                gp.objects[gp.currentMap][i].worldX=worldX;
-                gp.objects[gp.currentMap][i].worldY=worldY;
+        for(int i = 0; i<gp.objects[gp.currentMapNum].length; i++){
+            if (gp.objects[gp.currentMapNum][i]==null){
+                gp.objects[gp.currentMapNum][i]=item;
+                gp.objects[gp.currentMapNum][i].worldX=worldX;
+                gp.objects[gp.currentMapNum][i].worldY=worldY;
                 break;
             }
         }
@@ -473,9 +473,9 @@ public class Entity {
         if(i==0 && !currentProjectile.alive && projectileCooldownCounter==shootDelay){
             currentProjectile.setProjectile(worldX,worldY,direction,true,this);
             //Check empty place in array
-            for(int j=0;j<gp.projectiles[gp.currentMap].length;j++){
-                if(gp.projectiles[gp.currentMap][j]==null){
-                    gp.projectiles[gp.currentMap][j]=currentProjectile;
+            for(int j = 0; j<gp.projectiles[gp.currentMapNum].length; j++){
+                if(gp.projectiles[gp.currentMapNum][j]==null){
+                    gp.projectiles[gp.currentMapNum][j]=currentProjectile;
                     break;
                 }
             }
@@ -852,8 +852,8 @@ public class Entity {
         int col = nextWorldX;
         int row = nextWorldY;
 
-        for(int i=0;i<target[gp.currentMap].length;i++) {
-            if(target[gp.currentMap][i]!=null && target[gp.currentMap][i].getCol()==col && target[gp.currentMap][i].getRow()==row && (target[gp.currentMap][i].name.equals(name) || target[gp.currentMap][i].name.equals(""))){
+        for(int i = 0; i<target[gp.currentMapNum].length; i++) {
+            if(target[gp.currentMapNum][i]!=null && target[gp.currentMapNum][i].getCol()==col && target[gp.currentMapNum][i].getRow()==row && (target[gp.currentMapNum][i].name.equals(name) || target[gp.currentMapNum][i].name.equals(""))){
                 index=i;
                 break;
             }

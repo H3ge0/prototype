@@ -35,11 +35,11 @@ public class CutsceneHandler {
 
             //Place the door
             for(int i = 0; i<gp.objects[1].length; i++){
-                if(gp.objects[gp.currentMap][i]==null){
-                    gp.objects[gp.currentMap][i] = new IronDoor(gp);
-                    gp.objects[gp.currentMap][i].worldX = gp.TILE_SIZE *25;
-                    gp.objects[gp.currentMap][i].worldY = gp.TILE_SIZE *28;
-                    gp.objects[gp.currentMap][i].temp = true;
+                if(gp.objects[gp.currentMapNum][i]==null){
+                    gp.objects[gp.currentMapNum][i] = new IronDoor(gp);
+                    gp.objects[gp.currentMapNum][i].worldX = gp.TILE_SIZE *25;
+                    gp.objects[gp.currentMapNum][i].worldY = gp.TILE_SIZE *28;
+                    gp.objects[gp.currentMapNum][i].temp = true;
                     gp.playSoundEffect(27);
                     break;
                 }
@@ -47,11 +47,11 @@ public class CutsceneHandler {
 
             //Place the dummy
             for(int i=0; i<gp.npcs[1].length; i++){
-                if(gp.npcs[gp.currentMap][i]==null){
-                    gp.npcs[gp.currentMap][i] = new PlayerDummy(gp);
-                    gp.npcs[gp.currentMap][i].worldX = gp.player.worldX;
-                    gp.npcs[gp.currentMap][i].worldY = gp.player.worldY;
-                    gp.npcs[gp.currentMap][i].direction = gp.player.direction;
+                if(gp.npcs[gp.currentMapNum][i]==null){
+                    gp.npcs[gp.currentMapNum][i] = new PlayerDummy(gp);
+                    gp.npcs[gp.currentMapNum][i].worldX = gp.player.worldX;
+                    gp.npcs[gp.currentMapNum][i].worldY = gp.player.worldY;
+                    gp.npcs[gp.currentMapNum][i].direction = gp.player.direction;
                     break;
                 }
             }
@@ -72,9 +72,9 @@ public class CutsceneHandler {
         if (scenePhase==2){
             //Wake up ipog
             for(int i=0; i<gp.monsters[1].length; i++){
-                if(gp.monsters[gp.currentMap][i]!=null && gp.monsters[gp.currentMap][i].name.equals(Ipog.monName)){
-                    gp.monsters[gp.currentMap][i].sleep=false;
-                    gp.uiHandler.npc = gp.monsters[gp.currentMap][i];
+                if(gp.monsters[gp.currentMapNum][i]!=null && gp.monsters[gp.currentMapNum][i].name.equals(Ipog.monName)){
+                    gp.monsters[gp.currentMapNum][i].sleep=false;
+                    gp.uiHandler.npc = gp.monsters[gp.currentMapNum][i];
                     scenePhase++;
                     break;
                 }
@@ -88,10 +88,10 @@ public class CutsceneHandler {
         if (scenePhase==4){
             //Place the dummy
             for(int i=0; i<gp.npcs[1].length; i++){
-                if(gp.npcs[gp.currentMap][i]!=null && gp.npcs[gp.currentMap][i].name.equals(PlayerDummy.npcName)){
-                    gp.player.worldY = gp.npcs[gp.currentMap][i].worldY;
+                if(gp.npcs[gp.currentMapNum][i]!=null && gp.npcs[gp.currentMapNum][i].name.equals(PlayerDummy.npcName)){
+                    gp.player.worldY = gp.npcs[gp.currentMapNum][i].worldY;
 
-                    gp.npcs[gp.currentMap][i]=null;
+                    gp.npcs[gp.currentMapNum][i]=null;
                     break;
                 }
             }

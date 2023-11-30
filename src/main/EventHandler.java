@@ -19,11 +19,11 @@ public class EventHandler {
 
         eventMaster = new Entity(gp);
 
-        eventRect = new EventRect[gp.MAP_AMOUNT][gp.MAX_WORLD_COL][gp.MAX_WORLD_ROW];
+        eventRect = new EventRect[gp.MAP_AMOUNT][gp.tileManager.getCurrentMapMaxCol()][gp.tileManager.getCurrentMapMaxRow()];
 
         int map=0,col=0,row=0;
 
-        while(map<gp.MAP_AMOUNT && col<gp.MAX_WORLD_COL && row<gp.MAX_WORLD_ROW){
+        while(map<gp.MAP_AMOUNT && col<gp.tileManager.getCurrentMapMaxCol() && row<gp.tileManager.getCurrentMapMaxRow()){
             eventRect[map][col][row] = new EventRect();
             eventRect[map][col][row].x = 23;
             eventRect[map][col][row].y = 23;
@@ -33,11 +33,11 @@ public class EventHandler {
             eventRect[map][col][row].eventRectDefaultY = eventRect[map][col][row].y;
 
             col++;
-            if(col==gp.MAX_WORLD_COL){
+            if(col==gp.tileManager.getCurrentMapMaxCol()){
                 col=0;
                 row++;
 
-                if(row==gp.MAX_WORLD_ROW){
+                if(row==gp.tileManager.getCurrentMapMaxRow()){
                     row=0;
                     map++;
                 }
@@ -71,9 +71,9 @@ public class EventHandler {
                 healingWater(gp.DIALOGUE_STATE);
 
             else if(hit(0,13,39,"any"))
-                teleport(gp.INSIDE,12,13,14);
-            else if(hit(1,12,13,"any"))
-                teleport(gp.OUTSIDE,13,39,14);
+                teleport(1,3,6,14);
+            else if(hit(1,3,7,"any"))
+                teleport(0,13,39,14);
 
             else if(hit(1,12,9,"up")) {
                 if(gp.npcs[1][0]!=null && gp.npcs[1][0].name.equals(Bobo.npcName)){
@@ -82,14 +82,14 @@ public class EventHandler {
             }
 
             else if(hit(0,10,7,"any"))  //Enter Dungeon
-                teleport(gp.DUNGEON_FLOOR_1,9,41,21);
+                teleport(2,9,41,21);
             else if(hit(2,7,40,"any"))  //Exit Dungeon
-                teleport(gp.OUTSIDE,10,7,22);
+                teleport(0,10,7,22);
 
             else if(hit(2,8,7,"any")) //Enter 2nd floor
-                teleport(gp.DUNGEON_FLOOR_2,26,40,21);
+                teleport(3,26,40,21);
             else if(hit(3,24,39,"any")) //Exit 2nd floor
-                teleport(gp.DUNGEON_FLOOR_1,8,7,22);
+                teleport(2,8,7,22);
 
             else if(hit(3,25,27,"any")) //Boss
                 ipog();
@@ -100,7 +100,7 @@ public class EventHandler {
     public boolean hit(int map,int col, int row, String reqDirection){
         boolean hit = false;
 
-        if(map==gp.currentMap){
+        if(map==gp.currentMapNum){
             gp.player.collisionBox.x += gp.player.worldX;
             gp.player.collisionBox.y += gp.player.worldY;
             eventRect[map][col][row].x += col*gp.TILE_SIZE;

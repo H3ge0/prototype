@@ -31,7 +31,7 @@ public class BurntTree extends InteractiveTile{
         collisionBox.y+=worldY;
 
         if(!collisionBox.intersects(gp.player.collisionBox))
-            gp.interactiveTiles[gp.currentMap][i]=new DryTree(gp,worldX/gp.TILE_SIZE,worldY/gp.TILE_SIZE);
+            gp.interactiveTiles[gp.currentMapNum][i]=new DryTree(gp,worldX/gp.TILE_SIZE,worldY/gp.TILE_SIZE);
 
         collisionBox.x=collisionBoxDefaultX;
         collisionBox.y=collisionBoxDefaultY;

@@ -29,7 +29,7 @@ public class WeakBrick extends InteractiveTile{
 
     @Override
     public void attack(int i) {
-        gp.interactiveTiles[gp.currentMap][i]=null;
+        gp.interactiveTiles[gp.currentMapNum][i]=null;
     }
 
     @Override

@@ -270,7 +270,7 @@ public class UIHandler {
         int biggestBossType=0;
         Entity biggestBoss=null;
 
-        for(Entity monster:gp.monsters[gp.currentMap]){
+        for(Entity monster:gp.monsters[gp.currentMapNum]){
             if(monster!=null && monster.inScreen()){
                 if(monster.hpBarOn && !monster.boss){
                     double oneScale = (double)gp.TILE_SIZE /monster.maxHp;
@@ -760,12 +760,13 @@ public class UIHandler {
         g2.setColor(new Color(0,0,0,counter*5));
         g2.fillRect(0,0,gp.SCREEN_WIDTH,gp.SCREEN_HEIGHT);
 
-        boolean isTheSameArea = (gp.eventHandler.tempMap == gp.DUNGEON_FLOOR_1 && gp.currentMap == gp.DUNGEON_FLOOR_2) || (gp.eventHandler.tempMap == gp.DUNGEON_FLOOR_2 && gp.currentMap == gp.DUNGEON_FLOOR_1);
+        boolean isTheSameArea = gp.currentArea==gp.tileManager.maps[gp.eventHandler.tempMap].area;
 
         if(counter==50){
             counter=0;
             gp.gameState = gp.PLAY_STATE;
-            gp.currentMap = gp.eventHandler.tempMap;
+            gp.currentMapNum = gp.eventHandler.tempMap;
+            gp.currentArea = gp.eventHandler.gp.tileManager.maps[gp.currentMapNum].area;
             gp.player.worldX = gp.eventHandler.tempCol*gp.TILE_SIZE;
             gp.player.worldY = gp.eventHandler.tempRow*gp.TILE_SIZE;
             gp.eventHandler.previousEventX = gp.player.worldX;

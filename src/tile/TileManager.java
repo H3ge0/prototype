@@ -6,10 +6,7 @@ import main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.Random;
 
@@ -18,7 +15,7 @@ public class TileManager {
     GamePanel gp;
     public Tile[] tiles;
     Random random;
-    public int[][][] map;
+    public Map[] maps;
     boolean drawPath = false;
 
     public TileManager(GamePanel gp) {
@@ -26,15 +23,15 @@ public class TileManager {
 
         tiles = new Tile[60];
 
-        map = new int[gp.MAP_AMOUNT][gp.MAX_WORLD_COL][gp.MAX_WORLD_ROW];
+        maps = new Map[gp.MAP_AMOUNT];
         random = new Random();
 
         getTileImages();
 
-        loadMap("/maps/world01.txt",0);
-        loadMap("/maps/house01.txt",1);
-        loadMap("/maps/dungeon01.txt",2);
-        loadMap("/maps/dungeon02.txt",3);
+        maps[0] = new Map(gp,50,50,Map.WORLD1,"/maps/world01.txt");
+        maps[1] = new Map(gp,7,8,Map.BOBO_HOUSE,"/maps/house01.txt");
+        maps[2] = new Map(gp,50,50,Map.DUNGEON,"/maps/dungeon01.txt");
+        maps[3] = new Map(gp,50,50,Map.DUNGEON,"/maps/dungeon02.txt");
     }
 
     public void getTileImages(){
@@ -108,68 +105,14 @@ public class TileManager {
         }
     }
 
-    public void loadMap(String path, int mapNum){
-        try {
-            InputStream is = getClass().getResourceAsStream(path);
-            assert is != null;
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
-            int col = 0;
-            int row = 0;
-
-            while(col<gp.MAX_WORLD_COL &&row<gp.MAX_WORLD_ROW){
-                String line = br.readLine();
-
-                while (col<gp.MAX_WORLD_COL){
-                    String[] numbers = line.split(" ");
-
-                    int num = Integer.parseInt(numbers[col]);
-
-                    map[mapNum][col][row] = num;
-                    col++;
-                }
-                if(col==gp.MAX_WORLD_ROW){
-                    col=0;
-                    row++;
-                }
-            }
-
-        } catch (Exception ignored){
-
-        }
-
-        randomizeGrass(mapNum);
-        randomizeTrees(mapNum);
-    }
-
-    public void randomizeGrass(int mapNum){
-        for(int i = 0; i<gp.MAX_WORLD_COL; i++){
-            for (int j = 0; j<gp.MAX_WORLD_ROW; j++){
-                if(map[mapNum][i][j]==10){
-                    map[mapNum][i][j] = random.nextInt(10,12);
-                }
-            }
-        }
-    }
-
-    public void randomizeTrees(int mapNum){
-        for(int i = 0; i<gp.MAX_WORLD_COL; i++){
-            for (int j = 0; j<gp.MAX_WORLD_ROW; j++){
-                if(map[mapNum][i][j]==16){
-                    map[mapNum][i][j] = random.nextInt(16,19);
-                }
-            }
-        }
-    }
-
     public void draw(Graphics2D g2){
 
         int worldCol = 0;
         int worldRow = 0;
 
-        while(worldCol<gp.MAX_WORLD_ROW &&worldRow<gp.MAX_WORLD_ROW){
+        while(worldCol<getCurrentMapMaxCol() && worldRow<getCurrentMapMaxRow()){
 
-            int tileNum = map[gp.currentMap][worldCol][worldRow];
+            int tileNum = maps[gp.currentMapNum].mapData[worldCol][worldRow];
 
             int worldX = worldCol * gp.TILE_SIZE;
             int worldY = worldRow * gp.TILE_SIZE;
@@ -181,7 +124,7 @@ public class TileManager {
 
             worldCol++;
 
-            if(worldCol==gp.MAX_WORLD_COL){
+            if(worldCol==getCurrentMapMaxCol()){
                 worldCol=0;
                 worldRow++;
             }
@@ -198,6 +141,14 @@ public class TileManager {
                 g2.fillRect(screenX,screenY,gp.TILE_SIZE,gp.TILE_SIZE);
             }
         }
+    }
+
+    public int getCurrentMapMaxCol(){
+        return maps[gp.currentMapNum].maxWorldCol;
+    }
+
+    public int getCurrentMapMaxRow(){
+        return maps[gp.currentMapNum].maxWorldRow;
     }
 
 }

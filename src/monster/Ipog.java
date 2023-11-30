@@ -278,9 +278,9 @@ public class Ipog extends Entity {
 
         //Remove the iron doors
         for(int i = 0; i<gp.objects[1].length; i++){
-            if(gp.objects[gp.currentMap][i]!=null && gp.objects[gp.currentMap][i].name.equals(IronDoor.objName)){
+            if(gp.objects[gp.currentMapNum][i]!=null && gp.objects[gp.currentMapNum][i].name.equals(IronDoor.objName)){
                 gp.playSoundEffect(27);
-                gp.objects[gp.currentMap][i]=null;
+                gp.objects[gp.currentMapNum][i]=null;
             }
         }
 

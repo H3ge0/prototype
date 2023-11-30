@@ -300,7 +300,7 @@ public class ObjectHandler {
 
     public void removeTempEntities(){
         for(int mapNum = 0; mapNum<gp.MAP_AMOUNT; mapNum++){
-            for(int i = 0; i<gp.objects[gp.currentMap].length; i++){
+            for(int i = 0; i<gp.objects[gp.currentMapNum].length; i++){
                 if(gp.objects[mapNum][i]!=null && gp.objects[mapNum][i].temp){
                     gp.objects[mapNum][i]=null;
                 }
