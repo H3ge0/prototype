@@ -22,6 +22,6 @@ public class FireballBlack extends Entity {
         attackArea.width=36;
         attackArea.height=36;
 
-        attackValue=1;
+        attackValue=121;
     }
 }

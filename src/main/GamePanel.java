@@ -1,7 +1,10 @@
 package main;
 
 import ai.PathFinder;
+import data.Progress;
 import data.SaveLoad;
+import entity.Bobo;
+import entity.Budi;
 import entity.Entity;
 import entity.Player;
 import environment.EnvironmentHandler;
@@ -371,6 +374,17 @@ public class GamePanel extends JPanel implements Runnable{
                 if(obj[mapNum][i]!=null && obj[mapNum][i].temp){
                     obj[mapNum][i]=null;
                 }
+            }
+        }
+    }
+
+    public void removeNpcs(){
+        for(int i=0;i<npcs[1].length;i++){
+            if(npcs[0][i]!=null && npcs[0][i].name.equals(Budi.npcName)){
+                npcs[0][i]=null;
+            }
+            if(npcs[1][i]!=null && npcs[1][i].name.equals(Bobo.npcName)){
+                npcs[1][i]=null;
             }
         }
     }

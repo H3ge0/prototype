@@ -2,7 +2,6 @@ package data;
 
 import entity.Entity;
 import main.GamePanel;
-import object.*;
 
 import java.io.*;
 
@@ -31,22 +30,28 @@ public class SaveLoad {
             ds.exp = gp.player.exp;
             ds.nextLevelExp = gp.player.nextLevelExp;
             ds.coin = gp.player.coin;
-
-            /*
-            ds.mapNum = gp.currentMap;
-            ds.playerWorldX = gp.player.worldX;
-            ds.playerWorldY = gp.player.worldY;
-            */
+            ds.defaultSpeed = gp.player.defaultSpeed;
 
             //Player Inventory
             for(Entity entity:gp.player.inventory){
-                ds.itemNames.add(entity.name);
-                ds.itemAmounts.add(entity.amount);
+                ds.playerItemNames.add(entity.name);
+                ds.playerItemAmounts.add(entity.amount);
             }
 
             //Current Items
             ds.currentFireballSlot = gp.player.getCurrentFireballSlot();
             ds.currentArmorSlot = gp.player.getCurrentArmorSlot();
+            ds.currentLightSlot = gp.player.getCurrentLightSlot();
+
+            if(gp.npcs[1][0]!=null){
+                ds.boboExists = true;
+                for(Entity entity:gp.npcs[1][0].inventory){
+                    ds.boboItemNames.add(entity.name);
+                    ds.boboItemAmounts.add(entity.amount);
+                }
+            }else{
+                ds.boboExists=false;
+            }
 
             //Objects On Map
             ds.mapObjectNames = new String[gp.mapAmount][gp.obj[1].length];
@@ -77,6 +82,9 @@ public class SaveLoad {
             ds.filterAlpha = gp.environmentH.lighting.filterAlpha;
             ds.dayState = gp.environmentH.lighting.dayState;
 
+            //Progress
+            ds.ipogDefeated = Progress.ipogDefeated;
+
             oos.writeObject(ds);
         }
         catch(Exception e){
@@ -101,26 +109,35 @@ public class SaveLoad {
             gp.player.exp = ds.exp;
             gp.player.nextLevelExp = ds.nextLevelExp;
             gp.player.coin = ds.coin;
-
-            /*
-            gp.currentMap = ds.mapNum;
-            gp.player.worldX = ds.playerWorldX;
-            gp.player.worldY = ds.playerWorldY;
-            */
+            gp.player.defaultSpeed=ds.defaultSpeed;
+            gp.player.speed = gp.player.defaultSpeed;
 
             //Player Inventory
             gp.player.inventory.clear();
-            for(int i=0;i<ds.itemNames.size();i++){
-                gp.player.inventory.add(gp.entityGenerator.getObject(ds.itemNames.get(i)));
-                gp.player.inventory.get(i).amount=ds.itemAmounts.get(i);
+            for(int i=0;i<ds.playerItemNames.size();i++){
+                gp.player.inventory.add(gp.entityGenerator.getObject(ds.playerItemNames.get(i)));
+                gp.player.inventory.get(i).amount=ds.playerItemAmounts.get(i);
             }
 
             //Current Items
             gp.player.currentFireball = gp.player.inventory.get(ds.currentFireballSlot);
             gp.player.currentArmor = gp.player.inventory.get(ds.currentArmorSlot);
+            if(ds.currentLightSlot!=-1){
+                gp.player.currentLightSource = gp.player.inventory.get(ds.currentLightSlot);
+            }
+            gp.player.lightUpdated=true;
             gp.player.attack = gp.player.getAttack();
             gp.player.defense = gp.player.getDefense();
             gp.player.getAttackImages();
+
+            //Bobo Inventory
+            if(ds.boboExists){
+                gp.npcs[1][0].inventory.clear();
+                for(int i=0;i<ds.boboItemNames.size();i++){
+                    gp.npcs[1][0].inventory.add(gp.entityGenerator.getObject(ds.boboItemNames.get(i)));
+                    gp.npcs[1][0].inventory.get(i).amount=ds.boboItemAmounts.get(i);
+                }
+            }
 
             //Objects On Map
             for(int mapNum=0; mapNum<gp.mapAmount; mapNum++){
@@ -147,6 +164,9 @@ public class SaveLoad {
             gp.environmentH.lighting.dayCounter = ds.dayCounter;
             gp.environmentH.lighting.filterAlpha = ds.filterAlpha;
             gp.environmentH.lighting.dayState = ds.dayState;
+
+            //Progress
+            Progress.ipogDefeated = ds.ipogDefeated;
         }
         catch(Exception e){
             System.out.println("Load exception!:(");

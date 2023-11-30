@@ -16,15 +16,19 @@ public class DataStorage implements Serializable {
     int exp;
     int nextLevelExp;
     int coin;
-    int mapNum;
-    int playerWorldX;
-    int playerWorldY;
+    int defaultSpeed;
 
     //Player Inventory
-    ArrayList<String> itemNames = new ArrayList<>();
-    ArrayList<Integer> itemAmounts = new ArrayList<>();
+    ArrayList<String> playerItemNames = new ArrayList<>();
+    ArrayList<Integer> playerItemAmounts = new ArrayList<>();
     int currentFireballSlot;
     int currentArmorSlot;
+    int currentLightSlot;
+
+    //Bobo Inventory
+    boolean boboExists;
+    ArrayList<String> boboItemNames = new ArrayList<>();
+    ArrayList<Integer> boboItemAmounts = new ArrayList<>();
 
     //Objects On Map
     String[][] mapObjectNames;
@@ -38,5 +42,8 @@ public class DataStorage implements Serializable {
     int dayCounter;
     float filterAlpha;
     int dayState;
+
+    //Progress
+    boolean ipogDefeated;
 
 }

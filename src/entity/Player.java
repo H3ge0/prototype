@@ -122,6 +122,17 @@ public class Player extends Entity{
         return currentArmorSlot;
     }
 
+    public int getCurrentLightSlot(){
+        int currentLightSlot = -1;
+        for(int i = 0; i<inventory.size(); i++){
+            if(inventory.get(i)==currentLightSource){
+                currentLightSlot =i;
+            }
+        }
+
+        return currentLightSlot;
+    }
+
     public void getImages(){
         upidle = setImage("/player/gopi_up_idle",gp.tileSize,gp.tileSize);
         up1 = setImage("/player/gopi_up_1",gp.tileSize,gp.tileSize);

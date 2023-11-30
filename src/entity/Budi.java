@@ -1,5 +1,6 @@
 package entity;
 
+import data.Progress;
 import main.GamePanel;
 
 import java.awt.*;
@@ -64,6 +65,16 @@ public class Budi extends Entity{
         dialogues[2][1] = "Ama nedense su içersen canavarlar tekrar doğuyor.";
 
         dialogues[3][0] = "Sana kolay gelsin...";
+
+        dialogues[4][0] = "\"Canın kalmamış kanki, al şu iksiri.\\n\\n\\n*İyileştin!*\"";
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        if(Progress.ipogDefeated){
+            gp.removeNpcs();
+        }
     }
 
     @Override
@@ -96,12 +107,12 @@ public class Budi extends Entity{
         if(gp.player.hp<=1){
             gp.playSoundEffect(1);
             gp.player.hp+=4;
-            gp.uiH.currentDialogueText="Canın kalmamış kanki, al şu iksiri.\n\n\n*İyileştin!*";
+            startDialogue(this, 4);
         }else{
             startDialogue(this, dialogueSet);
             dialogueSet++;
 
-            if(dialogues[dialogueSet][0]==null){
+            if(dialogueSet>3){
                 dialogueSet--;
             }
         }

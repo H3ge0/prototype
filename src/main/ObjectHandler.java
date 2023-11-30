@@ -1,5 +1,6 @@
 package main;
 
+import data.Progress;
 import entity.BigRock;
 import monster.*;
 import entity.Bobo;
@@ -61,17 +62,17 @@ public class ObjectHandler {
         gp.obj[mapNum][i].worldY = gp.tileSize*41;
         i++;
         gp.obj[mapNum][i] = new Chest(gp);
-        gp.obj[mapNum][i].setLoot(new SleepPotion(gp));
+        gp.obj[mapNum][i].setLoot(new HealthPotion(gp));
         gp.obj[mapNum][i].worldX = gp.tileSize*13;
         gp.obj[mapNum][i].worldY = gp.tileSize*16;
         i++;
         gp.obj[mapNum][i] = new Chest(gp);
-        gp.obj[mapNum][i].setLoot(new SleepPotion(gp));
+        gp.obj[mapNum][i].setLoot(new HealthPotion(gp));
         gp.obj[mapNum][i].worldX = gp.tileSize*26;
         gp.obj[mapNum][i].worldY = gp.tileSize*34;
         i++;
         gp.obj[mapNum][i] = new Chest(gp);
-        gp.obj[mapNum][i].setLoot(new SleepPotion(gp));
+        gp.obj[mapNum][i].setLoot(new HealthPotion(gp));
         gp.obj[mapNum][i].worldX = gp.tileSize*27;
         gp.obj[mapNum][i].worldY = gp.tileSize*15;
         i++;

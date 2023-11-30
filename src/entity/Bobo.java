@@ -26,7 +26,8 @@ public class Bobo extends Entity{
 
         getImages();
         setDialogues();
-        setItems();
+        if(inventory.size()<1)
+            setItems();
     }
 
     @Override
@@ -63,7 +64,6 @@ public class Bobo extends Entity{
         inventory.add(new Candy(gp));
         inventory.add(new SleepPotion(gp));
         inventory.add(new HealthPotion(gp));
-        inventory.add(new FireballPurple(gp));
         inventory.add(new Torch(gp));
     }
 
