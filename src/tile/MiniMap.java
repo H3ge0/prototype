@@ -52,7 +52,7 @@ public class MiniMap extends TileManager{
 
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.8f));
             //Draw Minimap
-            g2.setColor(Color.orange);
+            g2.setColor(Color.gray);
             g2.drawImage(worldMap[gp.currentMapNum],x,y,width,height,null);
             g2.setStroke(new BasicStroke(2));
             g2.drawRect(x-1,y-1,width+1,height+1);

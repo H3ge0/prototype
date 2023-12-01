@@ -760,7 +760,7 @@ public class UIHandler {
         g2.setColor(new Color(0,0,0,counter*5));
         g2.fillRect(0,0,gp.SCREEN_WIDTH,gp.SCREEN_HEIGHT);
 
-        boolean isTheSameArea = gp.currentArea==gp.tileManager.maps[gp.eventHandler.tempMap].area;
+        boolean isTheSameArea = gp.tileManager.maps[gp.currentMapNum].musicNum==gp.tileManager.maps[gp.eventHandler.tempMap].musicNum;
 
         if(counter==50){
             counter=0;

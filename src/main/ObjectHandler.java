@@ -1,5 +1,6 @@
 package main;
 
+import data.Progress;
 import entity.BigRock;
 import monster.*;
 import entity.Bobo;
@@ -193,20 +194,22 @@ public class ObjectHandler {
                 gp.monsters[2][i].worldY = gp.TILE_SIZE *19;
             }
             case 3 -> {
-                gp.monsters[3][i] = new Ipog(gp);
-                gp.monsters[3][i].worldX = gp.TILE_SIZE *24;
-                gp.monsters[3][i].worldY = gp.TILE_SIZE *16;
+                if(!Progress.ipogDefeated){
+                    gp.monsters[3][i] = new Ipog(gp);
+                    gp.monsters[3][i].worldX = gp.TILE_SIZE *24;
+                    gp.monsters[3][i].worldY = gp.TILE_SIZE *16;
 
-                i++;
-                gp.monsters[3][i] = new Obob(gp);
-                gp.monsters[3][i].worldX = gp.TILE_SIZE *28;
-                gp.monsters[3][i].worldY = gp.TILE_SIZE *17;
+                    i++;
+                    gp.monsters[3][i] = new Obob(gp);
+                    gp.monsters[3][i].worldX = gp.TILE_SIZE *28;
+                    gp.monsters[3][i].worldY = gp.TILE_SIZE *17;
 
-                i++;
-                gp.monsters[3][i] = new Idub(gp);
-                gp.monsters[3][i].connectedEntity = gp.monsters[3][i-1];
-                gp.monsters[3][i].worldX = gp.TILE_SIZE *21;
-                gp.monsters[3][i].worldY = gp.TILE_SIZE *17;
+                    i++;
+                    gp.monsters[3][i] = new Idub(gp);
+                    gp.monsters[3][i].connectedEntity = gp.monsters[3][i-1];
+                    gp.monsters[3][i].worldX = gp.TILE_SIZE *21;
+                    gp.monsters[3][i].worldY = gp.TILE_SIZE *17;
+                }
             }
         }
     }

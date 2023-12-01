@@ -118,11 +118,11 @@ public class Lighting {
     }
 
     public void draw(Graphics2D g2){
-        if(gp.currentArea == Map.WORLD1){
+        if(gp.currentArea == Map.OUTSIDE){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, filterAlpha));
         }
 
-        if(gp.currentArea ==Map.WORLD1 || gp.currentArea ==Map.DUNGEON) {
+        if(gp.currentArea ==Map.OUTSIDE || gp.currentArea ==Map.DUNGEON) {
             g2.drawImage(darknessFilter,0,0,null);
         }
 

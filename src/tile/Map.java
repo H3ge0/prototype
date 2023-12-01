@@ -5,7 +5,6 @@ import main.GamePanel;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.Random;
 
 public class Map {
@@ -17,18 +16,21 @@ public class Map {
     Random random;
     //Area
     public int area;
-    public final static int WORLD1 = 0;
-    public final static int BOBO_HOUSE = 1;
+    public final static int OUTSIDE = 0;
+    public final static int INSIDE = 1;
     public final static int DUNGEON = 2;
 
+    //Music
+    public int musicNum;
 
-    public Map(GamePanel gp, int maxWorldCol, int maxWorldRow, int area, String path) {
+    public Map(GamePanel gp, int maxWorldCol, int maxWorldRow, int area,int musicNum, String path) {
         this.gp = gp;
         this.maxWorldCol = maxWorldCol;
         this.maxWorldRow = maxWorldRow;
         this.mapData = new int[maxWorldCol][maxWorldRow];
-        this.path = path;
         this.area = area;
+        this.musicNum = musicNum;
+        this.path = path;
 
         random = new Random();
 

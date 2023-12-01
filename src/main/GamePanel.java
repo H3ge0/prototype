@@ -340,16 +340,12 @@ public class GamePanel extends JPanel implements Runnable{
         soundEffect.play();
     }
 
-    public void changeArea(boolean isTheSameArea){
-        if(!isTheSameArea){
+    public void changeArea(boolean isTheSameMusic){
+        if(!isTheSameMusic){
             stopMusic();
 
-            if(currentArea==Map.WORLD1)
-                playMusic(0);
-            if(currentArea==Map.BOBO_HOUSE)
-                playMusic(23);
+            playMusic(tileManager.maps[currentMapNum].musicNum);
             if(currentArea==Map.DUNGEON){
-                playMusic(24);
                 objectHandler.setNPCs(2);
             }
         }

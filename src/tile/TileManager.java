@@ -28,10 +28,10 @@ public class TileManager {
 
         getTileImages();
 
-        maps[0] = new Map(gp,50,50,Map.WORLD1,"/maps/world01.txt");
-        maps[1] = new Map(gp,7,8,Map.BOBO_HOUSE,"/maps/house01.txt");
-        maps[2] = new Map(gp,50,50,Map.DUNGEON,"/maps/dungeon01.txt");
-        maps[3] = new Map(gp,50,50,Map.DUNGEON,"/maps/dungeon02.txt");
+        maps[0] = new Map(gp,50,50,Map.OUTSIDE, 0,"/maps/world01.txt");
+        maps[1] = new Map(gp,7,8,Map.INSIDE, 23,"/maps/house01.txt");
+        maps[2] = new Map(gp,50,50,Map.DUNGEON,24,"/maps/dungeon01.txt");
+        maps[3] = new Map(gp,50,50,Map.DUNGEON, 24,"/maps/dungeon02.txt");
     }
 
     public void getTileImages(){
