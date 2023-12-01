@@ -74,8 +74,8 @@ public class Map {
     public void randomizeGrass(){
         for(int i = 0; i<maxWorldCol; i++){
             for (int j = 0; j<maxWorldRow; j++){
-                if(mapData[i][j]==10){
-                    mapData[i][j] = random.nextInt(10,12);
+                if(mapData[i][j]==1){
+                    mapData[i][j] = random.nextInt(1,3);
                 }
             }
         }
@@ -84,8 +84,8 @@ public class Map {
     public void randomizeTrees(){
         for(int i = 0; i<maxWorldCol; i++){
             for (int j = 0; j<maxWorldRow; j++){
-                if(mapData[i][j]==16){
-                    mapData[i][j] = random.nextInt(16,19);
+                if(mapData[i][j]==30){
+                    mapData[i][j] = random.nextInt(30,33);
                 }
             }
         }
