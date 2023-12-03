@@ -24,6 +24,7 @@ public class EntityGenerator {
             case Torch.objName -> obj = new Torch(gp);
             case SleepPotion.objName -> obj = new SleepPotion(gp);
             case HealthPotion.objName -> obj = new HealthPotion(gp);
+            case EnergyPotion.objName -> obj = new EnergyPotion(gp);
             case Candy.objName -> obj = new Candy(gp);
             case Carrot.objName -> obj = new Carrot(gp);
             case Rabbit.objName -> obj = new Rabbit(gp);

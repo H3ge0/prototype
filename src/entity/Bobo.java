@@ -64,6 +64,7 @@ public class Bobo extends Entity{
         inventory.add(new Candy(gp));
         inventory.add(new SleepPotion(gp));
         inventory.add(new HealthPotion(gp));
+        inventory.add(new EnergyPotion(gp));
         inventory.add(new Torch(gp));
     }
 

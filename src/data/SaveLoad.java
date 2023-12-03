@@ -2,6 +2,8 @@ package data;
 
 import entity.Entity;
 import main.GamePanel;
+import object.EnergyPotion;
+import object.HealthPotion;
 
 import java.io.*;
 

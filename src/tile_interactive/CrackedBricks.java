@@ -5,16 +5,16 @@ import main.GamePanel;
 
 import java.awt.*;
 
-public class WeakBrick extends InteractiveTile{
-    public WeakBrick(GamePanel gp, int col, int row) {
+public class CrackedBricks extends InteractiveTile{
+    public CrackedBricks(GamePanel gp, int col, int row) {
         super(gp,col,row);
 
-        name="Weak Brick";
+        name="Cracked Bricks";
 
         worldX=gp.TILE_SIZE *col;
         worldY=gp.TILE_SIZE *row;
 
-        down1=setImage("/interactive_tiles/weak_brick",gp.TILE_SIZE,gp.TILE_SIZE);
+        down1=setImage("/interactive_tiles/cracked_bricks",gp.TILE_SIZE,gp.TILE_SIZE);
         canChange=true;
         destructible=true;
         collisionOn=true;

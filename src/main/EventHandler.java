@@ -75,7 +75,7 @@ public class EventHandler {
             else if(hit(1,3,7,"any"))
                 teleport(0,13,39,14);
 
-            else if(hit(1,12,9,"up")) {
+            else if(hit(1,3,3,"up")) {
                 if(gp.npcs[1][0]!=null && gp.npcs[1][0].name.equals(Bobo.npcName)){
                     speak(gp.npcs[1][0]);
                 }

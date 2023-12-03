@@ -50,6 +50,10 @@ public class TileManager {
         maps = new Map[gp.MAP_AMOUNT];
         random = new Random();
 
+        setMaps();
+    }
+
+    public void setMaps(){
         maps[0] = new Map(gp,50,50,Map.OUTSIDE, 0,"/maps/world01.txt");
         maps[1] = new Map(gp,7,8,Map.INSIDE, 23,"/maps/house01.txt");
         maps[2] = new Map(gp,50,50,Map.DUNGEON,24,"/maps/dungeon01.txt");

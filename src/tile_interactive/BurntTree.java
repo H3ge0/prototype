@@ -12,7 +12,7 @@ public class BurntTree extends InteractiveTile{
         worldX=gp.TILE_SIZE *col;
         worldY=gp.TILE_SIZE *row;
 
-        down1=setImage("/interactive_tiles/burnt_tree0",gp.TILE_SIZE,gp.TILE_SIZE);
+        down1=setImage("/interactive_tiles/burnt_tree",gp.TILE_SIZE,gp.TILE_SIZE);
         canChange=true;
         destructible=false;
         collisionOn=false;

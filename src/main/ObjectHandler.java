@@ -8,7 +8,7 @@ import entity.Budi;
 import object.*;
 import tile_interactive.DryTree;
 import tile_interactive.DungeonPlate;
-import tile_interactive.WeakBrick;
+import tile_interactive.CrackedBricks;
 
 public class ObjectHandler {
 
@@ -113,8 +113,8 @@ public class ObjectHandler {
             }
             case 1 -> {
                 gp.npcs[1][i] = new Bobo(gp);
-                gp.npcs[1][i].worldX = gp.TILE_SIZE *12;
-                gp.npcs[1][i].worldY = gp.TILE_SIZE *7;
+                gp.npcs[1][i].worldX = gp.TILE_SIZE *3;
+                gp.npcs[1][i].worldY = gp.TILE_SIZE;
             }
             case 2 -> {
                 gp.npcs[2][i] = new BigRock(gp);
@@ -256,39 +256,39 @@ public class ObjectHandler {
                 gp.interactiveTiles[0][i] = new DryTree(gp,18,6);
             }
             case 2 -> {
-                gp.interactiveTiles[2][i] = new WeakBrick(gp,18,30);
+                gp.interactiveTiles[2][i] = new CrackedBricks(gp,18,30);
                 i++;
-                gp.interactiveTiles[2][i] = new WeakBrick(gp,17,31);
+                gp.interactiveTiles[2][i] = new CrackedBricks(gp,17,31);
                 i++;
-                gp.interactiveTiles[2][i] = new WeakBrick(gp,17,32);
+                gp.interactiveTiles[2][i] = new CrackedBricks(gp,17,32);
                 i++;
-                gp.interactiveTiles[2][i] = new WeakBrick(gp,17,34);
+                gp.interactiveTiles[2][i] = new CrackedBricks(gp,17,34);
                 i++;
-                gp.interactiveTiles[2][i] = new WeakBrick(gp,18,34);
+                gp.interactiveTiles[2][i] = new CrackedBricks(gp,18,34);
                 i++;
-                gp.interactiveTiles[2][i] = new WeakBrick(gp,18,33);
+                gp.interactiveTiles[2][i] = new CrackedBricks(gp,18,33);
                 i++;
-                gp.interactiveTiles[2][i] = new WeakBrick(gp,10,22);
+                gp.interactiveTiles[2][i] = new CrackedBricks(gp,10,22);
                 i++;
-                gp.interactiveTiles[2][i] = new WeakBrick(gp,10,24);
+                gp.interactiveTiles[2][i] = new CrackedBricks(gp,10,24);
                 i++;
-                gp.interactiveTiles[2][i] = new WeakBrick(gp,38,18);
+                gp.interactiveTiles[2][i] = new CrackedBricks(gp,38,18);
                 i++;
-                gp.interactiveTiles[2][i] = new WeakBrick(gp,38,19);
+                gp.interactiveTiles[2][i] = new CrackedBricks(gp,38,19);
                 i++;
-                gp.interactiveTiles[2][i] = new WeakBrick(gp,38,20);
+                gp.interactiveTiles[2][i] = new CrackedBricks(gp,38,20);
                 i++;
-                gp.interactiveTiles[2][i] = new WeakBrick(gp,38,21);
+                gp.interactiveTiles[2][i] = new CrackedBricks(gp,38,21);
                 i++;
-                gp.interactiveTiles[2][i] = new WeakBrick(gp,18,13);
+                gp.interactiveTiles[2][i] = new CrackedBricks(gp,18,13);
                 i++;
-                gp.interactiveTiles[2][i] = new WeakBrick(gp,18,14);
+                gp.interactiveTiles[2][i] = new CrackedBricks(gp,18,14);
                 i++;
-                gp.interactiveTiles[2][i] = new WeakBrick(gp,22,28);
+                gp.interactiveTiles[2][i] = new CrackedBricks(gp,22,28);
                 i++;
-                gp.interactiveTiles[2][i] = new WeakBrick(gp,30,28);
+                gp.interactiveTiles[2][i] = new CrackedBricks(gp,30,28);
                 i++;
-                gp.interactiveTiles[2][i] = new WeakBrick(gp,32,28);
+                gp.interactiveTiles[2][i] = new CrackedBricks(gp,32,28);
 
 
                 i++;
