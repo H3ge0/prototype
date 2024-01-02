@@ -14,7 +14,7 @@ public class EffectHandler {
     GamePanel gp;
 
     BufferedImage weak1,weak2,weak3,weak4,weak5,weak6;
-    BufferedImage  resistant1,resistant2,resistant3,resistant4,resistant5,resistant6;
+    BufferedImage  resistant1,resistant2,resistant3,resistant4,resistant5,resistant6,resistant7;
 
     Random random;
 
@@ -39,6 +39,7 @@ public class EffectHandler {
         resistant4 = setImage("/effects/resistant/4",gp.TILE_SIZE *4,gp.TILE_SIZE *4);
         resistant5 = setImage("/effects/resistant/5",gp.TILE_SIZE *4,gp.TILE_SIZE *4);
         resistant6 = setImage("/effects/resistant/6",gp.TILE_SIZE *4,gp.TILE_SIZE *4);
+        resistant7 = setImage("/effects/resistant/7",gp.TILE_SIZE *4,gp.TILE_SIZE *4);
     }
 
     public void drawEffect(Graphics2D g2, Entity entity){
@@ -86,14 +87,18 @@ public class EffectHandler {
                 }else if(entity.resistantCounter<=60){
                     image=resistant6;
                 }else if(entity.resistantCounter<=70){
-                    image=resistant5;
+                    image=resistant7;
                 }else if(entity.resistantCounter<=80){
-                    image=resistant4;
+                    image=resistant6;
                 }else if(entity.resistantCounter<=90){
-                    image=resistant3;
+                    image=resistant5;
                 }else if(entity.resistantCounter<=100){
-                    image=resistant2;
+                    image=resistant4;
                 }else if(entity.resistantCounter<=110){
+                    image=resistant3;
+                }else if(entity.resistantCounter<=120){
+                    image=resistant2;
+                }else if(entity.resistantCounter<=130){
                     image=resistant1;
                 }else{
                     image=resistant1;
