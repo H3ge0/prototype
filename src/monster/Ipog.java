@@ -296,6 +296,6 @@ public class Ipog extends Entity {
 
         Progress.ipogDefeated=true;
 
-        dropItem(new SilverCoin(gp));
+        dropItem(new GoldCoin(gp));
     }
 }

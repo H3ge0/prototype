@@ -5,6 +5,7 @@ import data.SaveLoad;
 import entity.Entity;
 import entity.Player;
 import environment.EnvironmentHandler;
+import loot.LootHandler;
 import tile.Map;
 import tile.MiniMap;
 import tile.TileManager;
@@ -57,6 +58,7 @@ public class GamePanel extends JPanel implements Runnable{
     CutsceneHandler cutsceneHandler = new CutsceneHandler(this);
     public EntityGenerator entityGenerator = new EntityGenerator(this);
     public PathFinder pathFinder = new PathFinder(this);
+    public LootHandler lootHandler = new LootHandler(this);
     Config config = new Config(this);
     SaveLoad saveLoad = new SaveLoad(this);
     MiniMap miniMap = new MiniMap(this);

@@ -1,10 +1,13 @@
 package monster;
 
 import entity.Entity;
+import loot.LootHandler;
 import main.GamePanel;
 import object.*;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Afag extends Entity {
@@ -72,76 +75,5 @@ public class Afag extends Entity {
     @Override
     public void damageReaction() {
         actionLockCounter=0;
-    }
-
-    @Override
-    public void checkDrop() {
-        int i=new Random().nextInt(100)+1;
-
-        if(i<=15){
-            boolean hasRedFireball=false;
-            for(Entity e:gp.player.inventory){
-                if(e!=null){
-                    if (e.name.equals("Red Fireball")){
-                        hasRedFireball=true;
-                        break;
-                    }
-                }
-            }
-            if(!hasRedFireball)
-                dropItem(new FireballRed(gp));
-            else
-                dropItem(new BronzeCoin(gp));
-        }else if(i<=30){
-            boolean hasIronArmor=false;
-            for(Entity e:gp.player.inventory){
-                if(e!=null){
-                    if (e.name.equals("Iron Armor")){
-                        hasIronArmor=true;
-                        break;
-                    }
-                }
-            }
-            if(!hasIronArmor)
-                dropItem(new ArmorIron(gp));
-            else
-                dropItem(new BronzeCoin(gp));
-        }else {
-
-            //Full hp and full energy
-            if (gp.player.hp == gp.player.maxHp && gp.player.energy == gp.player.maxEnergy) {
-                dropItem(new BronzeCoin(gp));
-            }
-
-            //Only full hp
-            else if(gp.player.hp == gp.player.maxHp){
-                if(i<=70){
-                    dropItem(new BronzeCoin(gp));
-                } else{
-                    dropItem(new Energy(gp));
-                }
-            }
-
-            //Only full energy
-            else if(gp.player.energy == gp.player.maxEnergy){
-                if(i<=70){
-                    dropItem(new BronzeCoin(gp));
-                } else{
-                    dropItem(new Heart(gp));
-                }
-            }
-
-            //None of them are full
-            else{
-                if(i<=70){
-                    dropItem(new BronzeCoin(gp));
-                }else if(i<=85){
-                    dropItem(new Heart(gp));
-                }else{
-                    dropItem(new Energy(gp));
-                }
-            }
-
-        }
     }
 }

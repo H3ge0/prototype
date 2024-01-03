@@ -1,13 +1,19 @@
 package entity;
 
+import loot.Drop;
 import main.GamePanel;
 import main.UtilityTool;
+import object.BronzeCoin;
+import object.Candy;
+import object.Carrot;
+import object.SilverCoin;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -118,6 +124,24 @@ public class Entity {
     public final static int gen2 = 81;
     public final static int gen3 = 82;
 
+    //LootTables
+    private final List<Drop> OGIM_LOOT_TABLE = List.of(
+            new Drop("Bronze Coin", 10),
+            new Drop("HP Energy", 10),
+            new Drop("Silver Coin", 1),
+            new Drop("Iron Armor", 4),
+            new Drop("Red Fireball", 4)
+    );
+    private final List<Drop> APOL_LOOT_TABLE = List.of(
+            new Drop("HP Energy", 1),
+            new Drop("Silver Coin", 4)
+    );
+    private final List<Drop> AFAG_LOOT_TABLE = List.of(
+            new Drop("Black Fireball", 1),
+            new Drop("HP Energy", 5),
+            new Drop("Silver Coin", 4)
+    );
+
     public Entity(GamePanel gp){
         this.gp = gp;
     }
@@ -206,7 +230,20 @@ public class Entity {
 
     public boolean use(Entity entity){return false;}
 
-    public void checkDrop(){}
+    public void checkDrop(){
+        Entity item = new Candy(gp);
+        switch(name){
+            case "Ogim" -> item = gp.lootHandler.dropLoot(OGIM_LOOT_TABLE);
+            case "Apol" -> item = gp.lootHandler.dropLoot(APOL_LOOT_TABLE);
+            case "Afag" -> item = gp.lootHandler.dropLoot(AFAG_LOOT_TABLE);
+        }
+
+        if(!item.stackable && playerHasItem(item.name)){
+            dropItem(new BronzeCoin(gp));
+        }else
+            dropItem(item);
+
+    }
 
     public void damageReaction(){}
 
@@ -860,6 +897,20 @@ public class Entity {
         }
 
         return index;
+    }
+
+    public boolean playerHasItem(String itemName){
+        boolean hasItem=false;
+        for(Entity e:gp.player.inventory){
+            if(e!=null){
+                if (e.name.equals(itemName)){
+                    hasItem=true;
+                    break;
+                }
+            }
+        }
+
+        return hasItem;
     }
 
 }

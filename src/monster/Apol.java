@@ -157,46 +157,4 @@ public class Apol extends Entity {
         actionLockCounter=0;
         onPath=true;
     }
-
-    @Override
-    public void checkDrop() {
-        int i=new Random().nextInt(100)+1;
-
-        if(i<=10){
-            boolean hasPurpleFireball=false;
-            for(Entity e:gp.player.inventory){
-                if(e!=null){
-                    if (e.name.equals("Purple Fireball")){
-                        hasPurpleFireball=true;
-                        break;
-                    }
-                }
-            }
-            if(!hasPurpleFireball)
-                dropItem(new FireballPurple(gp));
-            else
-                dropItem(new SilverCoin(gp));
-        }else if(i<=25){
-            boolean hasIronArmor=false;
-            for(Entity e:gp.player.inventory){
-                if(e!=null){
-                    if (e.name.equals("Iron Armor")){
-                        hasIronArmor=true;
-                        break;
-                    }
-                }
-            }
-            if(!hasIronArmor)
-                dropItem(new ArmorIron(gp));
-            else
-                dropItem(new SilverCoin(gp));
-        }else {
-            if(i<=85){
-                dropItem(new SilverCoin(gp));
-            }else{
-                dropItem(new SleepPotion(gp));
-            }
-
-        }
-    }
 }
