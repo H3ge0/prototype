@@ -29,6 +29,12 @@ public class Config {
             bw.write(String.valueOf(gp.soundEffect.volumeScale));
             bw.newLine();
 
+            //HP and Energy
+            if(gp.barMode)
+                bw.write("Bar");
+            else
+                bw.write("Normal");
+
             bw.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -54,6 +60,13 @@ public class Config {
             //SFX Volume
             str = br.readLine();
             gp.soundEffect.volumeScale=Integer.parseInt(str);
+
+            //HP and Energy
+            str = br.readLine();
+            if(str.equals("Bar"))
+                gp.barMode = true;
+            else if(str.equals("Normal"))
+                gp.barMode = false;
 
             br.close();
         } catch (IOException e) {

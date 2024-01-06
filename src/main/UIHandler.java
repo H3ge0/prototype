@@ -18,6 +18,7 @@ public class UIHandler {
     Graphics2D g2;
     public Font fixedsys,delaGothic;
     BufferedImage heart_full,heart_half,heart_empty,energy_full,energy_empty,coinImg;
+    BufferedImage heart_bar_full,heart_bar_half,heart_bar_empty,heart_bar_icon,energy_bar_full,energy_bar_empty,energy_bar_icon;
     Color opaqueBlack;
     Color lessOpaqueBlack;
     ArrayList<String> messages = new ArrayList<>();
@@ -61,9 +62,18 @@ public class UIHandler {
         heart_half=heart.image2;
         heart_empty=heart.image3;
 
+        heart_bar_full=heart.down1v2;
+        heart_bar_half=heart.down2v2;
+        heart_bar_empty=heart.downidlev2;
+        heart_bar_icon=heart.left1;
+
         Entity energy = new Energy(gp);
         energy_full=energy.image1;
         energy_empty=energy.image2;
+
+        energy_bar_full=energy.left1;
+        energy_bar_empty=energy.left2;
+        energy_bar_icon=energy.leftidle;
 
         Entity bronzeCoin = new BronzeCoin(gp);
         coinImg=bronzeCoin.down1;
@@ -223,46 +233,97 @@ public class UIHandler {
     public void drawPlayerHealthAndEnergy(){
 
         //Draw Health
-        int x = gp.TILE_SIZE /2;
-        int y = gp.TILE_SIZE /2;
+        int x = gp.TILE_SIZE/2;
+        int y = gp.TILE_SIZE/2;
         int i = 0;
 
-        while (i<gp.player.maxHp/2){
-            g2.drawImage(heart_empty,x,y,null);
-            i++;
-            x+=gp.TILE_SIZE *6/5;
+        if(gp.barMode){
+            x+=gp.SCALE*9;
+            while (i<gp.player.maxHp/2){
+                g2.drawImage(heart_bar_empty,x,y,null);
+                i++;
+                x+=gp.TILE_SIZE/3;
+            }
+
+            x = gp.TILE_SIZE/2 + gp.SCALE*9;
+            i = 0;
+
+            while(i<gp.player.hp){
+                g2.drawImage(heart_bar_half,x,y,null);
+                i++;
+                if(i<gp.player.hp)
+                    g2.drawImage(heart_bar_full,x,y,null);
+                i++;
+                x+=gp.TILE_SIZE/3;
+            }
+
+            x = gp.TILE_SIZE/2;
+            y = gp.TILE_SIZE/2;
+
+            g2.drawImage(heart_bar_icon,x,y,null);
+        }else{
+            while (i<gp.player.maxHp/2){
+                g2.drawImage(heart_empty,x,y,null);
+                i++;
+                x+=gp.TILE_SIZE*5/6;
+            }
+
+            x = gp.TILE_SIZE /2;
+            i = 0;
+
+            while(i<gp.player.hp){
+                g2.drawImage(heart_half,x,y,null);
+                i++;
+                if(i<gp.player.hp)
+                    g2.drawImage(heart_full,x,y,null);
+                i++;
+                x+=gp.TILE_SIZE*5/6;
+            }
         }
 
-        x = gp.TILE_SIZE /2;
-        i = 0;
+        if(gp.barMode){
+            x = gp.TILE_SIZE/2;
+            y = gp.TILE_SIZE*3/2;
+            i=0;
 
-        while(i<gp.player.hp){
-            g2.drawImage(heart_half,x,y,null);
-            i++;
-            if(i<gp.player.hp)
-                g2.drawImage(heart_full,x,y,null);
-            i++;
-            x+=gp.TILE_SIZE *6/5;
-        }
+            x+=gp.SCALE*9;
+            while (i<gp.player.maxEnergy){
+                g2.drawImage(energy_bar_empty,x,y,null);
+                i++;
+                x+=gp.TILE_SIZE/3;
+            }
 
-        //Draw Energy
-        x = gp.TILE_SIZE /2-5;
-        y = gp.TILE_SIZE *2;
-        i=0;
+            x = gp.TILE_SIZE/2 + gp.SCALE*9;
+            i = 0;
 
-        while (i<gp.player.maxEnergy){
-            g2.drawImage(energy_empty,x,y,null);
-            i++;
-            x+=40;
-        }
+            while(i<gp.player.energy){
+                g2.drawImage(energy_bar_full,x,y,null);
+                i++;
+                x+=gp.TILE_SIZE/3;
+            }
 
-        x = gp.TILE_SIZE /2-5;
-        i = 0;
+            x = gp.TILE_SIZE/2;
 
-        while(i<gp.player.energy){
-            g2.drawImage(energy_full,x,y,null);
-            i++;
-            x+=40;
+            g2.drawImage(energy_bar_icon,x,y,null);
+        }else{
+            x = gp.TILE_SIZE/2-5;
+            y = gp.TILE_SIZE*3/2;
+            i=0;
+
+            while (i<gp.player.maxEnergy){
+                g2.drawImage(energy_empty,x,y,null);
+                i++;
+                x+=30;
+            }
+
+            x = gp.TILE_SIZE/2-5;
+            i = 0;
+
+            while(i<gp.player.energy){
+                g2.drawImage(energy_full,x,y,null);
+                i++;
+                x+=30;
+            }
         }
     }
 
@@ -1062,10 +1123,20 @@ public class UIHandler {
 
         g2.drawString("Ses E.",textX,textY);
 
+        //HP and Energy Bar
+        textY+=gp.TILE_SIZE;
+
+        if(commandNum==3)
+            g2.setColor(Color.yellow);
+        else
+            g2.setColor(Color.white);
+
+        g2.drawString("Can ve Enrj",textX,textY);
+
         //Controls
         textY+=gp.TILE_SIZE;
 
-        if(commandNum==3) {
+        if(commandNum==4) {
             if (gp.keyHandler.xKeyPressed) {
                 gp.playSoundEffect(4);
                 subState = 2;
@@ -1080,9 +1151,9 @@ public class UIHandler {
         //Back
         text="Geri Dön";
         textX=getXPosForCenteredText(text);
-        textY+=gp.TILE_SIZE *10/3;
+        textY+=gp.TILE_SIZE *7/3;
 
-        if(commandNum==4){
+        if(commandNum==5){
             if(gp.keyHandler.xKeyPressed){
                 gp.playSoundEffect(4);
                 gp.gameState=gp.PAUSE_STATE;
@@ -1139,6 +1210,22 @@ public class UIHandler {
 
         volumeWidth = 20*gp.soundEffect.volumeScale;
         g2.fillRect(textX,textY,volumeWidth,24);
+
+        //HP and Energy Type
+        textY=frameY+gp.TILE_SIZE *6;
+
+        if(commandNum==3)
+            g2.setColor(Color.yellow);
+        else
+            g2.setColor(Color.white);
+
+        String type = "";
+        if(gp.barMode)
+            type = "Bar";
+        else
+            type = "Normal";
+
+        g2.drawString("<"+type+">",textX,textY);
 
         gp.config.saveConfig();
     }

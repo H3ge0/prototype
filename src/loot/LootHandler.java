@@ -26,8 +26,6 @@ public class LootHandler {
 
         rand *= total;
 
-        System.out.println(rand);
-
         for(Drop drop:lootTable){
             if(rand<drop.chance){
                 winner = gp.entityGenerator.getObject(drop.name);

@@ -18,9 +18,13 @@ public class Heart extends Entity {
         type=typePickUpOnly;
 
         down1 = setImage("/ui/heart_full",gp.TILE_SIZE *2/3,gp.TILE_SIZE *2/3);
-        image1 = setImage("/ui/heart_full",gp.TILE_SIZE,gp.TILE_SIZE);
-        image2 = setImage("/ui/heart_half",gp.TILE_SIZE,gp.TILE_SIZE);
-        image3 = setImage("/ui/heart_empty",gp.TILE_SIZE,gp.TILE_SIZE);
+        image1 = setImage("/ui/heart_full",gp.TILE_SIZE*2/3,gp.TILE_SIZE*2/3);
+        image2 = setImage("/ui/heart_half",gp.TILE_SIZE*2/3,gp.TILE_SIZE*2/3);
+        image3 = setImage("/ui/heart_empty",gp.TILE_SIZE*2/3,gp.TILE_SIZE*2/3);
+        down1v2 = setImage("/ui/bar_full",gp.TILE_SIZE/3,gp.TILE_SIZE*2/3);
+        down2v2 = setImage("/ui/bar_half",gp.TILE_SIZE/3,gp.TILE_SIZE*2/3);
+        downidlev2 = setImage("/ui/bar_empty",gp.TILE_SIZE/3,gp.TILE_SIZE*2/3);
+        left1 = setImage("/ui/heart_bar_icon",gp.TILE_SIZE*2/3,gp.TILE_SIZE*2/3);
 
     }
 

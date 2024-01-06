@@ -133,6 +133,7 @@ public class KeyHandler implements KeyListener {
         //Debug
         if(keyCode==KeyEvent.VK_D){
             debugMode = !debugMode;
+            gp.barMode = !gp.barMode;
         }
     }
 
@@ -194,7 +195,7 @@ public class KeyHandler implements KeyListener {
 
         int maxCommandNum = 0;
         switch(gp.uiHandler.subState){
-            case 0 -> maxCommandNum=4;
+            case 0 -> maxCommandNum=5;
             case 3 -> maxCommandNum=1;
         }
 
@@ -219,6 +220,9 @@ public class KeyHandler implements KeyListener {
                 }else if(gp.uiHandler.commandNum==2 && gp.soundEffect.volumeScale>0){
                     gp.playSoundEffect(4);
                     gp.soundEffect.volumeScale--;
+                }else if(gp.uiHandler.commandNum==3){
+                    gp.playSoundEffect(4);
+                    gp.barMode= !gp.barMode;
                 }
         }
         if(keyCode==KeyEvent.VK_RIGHT){
@@ -230,6 +234,9 @@ public class KeyHandler implements KeyListener {
                 }else if(gp.uiHandler.commandNum==2 && gp.soundEffect.volumeScale<6){
                     gp.playSoundEffect(4);
                     gp.soundEffect.volumeScale++;
+                }else if(gp.uiHandler.commandNum==3){
+                    gp.playSoundEffect(4);
+                    gp.barMode= !gp.barMode;
                 }
         }
     }
