@@ -246,7 +246,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         //Title Screen
         if(gameState == TITLE_STATE){
-            uiHandler.draw(g2);
+            uiHandler.draw(g2,true);
         }
         //Other Stuff
         else {
@@ -298,6 +298,9 @@ public class GamePanel extends JPanel implements Runnable{
             //Clear entityList
             entityList.clear();
 
+            //Monster HP Bar
+            uiHandler.draw(g2, false);
+
             //Environment
             environmentHandler.draw(g2);
 
@@ -308,7 +311,7 @@ public class GamePanel extends JPanel implements Runnable{
             cutsceneHandler.draw(g2);
 
             //UI
-            uiHandler.draw(g2);
+            uiHandler.draw(g2, true);
         }
 
         //Debug

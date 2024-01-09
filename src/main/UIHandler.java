@@ -85,7 +85,7 @@ public class UIHandler {
         messageCounters.add(0);
     }
 
-    public void draw(Graphics2D g2){
+    public void draw(Graphics2D g2, boolean aboveLighting){
         this.g2 = g2;
 
         //TitleState
@@ -96,7 +96,7 @@ public class UIHandler {
         //PlayState
         if (gp.gameState==gp.PLAY_STATE){
             drawPlayerHealthAndEnergy();
-            drawMonsterHp();
+            drawMonsterHp(aboveLighting);
             gp.miniMap.drawMiniMap(g2);
             drawMessages();
         }
@@ -327,42 +327,41 @@ public class UIHandler {
         }
     }
 
-    public void drawMonsterHp(){
+    public void drawMonsterHp(boolean aboveLighting){
         int biggestBossType=0;
         Entity biggestBoss=null;
 
         for(Entity monster:gp.monsters[gp.currentMapNum]){
-            if(monster!=null && monster.inScreen()){
-                if(monster.hpBarOn && !monster.boss){
-                    double oneScale = (double)gp.TILE_SIZE /monster.maxHp;
-                    double hpBarWidth = oneScale*monster.hp;
-
-                    g2.setColor(new Color(135,35,35));
-                    g2.fillRect(monster.getScreenX()-1,monster.getScreenY()-16,gp.TILE_SIZE +2,12);
-
-                    g2.setColor(new Color(255,0,30));
-                    g2.fillRect(monster.getScreenX(),monster.getScreenY()-15,(int)hpBarWidth,10);
-
-                    monster.hpBarCounter++;
-                    if(monster.hpBarCounter>=600){
-                        monster.hpBarCounter=0;
-                        monster.hpBarOn=false;
-                    }
+            //BOSS
+            if(monster!=null && monster.boss){
+                if(biggestBossType<monster.bossType){
+                    biggestBossType=monster.bossType;
+                    biggestBoss=monster;
                 }
+            }
 
-                //BOSS
-                if(monster.boss){
-                    if(biggestBossType<monster.bossType){
-                        biggestBossType=monster.bossType;
-                        biggestBoss=monster;
-                    }
+            //NORMAL MONSTER
+            if(!aboveLighting && monster!=null && monster.inScreen() && monster.hpBarOn && !monster.boss){
+                double oneScale = (double) gp.TILE_SIZE / monster.maxHp;
+                double hpBarWidth = oneScale*monster.hp;
+
+                g2.setColor(new Color(135,35,35));
+                g2.fillRect(monster.getScreenX()-1,monster.getScreenY()-16,gp.TILE_SIZE +2,12);
+
+                g2.setColor(new Color(255,0,30));
+                g2.fillRect(monster.getScreenX(),monster.getScreenY()-15,(int)hpBarWidth,10);
+
+                monster.hpBarCounter++;
+                if(monster.hpBarCounter>=600){
+                    monster.hpBarCounter=0;
+                    monster.hpBarOn=false;
                 }
             }
         }
 
         g2.setFont(fixedsys.deriveFont(Font.BOLD,24f));
 
-        if(biggestBoss!=null){
+        if(biggestBoss!=null && gp.bossBattleOn){
             switch(biggestBoss.bossType){
                 case Entity.gen3 -> {
                     int x = gp.SCREEN_WIDTH /2 - gp.TILE_SIZE *5;
@@ -1219,7 +1218,7 @@ public class UIHandler {
         else
             g2.setColor(Color.white);
 
-        String type = "";
+        String type;
         if(gp.barMode)
             type = "Bar";
         else
