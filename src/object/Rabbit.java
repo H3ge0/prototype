@@ -19,6 +19,7 @@ public class Rabbit extends Entity {
         coin=10;
 
         down1 = setImage("/objects/rabbit",gp.TILE_SIZE,gp.TILE_SIZE);
+        iconImage = down1;
 
         collisionOn=true;
 

@@ -16,6 +16,12 @@ public class ThrowingKnife extends Projectile {
 
         name=objName;
         displayedName="Fırlatma Bıçağı";
+        description="Çok keskin.";
+
+        type = typeProjectile;
+
+        soundEffect = 11;
+
         speed=6;
         maxHp=80;
         hp=maxHp;
@@ -58,6 +64,8 @@ public class ThrowingKnife extends Projectile {
         rightidlev2 = setImage("/projectiles/throwing_knife/22",gp.TILE_SIZE *2/3,gp.TILE_SIZE *2/3);
         right1v2 = setImage("/projectiles/throwing_knife/23",gp.TILE_SIZE *2/3,gp.TILE_SIZE *2/3);
         right2v2 = setImage("/projectiles/throwing_knife/24",gp.TILE_SIZE *2/3,gp.TILE_SIZE *2/3);
+
+        iconImage = setImage("/projectiles/throwing_knife/10",gp.TILE_SIZE,gp.TILE_SIZE);
     }
 
     @Override

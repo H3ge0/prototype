@@ -16,6 +16,7 @@ public class GoldCoin extends Entity {
         displayedName="Altın Para";
         value=10;
         down1=setImage("/objects/gold_coin",gp.TILE_SIZE,gp.TILE_SIZE);
+        iconImage = down1;
     }
 
     @Override

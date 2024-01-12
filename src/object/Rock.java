@@ -1,5 +1,6 @@
 package object;
 
+import entity.Entity;
 import entity.Projectile;
 import main.GamePanel;
 
@@ -15,6 +16,12 @@ public class Rock extends Projectile {
 
         name=objName;
         displayedName="Taş";
+        description="Minnak bir taş.";
+
+        type = typeProjectile;
+
+        soundEffect = 12;
+
         speed=7;
         maxHp=80;
         hp=maxHp;
@@ -31,10 +38,19 @@ public class Rock extends Projectile {
 
     public void getImages(){
         upidle = setImage("/projectiles/rock/01",gp.TILE_SIZE,gp.TILE_SIZE);
+        iconImage = upidle;
     }
 
     public BufferedImage setDrawImage(){
         return upidle;
+    }
+
+    public boolean hasEnergy(Entity user){
+        return user.energy >= useCost;
+    }
+
+    public void subtractEnergy(Entity user){
+        user.energy-=useCost;
     }
 
     @Override

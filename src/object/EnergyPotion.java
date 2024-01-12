@@ -19,6 +19,7 @@ public class EnergyPotion extends Entity {
 
         setDialogues();
         down1 = setImage("/objects/energy_potion",gp.TILE_SIZE,gp.TILE_SIZE);
+        iconImage = down1;
     }
 
     public void setDialogues(){

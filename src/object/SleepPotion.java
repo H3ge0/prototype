@@ -18,6 +18,7 @@ public class SleepPotion extends Entity {
         type=typeConsumable;
 
         down1 = setImage("/objects/sleep_potion",gp.TILE_SIZE,gp.TILE_SIZE);
+        iconImage = down1;
     }
 
     @Override

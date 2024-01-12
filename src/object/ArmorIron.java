@@ -16,7 +16,8 @@ public class ArmorIron extends Entity {
         coin=20;
         type=typeArmor;
 
-        down1=setImage("/objects/armor_iron",gp.TILE_SIZE,gp.TILE_SIZE);
+        down1 = setImage("/objects/armor_iron",gp.TILE_SIZE,gp.TILE_SIZE);
+        iconImage = down1;
 
         defenseValue=2;
     }

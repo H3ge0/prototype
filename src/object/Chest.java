@@ -17,6 +17,7 @@ public class Chest extends Entity {
         image1 = setImage("/objects/chest",gp.TILE_SIZE,gp.TILE_SIZE);
         image2 = setImage("/objects/chest_open",gp.TILE_SIZE,gp.TILE_SIZE);
         down1 = image1;
+        iconImage = down1;
 
         collisionOn=true;
 

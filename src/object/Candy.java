@@ -20,6 +20,7 @@ public class Candy extends Entity {
         type=typeConsumable;
 
         down1 = setImage("/objects/candy",gp.TILE_SIZE,gp.TILE_SIZE);
+        iconImage = down1;
     }
 
     public void setDialogues(){

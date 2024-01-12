@@ -90,6 +90,7 @@ public class Player extends Entity{
         inventory.clear();
         inventory.add(currentFireball);
         inventory.add(currentArmor);
+        inventory.add(currentProjectile);
     }
 
     public int getAttack(){
@@ -356,7 +357,7 @@ public class Player extends Entity{
                         break;
                     }
                 }
-                gp.playSoundEffect(11);
+                gp.playSoundEffect(currentProjectile.soundEffect);
             }else {
                 gp.uiHandler.addMessage("Yeterli enerjin yok.");
             }
@@ -620,6 +621,12 @@ public class Player extends Entity{
                         currentLightSource=null;
                     }
                     lightUpdated=true;
+                }
+                case typeProjectile -> {
+                    if(currentProjectile!=selectedItem){
+                        gp.playSoundEffect(10);
+                        currentProjectile=(Projectile)selectedItem;
+                    }
                 }
                 case typeConsumable -> {
                     if(selectedItem.use(this))

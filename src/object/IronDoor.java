@@ -19,6 +19,7 @@ public class IronDoor extends Entity {
         coin=10;
 
         down1 = setImage("/objects/dungeon_door",gp.TILE_SIZE,gp.TILE_SIZE);
+        iconImage = down1;
 
         collisionOn=true;
 

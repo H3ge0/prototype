@@ -18,5 +18,6 @@ public class Torch extends Entity {
         lightRadius=600;
 
         down1 = setImage("/objects/torch",gp.TILE_SIZE,gp.TILE_SIZE);
+        iconImage = down1;
     }
 }

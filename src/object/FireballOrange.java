@@ -18,6 +18,7 @@ public class FireballOrange extends Entity {
         knockBackPower=10;
 
         down1=setImage("/objects/fireball_orange",gp.TILE_SIZE,gp.TILE_SIZE);
+        iconImage = down1;
 
         attackArea.width=36;
         attackArea.height=36;

@@ -23,6 +23,7 @@ public class Energy extends Entity {
         left1 = setImage("/ui/energy_bar_full",gp.TILE_SIZE/3,gp.TILE_SIZE*2/3);
         left2 = setImage("/ui/energy_bar_empty",gp.TILE_SIZE/3,gp.TILE_SIZE*2/3);
         leftidle = setImage("/ui/energy_bar_icon",gp.TILE_SIZE*2/3,gp.TILE_SIZE*2/3);
+        iconImage = down1;
     }
 
     @Override

@@ -1406,12 +1406,12 @@ public class UIHandler {
 
         //Draw Inventory
         for (int i=0; i<entity.inventory.size();i++){
-            if(entity.inventory.get(i)==entity.currentFireball || entity.inventory.get(i)==entity.currentArmor || entity.inventory.get(i)==entity.currentLightSource){
+            if(entity.inventory.get(i)==entity.currentFireball || entity.inventory.get(i)==entity.currentArmor || entity.inventory.get(i)==entity.currentLightSource || entity.inventory.get(i)==entity.currentProjectile){
                 g2.setColor(new Color(240,190,90));
                 g2.fillRoundRect(slotX,slotY,gp.TILE_SIZE,gp.TILE_SIZE,10,10);
             }
 
-            g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
+            g2.drawImage(entity.inventory.get(i).iconImage, slotX, slotY, null);
 
             if(entity==gp.player && entity.inventory.get(i).amount>1){
                 g2.setFont(fixedsys.deriveFont(32f));

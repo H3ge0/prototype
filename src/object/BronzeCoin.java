@@ -16,6 +16,7 @@ public class BronzeCoin extends Entity {
         displayedName="Bronz Para";
         value=1;
         down1=setImage("/objects/bronze_coin",gp.TILE_SIZE,gp.TILE_SIZE);
+        iconImage = down1;
     }
 
     @Override

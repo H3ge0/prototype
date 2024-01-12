@@ -5,6 +5,7 @@ import main.GamePanel;
 public class Projectile extends Entity{
 
     Entity user;
+    public int soundEffect = 0;
 
     public Projectile(GamePanel gp) {
         super(gp);

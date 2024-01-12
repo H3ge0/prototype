@@ -24,6 +24,7 @@ public class Entity {
     public BufferedImage attackUp1,attackUp2,attackUp3,attackDown1,attackDown2,attackDown3,attackLeft1,attackLeft2,attackLeft3,attackRight1,attackRight2,attackRight3;
     public BufferedImage guardUp,guardDown,guardLeft,guardRight;
     public BufferedImage image1,image2,image3;
+    public BufferedImage iconImage;
     public Rectangle collisionBox = new Rectangle(0,0,48,48);
     public Rectangle attackArea = new Rectangle(0,0,0,0);
     public int collisionBoxDefaultX=collisionBox.x, collisionBoxDefaultY=collisionBox.y;
@@ -118,6 +119,7 @@ public class Entity {
     public final int typePickUpOnly=6;
     public final int typeObstacle=7;
     public final int typeLightSource=8;
+    public final int typeProjectile=9;
 
     public int bossType;
     public final static int gen1 = 80;
@@ -128,7 +130,7 @@ public class Entity {
     private final List<Drop> OGIM_LOOT_TABLE = List.of(
             new Drop("Bronze Coin", 10),
             new Drop("HP Energy", 10),
-            new Drop("Silver Coin", 1),
+            new Drop("Rock", 1),
             new Drop("Iron Armor", 4),
             new Drop("Red Fireball", 4)
     );
@@ -517,7 +519,7 @@ public class Entity {
                 }
             }
             if(Math.abs(gp.player.worldX-worldX)<gp.SCREEN_WIDTH /2+gp.TILE_SIZE && Math.abs(gp.player.worldY-worldY)<gp.SCREEN_HEIGHT /2+gp.TILE_SIZE)
-                gp.playSoundEffect(12);
+                gp.playSoundEffect(currentProjectile.soundEffect);
             projectileCooldownCounter=0;
         }
     }

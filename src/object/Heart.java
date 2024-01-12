@@ -25,6 +25,7 @@ public class Heart extends Entity {
         down2v2 = setImage("/ui/bar_half",gp.TILE_SIZE/3,gp.TILE_SIZE*2/3);
         downidlev2 = setImage("/ui/bar_empty",gp.TILE_SIZE/3,gp.TILE_SIZE*2/3);
         left1 = setImage("/ui/heart_bar_icon",gp.TILE_SIZE*2/3,gp.TILE_SIZE*2/3);
+        iconImage = down1;
 
     }
 

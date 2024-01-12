@@ -17,6 +17,7 @@ public class ArmorLeather extends Entity {
         type=typeArmor;
 
         down1=setImage("/objects/armor_leather",gp.TILE_SIZE,gp.TILE_SIZE);
+        iconImage = down1;
 
         defenseValue=1;
     }

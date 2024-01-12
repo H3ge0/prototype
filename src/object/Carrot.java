@@ -20,6 +20,7 @@ public class Carrot extends Entity {
         stackable=true;
 
         down1=setImage("/objects/carrot",gp.TILE_SIZE,gp.TILE_SIZE);
+        iconImage = down1;
     }
 
     public void setDialogues(){
