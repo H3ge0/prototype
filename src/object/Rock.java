@@ -16,7 +16,7 @@ public class Rock extends Projectile {
 
         name=objName;
         displayedName="Taş";
-        description="Minnak bir taş.";
+        description="Ogimlerin ilkel saldırı\nyöntemi.";
         coin=20;
 
         type = typeProjectile;

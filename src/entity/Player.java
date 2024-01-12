@@ -597,7 +597,7 @@ public class Player extends Entity{
                 case typeFireball -> {
                     if(currentFireball!=selectedItem){
                         gp.playSoundEffect(10);
-                        inventory.add(currentFireball);
+                        inventory.add(itemIndex,currentFireball);
                         currentFireball=selectedItem;
                         inventory.remove(selectedItem);
                         attack=getAttack();
@@ -607,7 +607,7 @@ public class Player extends Entity{
                 case typeArmor -> {
                     if(currentArmor!=selectedItem){
                         gp.playSoundEffect(10);
-                        inventory.add(currentArmor);
+                        inventory.add(itemIndex,currentArmor);
                         currentArmor=selectedItem;
                         inventory.remove(selectedItem);
                         defense=getDefense();
@@ -616,7 +616,8 @@ public class Player extends Entity{
                 case typeLightSource -> {
                     if(currentLightSource!=selectedItem){
                         gp.playSoundEffect(10);
-                        inventory.add(currentLightSource);
+                        if(currentLightSource!=null)
+                            inventory.add(itemIndex,currentLightSource);
                         currentLightSource=selectedItem;
                         inventory.remove(selectedItem);
                     }
@@ -625,8 +626,7 @@ public class Player extends Entity{
                 case typeProjectile -> {
                     if(currentProjectile!=selectedItem){
                         gp.playSoundEffect(10);
-                        if(currentProjectile!=null)
-                            inventory.add(currentProjectile);
+                        inventory.add(itemIndex,currentProjectile);
                         currentProjectile=(Projectile)selectedItem;
                         inventory.remove(selectedItem);
                     }
