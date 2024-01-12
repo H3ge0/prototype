@@ -17,6 +17,7 @@ public class ThrowingKnife extends Projectile {
         name=objName;
         displayedName="Fırlatma Bıçağı";
         description="Çok keskin.";
+        coin=5;
 
         type = typeProjectile;
 

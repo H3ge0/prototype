@@ -88,9 +88,6 @@ public class Player extends Entity{
 
     public void setInventory(){
         inventory.clear();
-        inventory.add(currentFireball);
-        inventory.add(currentArmor);
-        inventory.add(currentProjectile);
     }
 
     public int getAttack(){
@@ -600,7 +597,9 @@ public class Player extends Entity{
                 case typeFireball -> {
                     if(currentFireball!=selectedItem){
                         gp.playSoundEffect(10);
+                        inventory.add(currentFireball);
                         currentFireball=selectedItem;
+                        inventory.remove(selectedItem);
                         attack=getAttack();
                         getAttackImages();
                     }
@@ -608,24 +607,28 @@ public class Player extends Entity{
                 case typeArmor -> {
                     if(currentArmor!=selectedItem){
                         gp.playSoundEffect(10);
+                        inventory.add(currentArmor);
                         currentArmor=selectedItem;
+                        inventory.remove(selectedItem);
                         defense=getDefense();
                     }
                 }
                 case typeLightSource -> {
                     if(currentLightSource!=selectedItem){
                         gp.playSoundEffect(10);
+                        inventory.add(currentLightSource);
                         currentLightSource=selectedItem;
-                    }else{
-                        gp.playSoundEffect(10);
-                        currentLightSource=null;
+                        inventory.remove(selectedItem);
                     }
                     lightUpdated=true;
                 }
                 case typeProjectile -> {
                     if(currentProjectile!=selectedItem){
                         gp.playSoundEffect(10);
+                        if(currentProjectile!=null)
+                            inventory.add(currentProjectile);
                         currentProjectile=(Projectile)selectedItem;
+                        inventory.remove(selectedItem);
                     }
                 }
                 case typeConsumable -> {

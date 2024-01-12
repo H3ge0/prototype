@@ -645,7 +645,7 @@ public class UIHandler {
 
         int textX = windowX+20;
         int textY = windowY+gp.TILE_SIZE;
-        final int lineHeight = 21;
+        final int lineHeight = 30;
 
         //Value Names
         g2.drawString("Seviye",textX,textY);
@@ -667,10 +667,44 @@ public class UIHandler {
         g2.drawString("Sonraki Seviye",textX,textY);
         textY+=lineHeight;
         g2.drawString("Para",textX,textY);
-        textY+=lineHeight+30;
-        g2.drawString("Ateş Topu",textX,textY);
-        textY+=lineHeight+70;
-        g2.drawString("Zırh",textX,textY);
+        textY+=lineHeight;
+
+        //Equipped Items
+        g2.setColor(Color.white);
+        g2.setStroke(new BasicStroke(3));
+
+        textX-=3;
+        g2.setColor(new Color(240,190,90));
+        g2.fillRoundRect(textX,textY,gp.TILE_SIZE,gp.TILE_SIZE,10,10);
+        g2.setColor(Color.white);
+        g2.drawRoundRect(textX,textY,gp.TILE_SIZE,gp.TILE_SIZE,10,10);
+        textX+=gp.TILE_SIZE+5;
+        g2.setColor(new Color(240,190,90));
+        g2.fillRoundRect(textX,textY,gp.TILE_SIZE,gp.TILE_SIZE,10,10);
+        g2.setColor(Color.white);
+        g2.drawRoundRect(textX,textY,gp.TILE_SIZE,gp.TILE_SIZE,10,10);
+        textX+=gp.TILE_SIZE+5;
+        g2.setColor(new Color(240,190,90));
+        g2.fillRoundRect(textX,textY,gp.TILE_SIZE,gp.TILE_SIZE,10,10);
+        g2.setColor(Color.white);
+        g2.drawRoundRect(textX,textY,gp.TILE_SIZE,gp.TILE_SIZE,10,10);
+        textX+=gp.TILE_SIZE+5;
+        if(gp.player.currentLightSource!=null){
+            g2.setColor(new Color(240,190,90));
+            g2.fillRoundRect(textX,textY,gp.TILE_SIZE,gp.TILE_SIZE,10,10);
+        }
+        g2.setColor(Color.white);
+        g2.drawRoundRect(textX,textY,gp.TILE_SIZE,gp.TILE_SIZE,10,10);
+
+        textX = windowX+17;
+        g2.drawImage(gp.player.currentFireball.iconImage,textX,textY,null);
+        textX+=gp.TILE_SIZE+5;
+        g2.drawImage(gp.player.currentArmor.iconImage,textX,textY,null);
+        textX+=gp.TILE_SIZE+5;
+        g2.drawImage(gp.player.currentProjectile.iconImage,textX,textY,null);
+        textX+=gp.TILE_SIZE+5;
+        if(gp.player.currentLightSource!=null)
+            g2.drawImage(gp.player.currentLightSource.iconImage,textX,textY,null);
 
         //Values
         int endOfRect = windowX+windowWidth-20;
@@ -726,10 +760,6 @@ public class UIHandler {
         textX = getXForRightAlignedText(value,endOfRect);
         g2.drawString(value,textX,textY);
         textY+=lineHeight;
-
-        g2.drawImage(gp.player.currentFireball.down1,endOfRect-gp.TILE_SIZE,textY,null);
-        textY+=lineHeight*2+gp.TILE_SIZE;
-        g2.drawImage(gp.player.currentArmor.down1,endOfRect-gp.TILE_SIZE,textY,null);
     }
 
     public void drawSettingsScreen(){
@@ -1406,33 +1436,30 @@ public class UIHandler {
 
         //Draw Inventory
         for (int i=0; i<entity.inventory.size();i++){
-            if(entity.inventory.get(i)==entity.currentFireball || entity.inventory.get(i)==entity.currentArmor || entity.inventory.get(i)==entity.currentLightSource || entity.inventory.get(i)==entity.currentProjectile){
-                g2.setColor(new Color(240,190,90));
-                g2.fillRoundRect(slotX,slotY,gp.TILE_SIZE,gp.TILE_SIZE,10,10);
-            }
+            if(entity.inventory.get(i)!=null){
+                g2.drawImage(entity.inventory.get(i).iconImage, slotX, slotY, null);
 
-            g2.drawImage(entity.inventory.get(i).iconImage, slotX, slotY, null);
+                if(entity==gp.player && entity.inventory.get(i).amount>1){
+                    g2.setFont(fixedsys.deriveFont(32f));
+                    int amountX;
+                    int amountY;
 
-            if(entity==gp.player && entity.inventory.get(i).amount>1){
-                g2.setFont(fixedsys.deriveFont(32f));
-                int amountX;
-                int amountY;
+                    String s = String.valueOf(entity.inventory.get(i).amount);
+                    amountX = getXForRightAlignedText(s,slotX+gp.TILE_SIZE);
+                    amountY = slotY+gp.TILE_SIZE;
 
-                String s = String.valueOf(entity.inventory.get(i).amount);
-                amountX = getXForRightAlignedText(s,slotX+gp.TILE_SIZE);
-                amountY = slotY+gp.TILE_SIZE;
+                    g2.setColor(new Color(60,60,60));
+                    g2.drawString(s,amountX,amountY);
 
-                g2.setColor(new Color(60,60,60));
-                g2.drawString(s,amountX,amountY);
+                    g2.setColor(Color.white);
+                    g2.drawString(s,amountX-2,amountY-2);
+                }
 
-                g2.setColor(Color.white);
-                g2.drawString(s,amountX-2,amountY-2);
-            }
-
-            slotX+=slotSize;
-            if(i==4 || i==9 || i==14){
-                slotX=slotXStart;
-                slotY+=slotSize;
+                slotX+=slotSize;
+                if(i==4 || i==9 || i==14){
+                    slotX=slotXStart;
+                    slotY+=slotSize;
+                }
             }
         }
 
@@ -1474,14 +1501,6 @@ public class UIHandler {
                         g2.drawString(line,textX,textY);
                         textY+=24;
                     }
-                }else{
-                    textY+=24;
-                    g2.setColor(Color.white);
-                    for(String line:entity.inventory.get(itemIndex-1).description.split("\n")){
-                        g2.drawString(line,textX,textY);
-                        textY+=24;
-                    }
-                    g2.drawString("["+entity.inventory.get(itemIndex-1).displayedName+"]",textX,textY);
                 }
             }
         }
