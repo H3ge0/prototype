@@ -43,7 +43,8 @@ public class SaveLoad {
             ds.currentFireball = gp.player.currentFireball.name;
             ds.currentArmor = gp.player.currentArmor.name;
             ds.currentProjectile = gp.player.currentProjectile.name;
-            ds.currentLight = gp.player.currentLightSource.name;
+            if(gp.player.currentLightSource!=null)
+                ds.currentLight = gp.player.currentLightSource.name;
 
             if(gp.npcs[1][0]!=null){
                 ds.boboExists = true;

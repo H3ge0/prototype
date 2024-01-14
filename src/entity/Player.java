@@ -428,7 +428,9 @@ public class Player extends Entity{
             //Obstacle items
             else if(gp.objects[gp.currentMapNum][index].type==typeObstacle){
                 if(keyH.xKeyPressed){
-                    gp.objects[gp.currentMapNum][index].interact();
+                    if(gp.objects[gp.currentMapNum][index].interact()){
+                        gp.objects[gp.currentMapNum][index]=null;
+                    }
                     attackCanceled=true;
                 }
             }

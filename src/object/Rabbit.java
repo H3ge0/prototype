@@ -26,12 +26,24 @@ public class Rabbit extends Entity {
     }
 
     public void setDialogues(){
-        dialogues[0][0] = "Havuç lazım...";
+        dialogues[0][0] = "Havuç lazım.";
+        dialogues[1][0] = "Havucu tavşana verdin. Gopinin bu mükemmel lezzeti\nhak etmediğini düşündün.";
     }
 
     @Override
-    public void interact() {
-        startDialogue(this,0);
+    public boolean interact() {
+        int carrotIndex = playerHasItem("Carrot");
+
+        if(carrotIndex!=999){
+            startDialogue(this,1);
+            gp.playSoundEffect(5);
+            gp.player.inventory.add(new Rabbit(gp));
+            gp.player.inventory.remove(carrotIndex);
+            return true;
+        }else{
+            startDialogue(this,0);
+            return false;
+        }
     }
 }
 

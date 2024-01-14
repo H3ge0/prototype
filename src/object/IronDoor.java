@@ -30,7 +30,8 @@ public class IronDoor extends Entity {
     }
 
     @Override
-    public void interact() {
+    public boolean interact() {
         startDialogue(this,0);
+        return false;
     }
 }

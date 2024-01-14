@@ -42,7 +42,7 @@ public class Chest extends Entity {
     }
 
     @Override
-    public void interact() {
+    public boolean interact() {
         if(!opened){
             if(gp.player.canObtainItem(loot)){
                 gp.playSoundEffect(6);
@@ -56,5 +56,7 @@ public class Chest extends Entity {
         }else{
             startDialogue(this,2);
         }
+
+        return false;
     }
 }

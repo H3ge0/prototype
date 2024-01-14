@@ -5,8 +5,6 @@ import main.GamePanel;
 import main.UtilityTool;
 import object.BronzeCoin;
 import object.Candy;
-import object.Carrot;
-import object.SilverCoin;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -128,9 +126,9 @@ public class Entity {
 
     //LootTables
     private final List<Drop> OGIM_LOOT_TABLE = List.of(
-            new Drop("Bronze Coin", 10),
+            new Drop("Carrot", 10),
             new Drop("HP Energy", 10),
-            new Drop("Rock", 1),
+            new Drop("Rock", 100),
             new Drop("Iron Armor", 4),
             new Drop("Red Fireball", 4)
     );
@@ -240,7 +238,7 @@ public class Entity {
             case "Afag" -> item = gp.lootHandler.dropLoot(AFAG_LOOT_TABLE);
         }
 
-        if(!item.stackable && playerHasItem(item.name)){
+        if(!item.stackable && playerHasItem(item.name)!=999){
             dropItem(new BronzeCoin(gp));
         }else
             dropItem(item);
@@ -249,7 +247,9 @@ public class Entity {
 
     public void damageReaction(){}
 
-    public void interact(){}
+    public boolean interact(){
+        return false;
+    }
 
     public void dropItem(Entity item){
         for(int i = 0; i<gp.objects[gp.currentMapNum].length; i++){
@@ -901,18 +901,18 @@ public class Entity {
         return index;
     }
 
-    public boolean playerHasItem(String itemName){
-        boolean hasItem=false;
-        for(Entity e:gp.player.inventory){
-            if(e!=null){
-                if (e.name.equals(itemName)){
-                    hasItem=true;
+    public int playerHasItem(String itemName){
+        int itemIndex =999;
+        for(int i=0;i<gp.player.inventory.size();i++){
+            if(gp.player.inventory.get(i)!=null){
+                if (gp.player.inventory.get(i).name.equals(itemName)){
+                    itemIndex = i;
                     break;
                 }
             }
         }
 
-        return hasItem;
+        return itemIndex;
     }
 
 }
