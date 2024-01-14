@@ -84,10 +84,15 @@ public class ThrowingKnife extends Projectile {
 
     @Override
     public BufferedImage setDrawImage() {
-        BufferedImage image=null;
+        BufferedImage image=new BufferedImage(gp.TILE_SIZE*2/3,gp.TILE_SIZE*2/3,BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = image.createGraphics();
+        g2.translate(image.getWidth()/2,image.getHeight()/2);
         switch(spriteNum){
-            case 1 -> image = upidle;
-            case 2 -> image = up1;
+            case 1 -> image = down1;
+            case 2 -> {
+                g2.rotate(Math.toRadians(11.25));
+                g2.drawImage(down1,-image.getWidth()/2,-image.getHeight()/2,null);
+            }
             case 3 -> image = up2;
             case 4 -> image = downidle;
             case 5 -> image = down1;

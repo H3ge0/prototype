@@ -21,10 +21,10 @@ public class DataStorage implements Serializable {
     //Player Inventory
     ArrayList<String> playerItemNames = new ArrayList<>();
     ArrayList<Integer> playerItemAmounts = new ArrayList<>();
-    int currentFireballSlot;
-    int currentArmorSlot;
-    int currentLightSlot;
-
+    String currentFireball;
+    String currentArmor;
+    String currentProjectile;
+    String currentLight;
     //Bobo Inventory
     boolean boboExists;
     ArrayList<String> boboItemNames = new ArrayList<>();

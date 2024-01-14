@@ -1,14 +1,10 @@
 package monster;
 
 import entity.Entity;
-import loot.Drop;
-import loot.LootHandler;
 import main.GamePanel;
 import object.*;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Ogim extends Entity {
@@ -33,7 +29,7 @@ public class Ogim extends Entity {
         attack = 5;
         defense = 0;
         exp = 2;
-        currentProjectile=new Rock(gp);
+        currentProjectile=new OgimRock(gp);
 
         getImage();
         spriteNum = new Random().nextInt(1,17);

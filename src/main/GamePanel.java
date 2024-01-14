@@ -1,6 +1,7 @@
 package main;
 
 import ai.PathFinder;
+import data.Progress;
 import data.SaveLoad;
 import entity.Entity;
 import entity.Player;
@@ -127,6 +128,7 @@ public class GamePanel extends JPanel implements Runnable{
         objectHandler.setAllMonsters();
 
         if (restart) {
+            Progress.ipogDefeated=false;
             player.setDefaultValues();
             objectHandler.setAllObjects();
             objectHandler.setAllInteractiveTiles();

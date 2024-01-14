@@ -7,15 +7,15 @@ import main.GamePanel;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Rock extends Projectile {
+public class OgimRock extends Projectile {
 
-    public static final String objName = "Rock";
+    public static final String objName = "Ogim Rock";
 
-    public Rock(GamePanel gp) {
+    public OgimRock(GamePanel gp) {
         super(gp);
 
         name=objName;
-        displayedName="Taş";
+        displayedName="Ogim Taş";
         description="Ogimlerin ilkel saldırı\nyöntemi.";
         coin=20;
 
@@ -23,8 +23,8 @@ public class Rock extends Projectile {
 
         soundEffect = 12;
 
-        speed=4;
-        maxHp=50;
+        speed=7;
+        maxHp=80;
         hp=maxHp;
         attack=3;
         useCost=1;

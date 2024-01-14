@@ -74,6 +74,7 @@ public class EntityGenerator {
             case SilverCoin.objName -> obj = new SilverCoin(gp);
             case GoldCoin.objName -> obj = new GoldCoin(gp);
             case ThrowingKnife.objName -> obj = new ThrowingKnife(gp);
+            case OgimRock.objName -> obj = new OgimRock(gp);
             case Rock.objName -> obj = new Rock(gp);
         }
 

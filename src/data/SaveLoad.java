@@ -1,9 +1,8 @@
 package data;
 
 import entity.Entity;
+import entity.Projectile;
 import main.GamePanel;
-import object.EnergyPotion;
-import object.HealthPotion;
 
 import java.io.*;
 
@@ -41,9 +40,10 @@ public class SaveLoad {
             }
 
             //Current Items
-            ds.currentFireballSlot = gp.player.getCurrentFireballSlot();
-            ds.currentArmorSlot = gp.player.getCurrentArmorSlot();
-            ds.currentLightSlot = gp.player.getCurrentLightSlot();
+            ds.currentFireball = gp.player.currentFireball.name;
+            ds.currentArmor = gp.player.currentArmor.name;
+            ds.currentProjectile = gp.player.currentProjectile.name;
+            ds.currentLight = gp.player.currentLightSource.name;
 
             if(gp.npcs[1][0]!=null){
                 ds.boboExists = true;
@@ -122,10 +122,11 @@ public class SaveLoad {
             }
 
             //Current Items
-            gp.player.currentFireball = gp.player.inventory.get(ds.currentFireballSlot);
-            gp.player.currentArmor = gp.player.inventory.get(ds.currentArmorSlot);
-            if(ds.currentLightSlot!=-1){
-                gp.player.currentLightSource = gp.player.inventory.get(ds.currentLightSlot);
+            gp.player.currentFireball = gp.entityGenerator.getObject(ds.currentFireball);
+            gp.player.currentArmor = gp.entityGenerator.getObject(ds.currentArmor);
+            gp.player.currentProjectile = (Projectile)gp.entityGenerator.getObject(ds.currentProjectile);
+            if(ds.currentLight != null){
+                gp.player.currentLightSource = gp.entityGenerator.getObject(ds.currentLight);
             }
             gp.player.lightUpdated=true;
             gp.player.attack = gp.player.getAttack();

@@ -99,39 +99,6 @@ public class Player extends Entity{
         return dexterity*currentArmor.defenseValue;
     }
 
-    public int getCurrentFireballSlot(){
-        int currentFireballSlot = 0;
-        for(int i = 0; i<inventory.size(); i++){
-            if(inventory.get(i)==currentFireball){
-                currentFireballSlot=i;
-            }
-        }
-
-        return currentFireballSlot;
-    }
-
-    public int getCurrentArmorSlot(){
-        int currentArmorSlot = 0;
-        for(int i = 0; i<inventory.size(); i++){
-            if(inventory.get(i)==currentArmor){
-                currentArmorSlot =i;
-            }
-        }
-
-        return currentArmorSlot;
-    }
-
-    public int getCurrentLightSlot(){
-        int currentLightSlot = -1;
-        for(int i = 0; i<inventory.size(); i++){
-            if(inventory.get(i)==currentLightSource){
-                currentLightSlot =i;
-            }
-        }
-
-        return currentLightSlot;
-    }
-
     public void getImages(){
         upidle = setImage("/player/gopi_up_idle",gp.TILE_SIZE,gp.TILE_SIZE);
         up1 = setImage("/player/gopi_up_1",gp.TILE_SIZE,gp.TILE_SIZE);

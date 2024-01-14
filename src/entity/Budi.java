@@ -66,7 +66,7 @@ public class Budi extends Entity{
 
         dialogues[3][0] = "Sana kolay gelsin...";
 
-        dialogues[4][0] = "\"Canın kalmamış kanki, al şu iksiri.\\n\\n\\n*İyileştin!*\"";
+        dialogues[4][0] = "\"Canın kalmamış kanki, al şu iksiri.\n\n\n*İyileştin!*\"";
     }
 
     @Override
